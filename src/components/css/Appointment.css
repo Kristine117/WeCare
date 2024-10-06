@@ -1,0 +1,9 @@
+.head {
+  font-size: 2rem;
+  color: #678990;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

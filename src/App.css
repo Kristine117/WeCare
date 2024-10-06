@@ -1,0 +1,590 @@
+/* CSS Reset by Eric Meyer v2.0 (http://meyerweb.com/eric/tools/css/reset/) */
+*{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-family: "Poppins", sans-serif;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.navbar-bg {
+  background-color: #9ec7cf;
+}
+.font-white {
+  color: white;
+}
+.background1 {
+  background-color: #b0d6d3;
+  height: 86vh;
+}
+.login-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-box h3 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #5a6268;
+}
+
+.form-control {
+  border-radius: 25px;
+  padding: 0.8rem;
+  font-size: 0.9rem;
+}
+
+.btn-login {
+  border-radius: 25px;
+  padding: 0.7rem;
+  background-color: #63cdda;
+  color: white;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.btn-login:hover {
+  background-color: #56c3c4;
+}
+
+.form-text {
+  text-align: right;
+}
+
+.form-text a {
+  color: #63cdda;
+}
+
+.form-text a:hover {
+  color: #56c3c4;
+}
+
+.signup-text {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.signup-text a {
+  color: #63cdda;
+  text-decoration: none;
+}
+
+.signup-text a:hover {
+  color: #56c3c4;
+}
+
+.text-blue {
+  color: #6bb8b8;
+}
+.h1-font-size {
+  font-size: 2rem;
+}
+.backgroundHome {
+  background-color: #b0d6d3;
+  height: 86vh;
+  display: flex;
+  align-items: center;
+}
+.elderly-img {
+  width: 500px;
+  height: auto;
+}
+
+.speech-bubble {
+  position: relative;
+  background-color: white; /* Gray background color */
+  width: 500px; /* Adjust the width as needed */
+  height: auto; /* Adjust the height as needed */
+  border-radius: 10px; /* Rounded corners */
+  padding: 4rem;
+  z-index: 0;
+}
+
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  right: -20px; /* Position the triangle on the right */
+  top: 100px; /* Adjust the vertical position of the triangle */
+  width: 0;
+  height: 0;
+  border-left: 20px solid white; /* Same color as the speech bubble */
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
+
+.square-place-holder {
+  background-color: #98cabe;
+  height: auto;
+  width: 10rem;
+}
+
+.icon-custom {
+  color: white;
+  font-size: 5rem;
+}
+
+.side-menu-container {
+  background-color: #a6d0da;
+  height: 100vh;
+  width: 15%;
+  padding: 0.5rem;
+}
+.custom-container {
+  height: 100vh;
+  width: 90%;
+}
+
+.z-index-0 {
+  z-index: 0;
+}
+
+.z-index-1 {
+  z-index: 1;
+}
+
+.display-none-laptop-screen {
+  display: none;
+}
+
+.btn-custom-size {
+  width: 10rem;
+  height: 2rem;
+}
+
+.btn-sign-in {
+  background-color: #6bb8b8; /* Button background color */
+  color: white; /* Text color */
+  font-size: 16px; /* Font size */
+  padding: 10px 20px; /* Padding inside the button */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Change cursor on hover */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.btn-sign-in:hover {
+  background-color: #7cb0af; /* Darker shade on hover */
+  transform: translateY(-2px); /* Lift effect on hover */
+}
+
+.btn-sign-in:active {
+  background-color: #6da1a0; /* Even darker on click */
+  transform: translateY(0); /* Reset lift effect */
+}
+
+.btn-get-started {
+  background-color: #6bb8b8; /* Button background color */
+  color: white; /* Text color */
+  font-size: 16px; /* Font size */
+  padding: 10px 20px; /* Padding inside the button */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Change cursor on hover */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.btn-get-started:hover {
+  background-color: #7cb0af; /* Darker shade on hover */
+  transform: translateY(-2px); /* Lift effect on hover */
+}
+
+.btn-get-started:active {
+  background-color: #6da1a0; /* Even darker on click */
+  transform: translateY(0); /* Reset lift effect */
+}
+
+/* The dots */
+.dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 5px;
+  background-color: #90c8c7; /* Color of the first dot */
+  border-radius: 50%;
+  display: inline-block;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.dot-dif-color {
+  background-color: #b3b3b3;
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.dot-dif-color:hover {
+  background-color: #808080; /* Darker shade on hover */
+}
+
+a.btn-get-started {
+  text-decoration: none; /* Removes underline */
+  color: white; /* Inherits the parent element's color */
+  text-align: center;
+}
+
+a.btn-get-started:hover {
+  text-decoration: none; /* Ensures no underline on hover */
+  color: white; /* Removes color change on hover */
+  text-align: center;
+}
+/* By default, the not-authenticated navbar is visible */
+.navbar-not-authenticated {
+  display: initial;
+}
+
+/* The authenticated navbar is hidden by default */
+.navbar-authenticated {
+  display: none;
+}
+
+/* Sidebar for authenticated one */
+.sidebar {
+  background: linear-gradient(180deg, #c1e1e1 0%, #b0d8d8 100%);
+  width: 200px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: -250px; /* Hidden sidebar */
+  transition: left 0.3s ease; /* Smooth sliding */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sidebar open state */
+.sidebar.open {
+  left: 0; /* Show sidebar */
+}
+
+/* Hamburger button styling */
+.hamburger {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 1100; /* Above the sidebar */
+}
+
+.hamburger span {
+  font-size: 2rem;
+  color: #678990;
+}
+
+/* Menu item styling */
+.menu-item {
+  display: flex;
+  align-items: center;
+}
+
+.menu-item p {
+  margin-left: 10px;
+  font-size: 0.9rem;
+  color: #678990;
+}
+
+/* Support and Logout item styling */
+.logout-bottom {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.support-item p {
+  margin-left: 10px;
+  font-size: 0.9rem;
+  color: #678990;
+}
+
+/* Icon sizes */
+.icon-size {
+  font-size: 2.5rem;
+  color: #678990;
+}
+
+/* Hover effects */
+.menu-item:hover span,
+.support-item:hover span {
+  color: #2e5d5d;
+}
+
+.menu-item:hover p,
+.support-item:hover p {
+  color: #2e5d5d;
+}
+
+/* Main content styling */
+.nav-content {
+  margin-left: 0;
+  padding: 20px;
+  /* transition: margin-left 0.3s ease; /* Smooth content shift */
+  /* min-height: 10vh;
+  width: 200%;  */
+}
+
+.nav-content.shifted {
+  margin-left: 200px; /* Adjust to the width of your sidebar */
+}
+
+.error {
+  color: red;
+}
+
+.h1-authencated {
+  font-size: 2rem;
+  color: #678990;
+  font-weight: bold;
+}
+
+/* Search container style */
+.search-container {
+  position: absolute;
+  left: 0;
+  top: 20px; /* Adjust to your layout */
+  display: flex;
+  align-items: center;
+  z-index: 1100;
+  width: calc(100% - 220px); /* Adjust the width */
+  max-width: 500px;
+}
+
+.search-input {
+  width: 100%;
+  height: 40px;
+  padding: 10px 15px;
+  border-radius: 20px; /* Rounded corners */
+  border: none; /* Remove default border */
+  background-color: #ddd;
+  font-size: 16px; /* Font size for text inside */
+  outline: none; /* Remove outline when focused */
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease; /* Smooth transition for box-shadow */
+}
+
+.search-input::placeholder {
+  color: #888;
+  font-size: 16px;
+}
+
+.search-input:focus {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* Slight shadow when focused */
+}
+
+/* Style for the search icon inside the input */
+.search-icon {
+  position: relative;
+}
+
+.search-icon::after {
+  content: "\1F50D"; /* Unicode for magnifying glass */
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #888; /* Icon color */
+}
+
+a {
+  color: #888;
+}
+
+.h2-font-size {
+  font-size: 1.5rem;
+}
+
+.icon-forward-arrow {
+  font-size: 1.5 !important;
+}
+
+.dashboard-cargiver-container {
+  width: 20vh;
+  height: auto;
+  padding: 2rem;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+}
+
+.actives {
+  background: #ffffff;
+  border-radius: 0.5rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .display-none-smartphone {
+    display: none;
+  }
+  .backgroundHome {
+    background-color: white;
+  }
+  .font-blue-color {
+    color: #5895aa;
+  }
+  .small-d-flex {
+    display: flex;
+    flex-direction: column;
+  }
+  .small-justify-center {
+    justify-content: center;
+    align-items: center;
+  }
+  .smart-phone-h1-weight {
+    font-weight: 600;
+  }
+  .smart-phone-h1-size {
+    font-size: 2rem;
+  }
+  .smart-phone-p-size {
+    font-size: 1.4rem;
+  }
+  /* Container to center the dots */
+  .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* You can adjust this as needed */
+  }
+
+  .smart-phone-btn-size {
+    height: 2rem;
+    width: 18rem;
+  }
+}
+
+.test1 {
+  background-color: red;
+}
+.test2 {
+  background-color: blue;
+}
+
+.button-logout {
+  border: none;
+  background: none;
+}
+
+.modal-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #678990;
+}
+
+.button-modal-logout {
+  border: #56c3c4;
+  background-color: #56c3c4;
+  color: #f0f0f0;
+}
+
+
+.modal {
+  display: block; /* Ensure this is set when the modal is open */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Modal overlay background */
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+}
+
+
+.close {
+  cursor: pointer; /* Pointer cursor for close button */
+  float: right; /* Float close button to the right */
+}
+.sex-checkBox-containers {
+  display: flex;
+  flex-direction: column;
+}
+.sex-checkBoxs {
+  display: flex;
+}
+.label-spacing{
+  margin-top: .80rem;
+}
+.buttonSeniorSize{
+  height: auto;
+  width: max-content;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  background-color: #63cdda;
+}
+.select-input{
+  padding: initial !important;
+}
+.complete {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.button-hover-effect {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.button-hover-effect:hover {
+  background-color: #007bff; /* Change background color on hover */
+  transform: scale(1.05); /* Slightly scale the button */
+}
+
