@@ -1,0 +1,96 @@
+/* Sidebar for authenticated one */
+.sidebarProfile {
+  background: #ffffff;
+  width: 200px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0px; /* Hidden sidebar on the right */
+  transition: right 0.3s ease; /* Smooth sliding */
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarProfileOther {
+  background: #0000007a;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0px; /* Hidden sidebar on the right */
+  transition: right 0.3s ease; /* Smooth sliding */
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sidebar open state */
+.closeSide {
+  display: none;
+}
+/* Hamburger button styling */
+.hamburgerProfile {
+  position: fixed;
+  top: 20px;
+  right: 10rem; /* Move hamburger button to the right side */
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 1100; /* Above the sidebar */
+}
+
+.hamburgerProfile span {
+  font-size: 2rem;
+  color: #678990;
+}
+
+/* Menu item styling */
+.menu-itemsProfile {
+  display: flex;
+}
+.menu-itemProfile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.menu-itemProfile p {
+  margin-left: 10px;
+  font-size: 0.9rem;
+  color: #678990;
+}
+
+/* Support and Logout item styling */
+.support-itemProfile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.support-itemProfile p {
+  margin-left: 10px;
+  font-size: 0.9rem;
+  color: #678990;
+}
+
+/* Icon sizes */
+.icon-size {
+  font-size: 2.5rem;
+  color: #678990;
+}
+
+/* Hover effects */
+.menu-itemProfile:hover span,
+.support-item:hover span {
+  color: #2e5d5d;
+  display: flex;
+}
+
+.menu-itemProfile:hover p,
+.support-item:hover p {
+  color: #2e5d5d;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}

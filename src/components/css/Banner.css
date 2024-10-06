@@ -1,0 +1,26 @@
+.banner {
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-family: "Poppins", sans-serif;
+  vertical-align: baseline;
+  padding: 5rem 2rem 0rem 0rem;
+}
+
+.greeting {
+  font-size: 4rem;
+  font-weight: bold;
+  color: #678990;
+}
+
+.user {
+  font-size: 2rem;
+  color: #678990;
+  font-weight: bold;
+  text-transform: uppercase;
+}

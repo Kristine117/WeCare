@@ -1,0 +1,43 @@
+.find {
+  flex-direction: column;
+  height: 80vh;
+  justify-content: space-around;
+  overflow: auto;
+}
+.cardFind {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-left: 1rem;
+  padding-bottom: 1rem;
+}
+.card-headerFind {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 1rem;
+  width: 20rem;
+  height: 10rem;
+}
+.card-bodyFind {
+  display: flex;
+  flex-direction: column;
+}
+.card-titleFind {
+  padding-bottom: 0.5rem;
+}
+.card-textFind {
+  padding-bottom: 0.5rem;
+}
+.footerFind {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 5rem;
+}
+.findImg {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 4.5rem;
+  padding-bottom: 0.5rem;
+}
