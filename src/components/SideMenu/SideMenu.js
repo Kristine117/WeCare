@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
-import { useNavigate, NavLink, Navigate } from "react-router-dom";
-import Nav from "react-bootstrap/Nav";
+import { useNavigate} from "react-router-dom";
+// import Nav from "react-bootstrap/Nav";
 import AppNavbar from "./AppNavbar";
 
 export default function SideMenu({

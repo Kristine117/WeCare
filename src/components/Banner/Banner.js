@@ -1,7 +1,6 @@
 import { useContext } from "react";
-import "./css/Banner.css";
-import UserContext from "../UserContext";
-
+import "../css/Banner.css"; 
+import UserContext from "../../UserContext";
 export default function Banner() {
   const { user, setUser } = useContext(UserContext);
 
