@@ -1,13 +1,12 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import AppNavbar from "./components/AppNavbar";
-import SideMenu from "./components/SideMenu";
+
 import Logout from "./pages/Logout";
-import Login from "./pages/Login";
-import Home from "./pages/Home";
-import Home2 from "./pages/Home2";
+import Home from "./pages/Home/Home";
 import Registration1 from "./pages/Registration1";
-import Registration2 from "./pages/Registration2";
+import Home2 from "./pages/Home2";
+// import Registration2 from "./pages/Registration2";
 import Registration3 from "./pages/Registration3";
 import DashBoardSenior from "./pages/DashBoardSenior";
 import DashBoardSeniorFind from "./pages/DashBoardSeniorFind";
@@ -17,6 +16,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
 import DashBoardCareGiver from "./pages/DashBoardCareGiver";
 import { UserProvider } from "./UserContext";
+import Login from "./pages/Login/Login";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -45,8 +45,6 @@ function App() {
 
   // this is where you generate the details of the user to be put in the global
   useEffect(() => {
-    console.log(user);
-    console.log(`${process.env.REACT_APP_API_URL}main/user-profile`)
     // fetch data from db
     fetch(`${process.env.REACT_APP_API_URL}main/user-profile`, {
       headers: {
@@ -108,7 +106,7 @@ function App() {
             path="/dashboard-senior/appointment"
             element={<DashBoardSeniorAppointment />}
           />
-          
+
           <Route path="/logout" element={<Logout />} />
         </Routes>
       </Router>

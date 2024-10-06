@@ -1,9 +1,10 @@
-import Banner from "../components/Banner";
+
 import ProfileCard from "../components/ProfileCard/ProfileCard";
 import SideMenu from "../components/SideMenu";
-import { useContext, useEffect, useState } from "react";
+import { useContext} from "react";
 import UserContext from "../UserContext";
-import { Link, Navigate, NavLink } from "react-router-dom";
+import { Navigate} from "react-router-dom";
+import Banner from "../../components/Banner/Banner";
 
 const DashBoardSenior = () => {
   const { user } = useContext(UserContext);

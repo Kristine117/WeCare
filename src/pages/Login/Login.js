@@ -1,7 +1,7 @@
 import { Link, Navigate, NavLink } from "react-router-dom";
 import { useState, useContext} from "react";
-import UserContext from "../UserContext";
 import Swal from "sweetalert2";
+import UserContext from "../../UserContext";
 
 export default function Login() {
   const { user, setUser } = useContext(UserContext);
