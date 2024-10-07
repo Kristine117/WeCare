@@ -6,7 +6,6 @@ const registrationSlice = createSlice({
         firstname: "",
         lastname: "",
         email:"",
-
         userType: "",
         street: "",
         barangayId: "",

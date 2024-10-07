@@ -1,11 +1,9 @@
 import Navbar from "react-bootstrap/Navbar";
 import { Link, NavLink } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import UserContext from "../UserContext";
-
 import "./css/Profile.css";
-
 export default function AppNavbar({ isLoggedIn, activeHead }) {
   const [isOpen, setIsOpen] = useState(true);
   const { user } = useContext(UserContext);
@@ -17,7 +15,7 @@ export default function AppNavbar({ isLoggedIn, activeHead }) {
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-    console.log("cliskced");
+    
   };
 
   return (
@@ -44,16 +42,6 @@ export default function AppNavbar({ isLoggedIn, activeHead }) {
         ) : (
           <div>
             <h1 className="h1-authencated">Home</h1>
-          </div>
-        )}
-
-        {activeHead ? (
-          <div>
-            <h1 className="h1-authencated">Home</h1>
-          </div>
-        ) : (
-          <div>
-            <h1 className="h1-authencated">No</h1>
           </div>
         )}
 
@@ -127,7 +115,7 @@ export default function AppNavbar({ isLoggedIn, activeHead }) {
         <>
           {!isOpen ? (
             <div className="hamburgerProfile" onClick={toggleMenu}>
-              <span class="material-symbols-outlined">close</span>
+              <span className="material-symbols-outlined">close</span>
             </div>
           ) : (
             <></>
@@ -149,7 +137,7 @@ export default function AppNavbar({ isLoggedIn, activeHead }) {
               </div>
               <div className="menu-itemProfile my-3">
                 <p>Edit Profile</p>
-                <span class="material-symbols-outlined">border_color</span>
+                <span className="material-symbols-outlined">border_color</span>
               </div>
             </div>
             <div className="support-item mb-4 ml-4 d-flex">

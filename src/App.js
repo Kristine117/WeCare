@@ -2,21 +2,26 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import AppNavbar from "./components/AppNavbar";
 
-import Logout from "./pages/Logout";
+import Logout from "./pages/Logout/Logout";
 import Home from "./pages/Home/Home";
 import Registration1 from "./pages/Registration1";
 import Home2 from "./pages/Home2";
 // import Registration2 from "./pages/Registration2";
 import Registration3 from "./pages/Registration3";
-import DashBoardSenior from "./pages/DashBoardSenior";
-import DashBoardSeniorFind from "./pages/DashBoardSeniorFind";
-import DashBoardSeniorMessage from "./pages/DashBoardSeniorMessage";
-import DashBoardSeniorAppointment from "./pages/DashBoardSeniorAppointment";
+// import DashBoardSenior from "./pages/DashBoardSenior";
+// import DashBoardSeniorFind from "./pages/DashBoardSeniorFind";
+// import DashBoardSeniorMessage from "./pages/DashBoardSeniorMessage";
+// import DashBoardSeniorAppointment from "./pages/DashBoardSeniorAppointment";
+
+import DashBoardSenior from "./pages/Dashboard/DashBoardSenior";
+import DashBoardCareGiver from "./pages/Dashboard/DashBoardCareGiver";
+
 import { BrowserRouter as Router } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
-import DashBoardCareGiver from "./pages/DashBoardCareGiver";
 import { UserProvider } from "./UserContext";
 import Login from "./pages/Login/Login";
+import DashBoard from "./pages/Dashboard/DashBoard";
+
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -92,9 +97,10 @@ function App() {
           <Route path="/registration1" element={<Registration1 />} />
           {/* <Route path="/registration2" element={<Registration2 />} /> */}
           <Route path="/registration3" element={<Registration3 />} />
-          <Route path="/dashboard-caregiver" element={<DashBoardCareGiver />} />
-          <Route path="/dashboard-senior" element={<DashBoardSenior />} />
-          <Route
+          <Route path="/dashboard-main" element={<DashBoard/>} />
+          {/* <Route path="/dashboard-caregiver" element={<DashBoardCareGiver />} />
+          <Route path="/dashboard-senior" element={<DashBoardSenior />} /> */}
+          {/* <Route
             path="/dashboard-senior/find"
             element={<DashBoardSeniorFind />}
           />
@@ -105,7 +111,7 @@ function App() {
           <Route
             path="/dashboard-senior/appointment"
             element={<DashBoardSeniorAppointment />}
-          />
+          /> */}
 
           <Route path="/logout" element={<Logout />} />
         </Routes>

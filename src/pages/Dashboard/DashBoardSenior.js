@@ -1,11 +1,10 @@
-
-import ProfileCard from "../components/ProfileCard/ProfileCard";
-import SideMenu from "../components/SideMenu";
+import ProfileCard from "../../components/ProfileCard/ProfileCard";
 import { useContext} from "react";
-import UserContext from "../UserContext";
+
 import { Navigate} from "react-router-dom";
 import Banner from "../../components/Banner/Banner";
-
+import SideMenu from "../../components/SideMenu/SideMenu";
+import UserContext from "../../UserContext";
 const DashBoardSenior = () => {
   const { user } = useContext(UserContext);
 
@@ -20,6 +19,8 @@ const DashBoardSenior = () => {
       </div>
     </div>
   );
+
+
 };
 
 export default DashBoardSenior;
