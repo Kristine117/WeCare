@@ -14,11 +14,7 @@ export default function Home(){
                             <div>
                                 <h3 className="text-blue mb-4">for those who cared for us</h3>
                             </div>
-
-
-
-
-
+                            
                             <div className="d-flex">
  
                                 <div>                                    

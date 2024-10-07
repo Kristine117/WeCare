@@ -1,9 +1,12 @@
 
-import ProfileCard from "../components/ProfileCard/ProfileCard";
-import UserContext from "../UserContext";
-import { Navigate} from "react-router-dom";
+import Banner from "../../components/Banner/Banner";
+import ProfileCard from "../../components/ProfileCard/ProfileCard";
+import UserContext from "../../UserContext";
+
 import { useContext} from "react";
-import Banner from "../components/Banner/Banner";
+import { Navigate} from "react-router-dom";
+
+
 // import SideMenu from "../../components/SideMenu/SideMenu";
 const DashBoardCareGiver = () => {
   const { user } = useContext(UserContext);
@@ -19,6 +22,7 @@ const DashBoardCareGiver = () => {
       </div>
     </div>
   );
+
 };
 
 export default DashBoardCareGiver;

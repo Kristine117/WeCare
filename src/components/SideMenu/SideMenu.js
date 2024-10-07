@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useNavigate} from "react-router-dom";
+import AppNavbar from "../AppNavbar";
 // import Nav from "react-bootstrap/Nav";
-import AppNavbar from "./AppNavbar";
 
 export default function SideMenu({
   activeFind,
@@ -94,7 +94,7 @@ export default function SideMenu({
               activeNavApp ? "menu-item my-3 actives" : "menu-item my-3"
             }
           >
-            <span class="material-symbols-outlined side-menu-color icon-size">
+            <span className="material-symbols-outlined side-menu-color icon-size">
               list_alt
             </span>
             <p className="ml-2">Appointment</p>
@@ -133,7 +133,7 @@ export default function SideMenu({
       <div
         className="modal fade"
         id="exampleModal"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
