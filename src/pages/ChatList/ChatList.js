@@ -1,5 +1,5 @@
 
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect,useState } from "react";
 
 import SideMenu from "../../components/SideMenu/SideMenu";
 import dashboard from "./ChatList.module.css";
@@ -9,7 +9,7 @@ import { Navigate } from "react-router-dom";
 const chatlist = [
     {name:"karl"},
     {name:"james"}
-]
+] 
 // const ChatList = ()=>{
 //     const {user}=useContext(UserContext);
     
