@@ -3,15 +3,21 @@ import SideMenu from "../../components/SideMenu/SideMenu";
 import dashboard from "./DashBoard.module.css";
 import ProfileCard from "../../components/ProfileCard/ProfileCard";
 import UserContext from "../../UserContext";
-
+import { Navigate } from "react-router-dom";
+import DashboardContainer from "../../components/DashboardContainer/DashboardContainer";
 const DashBoard = ()=>{
     const {user} = useContext(UserContext);
-    console.log(user)
     return(
-        <React.Fragment>
-            <SideMenu/>
-            {user.userType === 'senior' && <ProfileCard/>}
-        </React.Fragment>        
+        <main>
+           {!user?.id && <Navigate to={"/login"}/>}
+
+           {user?.id &&  <section className={dashboard['dashboard']}>
+                <SideMenu/>
+                <DashboardContainer>
+                    {user.userType === 'senior' && <ProfileCard/>}    
+                </DashboardContainer>            
+            </section>}
+        </main>        
     )
 }
 
