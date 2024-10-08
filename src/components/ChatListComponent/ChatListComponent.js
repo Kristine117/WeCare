@@ -7,7 +7,7 @@ const ChatListComponent = ({ firstName, lastName, userId }) => {
       <div className={wcdesign["list"]}>
         <div className={wcdesign["userProfile"]}>
           Profile Picture
-          {/*  <image src={require("../../../public/wecare_logo.png")}></image> */}
+          {/*  <image src={require("../../../public/wecare_logo.pngs")}></image> */}
         </div>
         <div>
           <div className={wcdesign["username"]}>
