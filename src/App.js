@@ -20,7 +20,8 @@ import { UserProvider } from "./UserContext";
 import Login from "./pages/Login/Login";
 import DashBoard from "./pages/Dashboard/DashBoard";
 import AppNavbar from "./components/AppNavbar/AppNavbar";
-
+import Chat from "./pages/Chat/Chat";
+import ChatList from "./pages/ChatList/ChatList";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -111,8 +112,10 @@ function App() {
             path="/dashboard-senior/appointment"
             element={<DashBoardSeniorAppointment />}
           /> */}
-
+           <Route path="/chatlist" element={<ChatList />} />
+          <Route path="/chat/:senderId/:receiverId" element={<Chat/>} />
           <Route path="/logout" element={<Logout />} />
+         
         </Routes>
       </Router>
     </UserProvider>
