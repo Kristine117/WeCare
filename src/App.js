@@ -1,7 +1,5 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import AppNavbar from "./components/AppNavbar";
-
 import Logout from "./pages/Logout/Logout";
 import Home from "./pages/Home/Home";
 import Registration1 from "./pages/Registration1";
@@ -21,6 +19,7 @@ import { Route, Routes } from "react-router-dom";
 import { UserProvider } from "./UserContext";
 import Login from "./pages/Login/Login";
 import DashBoard from "./pages/Dashboard/DashBoard";
+import AppNavbar from "./components/AppNavbar/AppNavbar";
 
 
 function App() {
@@ -89,7 +88,7 @@ function App() {
   return (
     <UserProvider value={{ user, setUser, unsetUser }}>
       <Router>
-        <AppNavbar />
+       {!user?.id &&  <AppNavbar />}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/welcome" element={<Home2 />} />

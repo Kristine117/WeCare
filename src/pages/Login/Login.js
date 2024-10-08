@@ -24,7 +24,6 @@ export default function Login() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         if (data.isSuccess === true) {
           localStorage.setItem("token", data.data.token);
 
@@ -141,7 +140,7 @@ export default function Login() {
    <React.Fragment>
       {!user.id && <div className="background1">
       <div className="login-container">
-        <div class="login-box">
+        <div className="login-box">
           <h3 className="pt-4 pb-4">Login to your account</h3>
           {user.error ? (
             <di>
