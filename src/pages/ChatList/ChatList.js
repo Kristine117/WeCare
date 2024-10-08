@@ -9,7 +9,7 @@ import { Navigate } from "react-router-dom";
 const chatlist = [
     {name:"karl"},
     {name:"james"}
-]
+] 
 // const ChatList = ()=>{
 //     const {user}=useContext(UserContext);
     
