@@ -22,7 +22,7 @@ import DashBoard from "./pages/Dashboard/DashBoard";
 import AppNavbar from "./components/AppNavbar/AppNavbar";
 import Chat from "./pages/Chat/Chat";
 import ChatList from "./pages/ChatList/ChatList";
-
+import Error from "./pages/Error/Error";
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -91,31 +91,18 @@ function App() {
       <Router>
        {!user?.id &&  <AppNavbar />}
         <Routes>
+          
           <Route path="/" element={<Home />} />
           <Route path="/welcome" element={<Home2 />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registration1" element={<Registration1 />} />
-          {/* <Route path="/registration2" element={<Registration2 />} /> */}
           <Route path="/registration3" element={<Registration3 />} />
           <Route path="/dashboard-main" element={<DashBoard/>} />
-          {/* <Route path="/dashboard-caregiver" element={<DashBoardCareGiver />} />
-          <Route path="/dashboard-senior" element={<DashBoardSenior />} /> */}
-          {/* <Route
-            path="/dashboard-senior/find"
-            element={<DashBoardSeniorFind />}
-          />
-          <Route
-            path="/dashboard-senior/message"
-            element={<DashBoardSeniorMessage />}
-          />
-          <Route
-            path="/dashboard-senior/appointment"
-            element={<DashBoardSeniorAppointment />}
-          /> */}
+        
            <Route path="/chatlist" element={<ChatList />} />
           <Route path="/chat/:senderId/:receiverId" element={<Chat/>} />
           <Route path="/logout" element={<Logout />} />
-         
+          <Route path="*" errorElement={<Error/>}/>
         </Routes>
       </Router>
     </UserProvider>
