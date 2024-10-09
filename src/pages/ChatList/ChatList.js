@@ -39,7 +39,7 @@ const chatlist = [
 const ChatList = () => {
   const [assistantUserList, setAssistantUserList] = useState([]);
   const fetchData = () => {
-    fetch(`${process.env.REACT_APP_API_URL}main/user-list`, {
+    fetch(`${process.env.REACT_APP_API_URL}/main/user-list`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
