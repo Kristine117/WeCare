@@ -4,6 +4,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import SideMenu from "../../components/SideMenu/SideMenu";
 import DashboardContainer from "../../components/DashboardContainer/DashboardContainer";
 import dashboard from "./Chat.module.css";
+import ChatComponent from "../../components/ChatComponent/ChatComponent";
 
 const Chat = () => {
   const { user } = useContext(UserContext);
@@ -17,8 +18,7 @@ const Chat = () => {
         <section className={dashboard["dashboard"]}>
           <SideMenu />
           <DashboardContainer>
-            this is the drilled userID {recipientId}
-            {/* {user.userType === 'senior' && <ProfileCard/>}     */}
+            <ChatComponent recipientId={recipientId}/>
           </DashboardContainer>
         </section>
       )}
