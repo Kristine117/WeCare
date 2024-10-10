@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import registerModal from "./Register.module.css";
 
 export default function Registration3() {
@@ -12,6 +12,8 @@ export default function Registration3() {
     const storedEmail = storedInitialData ? storedInitialData.email : "";
     const storedPassword = storedInitialData ? storedInitialData.password : "";
   
+    const [barangays, setBarangays] = useState([]);
+    const [experiences, setExperiences] = useState([]);
     const [activeForm, setActiveForm] = useState(null);
     const [isSeniorModalOpen, setIsSeniorModalOpen] = useState(false);
     const [isCaregiverModalOpen, setIsCaregiverModalOpen] = useState(false);
@@ -31,46 +33,59 @@ export default function Registration3() {
       email: "",        
       password: ""     
     });
+
+
+
+
   
-    // Function to check if senior form is complete
     const isSeniorFormComplete = () => {
-      if (activeForm !== 'senior') return false;
-      return initialData.firstname && initialData.lastname && initialData.gender &&
-        initialData.contactNumber && initialData.birthDate && initialData.userType && 
-        initialData.barangayId && initialData.experienceId && initialData.street;
+      return activeForm === 'senior' && 
+             initialData.firstname && 
+             initialData.lastname && 
+             initialData.gender && 
+             initialData.contactNumber.length === 11 && // Assuming contact number has 11 digits
+             initialData.birthDate && 
+             initialData.userType && 
+             initialData.barangayId && 
+             initialData.experienceId && 
+             initialData.street;
     };
-  
-    // Function to check if caregiver form is complete
+    
     const isCaregiverFormComplete = () => {
-      if (activeForm !== 'caregiver') return false;
-      return initialData.firstname && initialData.lastname && initialData.gender &&
-      initialData.contactNumber && initialData.birthDate && initialData.userType && 
-      initialData.barangayId && initialData.experienceId && initialData.street;
+      return activeForm === 'caregiver' && 
+             initialData.firstname && 
+             initialData.lastname && 
+             initialData.gender && 
+             initialData.contactNumber.length === 11 && // Assuming contact number has 11 digits
+             initialData.birthDate && 
+             initialData.userType && 
+             initialData.barangayId && 
+             initialData.experienceId && 
+             initialData.street;
     };
-  
-    // Handle opening the senior modal
+    
     const openSeniorModal = () => {
       setActiveForm('senior');
       setIsSeniorModalOpen(true);
       setInitialData((prevData) => ({
         ...prevData,
         userType: "senior citizen",
-        email:storedEmail,
-        password:storedPassword
+        email: storedEmail,
+        password: storedPassword,
       }));
     };
-  
-    // Handle opening the caregiver modal
+    
     const openCaregiverModal = () => {
       setActiveForm('caregiver');
       setIsCaregiverModalOpen(true);
       setInitialData((prevData) => ({
         ...prevData,
         userType: "senior assistant",
-        email:storedEmail,
-        password:storedPassword
+        email: storedEmail,
+        password: storedPassword,
       }));
     };
+    
   
     const closeSeniorModal = () => setIsSeniorModalOpen(false);
     const closeCaregiverModal = () => setIsCaregiverModalOpen(false);
@@ -82,6 +97,54 @@ export default function Registration3() {
         setIsConfirmationModalOpen(true);
         collectDataRegistration1();
       };
+
+
+            // Fire this function when the component starts
+  useEffect(() => {
+    // Perform any initialization logic here
+    console.log("function FIRE");
+    fetch(`${process.env.REACT_APP_API_URL}/barangay/registered-barangays`,{
+      method:'GET',
+      headers:{
+         "Content-Type": "application/json"
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.isSuccess) {
+        setBarangays(data.data); // Update the state with barangay data
+      } else {
+        console.error("Failed to fetch barangay data.");
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    })
+    
+
+    fetch(`${process.env.REACT_APP_API_URL}/experience/registered-experiences`,{
+      method:'GET',
+      headers:{
+        "Content-Type": "application/json"
+     }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.isSuccess) {
+        setExperiences(data.data); // Update the state with barangay data
+      } else {
+        console.error("Failed to fetch barangay data.");
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    })
+
+
+
+  }, []);
+
+
   
     const collectDataRegistration1 = (e) => {
 
@@ -94,8 +157,6 @@ export default function Registration3() {
       })
       .then(response => response.json())  // Assuming the server responds with JSON
       .then(data => {
-        console.log("Success:", data);
-
 
         // Close all modals and navigate to the homepage
         setIsConfirmationModalOpen(false);
@@ -113,32 +174,42 @@ export default function Registration3() {
       } else if (activeForm === 'caregiver') {
         setIsCaregiverModalOpen(false);
       }
-
-        console.log("Registered Data in Registration3:", initialData); 
     };
 
     // Handle form submission
     const collectDataRegistration2 = (e) => {
       e.preventDefault();
+
+      console.log(initialData)
       setIsSeniorModalOpen(false);
       setIsCaregiverModalOpen(false);
-      console.log("Final Registration Data:", initialData); // Log the final data
-      console.log("Email in localStorage:", storedEmail);
-      console.log("Password in localStorage:", storedPassword);      
     };
+
+    useEffect(() => {
+      setActiveForm(activeForm); // This will ensure the buttons are re-calculated when the form is filled.
+    }, [initialData]);
   
     // Handle changes in form input fields
     const handleChange = (e) => {
       const { name, value } = e.target;
       setInitialData((prevData) => ({
         ...prevData,
-        [name]: value
+        [name]: value,
       }));
     };
+    
   
-    const seniorButtonClass = isSeniorFormComplete() ? "square-place-holder complete" : "square-place-holder";
-    const caregiverButtonClass = isCaregiverFormComplete() ? "square-place-holder complete" : "square-place-holder";
+    const seniorButtonClass = isSeniorFormComplete() 
+    ? `${registerModal.complete} ${registerModal["square-place-holder"]}` 
+    : `${registerModal["square-place-holder"]}`;
   
+  const caregiverButtonClass = isCaregiverFormComplete() 
+    ? `${registerModal.complete} ${registerModal["square-place-holder"]}` 
+    : `${registerModal["square-place-holder"]}`;
+  
+    
+    
+
     return (
       <div className="background1">
         <div className="login-container">
@@ -251,17 +322,20 @@ export default function Registration3() {
 
                 <div className="form-group d-flex mt-4">
                 <select
-                    id="barangay"
-                    name="barangayId" // The field that will update barangayId in initialData
-                    className="form-control select-input"
-                    value={initialData.barangayId}
-                    onChange={handleChange}
-                    required>
-                    <option value="">-- Select Barangay --</option>
-                    <option value="1">Pasil</option>
-                    <option value="2">Minglanilla</option>
-                    <option value="3">Talisay</option>
-                    </select>
+                  id="barangay"
+                  name="barangayId"
+                  className="form-control select-input"
+                  required
+                  value={initialData.barangayId} // Ensure you have this defined
+                  onChange={handleChange} // Ensure you have a handleChange function defined
+                >
+                  <option value="">Select Barangay</option>
+                  {barangays.map((barangay) => (
+                    <option key={barangay.barangayId} value={barangay.barangayId}>
+                      {barangay.barangay}
+                    </option>
+                  ))}
+                </select>
 
                     <input type="text" className="form-control ml-3" placeholder="Enter Street"
                       id="street" name="street" 
@@ -285,11 +359,18 @@ export default function Registration3() {
 
 
                 <div className="form-group d-flex mt-4">
-                <input type="text" className="form-control" placeholder="Enter contact no."
-                      id="contact" name="contactNumber" 
-                      value={initialData.contactNumber}
-                      onChange={handleChange}
-                      required/>
+                <input 
+                type="text"
+                className="form-control mr-2"
+                placeholder="Enter contact no."
+                id="contact"
+                name="contactNumber"
+                pattern="\d{11}"  
+                minLength="11"    
+                maxLength="11"    
+                title="Contact number must be exactly 11 digits" 
+                required
+              />
                 </div>
               </div> 
 
@@ -420,6 +501,7 @@ export default function Registration3() {
                 </div>
 
 
+
                 <div className="form-group sex-checkBox-container mb-4 ml-3">
                     <label>Sex: </label>
                     <div className="d-flex ml-5">
@@ -442,17 +524,20 @@ export default function Registration3() {
 
                 <div className="form-group d-flex mt-4">
                 <select
-                    id="barangay"
-                    name="barangayId" // The field that will update barangayId in initialData
-                    className="form-control select-input"
-                    value={initialData.barangayId}
-                    onChange={handleChange}
-                    required>
-                    <option value="">-- Select Barangay --</option>
-                    <option value="1">Pasil</option>
-                    <option value="2">Minglanilla</option>
-                    <option value="3">Talisay</option>
-                    </select>
+                  id="barangay"
+                  name="barangayId"
+                  className="form-control select-input"
+                  required
+                  value={initialData.barangayId} // Ensure you have this defined
+                  onChange={handleChange} // Ensure you have a handleChange function defined
+                >
+                  <option value="">Select Barangay</option>
+                  {barangays.map((barangay) => (
+                    <option key={barangay.barangayId} value={barangay.barangayId}>
+                      {barangay.barangay}
+                    </option>
+                  ))}
+                </select>
 
                     <input type="text" className="form-control ml-3" placeholder="Enter Street"
                       id="street" name="street" 
@@ -476,21 +561,36 @@ export default function Registration3() {
 
 
                 <div className="form-group d-flex mt-4">
-                <input type="text" className="form-control mr-2" placeholder="Enter contact no."
-                      id="contact" name="contactNumber" 
-                      value={initialData.contactNumber}
-                      onChange={handleChange}
-                      required/>
-                <input
-                  type="number"
-                  id="experienceId"
-                  name="experienceId" 
-                  className="form-control"
-                  placeholder="Number of Years Experience"
-                  value={initialData.experienceId}
-                  onChange={handleChange}
-                  required
-                />
+                <input 
+                type="text"
+                className="form-control mr-2"
+                placeholder="Enter contact no."
+                id="contact"
+                name="contactNumber"
+                pattern="\d{11}"  
+                minLength="11"    
+                maxLength="11"    
+                title="Contact number must be exactly 11 digits" 
+                required
+              />
+                      
+
+<select
+                    id="experience"
+                    name="experienceId"
+                    className="form-control select-input"
+                    required
+                    value={initialData.experienceId} // Ensure you have this defined
+                    onChange={handleChange} // Ensure you have a handleChange function defined
+                  >
+                    <option value="">Experience</option>
+                    {experiences.map((experience) => (
+                      <option key={experience.experienceId} value={experience.experienceId}>
+                        Years of Experience: {experience.numOfYears}
+                        -Experience Description:{experience.experienceDescription}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
               </div> 
