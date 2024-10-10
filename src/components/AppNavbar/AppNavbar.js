@@ -33,7 +33,7 @@ export default function AppNavbar() {
           <Nav.Link as={NavLink} to="/login">
             <h5 className="font-white">Sign In</h5>
           </Nav.Link>
-        </Nav>
+        </Nav>  
       </Navbar.Collapse>
     </Navbar>
   );
