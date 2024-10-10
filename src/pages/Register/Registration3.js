@@ -1,21 +1,23 @@
-
-import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { getRegisteredData } from "../store/registration_action";
-// import { Link, NavLink } from "react-router-dom";
+import registerModal from "./Register.module.css";
+
 export default function Registration3() {
-    const dispatch = useDispatch(); 
     const navigate = useNavigate();
+
+    // Retrieve and parse the initialData from localStorage
+    const storedInitialData = JSON.parse(localStorage.getItem("initialData"));
+
+    // Extract email and password from the parsed object
+    const storedEmail = storedInitialData ? storedInitialData.email : "";
+    const storedPassword = storedInitialData ? storedInitialData.password : "";
   
-    // Retrieve email and password from Redux state
-    const { email, password } = useSelector((state) => state.registration);
-  
-    const [activeForm, setActiveForm] = useState(null); // Tracks which form is currently active ('senior' or 'caregiver')
+    const [activeForm, setActiveForm] = useState(null);
     const [isSeniorModalOpen, setIsSeniorModalOpen] = useState(false);
     const [isCaregiverModalOpen, setIsCaregiverModalOpen] = useState(false);
+    const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false); // State for confirmation modal
   
-    // Initialize initialData with Redux email and password
+    // Initialize initialData without Redux state
     const [initialData, setInitialData] = useState({
       firstname: "",
       lastname: "",
@@ -26,23 +28,24 @@ export default function Registration3() {
       barangayId: "",
       experienceId: "",
       street: "",
-      email: email,        // Set email from Redux state
-      password: password   // Set password from Redux state
+      email: "",        
+      password: ""     
     });
   
     // Function to check if senior form is complete
     const isSeniorFormComplete = () => {
-      if (activeForm !== 'senior') return false; // Only validate if the senior form is active
+      if (activeForm !== 'senior') return false;
       return initialData.firstname && initialData.lastname && initialData.gender &&
-        initialData.contactNumber && initialData.birthDate && initialData.barangayId &&
-        initialData.street;
+        initialData.contactNumber && initialData.birthDate && initialData.userType && 
+        initialData.barangayId && initialData.experienceId && initialData.street;
     };
   
     // Function to check if caregiver form is complete
     const isCaregiverFormComplete = () => {
-      if (activeForm !== 'caregiver') return false; // Only validate if the caregiver form is active
+      if (activeForm !== 'caregiver') return false;
       return initialData.firstname && initialData.lastname && initialData.gender &&
-        initialData.contactNumber && initialData.barangayId && initialData.street;
+      initialData.contactNumber && initialData.birthDate && initialData.userType && 
+      initialData.barangayId && initialData.experienceId && initialData.street;
     };
   
     // Handle opening the senior modal
@@ -51,7 +54,9 @@ export default function Registration3() {
       setIsSeniorModalOpen(true);
       setInitialData((prevData) => ({
         ...prevData,
-        userType: "senior citizen" // Update userType to 'senior citizen' when the button is clicked
+        userType: "senior citizen",
+        email:storedEmail,
+        password:storedPassword
       }));
     };
   
@@ -61,34 +66,65 @@ export default function Registration3() {
       setIsCaregiverModalOpen(true);
       setInitialData((prevData) => ({
         ...prevData,
-        userType: "senior assistant" // Update userType to 'senior assistant' when the button is clicked
+        userType: "senior assistant",
+        email:storedEmail,
+        password:storedPassword
       }));
     };
   
-    // Function to close modals
     const closeSeniorModal = () => setIsSeniorModalOpen(false);
     const closeCaregiverModal = () => setIsCaregiverModalOpen(false);
+
+
+      // Open the confirmation modal when the user clicks submit
+      const openConfirmationModal = (e) => {
+        e.preventDefault();
+        setIsConfirmationModalOpen(true);
+        collectDataRegistration1();
+      };
   
     const collectDataRegistration1 = (e) => {
-        e.preventDefault();
+
+      fetch(`${process.env.REACT_APP_API_URL}/main/register-user`,{
+        method:'POST',
+        headers:{
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(initialData) 
+      })
+      .then(response => response.json())  // Assuming the server responds with JSON
+      .then(data => {
+        console.log("Success:", data);
+
+
+        // Close all modals and navigate to the homepage
+        setIsConfirmationModalOpen(false);
+        navigate("/"); // Navigate to the homepage
+        storedEmail = "";
+        storedPassword = "";
+
+      })
+      .catch(error => {
+        console.error("Error:", error);
+      });
+      // Close the modal after successful submission
+      if (activeForm === 'senior') {
+        setIsSeniorModalOpen(false);
+      } else if (activeForm === 'caregiver') {
+        setIsCaregiverModalOpen(false);
+      }
+
         console.log("Registered Data in Registration3:", initialData); 
-    }
-
-
+    };
 
     // Handle form submission
     const collectDataRegistration2 = (e) => {
       e.preventDefault();
-
-    dispatch(getRegisteredData(initialData)); // Dispatch updated initialData to Redux
-
-          // Close the respective modal based on the active form
-    if (activeForm === 'senior') {
-        setIsSeniorModalOpen(false); // Close senior modal
-    } else if (activeForm === 'caregiver') {
-        setIsCaregiverModalOpen(false); // Close caregiver modal
-    }
-
+      setIsSeniorModalOpen(false);
+      setIsCaregiverModalOpen(false);
+      console.log("Final Registration Data:", initialData); // Log the final data
+      console.log("Email in localStorage:", storedEmail);
+      console.log("Password in localStorage:", storedPassword);      
     };
   
     // Handle changes in form input fields
@@ -98,66 +134,52 @@ export default function Registration3() {
         ...prevData,
         [name]: value
       }));
-  
-      // Log all data with each change
-      console.log({ ...initialData, [name]: value });
     };
   
-    // Add conditional styles based on form completeness
     const seniorButtonClass = isSeniorFormComplete() ? "square-place-holder complete" : "square-place-holder";
     const caregiverButtonClass = isCaregiverFormComplete() ? "square-place-holder complete" : "square-place-holder";
   
+    return (
+      <div className="background1">
+        <div className="login-container">
+          <div className="login-box">
+            <span
+              className="material-symbols-outlined"
+              onClick={() => navigate("/registration1")}
+            >
+              arrow_back
+            </span>
+            <h3 className="pb-3">Almost Finish!</h3>
 
-  return (
-    <div className="background1">
-      <div className="login-container">
-        <div className="login-box">
-          <span
-            className="material-symbols-outlined"
-            onClick={() => navigate("/registration1")}
-          >
-            arrow_back
-          </span>
-          <h3 className="pb-3">Almost Finish!</h3>
-          <form onSubmit={collectDataRegistration1}>
+            <form onSubmit={openConfirmationModal}>
             <div className="form-group">
               <label className="pb-3">Step 2: Roles and Agreement</label>
             </div>
             <div className="form-group">
               <label className="pb-3">Register an account for:</label>
               <div className="d-flex justify-content-center">
-
-
-
                 {/* Senior button */}
                 <div
-
-                className={`${seniorButtonClass} button-hover-effect p-2 m-2 d-flex flex-column align-items-center`}
-
-                onClick={openSeniorModal}
+                  className={`${seniorButtonClass} button-hover-effect p-2 m-2 d-flex flex-column align-items-center`}
+                  onClick={openSeniorModal}
                 >
-                <span className="material-symbols-outlined icon-custom">
+                  <span className="material-symbols-outlined icon-custom">
                     elderly
-                </span>
-                <p className="font-white">Senior</p>
+                  </span>
+                  <p className="font-white">Senior</p>
                 </div>
-
-
 
                 {/* Caregiver button */}
                 <div
-                className={`${caregiverButtonClass} button-hover-effect p-2 m-2 d-flex flex-column align-items-center`}
-
-                onClick={openCaregiverModal}
+                  className={`${caregiverButtonClass} button-hover-effect p-2 m-2 d-flex flex-column align-items-center`}
+                  onClick={openCaregiverModal}
                 >
-                <span className="material-symbols-outlined icon-custom">
+                  <span className="material-symbols-outlined icon-custom">
                     person_apron
-                </span>
-                <p className="font-white">Caregiver</p>
+                  </span>
+                  <p className="font-white">Caregiver</p>
                 </div>
               </div>
-
-
 
               {/* Agreement section */}
               <div className="form-group">
@@ -167,12 +189,12 @@ export default function Registration3() {
               </div>
 
               <div className="form-group">
-                <input type="checkbox" className="mr-2" required/>
+                <input type="checkbox" className="mr-2" required />
                 <label className="pb-1">I agree to the Data Privacy</label>
               </div>
 
               <div className="form-group">
-                <input type="checkbox" className="mr-2" required/>
+                <input type="checkbox" className="mr-2" required />
                 <label className="pb-2">I agree to the Terms & Conditions.</label>
               </div>
             </div>
@@ -180,47 +202,66 @@ export default function Registration3() {
               Register
             </button>
           </form>
-        </div>
-      </div>
 
-      {/* Senior Citizen Modal */}
-      {isSeniorModalOpen && (
-        <div className="modal">
-          <div className="modal-content d-block pt-4">
+
+          </div>
+        </div>
+
+
+
+          {/* Confirmation Modal */}
+          {isConfirmationModalOpen && (
+            <div className="modal">
+              <div className="modal-content">
+                <h4>Confirm Submission</h4>
+                <p>Are you sure you want to submit the form?</p>
+                <button onClick={collectDataRegistration2}>Confirm</button>
+                <button onClick={() => setIsConfirmationModalOpen(false)}>
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
+
+
+ {/* Senior Citizen Modal */}
+ {isSeniorModalOpen && (
+        <div className={registerModal.modal}>
+          <div className={registerModal.modalContentSenior}>
             <span className="close" onClick={closeSeniorModal}>
               &times;
             </span>
             <h2>Senior Application Form</h2>
-            <form onSubmit={collectDataRegistration2}>
+            <form onSubmit={collectDataRegistration2} className="spacing">
 
             <div className="d-flex mt-5">  
 
              <div className="d-block">  
                 <div className="form-group d-flex">
-                  <input type="text" className="form-control mr-4" 
-                        placeholder="Enter Family Name" id="familyName" name="lastname" 
-                        value={initialData.lastname}
-                        onChange={handleChange}/>
-                  <input type="text" className="form-control" placeholder="Enter First Name"
-                        id="firstName" name="firstname" 
-                        value={initialData.firstname}
-                        onChange={handleChange}
+                <input type="text" className="form-control mr-4" 
+                      placeholder="Enter Family Name" id="familyName" name="lastname" 
+                      value={initialData.lastname}
+                      onChange={handleChange}/>
+                <input type="text" className="form-control" placeholder="Enter First Name"
+                      id="firstName" name="firstname" 
+                      value={initialData.firstname}
+                      onChange={handleChange}
                       required />
-              </div>
+                </div>
 
                 <div className="form-group d-flex mt-4">
-                  <select
-                      id="barangay"
-                      name="barangayId" // The field that will update barangayId in initialData
-                      className="form-control select-input"
-                      value={initialData.barangayId}
-                      onChange={handleChange}
-                      required>
-                      <option value="">-- Select Barangay --</option>
-                      <option value="1">Pasil</option>
-                      <option value="2">Minglanilla</option>
-                      <option value="3">Talisay</option>
-                      </select>
+                <select
+                    id="barangay"
+                    name="barangayId" // The field that will update barangayId in initialData
+                    className="form-control select-input"
+                    value={initialData.barangayId}
+                    onChange={handleChange}
+                    required>
+                    <option value="">-- Select Barangay --</option>
+                    <option value="1">Pasil</option>
+                    <option value="2">Minglanilla</option>
+                    <option value="3">Talisay</option>
+                    </select>
 
                     <input type="text" className="form-control ml-3" placeholder="Enter Street"
                       id="street" name="street" 
@@ -252,28 +293,34 @@ export default function Registration3() {
                 </div>
               </div> 
 
+
+
+
+
+
               <div className="d-block ml-5">  
 
                 <div className="form-group sex-checkBox-container mb-4">
                     <label>Sex: </label>
-                    
                     <div className="d-flex ml-5">
-                      <input type="radio" name="gender" className="mr-2" id="male"
-                          value="male" // Corrected to set a specific value
-                          onChange={handleChange}
-                          required/>
+                    <input type="radio" name="gender" className="mr-2" id="male"
+                        value="male" // Corrected to set a specific value
+                        onChange={handleChange}
+                        required/>
                         <label htmlFor="male">Male</label>
                     </div>
 
                     <div className="d-flex ml-5">
-                      <input type="radio" name="gender" className="mr-2" id="female" 
-                          value="female" // Corrected to set a specific value
-                          onChange={handleChange}
-                          required/>
-                          <label htmlFor="female">Female</label>
+                    <input type="radio" name="gender" className="mr-2" id="female" 
+                        value="female" // Corrected to set a specific value
+                        onChange={handleChange}
+                        required/>
+                        <label htmlFor="female">Female</label>
                     </div>
 
-       
+                
+
+                    </div>
 
 
                     <div className="form-group d-block">
@@ -286,7 +333,7 @@ export default function Registration3() {
                 </div> 
             </div> 
 
-            <div className="d-flex mb-3 mt-3 ml-3"> 
+            <div className="d-flex mb-5 mt-3 "> 
                 <label className="mr-4">Civil status:</label>
                 <input type="radio" name="civilStatus" value="single" className="mr-2" id="single" required/>
                 <label className="mr-3">Single</label>
@@ -299,7 +346,7 @@ export default function Registration3() {
             </div> 
 
 
-            <div className="d-flex mb-3 mt-3 ml-2"> 
+            <div className="d-flex mb-5 mt-3"> 
                 <label className="mr-3">Health status:</label>
                 <input type="radio" name="healthStatus" value="physicallyFit" className="mr-2" id="physicallyFit" required/>
                 <label className="mr-3">Physically fit</label>
@@ -312,8 +359,8 @@ export default function Registration3() {
             </div> 
  
 
-            <div className="d-flex mb-3 mt-4 ml-2"> 
-                <label className="mr-3">Are you taking medicines/maintenance as prescribed by a doctor?</label>
+            <div className="d-block mb-3 mt-4"> 
+                <label className="mr-3 mb-3">Are you taking medicines/maintenance as prescribed by a doctor?</label>
 
                 <input type="radio" name="medsTaken" value="medsYes" className="mr-2" id="medsYes" required/>
                 <label className="mr-3">YES</label>
@@ -322,10 +369,10 @@ export default function Registration3() {
             </div>
 
             <div className="sex-checkBox-container mb-3 mt-4 ml-2"> 
-              <label className="mr-3 mb-1">If yes, please write the prescribed medicine/s</label>
-              <textarea id="prescribeMed" name="prescribeMed" rows="4" cols="50" required>
-            
-              </textarea>
+            <label className="mr-3 mb-1">If yes, please write the prescribed medicine/s</label>
+            <textarea id="prescribeMed" name="prescribeMed" rows="4" cols="50" className="form-control" required>
+           
+            </textarea>
             </div>
 
             <div className="sex-checkBox-container mb-3 mt-4 ml-2"> 
@@ -339,31 +386,18 @@ export default function Registration3() {
               <div className="d-flex justify-content-center">
               <input type="submit" className="btn btn-login buttonSeniorSize" value="Submit" />
               </div>
-              </div>
+
             </form>
           </div>
         </div>
-        
       )}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-      {/* Caregiver Modal */}
-      {isCaregiverModalOpen && (
-        <div className="modal">
-          <div className="modal-content d-block pt-4">
+        {/* Caregiver Modal */}
+        {isCaregiverModalOpen && (
+        <div className={registerModal.modal}>
+          <div className={registerModal.modalContent}>
           <span className="close" onClick={closeCaregiverModal}>
               &times;
             </span>
@@ -466,6 +500,8 @@ export default function Registration3() {
 
             </div> 
 
+
+
               {/* Add more fields as necessary */}
               <div className="d-flex justify-content-center">
               <input type="submit" className="btn btn-login buttonSeniorSize" value="Submit" />
@@ -480,6 +516,7 @@ export default function Registration3() {
           </div>
         </div>
       )}
-    </div>
-  );
+        
+      </div>
+    );
 }
