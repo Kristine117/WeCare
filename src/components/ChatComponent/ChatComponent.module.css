@@ -1,0 +1,43 @@
+.iconPlane,
+.iconImage,
+.iconPlus {
+  fill: #678990;
+  height: 2rem;
+  width: 2rem;
+}
+
+.iconPlus {
+  border: 0.25rem solid #678990;
+  border-radius: 50%;
+  font-weight: 50;
+  font-size: 0.5rem;
+}
+
+.footer {
+  gap: 1rem;
+  width: 100%;
+  display: flex;
+}
+.messageBox {
+  max-width: 60%;
+}
+
+.message {
+  height: 90vh;
+  overflow-y: scroll;
+  width: 100%;
+  padding: 5rem;
+}
+
+.textBoxSender {
+  background-color: #98cabe;
+}
+
+.textBoxReceiver {
+  background-color: #d9d9d9;
+  color: #678990;
+}
+
+.time {
+  color: #678990;
+}
