@@ -6,7 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import InputEmoji from "react-input-emoji";
 
 import UserContext from "../../UserContext";
-import { FaImage, FaPaperPlane } from 'react-icons/fa'; 
+import { FaImage, FaPaperPlane , FaPlus,FaDownload} from 'react-icons/fa'; 
+import style from "./ChatComponent.module.css"
 
 const socket = io(`${process.env.REACT_APP_API_URL}`);
 const apiUrl =`${process.env.REACT_APP_API_URL}`;
@@ -16,7 +17,7 @@ const ChatComponent = ({recipientId}) => {
     const [messages, setMessages] = useState([]);
     const [messageContent, setMessageContent] = useState('');
     const [file, setFile] = useState(null);
-    const [selectedImage, setSelectedImage] = useState(null); // State to store clicked image URL
+    const [selectedImage, setSelectedImage] = useState(""); // State to store clicked image URL
     const [isModalOpen, setModalOpen] = useState(false); // State to toggle modal
     const messagesEndRef = useRef(null);
     const senderId = user.id;
@@ -121,9 +122,22 @@ const ChatComponent = ({recipientId}) => {
         }
     };
     const handleImageClick = (imageUrl) => {
-        setSelectedImage(imageUrl); // Set the clicked image
+        setSelectedImage(imageUrl); // Set the clicked image for display
         setModalOpen(true); // Open the modal
+         // Set the message content (for downloading)
     };
+    const downloadImage = (imageUrl) => {
+        fetch(imageUrl)
+            .then(response => response.blob())
+            .then(blob => {
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = imageUrl.split('/').pop();
+                link.click();
+            })
+            .catch(error => console.error('Download failed', error));
+    };
+    
     const handleCloseModal = () => {
         setModalOpen(false); // Close the modal
         setSelectedImage(null); // Reset selected image
@@ -147,6 +161,10 @@ const ChatComponent = ({recipientId}) => {
         // Return formatted time with AM/PM
         return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}  ${period}`;
     }
+     // Helper function to extract filename from file path
+     const extractFilename = (filePath) => {
+        return filePath.split('/').pop();
+    };
     
     return  (
         <div className="container-fluid">
@@ -156,54 +174,58 @@ const ChatComponent = ({recipientId}) => {
                 <div className="col-12 col-md-8 col-lg-6 w-100">
                     <div className=" w-100">
                     
-                        <div className=" w-100" style={{ height: '45rem', overflowY: 'scroll' }}>
+                    <div className={style.message}>
                             {messages.map((msg, index) => {
                                 const isForReceiver = msg.isForReceiver;
                                 const isTextMessage = msg.contentType === 'text';
+                                const isFileMessage = msg.contentType === 'file';
+                                const isPicture = msg.contentType === 'picture';
+                            
                                 const formattedTime = convertTime(msg.time);
+
                                 return (
                                     <div key={index} className={`mb-2 d-flex ${isForReceiver ? 'justify-content-start' : 'justify-content-end'}`}>
-                                      <div>
-                                      <div>{formattedTime}</div>
-                                        <div className={`p-2 rounded ${!isForReceiver && isTextMessage ? 'bg-primary text-white' : ' bg-light text-dark'}`}>
-                                            {msg.contentType === 'picture' 
-                                                ? <img src={`${apiUrl}${msg.messageContent}`} 
-                                                       alt="uploaded" 
-                                                       className="img-fluid" 
-                                                       style={{ maxWidth: '200px', cursor: 'pointer' }} 
-                                                       onClick={() => handleImageClick(`${apiUrl}${msg.messageContent}`)} // Click to open modal
-                                                />
-                                                : msg.messageContent}
+                                        <div className={style.messageBox}>
+                                            <div className={style.time}>{formattedTime}</div>
+                                            <div className={`p-2 rounded ${!isPicture ? (!isForReceiver && (isTextMessage || isFileMessage) ? `${style.textBoxSender} text-white` : `${style.textBoxReceiver}`) : ''}`}>
+
+                                                {msg.contentType === 'picture' ? (
+                                                    <img
+                                                        src={`${apiUrl}${msg.messageContent}`}
+                                                        alt="uploaded"
+                                                        className="img-fluid"
+                                                        style={{ maxWidth: '200px', cursor: 'pointer' }}
+                                                        onClick={() => handleImageClick(`${apiUrl}${msg.messageContent}`)} // Click to open modal
+                                                    />
+                                                ) : isFileMessage ? (
+                                                    // If it's a file, show a link to download it
+                                                    <a className={`${!isForReceiver}`} href={`${apiUrl}${msg.messageContent}`} download>
+                                                    {extractFilename(msg.messageContent)} {/* Use extractFilename to get the filename */}
+                                                </a>
+                                                ) : (
+                                                    msg.messageContent // Default for text messages
+                                                )}
+                                            </div>
                                         </div>
-                                      </div>
                                     </div>
                                 );
                             })}
                             <div ref={messagesEndRef} />
                         </div>
-                        <div className=" d-flex card-footer w-100">
-                            {/* <div className="input-group">
-                                <input 
-                                    type="text" 
-                                    value={messageContent} 
-                                    onChange={(e) => setMessageContent(e.target.value)} 
-                                    placeholder="Type a message"
-                                    className="form-control"
-                                />
-                                {messageContent.trim() && (
-                                    <button className="btn btn-primary" onClick={sendMessage}>Send</button>
-                                )}
-                            </div> */}
+
+                        <div className={style.footer}>
+                         
                             <InputEmoji
                                 value={messageContent}
                                 onChange={(val) => setMessageContent(val)} // onChange provides the new value directly
                                 onKeyDown={sendMessageOnEnter}
                                 cleanOnEnter
                                 placeholder="Type a message"
+                                className={style.messageInput}
                             />
                             {messageContent.trim() && (
                                 <button className="btn " onClick={sendMessage}>
-                                 <FaPaperPlane size={20} />
+                                 <FaPaperPlane size={20} className={style.iconPlane}  />
                                 </button>
                             )}
                             <div className="mt-2 d-flex p-2 align-items-center"> 
@@ -221,30 +243,61 @@ const ChatComponent = ({recipientId}) => {
                                     }}
                                   
                                 />
-                                <label htmlFor="fileInput" className="btn btn-light">
-                                    <FaImage size={40} color="#000" />
+                                <label htmlFor="fileInput" >
+                                    <FaImage  className={style.iconImage} />
                                 </label>
 
                                 {file && file.length > 0 && (
-                                    <button className="btn btn-secondary mt-2 mx-auto" onClick={handleFileUpload}>Upload</button>
+                                    <button className=" mt-2 mx-auto" onClick={handleFileUpload}>Upload</button>
                                 )}
+                                 <input 
+                                    type="file" 
+                                    className="d-none" 
+                                    id="fileInputPlus"
+                                    accept=".xls,.xlsx,.doc,.docx,.pdf"
+                                    onChange={(e) => setFile(e.target.files)} 
+                                />
+                                <label htmlFor="fileInputPlus" >
+                                    <FaPlus className={style.iconPlus} />
+                                </label>
                             </div>                    
                         </div>
                     </div>
                 </div>
             </div>
             {/* Modal for showing enlarged image */}
+          
+
             {isModalOpen && (
-                <div className="modal show d-block" tabIndex="-1" role="dialog" onClick={handleCloseModal} style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}>
-                    <div className="modal-dialog modal-dialog-centered" role="document">
+                <div
+                    className="modal show d-block"
+                    tabIndex="-1"
+                    role="dialog"
+                    onClick={handleCloseModal}
+                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
+                >
+                    <div className=" modal-dialog-centered" role="document">
                         <div className="modal-content">
+                            <div className="modal-header">
+                                <button type="button" className="btn-close" aria-label="Close" onClick={handleCloseModal}></button>
+                                <button onClick={() => downloadImage(`${selectedImage}`)}>
+                                    <FaDownload size={24} /> {/* React Icons Download Icon */}
+                                </button>
+                            </div>
                             <div className="modal-body">
-                                <img src={selectedImage} alt="Enlarged" className="img-fluid" style={{ maxWidth: '100%' }} />
+                            <img
+                                src={selectedImage} 
+                                alt="Enlarged"
+                                className="img-fluid"
+                                style={{ maxWidth: '800px', maxHeight: '600px', width: '100%' }} // Max size constraints
+                                />
                             </div>
                         </div>
                     </div>
                 </div>
             )}
+
+
         </div>
     );
 };
