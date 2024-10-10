@@ -1,0 +1,140 @@
+.profile-section {
+  display: flex;
+  gap: 1rem;
+  color: #678990;
+  margin: 0.5rem;
+  cursor: pointer;
+}
+
+.piture-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profile-image {
+  height: 10rem;
+  width: 10rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-name {
+  font-size: 2rem;
+}
+
+.rating-star {
+  color: #edc04e;
+}
+.message-section {
+  display: flex;
+}
+.message-container {
+  border: solid 2px #678990;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.arrow-icon {
+  margin: 0rem;
+}
+
+.arrow {
+  font-size: 4rem;
+}
+
+/* Modal overlay (hidden by default) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  width: 40rem;
+  height: 20rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.modal-body {
+  padding: 1rem;
+}
+
+.modal-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.button {
+  padding: 8px 16px;
+  background-color: #678990;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #678990;
+}
+
+.profile-name-modal {
+  font-size: 2rem;
+  display: flex;
+  font-weight: bold;
+}
+
+.profile-exp {
+  display: flex;
+  gap: 1rem;
+}
+.profile-address {
+  display: flex;
+  gap: 1rem;
+}
+.profile-rate {
+  display: flex;
+  gap: 1rem;
+}
+
+.profile-section-modal {
+  display: flex;
+  gap: 1rem;
+  color: #678990;
+  margin: 0.5rem;
+  cursor: pointer;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.piture-section-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-image-modal {
+  height: 10rem;
+  width: 10rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.message-section-modal {
+  display: flex;
+}
+.message-container-modal {
+  padding: 1rem;
+  width: 20rem;
+}
