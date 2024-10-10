@@ -133,6 +133,19 @@ const ChatComponent = ({recipientId}) => {
             e.preventDefault(); // Prevents the default action of adding a newline
         }
     };
+    const convertTime = (time) =>{
+        // Split the time into components (hours, minutes, seconds)
+        let [hours, minutes, seconds] = time.split(':').map(Number);
+
+        // Determine AM or PM
+        let period = hours >= 12 ? 'PM' : 'AM';
+
+        // Convert hours from 24-hour format to 12-hour format
+        hours = hours % 12 || 12;
+
+        // Return formatted time with AM/PM
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}  ${period}`;
+    }
     
     return  (
         <div className="container-fluid">
@@ -142,13 +155,15 @@ const ChatComponent = ({recipientId}) => {
                 <div className="col-12 col-md-8 col-lg-6 w-100">
                     <div className=" w-100">
                     
-                        <div className=" w-100" style={{ height: '400px', overflowY: 'scroll' }}>
+                        <div className=" w-100" style={{ height: '45rem', overflowY: 'scroll' }}>
                             {messages.map((msg, index) => {
                                 const isForReceiver = msg.isForReceiver;
                                 const isTextMessage = msg.contentType === 'text';
+                                const formattedTime = convertTime(msg.time);
                                 return (
                                     <div key={index} className={`mb-2 d-flex ${isForReceiver ? 'justify-content-start' : 'justify-content-end'}`}>
-                                       <div>{msg.time}</div>
+                                      <div>
+                                      <div>{formattedTime}</div>
                                         <div className={`p-2 rounded ${!isForReceiver && isTextMessage ? 'bg-primary text-white' : ' bg-light text-dark'}`}>
                                             {msg.contentType === 'picture' 
                                                 ? <img src={`${apiUrl}${msg.messageContent}`} 
@@ -159,6 +174,7 @@ const ChatComponent = ({recipientId}) => {
                                                 />
                                                 : msg.messageContent}
                                         </div>
+                                      </div>
                                     </div>
                                 );
                             })}
