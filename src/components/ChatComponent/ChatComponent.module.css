@@ -17,6 +17,7 @@
   gap: 1rem;
   width: 100%;
   display: flex;
+  justify-content: space-evenly;
 }
 .messageBox {
   max-width: 60%;
@@ -40,4 +41,8 @@
 
 .time {
   color: #678990;
+}
+
+.messageInput {
+  width: 60%;
 }

@@ -20,7 +20,7 @@ const ChatComponent = ({recipientId}) => {
     const [isModalOpen, setModalOpen] = useState(false); // State to toggle modal
     const messagesEndRef = useRef(null);
     const senderId = user.id;
-    console.log(senderId);
+   
    
     // Scroll to the bottom of the chat when new messages arrive
     const scrollToBottom = () => {
@@ -30,9 +30,7 @@ const ChatComponent = ({recipientId}) => {
     };
     useEffect(() => {
         const fetchMessages = async () => {
-            console.log("Something something");
-            console.log(recipientId);
-            console.log(senderId)
+          
             const response = await axios.get(`${apiUrl}/chat`,{
                 headers:{
                     chatIds:JSON.stringify({
@@ -44,8 +42,7 @@ const ChatComponent = ({recipientId}) => {
         
             setMessages(response.data?.messages);
             scrollToBottom(); // Scroll to bottom after fetching
-             console.log("this is from fetching"+ response.data?.messages)
-            console.log(response.data?.messages)
+          
         };
 
         fetchMessages(); // Initial fetch on mount
@@ -167,8 +164,7 @@ const ChatComponent = ({recipientId}) => {
     
     return  (
         <div className="container-fluid">
-        {  console.log(senderId)}
-       { console.log(recipientId)}
+      
             <div className="row justify-content-center">
                 <div className="col-12 col-md-8 col-lg-6 w-100">
                     <div className=" w-100">
@@ -193,7 +189,7 @@ const ChatComponent = ({recipientId}) => {
                                                         src={`${apiUrl}${msg.messageContent}`}
                                                         alt="uploaded"
                                                         className="img-fluid"
-                                                        style={{ maxWidth: '200px', cursor: 'pointer' }}
+                                                        style={{ maxWidth: '35rem', cursor: 'pointer' }}
                                                         onClick={() => handleImageClick(`${apiUrl}${msg.messageContent}`)} // Click to open modal
                                                     />
                                                 ) : isFileMessage ? (
@@ -214,19 +210,8 @@ const ChatComponent = ({recipientId}) => {
 
                         <div className={style.footer}>
                          
-                            <InputEmoji
-                                value={messageContent}
-                                onChange={(val) => setMessageContent(val)} // onChange provides the new value directly
-                                onKeyDown={sendMessageOnEnter}
-                                cleanOnEnter
-                                placeholder="Type a message"
-                                className={style.messageInput}
-                            />
-                            {messageContent.trim() && (
-                                <button className="btn " onClick={sendMessage}>
-                                 <FaPaperPlane size={20} className={style.iconPlane}  />
-                                </button>
-                            )}
+                         
+                           
                             <div className="mt-2 d-flex p-2 align-items-center"> 
                                 <input 
                                     type="file" 
@@ -235,20 +220,13 @@ const ChatComponent = ({recipientId}) => {
                                     multiple 
                                      accept="image/*"
                                     onChange={(e) => setFile(e.target.files)} 
-                                    onKeyDown={(e) => {
-                                        if(e.key === "Enter"){
-                                            console.log("you ave enter")
-                                        }
-                                    }}
+                                  
                                   
                                 />
                                 <label htmlFor="fileInput" >
                                     <FaImage  className={style.iconImage} />
                                 </label>
 
-                                {file && file.length > 0 && (
-                                    <button className=" mt-2 mx-auto" onClick={handleFileUpload}>Upload</button>
-                                )}
                                  <input 
                                     type="file" 
                                     className="d-none" 
@@ -259,7 +237,30 @@ const ChatComponent = ({recipientId}) => {
                                 <label htmlFor="fileInputPlus" >
                                     <FaPlus className={style.iconPlus} />
                                 </label>
-                            </div>                    
+                            </div>  
+                            <div  className={style.messageInput}>
+                                <InputEmoji
+                                    value={messageContent}
+                                    onChange={(val) => setMessageContent(val)} // onChange provides the new value directly
+                                    onKeyDown={sendMessageOnEnter}
+                                    cleanOnEnter
+                                    placeholder="Type a message"
+                                 
+                                /> 
+                            </div>
+                            <div>
+                            {messageContent.trim() && (
+                                <button className="btn " onClick={sendMessage}>
+                                 <FaPaperPlane size={20} className={style.iconPlane}  />
+                                </button>
+                            )}
+                            
+                            {file && file.length > 0 && (
+                                <button className=" mt-2 mx-auto" onClick={handleFileUpload}>
+                                 <FaPaperPlane size={20} className={style.iconPlane}  />
+                                </button>
+                            )}
+                            </div>             
                         </div>
                     </div>
                 </div>
@@ -275,7 +276,7 @@ const ChatComponent = ({recipientId}) => {
                     onClick={handleCloseModal}
                     style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
                 >
-                    <div className=" modal-dialog-centered" role="document">
+                    <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
                                 <button type="button" className="btn-close" aria-label="Close" onClick={handleCloseModal}></button>
