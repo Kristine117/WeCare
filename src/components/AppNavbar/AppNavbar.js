@@ -15,23 +15,23 @@ export default function AppNavbar() {
             width="100px"
             height="auto"
           />
-          <h1 className="font-weight-bold font-white">WeCare</h1>
+          <h3 className="font-weight-bold font-white">WeCare</h3>
         </div>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="ml-auto">
+        <Nav className="ml-auto pr-5">
           <Nav.Link as={NavLink} to="/about">
-            <h5 className="font-white">About Us</h5>
+            <p className="font-white pr-4">About Us</p>
           </Nav.Link>
           <Nav.Link as={NavLink} to="/find-care">
-            <h5 className="font-white">Find Care</h5>
+            <p className="font-white pr-4">Find Care</p>
           </Nav.Link>
           <Nav.Link as={NavLink} to="/services">
-            <h5 className="font-white">Services</h5>
+            <p className="font-white pr-4">Services</p>
           </Nav.Link>
           <Nav.Link as={NavLink} to="/login">
-            <h5 className="font-white">Sign In</h5>
+            <p className="font-white">Sign In</p>
           </Nav.Link>
         </Nav>  
       </Navbar.Collapse>
