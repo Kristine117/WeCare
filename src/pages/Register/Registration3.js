@@ -1,15 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import registerModal from "./Register.module.css";
+import ProfileUpload from '../../components/ProfileUpload';
 
 export default function Registration3() {
     const navigate = useNavigate();
 
     // Retrieve and parse the initialData from localStorage
-    const storedInitialData = JSON.parse(localStorage.getItem("initialData"));
+    let storedInitialData = JSON.parse(localStorage.getItem("initialData"));
+
     // Extract email and password from the parsed object
-    const storedEmail = storedInitialData ? storedInitialData.email : "";
-    const storedPassword = storedInitialData ? storedInitialData.password : "";
+    let storedEmail = storedInitialData ? storedInitialData.email : "";
+    let storedPassword = storedInitialData ? storedInitialData.password : "";
   
     const [barangays, setBarangays] = useState([]);
     const [experiences, setExperiences] = useState([]);
@@ -17,20 +19,24 @@ export default function Registration3() {
     const [isSeniorModalOpen, setIsSeniorModalOpen] = useState(false);
     const [isCaregiverModalOpen, setIsCaregiverModalOpen] = useState(false);
     const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false); // State for confirmation modal
+    const [formCompletedSenior, setFormCompletedSenior] = useState(false);  
+    const [formCompletedGiver, setFormCompletedGiver] = useState(false);
+
   
     // Initialize initialData without Redux state
     const [initialData, setInitialData] = useState({
-      firstname: "",
       lastname: "",
-      gender: "",
-      contactNumber: "",
-      birthDate: "",
+      firstname: "",
+      email: "",  
       userType: "",
-      barangayId: "",
-      experienceId: "",
       street: "",
-      email: "",        
-      password: ""     
+      barangayId: "",
+      contactNumber: "",
+      gender: "", 
+      birthDate: "",
+      experienceId: "",
+      password: "",
+      profileImage: ""
     });
 
 
@@ -167,26 +173,26 @@ export default function Registration3() {
       .catch(error => {
         console.error("Error:", error);
       });
-      // Close the modal after successful submission
-      if (activeForm === 'senior') {
-        setIsSeniorModalOpen(false);
-      } else if (activeForm === 'caregiver') {
-        setIsCaregiverModalOpen(false);
-      }
     };
 
-    // Handle form submission
     const collectDataRegistration2 = (e) => {
       e.preventDefault();
-
-      console.log(initialData)
       setIsSeniorModalOpen(false);
       setIsCaregiverModalOpen(false);
-    };
+    
+      // Assuming form submission here...
+      if(activeForm === 'senior'){
+        setFormCompletedSenior(true);
+        setFormCompletedGiver(false);
+      } else if (activeForm === 'caregiver') {
+        setFormCompletedGiver(true);
+        setFormCompletedSenior(false);
+      }
 
-    useEffect(() => {
-      setActiveForm(activeForm); // This will ensure the buttons are re-calculated when the form is filled.
-    }, [initialData]);
+      console.log(initialData)
+    };
+    
+
   
     // Handle changes in form input fields
     const handleChange = (e) => {
@@ -196,18 +202,22 @@ export default function Registration3() {
         [name]: value,
       }));
     };
+
+    const handleFileSelect = (base64String) => {
+      setInitialData((prevData) => ({
+        ...prevData,
+        profileImage: base64String, // Store the base64 string of the image
+      }));
+    };
     
   
-    const seniorButtonClass = isSeniorFormComplete() 
-    ? `${registerModal.complete} ${registerModal["square-place-holder"]}` 
+    const seniorButtonClass = isSeniorFormComplete() || formCompletedSenior
+    ? `${registerModal.complete} ${registerModal["square-place-holder"]}`
     : `${registerModal["square-place-holder"]}`;
   
-  const caregiverButtonClass = isCaregiverFormComplete() 
-    ? `${registerModal.complete} ${registerModal["square-place-holder"]}` 
-    : `${registerModal["square-place-holder"]}`;
-  
-    
-    
+  const caregiverButtonClass = isCaregiverFormComplete() || formCompletedGiver
+    ? `${registerModal.complete} ${registerModal["square-place-holder"]}`
+    : `${registerModal["square-place-holder"]}`;  
 
     return (
       <div className="background1">
@@ -230,9 +240,9 @@ export default function Registration3() {
               <div className="d-flex justify-content-center">
                 {/* Senior button */}
                 <div
-                  className={`${seniorButtonClass} button-hover-effect p-2 m-2 d-flex flex-column align-items-center`}
-                  onClick={openSeniorModal}
-                >
+                    className={`${seniorButtonClass} button-hover-effect p-2 m-2 d-flex flex-column align-items-center`}
+                    onClick={openSeniorModal}
+                  >
                   <span className="material-symbols-outlined icon-custom">
                     elderly
                   </span>
@@ -241,9 +251,9 @@ export default function Registration3() {
 
                 {/* Caregiver button */}
                 <div
-                  className={`${caregiverButtonClass} button-hover-effect p-2 m-2 d-flex flex-column align-items-center`}
-                  onClick={openCaregiverModal}
-                >
+                    className={`${caregiverButtonClass} button-hover-effect p-2 m-2 d-flex flex-column align-items-center`}
+                    onClick={openCaregiverModal}
+                  >
                   <span className="material-symbols-outlined icon-custom">
                     person_apron
                   </span>
@@ -459,7 +469,10 @@ export default function Registration3() {
             <label className="mr-3"> Authorized representative     (Leave Blank if None)</label>
             <input type="submit" className="btn btn-login buttonSeniorSize" value="Add Person" required/>
             </div>
-
+            
+            <div className="form-group d-block mt-4">
+                <ProfileUpload onFileSelect={handleFileSelect} />
+            </div>
 
  
               {/* Add more fields as necessary */}
@@ -574,7 +587,7 @@ export default function Registration3() {
               />
                       
 
-<select
+                  <select
                     id="experience"
                     name="experienceId"
                     className="form-control select-input"
@@ -591,6 +604,12 @@ export default function Registration3() {
                     ))}
                   </select>
                 </div>
+
+                <div className="form-group d-block mt-4">
+                    <ProfileUpload onFileSelect={handleFileSelect} />
+                </div>
+
+                
 
               </div> 
 
