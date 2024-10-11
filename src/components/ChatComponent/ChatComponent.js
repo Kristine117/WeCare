@@ -21,7 +21,6 @@ const ChatComponent = ({recipientId}) => {
     const [isModalOpen, setModalOpen] = useState(false); // State to toggle modal
     const messagesEndRef = useRef(null);
     const senderId = user.id;
-    console.log(senderId);
    
     // Scroll to the bottom of the chat when new messages arrive
     const scrollToBottom = () => {
