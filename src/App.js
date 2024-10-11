@@ -20,6 +20,7 @@ import AppNavbar from "./components/AppNavbar/AppNavbar";
 import Chat from "./pages/Chat/Chat";
 import ChatList from "./pages/ChatList/ChatList";
 import Error from "./pages/Error/Error";
+import Kwan from "./pages/Kwan";
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -57,7 +58,7 @@ function App() {
       .then((data) => {
         // if there is data passed go to if and if there is non else
         if (data.auth !== "Failed") {
-          console.log(data);
+       
           // the passed id will be set in the setUser asand will be set globally carried in line 21 const [user, setUser] = useState and so on
           setUser({
             id: data.data.userId,
@@ -80,7 +81,7 @@ function App() {
           });
         }
       });
-    console.log(localStorage);
+
   }, []);
 
   return (
@@ -93,12 +94,12 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/registration1" element={<Registration1 />} />
           <Route path="/registration3" element={<Registration3 />} />
-          <Route path="/dashboard-main" element={<DashBoard/>} />
-        
+          <Route path="/dashboard-main" element={<DashBoard/>} />    
            <Route path="/chatlist" element={<ChatList />} />
           <Route path="/chat/:senderId/:receiverId" element={<Chat/>} />
           <Route path="/logout" element={<Logout />} />
           <Route path="*" errorElement={<Error/>}/>
+          <Route path="/kwan" element={<Kwan/>}/>
         </Routes>
       </Router>
     </UserProvider>
