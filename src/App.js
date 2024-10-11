@@ -1,9 +1,8 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import Logout from "./pages/Logout/Logout";
-import Home from "./pages/Home/Home";
+import HomeContainer from "./pages/Home/Home"
 import Registration1 from "./pages/Register/Registration1";
-import Home2 from "./pages/Home2";
 // import Registration2 from "./pages/Registration2";
 import Registration3 from "./pages/Register/Registration3";
 // import DashBoardSenior from "./pages/DashBoardSenior";
@@ -11,8 +10,6 @@ import Registration3 from "./pages/Register/Registration3";
 // import DashBoardSeniorMessage from "./pages/DashBoardSeniorMessage";
 // import DashBoardSeniorAppointment from "./pages/DashBoardSeniorAppointment";
 
-import DashBoardSenior from "./pages/Dashboard/DashBoardSenior";
-import DashBoardCareGiver from "./pages/Dashboard/DashBoardCareGiver";
 
 import { BrowserRouter as Router } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
@@ -92,8 +89,7 @@ function App() {
        {!user?.id &&  <AppNavbar />}
         <Routes>
           
-          <Route path="/" element={<Home />} />
-          <Route path="/welcome" element={<Home2 />} />
+          <Route path="/" element={<HomeContainer />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registration1" element={<Registration1 />} />
           <Route path="/registration3" element={<Registration3 />} />

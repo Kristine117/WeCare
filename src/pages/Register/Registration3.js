@@ -374,9 +374,9 @@ export default function Registration3() {
                 placeholder="Enter contact no."
                 id="contact"
                 name="contactNumber"
-                pattern="\d{12}"  
-                minLength="12"    
-                maxLength="12"    
+                pattern="\d{11}"  
+                minLength="11"    
+                maxLength="11"    
                 title="Contact number must be exactly 11 digits" 
                 required
               />
@@ -579,9 +579,9 @@ export default function Registration3() {
                 placeholder="Enter contact no."
                 id="contact"
                 name="contactNumber"
-                pattern="\d{12}"  
-                minLength="12"    
-                maxLength="12"    
+                pattern="\d{11}"  
+                minLength="11"    
+                maxLength="11"    
                 title="Contact number must be exactly 11 digits" 
                 required
               />
