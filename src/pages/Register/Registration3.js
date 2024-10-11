@@ -425,7 +425,7 @@ export default function Registration3() {
                 <input type="radio" name="civilStatus" value="window" className="mr-2" id="window" required/>
                 <label>widow/her</label>
             </div> 
-
+ 
 
             <div className="d-flex mb-5 mt-3"> 
                 <label className="mr-3">Health status:</label>
