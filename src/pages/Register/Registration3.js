@@ -7,7 +7,6 @@ export default function Registration3() {
 
     // Retrieve and parse the initialData from localStorage
     const storedInitialData = JSON.parse(localStorage.getItem("initialData"));
-
     // Extract email and password from the parsed object
     const storedEmail = storedInitialData ? storedInitialData.email : "";
     const storedPassword = storedInitialData ? storedInitialData.password : "";

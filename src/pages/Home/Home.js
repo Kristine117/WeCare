@@ -1,7 +1,9 @@
-export default function Home(){
+import React from "react"
+import homedesign from "./Home.module.css";
 
+export default function Home(){
     return (
-        <>
+        <React.Fragment>
         <div className="backgroundHome display-none-smartphone">
             <div className='container'>
                 <div className="row">
@@ -31,9 +33,6 @@ export default function Home(){
 
                             </div>
 
-
-
-                            
                         </div>
                     </div>
 
@@ -60,6 +59,6 @@ export default function Home(){
 
                         <button type="submit" className="btn btn-login smart-phone-btn-size d-flex align-items-center justify-content-center ">Get Started</button>
             </div>
-            </>
+            </React.Fragment>
     )
 }
