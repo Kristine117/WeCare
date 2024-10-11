@@ -1,0 +1,247 @@
+[33mcommit 12f6b8da6e7fe642f8afe570060829c7a174fa79[m[33m ([m[1;36mHEAD -> [m[1;32malier[m[33m, [m[1;32mmain[m[33m)[m
+Author: AlierT <tetsu.kala@gmail.com>
+Date:   Thu Oct 10 09:19:19 2024 +0800
+
+    pushing on the changes on the registration
+
+[33mcommit eaf1e1046acc18c14fad241ac94209ab6389c74a[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 2935c8a 286c384
+Author: Karl James Arboiz <dickensallinone@gmail.com>
+Date:   Wed Oct 9 07:12:25 2024 +0000
+
+    Merge branch 'glaze.exclamador' into 'main'
+    
+    chat is added
+    
+    See merge request collab-new/subgroup-1/frontend-collab!12
+
+[33mcommit 286c384c8a8f3fee359ec5c7e1ab25abaa335bd4[m[33m ([m[1;31morigin/glaze.exclamador[m[33m)[m
+Author: gexclamador <glaze.exclamador@gmail.com>
+Date:   Wed Oct 9 11:00:43 2024 +0800
+
+    chat is added
+
+[33mcommit 2935c8a57f5cd32c879cdd03d9578d6a50d68faf[m
+Merge: d4dc460 1ecee65
+Author: Karl James Arboiz <dickensallinone@gmail.com>
+Date:   Tue Oct 8 13:55:03 2024 +0000
+
+    Merge branch 'zye.abad' into 'main'
+    
+    added props drilled userId
+    
+    See merge request collab-new/subgroup-1/frontend-collab!11
+
+[33mcommit 1ecee658485f52bdbf18d143b68156097d953ddc[m[33m ([m[1;31morigin/zye.abad[m[33m)[m
+Author: Syvhell Abad Umila <syvhellabadumila@gmail.com>
+Date:   Tue Oct 8 21:22:06 2024 +0800
+
+    added props drilled userId
+
+[33mcommit d4dc46026394ef5d71ac96a80a66ac340956f974[m
+Merge: e1a6e0e 474f4f0
+Author: Karl James Arboiz <dickensallinone@gmail.com>
+Date:   Tue Oct 8 12:08:31 2024 +0000
+
+    Merge branch 'karl.arboiz' into 'main'
+    
+    Karl.arboiz
+    
+    See merge request collab-new/subgroup-1/frontend-collab!10
+
+[33mcommit 474f4f030cd16607ea14a59f5ea5f7d0f1674ecc[m[33m ([m[1;31morigin/karl.arboiz[m[33m)[m
+Author: unknown <dickensallinone@gmail.com>
+Date:   Tue Oct 8 20:08:07 2024 +0800
+
+    refine validation
+
+[33mcommit ebd80bbf66d7560cbd286b60e14fe5a6ea69436d[m
+Author: unknown <dickensallinone@gmail.com>
+Date:   Tue Oct 8 20:07:11 2024 +0800
+
+    refine validation
+
+[33mcommit e1a6e0ecaf479dadae4fd2c916f426fbe657c926[m
+Merge: 9c86682 ef17810
+Author: Karl James Arboiz <dickensallinone@gmail.com>
+Date:   Tue Oct 8 12:06:18 2024 +0000
+
+    Merge branch 'karl.arboiz' into 'main'
+    
+    Karl.arboiz
+    
+    See merge request collab-new/subgroup-1/frontend-collab!9
+
+[33mcommit ef1781013aebbe2f345be465ab0db1bdf3e7cd95[m
+Merge: c863311 9c86682
+Author: unknown <dickensallinone@gmail.com>
+Date:   Tue Oct 8 20:04:16 2024 +0800
+
+    refine validation
+
+[33mcommit c863311f306df803168a3807f22f7af390bcbeae[m
+Author: unknown <dickensallinone@gmail.com>
+Date:   Tue Oct 8 20:01:46 2024 +0800
+
+    refine validation
+
+[33mcommit 9c86682b911d99b6c7aaaebd7668d72891852aa8[m
+Merge: 72e7a86 a5df0ad
+Author: Karl James Arboiz <dickensallinone@gmail.com>
+Date:   Tue Oct 8 11:46:11 2024 +0000
+
+    Merge branch 'zye.abad' into 'main'
+    
+    added changes for navbar
+    
+    See merge request collab-new/subgroup-1/frontend-collab!8
+
+[33mcommit a5df0ade4318b27cec5514ba0e057ccf32eb63be[m
+Author: Syvhell Abad Umila <syvhellabadumila@gmail.com>
+Date:   Tue Oct 8 19:41:18 2024 +0800
+
+    added changes for navbar
+
+[33mcommit 72e7a86c8e0fc269e30354b310afd42a818b50f4[m
+Merge: 2ad1d01 dc7d995
+Author: Karl James Arboiz <dickensallinone@gmail.com>
+Date:   Tue Oct 8 11:09:45 2024 +0000
+
+    Merge branch 'zye.abad' into 'main'
+    
+    Zye.abad
+    
+    See merge request collab-new/subgroup-1/frontend-collab!7
+
+[33mcommit dc7d995530acdd865d2fcc15cd82fcbe31ba4395[m
+Author: Syvhell Abad Umila <syvhellabadumila@gmail.com>
+Date:   Tue Oct 8 19:08:05 2024 +0800
+
+    added changes
+
+[33mcommit 1c28a050cacfa875ddf2e0b107b2027abf1355cb[m
+Author: Syvhell Abad Umila <syvhellabadumila@gmail.com>
+Date:   Tue Oct 8 19:05:23 2024 +0800
+
+    chat list page
+
+[33mcommit 2ad1d01641cab446eec124bf12bbd7e2f7968cd3[m
+Merge: 33420b3 457e982
+Author: Karl James Arboiz <dickensallinone@gmail.com>
+Date:   Tue Oct 8 09:00:59 2024 +0000
+
+    Merge branch 'karl.arboiz' into 'main'
+    
+    add new pages and components for chat
+    
+    See merge request collab-new/subgroup-1/frontend-collab!6
+
+[33mcommit 457e98243a7b231d0add037467b39831782d67da[m
+Author: unknown <dickensallinone@gmail.com>
+Date:   Tue Oct 8 16:59:22 2024 +0800
+
+    add new pages and components for chat
+
+[33mcommit 33420b3bb2332ef102d75e8fde66a859ed6bbea7[m
+Merge: 8f43424 974d074
+Author: Karl James Arboiz <dickensallinone@gmail.com>
+Date:   Tue Oct 8 07:54:57 2024 +0000
+
+    Merge branch 'karl.arboiz' into 'main'
+    
+    fixing dashboard page and add new container for dashboard
+    
+    See merge request collab-new/subgroup-1/frontend-collab!5
+
+[33mcommit 974d0747af9a9c450517228c1e3cb7d0ecf8c200[m
+Author: unknown <dickensallinone@gmail.com>
+Date:   Tue Oct 8 15:53:51 2024 +0800
+
+    fixing dashboard page and add new container for dashboard
+
+[33mcommit 8f43424c0d31a7318e2fb9a8c0f9328a86411e06[m
+Merge: e6fca5d b4610aa
+Author: Karl James Arboiz <dickensallinone@gmail.com>
+Date:   Mon Oct 7 03:27:56 2024 +0000
+
+    Merge branch 'karl.arboiz' into 'main'
+    
+    fix login and registration processes and page and component set up
+    
+    See merge request collab-new/subgroup-1/frontend-collab!4
+
+[33mcommit b4610aa35ed3b384bb0ef4aa6369b34ccf3ff089[m
+Author: unknown <dickensallinone@gmail.com>
+Date:   Mon Oct 7 11:27:00 2024 +0800
+
+    fix login and registration processes and page and component set up
+
+[33mcommit e6fca5d77c9d85b819f11ea0dfdd0d8098014a40[m
+Merge: 716581d 9ae29e8
+Author: Karl James Arboiz <dickensallinone@gmail.com>
+Date:   Sun Oct 6 09:05:47 2024 +0000
+
+    Merge branch 'karl.arboiz' into 'main'
+    
+    initial changes with refactoring the front end code
+    
+    See merge request collab-new/subgroup-1/frontend-collab!3
+
+[33mcommit 9ae29e8293b98261e5e90e6f708b1e88df78e926[m
+Author: unknown <dickensallinone@gmail.com>
+Date:   Sun Oct 6 17:05:16 2024 +0800
+
+    initial changes with refactoring the front end code
+
+[33mcommit 716581d320b8259ee41ff294828369f36f472bf3[m
+Merge: bd15ebe 9f462aa
+Author: Karl James Arboiz <dickensallinone@gmail.com>
+Date:   Sun Oct 6 08:29:54 2024 +0000
+
+    Merge branch 'zye.abad' into 'main'
+    
+    hello boss karl
+    
+    See merge request collab-new/subgroup-1/frontend-collab!2
+
+[33mcommit 9f462aa728b56ca5191c62f932f3b6d5dd9267a4[m
+Author: Syvhell Abad Umila <syvhellabadumila@gmail.com>
+Date:   Sun Oct 6 16:22:30 2024 +0800
+
+    hello boss karl
+
+[33mcommit bd15ebed1f247a04f2d1d10e0882697474b41775[m
+Merge: 3e33f96 2f58671
+Author: Karl James Arboiz <dickensallinone@gmail.com>
+Date:   Sun Oct 6 08:19:07 2024 +0000
+
+    Merge branch 'karl.arboiz' into 'main'
+    
+    Karl.arboiz
+    
+    See merge request collab-new/subgroup-1/frontend-collab!1
+
+[33mcommit 2f586710c34da26ed183a276d5574028f79e573d[m
+Author: unknown <dickensallinone@gmail.com>
+Date:   Sun Oct 6 16:18:39 2024 +0800
+
+    add new things for refactoring
+
+[33mcommit 0cb58a04d42d853f41a75261373b91c00dc229ee[m
+Merge: d023d1c 3e33f96
+Author: unknown <dickensallinone@gmail.com>
+Date:   Sun Oct 6 16:17:03 2024 +0800
+
+    add new things for refactoring
+
+[33mcommit d023d1cb2f3704b949b3ca61deea42635f4c7265[m
+Author: unknown <dickensallinone@gmail.com>
+Date:   Sun Oct 6 16:15:00 2024 +0800
+
+    add new things for refactoring
+
+[33mcommit 3e33f96272633d609485d436e069218a2abb8cd6[m
+Author: Karl James Arboiz <dickensallinone@gmail.com>
+Date:   Sun Oct 6 08:12:45 2024 +0000
+
+    Initial commit
