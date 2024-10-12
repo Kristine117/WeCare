@@ -96,12 +96,7 @@ export default function Registration3() {
     const closeCaregiverModal = () => setIsCaregiverModalOpen(false);
 
 
-      // Open the confirmation modal when the user clicks submit
-      const openConfirmationModal = (e) => {
-        e.preventDefault();
-        setIsConfirmationModalOpen(true);
-        collectDataRegistration1();
-      };
+
 
 
             // Fire this function when the component starts
@@ -150,6 +145,14 @@ export default function Registration3() {
   }, []);
 
 
+        // Open the confirmation modal when the user clicks submit
+        const openConfirmationModal = (e) => {
+          e.preventDefault();
+          setIsConfirmationModalOpen(true);
+          console.log("confirmation modal")
+          //collectDataRegistration1();
+        };
+
   
     const collectDataRegistration1 = (e) => {
 
@@ -162,9 +165,6 @@ export default function Registration3() {
       })
       .then(response => response.json())  // Assuming the server responds with JSON
       .then(data => {
-
-        // Close all modals and navigate to the homepage
-        setIsConfirmationModalOpen(false);
         navigate("/"); // Navigate to the homepage
         storedEmail = "";
         storedPassword = "";
@@ -278,9 +278,11 @@ export default function Registration3() {
                 <label className="pb-2">I agree to the Terms & Conditions.</label>
               </div>
             </div>
-            <button type="submit" className="btn btn-login">
-              Register
-            </button>
+            <div className="d-flex justify-content-center">
+              <button type="submit" className="btn-get-started buttonSeniorSize">
+                Register
+              </button>
+            </div>
           </form>
 
 
@@ -477,7 +479,7 @@ export default function Registration3() {
  
               {/* Add more fields as necessary */}
               <div className="d-flex justify-content-center">
-              <input type="submit" className="btn btn-login buttonSeniorSize" value="Submit" />
+              <input type="submit" className="btn-get-started buttonSeniorSize" value="Submit" />
               </div>
 
             </form>
@@ -622,7 +624,7 @@ export default function Registration3() {
 
               {/* Add more fields as necessary */}
               <div className="d-flex justify-content-center">
-              <input type="submit" className="btn btn-login buttonSeniorSize" value="Submit" />
+              <input type="submit" className="btn-get-started buttonSeniorSize" value="Submit" />
               </div>
 
 
