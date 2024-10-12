@@ -3,7 +3,7 @@ import UserContext from "../../UserContext";
 
 import "../../components/css/Appointment.css";
 import { useParams } from "react-router-dom";
-const Appointment = ()=> {
+const AppointmentForm = ()=> {
   const seniorId = useParams();
   const { user, setUser } = useContext(UserContext);
 
@@ -37,4 +37,4 @@ const Appointment = ()=> {
   );
 }
 
-export default Appointment;
+export default AppointmentForm;
