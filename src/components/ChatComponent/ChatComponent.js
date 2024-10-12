@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, { useEffect, useState, useRef, useContext ,useLayoutEffect} from "react";
 import io from 'socket.io-client';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,8 +9,9 @@ import UserContext from "../../UserContext";
 import { FaImage, FaPaperPlane , FaPlus,FaDownload} from 'react-icons/fa'; 
 import style from "./ChatComponent.module.css"
 
-const socket = io(`${process.env.REACT_APP_API_URL}`);
+
 const apiUrl =`${process.env.REACT_APP_API_URL}`;
+
 
 const ChatComponent = ({recipientId}) => {
     const {user} = useContext(UserContext);
@@ -22,73 +23,141 @@ const ChatComponent = ({recipientId}) => {
     const messagesEndRef = useRef(null);
     const senderId = user.id;
    
-    // Scroll to the bottom of the chat when new messages arrive
-    const scrollToBottom = () => {
-        setTimeout(() => {
+
+
+     // Initialize socket and pass userId
+     useEffect(() => {
+        const socketconnection= io(apiUrl);
+       // setSocket(socketconnection)
+       socketRef.current = socketconnection;
+          // Track connection status
+    socketconnection.on('connect', () => {
+        console.log('Socket connected:', socketconnection.id);
+        socketconnection.emit('joinRoom', { roomId, senderId });
+    });
+
+    // Handle socket disconnection
+    socketconnection.on('disconnect', () => {
+        console.log('Socket disconnected');
+    });
+
+      // Handle incoming messages
+      socketconnection.on('receiveMessage', (message) => {
+        console.log("Message received:", message);
+
+        setMessages((prevMessages) => {
+            // Check if the message is already present to avoid duplication
+            if (!prevMessages.some((msg) => msg.messageContent === message.messageContent && msg.senderId === message.senderId)) {
+                return [...prevMessages, message];
+            }
+            return prevMessages;
+        });
+
+        scrollToBottom(); // Scroll to bottom on new message
+    });
+    // Cleanup on component unmount
+    return () => {
+        socketconnection.disconnect(); // Disconnect the socket
+    };
+    }, [senderId,recipientId,messages]);
+
+
+    
+   // Scroll to the bottom of the chat when new messages arrive
+   const scrollToBottom = () => {
+    setTimeout(() => {
             messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
         }, 100); // Small delay (100ms)
     };
+
     useEffect(() => {
-        const fetchMessages = async () => {
-            console.log("Something something");
-            console.log(recipientId);
-            console.log(senderId)
-            const response = await axios.get(`${apiUrl}/chat`,{
+        // Scroll only when messages array changes
+        if (messages.length > 0) {
+            scrollToBottom(); 
+        }
+    }, [messages]); // Listen for changes to 'messages'
+
+
+
+    async function grabRoomId(){
+        let newRoomId;
+        let data1;
+        try{
+            const data = await fetch(`${apiUrl}/chat/room`,{
                 headers:{
-                    chatIds:JSON.stringify({
+                    chatIds: JSON.stringify({
                         senderId,
-                        recipientId
+                        recipientId,
                     })
                 }
+            })
+
+            data1 = await data.json();
+        }catch(e){
+            throw new Error(e.message)
+        }
+
+        newRoomId = await data1.data?.roomId;
+
+        return newRoomId;
+    }
+
+    useEffect(() => {
+        const grabroom= grabRoomId();
+       setRoomId(grabroom) 
+       console.log("this is room id:")
+       console.log(roomId)
+        const fetchMessages = async () => {
+            const response = await axios.get(`${apiUrl}/chat`, {
+                headers: {
+                    chatIds: JSON.stringify({
+                        senderId,
+                        recipientId,
+                    }),
+                },
             });
-        
+    
             setMessages(response.data?.messages);
-            scrollToBottom(); // Scroll to bottom after fetching
-             console.log("this is from fetching"+ response.data?.messages)
-            console.log(response.data?.messages)
+          
         };
 
         fetchMessages(); // Initial fetch on mount
-        socket.on('receiveMessage', (message) => {
-            setMessages((prevMessages) => {
-                // Check if the message is already present to avoid duplication
-                if (!prevMessages.some(msg => msg.messageContent === message.messageContent && msg.senderId === message.senderId)) {
-                    return [...prevMessages, message];
-                }
-                return prevMessages;
-            });
-            scrollToBottom(); // Scroll to bottom on new message
-        });
-        return () => {
-            socket.off('receiveMessage');
-        };
-    }, [senderId, recipientId]);
-    useEffect(() => {
-        
         scrollToBottom();
-    }, [messages]);
+    }, [senderId, recipientId, socket]);
 
+  
 
     const sendMessage = async () => {
+        console.log("Sending message...");
+    
         const message = {
             senderId,
             recipientId,
             messageContent,
-            contentType: 'text',
+            contentType: 'text' // Or 'file' depending on your use case
         };
+    
+        console.log(message);
+        console.log(socketRef.current); // Log the actual socket instance
+    
         try {
-            // Send the message to the server
-            await axios.post(`${apiUrl}/chat`, message);
-            // Emit the message to Socket.IO
-            socket.emit('sendMessage', message);
-
-            setMessageContent(''); // Clear the input
-            scrollToBottom();
-           
+            // Emit the message to the server through Socket.IO using socketRef.current
+            if (socketRef.current) {
+                socketRef.current.emit('sendMessage', message);
+    
+                // Clear the input after sending
+                setMessageContent('');
+    
+                // Scroll the chat to the bottom after sending the message
+                scrollToBottom();
+            } else {
+                console.error("Socket is not connected.");
+            }
         } catch (error) {
-            console.error("Error sending message:", error);
+            console.error("Error sending message:", error.message);
         }
     };
+    
     const handleFileUpload = async (e) => {
         const data = new FormData();
         
@@ -112,7 +181,7 @@ const ChatComponent = ({recipientId}) => {
            
             // Emit each message to the sender and recipient
             messages.forEach(message => {
-                socket.emit('sendMessage', message);
+                socketRef.current.emit('sendMessage', message);
             });
             setFile(null); 
            
@@ -167,25 +236,24 @@ const ChatComponent = ({recipientId}) => {
     
     return  (
         <div className="container-fluid">
-        {  console.log(senderId)}
-       { console.log(recipientId)}
+           
             <div className="row justify-content-center">
                 <div className="col-12 col-md-8 col-lg-6 w-100">
                     <div className=" w-100">
                     
                     <div className={style.message}>
                             {messages.map((msg, index) => {
-                                const isForReceiver = msg.isForReceiver;
+                                const isForReceiver = msg.isForReceiver;                       
                                 const isTextMessage = msg.contentType === 'text';
                                 const isFileMessage = msg.contentType === 'file';
                                 const isPicture = msg.contentType === 'picture';
-                            
-                                const formattedTime = convertTime(msg.time);
+                              
+                               // const formattedTime = convertTime(msg.time);
 
                                 return (
                                     <div key={index} className={`mb-2 d-flex ${isForReceiver ? 'justify-content-start' : 'justify-content-end'}`}>
                                         <div className={style.messageBox}>
-                                            <div className={style.time}>{formattedTime}</div>
+                                            {/* <div className={style.time}>{formattedTime}</div>                                     */}
                                             <div className={`p-2 rounded ${!isPicture ? (!isForReceiver && (isTextMessage || isFileMessage) ? `${style.textBoxSender} text-white` : `${style.textBoxReceiver}`) : ''}`}>
 
                                                 {msg.contentType === 'picture' ? (
@@ -193,7 +261,7 @@ const ChatComponent = ({recipientId}) => {
                                                         src={`${apiUrl}${msg.messageContent}`}
                                                         alt="uploaded"
                                                         className="img-fluid"
-                                                        style={{ maxWidth: '200px', cursor: 'pointer' }}
+                                                        style={{ maxWidth: '35rem', cursor: 'pointer' }}
                                                         onClick={() => handleImageClick(`${apiUrl}${msg.messageContent}`)} // Click to open modal
                                                     />
                                                 ) : isFileMessage ? (
@@ -214,19 +282,8 @@ const ChatComponent = ({recipientId}) => {
 
                         <div className={style.footer}>
                          
-                            <InputEmoji
-                                value={messageContent}
-                                onChange={(val) => setMessageContent(val)} // onChange provides the new value directly
-                                onKeyDown={sendMessageOnEnter}
-                                cleanOnEnter
-                                placeholder="Type a message"
-                                className={style.messageInput}
-                            />
-                            {messageContent.trim() && (
-                                <button className="btn " onClick={sendMessage}>
-                                 <FaPaperPlane size={20} className={style.iconPlane}  />
-                                </button>
-                            )}
+                         
+                           
                             <div className="mt-2 d-flex p-2 align-items-center"> 
                                 <input 
                                     type="file" 
@@ -235,20 +292,13 @@ const ChatComponent = ({recipientId}) => {
                                     multiple 
                                      accept="image/*"
                                     onChange={(e) => setFile(e.target.files)} 
-                                    onKeyDown={(e) => {
-                                        if(e.key === "Enter"){
-                                            console.log("you ave enter")
-                                        }
-                                    }}
+                                  
                                   
                                 />
                                 <label htmlFor="fileInput" >
                                     <FaImage  className={style.iconImage} />
                                 </label>
 
-                                {file && file.length > 0 && (
-                                    <button className=" mt-2 mx-auto" onClick={handleFileUpload}>Upload</button>
-                                )}
                                  <input 
                                     type="file" 
                                     className="d-none" 
@@ -259,7 +309,30 @@ const ChatComponent = ({recipientId}) => {
                                 <label htmlFor="fileInputPlus" >
                                     <FaPlus className={style.iconPlus} />
                                 </label>
-                            </div>                    
+                            </div>  
+                            <div  className={style.messageInput}>
+                                <InputEmoji
+                                    value={messageContent}
+                                    onChange={(val) => setMessageContent(val)} // onChange provides the new value directly
+                                    onKeyDown={sendMessageOnEnter}
+                                    cleanOnEnter
+                                    placeholder="Type a message"
+                                 
+                                /> 
+                            </div>
+                            <div>
+                            {messageContent.trim() && (
+                                <button className="btn " onClick={sendMessage}>
+                                 <FaPaperPlane size={20} className={style.iconPlane}  />
+                                </button>
+                            )}
+                            
+                            {file && file.length > 0 && (
+                                <button className=" mt-2 mx-auto" onClick={handleFileUpload}>
+                                 <FaPaperPlane size={20} className={style.iconPlane}  />
+                                </button>
+                            )}
+                            </div>             
                         </div>
                     </div>
                 </div>
@@ -275,7 +348,7 @@ const ChatComponent = ({recipientId}) => {
                     onClick={handleCloseModal}
                     style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
                 >
-                    <div className=" modal-dialog-centered" role="document">
+                    <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
                                 <button type="button" className="btn-close" aria-label="Close" onClick={handleCloseModal}></button>

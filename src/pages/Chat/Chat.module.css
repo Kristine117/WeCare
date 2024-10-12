@@ -1,3 +1,7 @@
 .dashboard {
-    display: flex;
+  display: flex;
+}
+
+section {
+  width: -webkit-fill-available;
 }
