@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import wcdesign from "./FindList.module.css";
+import { useNavigate } from "react-router-dom";
 
 function FindList({
   fullName,
@@ -13,6 +14,8 @@ function FindList({
   years_exp,
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
+  const [selectedUserId, setSelectedUserId] = useState(null);
 
   // Function to open modal
   const openModal = () => {
@@ -33,7 +36,13 @@ function FindList({
     }
   };
 
-  console.log(profileImage);
+  const handleRequest = () => {
+    navigate(`/appointment-page/${userId}`, {
+      state: { assistantId: userId },
+    });
+  };
+
+  console.log(userId);
 
   return (
     <div>
@@ -125,11 +134,11 @@ function FindList({
                       <div>{years_exp}yrs work experience</div>
                     </div>
                     <div className={wcdesign["profile-address"]}>
-                      <span class="material-symbols-outlined">home</span>
+                      <span className="material-symbols-outlined">home</span>
                       <div>{assistant_address}</div>
                     </div>
                     <div className={wcdesign["profile-rate"]}>
-                      <span class="material-symbols-outlined">
+                      <span className="material-symbols-outlined">
                         attach_money
                       </span>
                       <div>Rate: 500.00/hr</div>
@@ -139,7 +148,7 @@ function FindList({
               </div>
             </div>
             <div className={wcdesign["modal-footer"]}>
-              <button className={wcdesign["button"]} onClick={closeModal}>
+              <button className={wcdesign["button"]} onClick={handleRequest}>
                 Request
               </button>
               <button className={wcdesign["button"]} onClick={closeModal}>
