@@ -1,16 +1,35 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import SideMenu from "../../components/SideMenu/SideMenu";
 import UserContext from "../../UserContext";
 import FindList from "../../components/FindList/FindList";
 
 import wcdesign from "./Find.module.css";
 const Find = () => {
+  const [assistantUserList, setAssistantUserList] = useState([]);
   const { user } = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(true);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  const fetchData = () => {
+    fetch(`${process.env.REACT_APP_API_URL}/senior/assistant-list`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setAssistantUserList(data.data);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <main>
       {/* {!user?.id && <Navigate to={"/login"}/>} */}
@@ -30,7 +49,22 @@ const Find = () => {
               </div>
             </div>
             <div className={wcdesign["find-list-container"]}>
-              <FindList />
+              {assistantUserList.map((val) => {
+                return (
+                  <FindList
+                    key={val.userId}
+                    fullName={val.fullName}
+                    assistant_address={val.assistant_address}
+                    userId={val.userId}
+                    profileImage={val.profileImage}
+                    reviews={val.reviews}
+                    gender={val.gender}
+                    experience={val.experienceDescription}
+                    assistant_age={val.assistant_age}
+                    years_exp={val.numOfYears}
+                  />
+                );
+              })}
             </div>
 
             {!isOpen && (
