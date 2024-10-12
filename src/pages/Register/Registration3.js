@@ -21,6 +21,7 @@ export default function Registration3() {
     const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false); // State for confirmation modal
     const [formCompletedSenior, setFormCompletedSenior] = useState(false);  
     const [formCompletedGiver, setFormCompletedGiver] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(""); // State to hold error message
 
   
     // Initialize initialData without Redux state
@@ -102,7 +103,7 @@ export default function Registration3() {
             // Fire this function when the component starts
   useEffect(() => {
     // Perform any initialization logic here
-    console.log("function FIRE");
+
     fetch(`${process.env.REACT_APP_API_URL}/barangay/registered-barangays`,{
       method:'GET',
       headers:{
@@ -148,9 +149,18 @@ export default function Registration3() {
         // Open the confirmation modal when the user clicks submit
         const openConfirmationModal = (e) => {
           e.preventDefault();
+        
+          // Check if activeForm has a value
+          if (!activeForm) {
+            setErrorMessage("Please select either 'Senior' or 'Caregiver' before proceeding.");
+            return; // Prevent further execution if no activeForm is selected
+          }
+        
+          // Reset error message if activeForm is valid
+          setErrorMessage("");
+          //console.log(initialData);
+          // If activeForm is valid, open the confirmation modal
           setIsConfirmationModalOpen(true);
-          console.log("confirmation modal")
-          //collectDataRegistration1();
         };
 
   
@@ -278,7 +288,13 @@ export default function Registration3() {
                 <label className="pb-2">I agree to the Terms & Conditions.</label>
               </div>
             </div>
-            <div className="d-flex justify-content-center">
+            <div>
+              {/* Display error message if it exists */}
+              {errorMessage && <p className={registerModal.errorMessage}>{errorMessage}</p>}
+              
+              {/* Your form, modals, and other content */}
+            </div>
+            <div className="d-flex justify-content-center pt-3">
               <button type="submit" className="btn-get-started buttonSeniorSize">
                 Register
               </button>
@@ -292,18 +308,18 @@ export default function Registration3() {
 
 
           {/* Confirmation Modal */}
-          {isConfirmationModalOpen && (
-            <div className="modal">
-              <div className="modal-content">
+          {isConfirmationModalOpen && ( 
+            <div className={registerModal.modalConfirmation}>
+              <div className={registerModal.modalContentConfirmation}>
                 <h4>Confirm Submission</h4>
                 <p>Are you sure you want to submit the form?</p>
-                <button onClick={collectDataRegistration2}>Confirm</button>
+                <button onClick={collectDataRegistration1}>Confirm</button>
                 <button onClick={() => setIsConfirmationModalOpen(false)}>
                   Cancel
                 </button>
               </div>
             </div>
-          )}
+           )} 
 
 
  {/* Senior Citizen Modal */}
@@ -380,6 +396,8 @@ export default function Registration3() {
                 minLength="11"    
                 maxLength="11"    
                 title="Contact number must be exactly 11 digits" 
+                value={initialData.contactNumber}
+                onChange={handleChange} // Corrected here
                 required
               />
                 </div>
@@ -585,6 +603,8 @@ export default function Registration3() {
                 minLength="11"    
                 maxLength="11"    
                 title="Contact number must be exactly 11 digits" 
+                value={initialData.contactNumber}
+                onChange={handleChange} // Corrected here
                 required
               />
                       
