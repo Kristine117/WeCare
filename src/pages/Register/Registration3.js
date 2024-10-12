@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import registerModal from "./Register.module.css";
 import ProfileUpload from '../../components/ProfileUpload';
+import Swal from "sweetalert2";
+
 
 export default function Registration3() {
     const navigate = useNavigate();
@@ -75,7 +77,8 @@ export default function Registration3() {
       setIsSeniorModalOpen(true);
       setInitialData((prevData) => ({
         ...prevData,
-        userType: "senior citizen",
+        userType: "senior",
+        experienceId: "4",
         email: storedEmail,
         password: storedPassword,
       }));
@@ -86,7 +89,7 @@ export default function Registration3() {
       setIsCaregiverModalOpen(true);
       setInitialData((prevData) => ({
         ...prevData,
-        userType: "senior assistant",
+        userType: "assistant",
         email: storedEmail,
         password: storedPassword,
       }));
@@ -175,10 +178,22 @@ export default function Registration3() {
       })
       .then(response => response.json())  // Assuming the server responds with JSON
       .then(data => {
-        navigate("/"); // Navigate to the homepage
-        storedEmail = "";
-        storedPassword = "";
-
+        if(data.isSuccess === true){
+          Swal.fire({
+            title:"Registered Successfully",
+            icon:"success",
+            text:"Account Registered Sucessfully"
+            });
+            navigate("/"); // Navigate to the homepage
+            storedEmail = "";
+            storedPassword = "";
+        } else {
+          Swal.fire({
+            title: "Registeration failed",
+            icon: "error",
+            text: "Check account details and try again.",
+          });
+        }
       })
       .catch(error => {
         console.error("Error:", error);
@@ -308,15 +323,17 @@ export default function Registration3() {
 
 
           {/* Confirmation Modal */}
-          {isConfirmationModalOpen && ( 
+          {isConfirmationModalOpen && (  
             <div className={registerModal.modalConfirmation}>
               <div className={registerModal.modalContentConfirmation}>
                 <h4>Confirm Submission</h4>
                 <p>Are you sure you want to submit the form?</p>
-                <button onClick={collectDataRegistration1}>Confirm</button>
-                <button onClick={() => setIsConfirmationModalOpen(false)}>
+                <div className="d-flex">
+                <button onClick={collectDataRegistration1} className="m-3 btn-get-started buttonSeniorSize">Confirm</button>
+                <button onClick={() => setIsConfirmationModalOpen(false)} className="m-3 btn-get-started buttonSeniorSize">
                   Cancel
                 </button>
+                </div>
               </div>
             </div>
            )} 
@@ -351,7 +368,7 @@ export default function Registration3() {
                 <select
                   id="barangay"
                   name="barangayId"
-                  className="form-control select-input"
+                  className="form-control"
                   required
                   value={initialData.barangayId} // Ensure you have this defined
                   onChange={handleChange} // Ensure you have a handleChange function defined
@@ -558,7 +575,7 @@ export default function Registration3() {
                 <select
                   id="barangay"
                   name="barangayId"
-                  className="form-control select-input"
+                  className="form-control"
                   required
                   value={initialData.barangayId} // Ensure you have this defined
                   onChange={handleChange} // Ensure you have a handleChange function defined
@@ -612,7 +629,7 @@ export default function Registration3() {
                   <select
                     id="experience"
                     name="experienceId"
-                    className="form-control select-input"
+                    className="form-control"
                     required
                     value={initialData.experienceId} // Ensure you have this defined
                     onChange={handleChange} // Ensure you have a handleChange function defined

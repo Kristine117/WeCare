@@ -621,12 +621,15 @@ a {
 }
 
 .modalContentConfirmation {
+  display: flex;
   position: relative;
   background-color: white;
-  padding: 20px;
+  padding: 15px;
   margin: 15% auto; /* Modal centered on the screen */
-  width: 50%;
+  width: 40%;
   z-index: 1001;
+  flex-direction: column;
+    align-items: center;
 }
 
 
