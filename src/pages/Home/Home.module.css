@@ -1,0 +1,37 @@
+.slider {
+    position: relative;
+    width: 100%;
+    height: 80%; /* Ensure the slider has a height */
+    overflow: hidden;
+    display: flex; /* Use flex to manage layout */
+  }
+  
+  .slider > * {
+    min-width: 100%;
+    transition: transform 0.1s ease-in-out;
+  }
+  
+  .slide-left-enter {
+    transform: translateX(-100%); /* New slide enters from the left */
+  }
+  
+  .slide-left {
+    transform: translateX(0); /* Slide is in view */
+  }
+  
+  .slide-left-exit {
+    transform: translateX(100%); /* Current slide exits to the right */
+  }
+  
+  .slide-right-enter {
+    transform: translateX(100%); /* New slide enters from the right */
+  }
+  
+  .slide-right {
+    transform: translateX(0); /* Slide is in view */
+  }
+  
+  .slide-right-exit {
+    transform: translateX(-100%); /* Current slide exits to the left */
+  }
+  

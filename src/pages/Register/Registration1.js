@@ -89,8 +89,10 @@ export default function Registration1() {
                 required
               />
             </div>
-            <input type="submit" value="Submit and Next" className="btn btn-login" />
-          </form>
+              <div className="d-flex justify-content-center">                
+                <input type="submit" value="Submit and Next" className="btn-get-started" />          
+              </div>
+            </form>
         </div>
       </div>
     </div>
