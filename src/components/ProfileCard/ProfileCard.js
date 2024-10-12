@@ -1,6 +1,7 @@
+import React from "react";
 import "../css/ProfileCard.css";
 
-export default function ProfileCard() {
+export default function ProfileCard({list}) {
 
   return (
     <div className="profile-card">
@@ -14,18 +15,22 @@ export default function ProfileCard() {
         </div>
       </div>
       <div className="profile-users">
-        <div className="card">
-          <img
-            src="./wecare_logo_smartphone.png"
-            alt="We Care"
-            width="100px"
-            height="auto"
-            className="user-picture"
-          />
-          <div className="card-body">
-            <h5 className="card-title text-blue">Ariel Dela Cruz</h5>
-          </div>
-        </div>
+        {list.map(val=>{
+          return(
+            <div className="card" key={val.userId}>
+              <img
+                src="./wecare_logo_smartphone.png"
+                alt="We Care"
+                width="100px"
+                height="auto"
+                className="user-picture"
+              />
+              <div className="card-body">
+                <h5 className="card-title text-blue">Ariel Dela Cruz</h5>
+              </div>
+            </div>
+          )
+        })}
         <div className="card">
           <img
             src="./wecare_logo_smartphone.png"
@@ -50,7 +55,7 @@ export default function ProfileCard() {
             <h5 className="card-title text-blue">Cardo Dalisay</h5>
           </div>
         </div>
-        <div className="card">
+        {/* <div className="card">
           <img
             src="./wecare_logo_smartphone.png"
             alt="We Care"
@@ -73,7 +78,7 @@ export default function ProfileCard() {
           <div className="card-body">
             <h5 className="card-title text-blue">Jane Does</h5>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
 
