@@ -5,8 +5,8 @@ import ProfileCard from "../../components/ProfileCard/ProfileCard";
 import UserContext from "../../UserContext";
 import { Navigate } from "react-router-dom";
 import DashboardContainer from "../../components/DashboardContainer/DashboardContainer";
-import AppNavbar from "../../components/AppNavbar/AppNavbar";
-
+import LoggedInCommonNavBar from "../../components/LoggedInCommonNavBar/LoggedInCommonNavBar";
+import AssistantContent from "../../components/AssistantContent/AssistantContent";
 const DashBoard = ()=>{
     const {user} = useContext(UserContext);
     return(
@@ -15,8 +15,9 @@ const DashBoard = ()=>{
            {user?.id &&  <section className={dashboard['dashboard']}>
                 <SideMenu/>
                 <DashboardContainer>
-                    <AppNavbar/>
-                    {user.userType === 'senior' && <ProfileCard/>}    
+                    <LoggedInCommonNavBar/>
+                    {user.userType === 'senior' && <ProfileCard/>}
+                    {user?.userType === 'assistant' && <AssistantContent/>}     
                 </DashboardContainer>            
             </section>}
         </main>        
