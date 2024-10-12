@@ -17,7 +17,7 @@ import Kwan from "./pages/Kwan";
 import FindCare from "./pages/FindCare/FindCare";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import Appointment from "./pages/Appointment/Appointment";
-
+import Find from "./pages/Find/Find";
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -99,7 +99,7 @@ function App() {
           <Route path="/find-care" element={<FindCare/>}/>
           <Route path="/appointment-page/:assistantId" element={<Appointment/>}/>
           <Route path="/kwan" element={<Kwan/>}/>
-
+          <Route path="/find" element={<Find/>}/>
         </Routes>
       </Router>
     </UserProvider>
