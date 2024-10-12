@@ -16,8 +16,10 @@ import Error from "./pages/Error/Error";
 import Kwan from "./pages/Kwan";
 import FindCare from "./pages/FindCare/FindCare";
 import AboutUs from "./pages/AboutUs/AboutUs";
-import Appointment from "./pages/Appointment/Appointment";
+
 import Find from "./pages/Find/Find";
+import AppointmentList from "./pages/AppointmentList/AppointmentList";
+
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -97,7 +99,8 @@ function App() {
           <Route path="/logout" element={<Logout />} />
           <Route path="/about-us" element={<AboutUs/>}/>
           <Route path="/find-care" element={<FindCare/>}/>
-          <Route path="/appointment-page/:assistantId" element={<Appointment/>}/>
+          <Route path="/appointment" element={<AppointmentList/>}/>
+          {/* <Route path="/appointment-page/:assistantId" element={<Appointment/>}/> */}
           <Route path="/kwan" element={<Kwan/>}/>
           <Route path="/find" element={<Find/>}/>
         </Routes>
