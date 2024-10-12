@@ -199,10 +199,6 @@ table {
   display: none;
 }
 
-.btn-custom-size {
-  width: 10rem;
-  height: 2rem;
-}
 
 .btn-sign-in {
   background-color: #6bb8b8; /* Button background color */

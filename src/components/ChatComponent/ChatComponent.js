@@ -26,6 +26,7 @@ const ChatComponent = ({recipientId}) => {
     //const [roomId,setRoomId] = useState("5696c08e-d367-4934-88a5-115398f94ba0"); 
    const [roomId,setRoomId] = useState(""); 
    const socketRef = useRef(null); // Initialize socketRef
+
    
 
 
