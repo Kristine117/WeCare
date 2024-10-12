@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
 import { UserProvider } from "./UserContext";
 import Logout from "./pages/Logout/Logout";
-import HomeContainer from "./pages/Home/Home"
+import HomeContainer from "./pages/Home/Home";
 import Registration1 from "./pages/Register/Registration1";
 import Registration3 from "./pages/Register/Registration3";
 import Login from "./pages/Login/Login";
@@ -16,13 +16,12 @@ import Error from "./pages/Error/Error";
 import Kwan from "./pages/Kwan";
 import FindCare from "./pages/FindCare/FindCare";
 import AboutUs from "./pages/AboutUs/AboutUs";
+import Appointment from "./pages/Appointment/Appointment";
 
 import Find from "./pages/Find/Find";
 import AppointmentList from "./pages/AppointmentList/AppointmentList";
 
 function App() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
   // for getting token this is for global this is helped whit the UserContext.js
   const [user, setUser] = useState({
     // this is just set to null
@@ -57,7 +56,6 @@ function App() {
       .then((data) => {
         // if there is data passed go to if and if there is non else
         if (data.auth !== "Failed") {
-       
           // the passed id will be set in the setUser asand will be set globally carried in line 21 const [user, setUser] = useState and so on
           setUser({
             id: data.data.userId,
@@ -80,29 +78,31 @@ function App() {
           });
         }
       });
-
   }, []);
 
   return (
     <UserProvider value={{ user, setUser, unsetUser }}>
       <Router>
-       {!user?.id &&  <AppNavbar />}
+        {!user?.id && <AppNavbar />}
         <Routes>
-          <Route path="*" errorElement={<Error/>}/>
+          <Route path="*" errorElement={<Error />} />
           <Route path="/" element={<HomeContainer />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registration1" element={<Registration1 />} />
           <Route path="/registration3" element={<Registration3 />} />
-          <Route path="/dashboard-main" element={<DashBoard/>} />    
+          <Route path="/dashboard-main" element={<DashBoard />} />
           <Route path="/chatlist" element={<ChatList />} />
-          <Route path="/chat/:senderId/:receiverId" element={<Chat/>} />
+          <Route path="/chat/:senderId/:receiverId" element={<Chat />} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/about-us" element={<AboutUs/>}/>
-          <Route path="/find-care" element={<FindCare/>}/>
-          <Route path="/appointment" element={<AppointmentList/>}/>
-          {/* <Route path="/appointment-page/:assistantId" element={<Appointment/>}/> */}
-          <Route path="/kwan" element={<Kwan/>}/>
-          <Route path="/find" element={<Find/>}/>
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/find-care" element={<FindCare />} />
+          <Route path="/appointment" element={<AppointmentList />} />
+          <Route
+            path="/appointment-page/:assistantId"
+            element={<Appointment />}
+          />
+          <Route path="/kwan" element={<Kwan />} />
+          <Route path="/find" element={<Find />} />
         </Routes>
       </Router>
     </UserProvider>
