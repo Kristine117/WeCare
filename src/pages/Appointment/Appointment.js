@@ -1,9 +1,10 @@
 import { useContext, useState } from "react";
 import UserContext from "../../UserContext";
-import "./css/Appointment.css";
 
-
-export default function Banner() {
+import "../../components/css/Appointment.css";
+import { useParams } from "react-router-dom";
+const Appointment = ()=> {
+  const seniorId = useParams();
   const { user, setUser } = useContext(UserContext);
 
   return (
@@ -35,3 +36,5 @@ export default function Banner() {
     </div>
   );
 }
+
+export default Appointment;

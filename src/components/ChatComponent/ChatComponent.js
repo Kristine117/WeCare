@@ -22,10 +22,6 @@ const ChatComponent = ({recipientId}) => {
     const [isModalOpen, setModalOpen] = useState(false); // State to toggle modal
     const messagesEndRef = useRef(null);
     const senderId = user.id;
-    const [socket, setSocket] = useState(null);
-    //const [roomId,setRoomId] = useState("5696c08e-d367-4934-88a5-115398f94ba0"); 
-   const [roomId,setRoomId] = useState(""); 
-   const socketRef = useRef(null); // Initialize socketRef
    
 
 
