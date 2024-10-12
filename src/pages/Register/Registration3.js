@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import registerModal from "./Register.module.css";
 import ProfileUpload from '../../components/ProfileUpload';
+import Swal from "sweetalert2";
+
 
 export default function Registration3() {
     const navigate = useNavigate();
@@ -21,6 +23,7 @@ export default function Registration3() {
     const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false); // State for confirmation modal
     const [formCompletedSenior, setFormCompletedSenior] = useState(false);  
     const [formCompletedGiver, setFormCompletedGiver] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(""); // State to hold error message
 
   
     // Initialize initialData without Redux state
@@ -74,7 +77,8 @@ export default function Registration3() {
       setIsSeniorModalOpen(true);
       setInitialData((prevData) => ({
         ...prevData,
-        userType: "senior citizen",
+        userType: "senior",
+        experienceId: "4",
         email: storedEmail,
         password: storedPassword,
       }));
@@ -85,7 +89,7 @@ export default function Registration3() {
       setIsCaregiverModalOpen(true);
       setInitialData((prevData) => ({
         ...prevData,
-        userType: "senior assistant",
+        userType: "assistant",
         email: storedEmail,
         password: storedPassword,
       }));
@@ -102,7 +106,7 @@ export default function Registration3() {
             // Fire this function when the component starts
   useEffect(() => {
     // Perform any initialization logic here
-    console.log("function FIRE");
+
     fetch(`${process.env.REACT_APP_API_URL}/barangay/registered-barangays`,{
       method:'GET',
       headers:{
@@ -148,9 +152,18 @@ export default function Registration3() {
         // Open the confirmation modal when the user clicks submit
         const openConfirmationModal = (e) => {
           e.preventDefault();
+        
+          // Check if activeForm has a value
+          if (!activeForm) {
+            setErrorMessage("Please select either 'Senior' or 'Caregiver' before proceeding.");
+            return; // Prevent further execution if no activeForm is selected
+          }
+        
+          // Reset error message if activeForm is valid
+          setErrorMessage("");
+          //console.log(initialData);
+          // If activeForm is valid, open the confirmation modal
           setIsConfirmationModalOpen(true);
-          console.log("confirmation modal")
-          //collectDataRegistration1();
         };
 
   
@@ -165,10 +178,22 @@ export default function Registration3() {
       })
       .then(response => response.json())  // Assuming the server responds with JSON
       .then(data => {
-        navigate("/"); // Navigate to the homepage
-        storedEmail = "";
-        storedPassword = "";
-
+        if(data.isSuccess === true){
+          Swal.fire({
+            title:"Registered Successfully",
+            icon:"success",
+            text:"Account Registered Sucessfully"
+            });
+            navigate("/"); // Navigate to the homepage
+            storedEmail = "";
+            storedPassword = "";
+        } else {
+          Swal.fire({
+            title: "Registeration failed",
+            icon: "error",
+            text: "Check account details and try again.",
+          });
+        }
       })
       .catch(error => {
         console.error("Error:", error);
@@ -278,7 +303,13 @@ export default function Registration3() {
                 <label className="pb-2">I agree to the Terms & Conditions.</label>
               </div>
             </div>
-            <div className="d-flex justify-content-center">
+            <div>
+              {/* Display error message if it exists */}
+              {errorMessage && <p className={registerModal.errorMessage}>{errorMessage}</p>}
+              
+              {/* Your form, modals, and other content */}
+            </div>
+            <div className="d-flex justify-content-center pt-3">
               <button type="submit" className="btn-get-started buttonSeniorSize">
                 Register
               </button>
@@ -292,18 +323,20 @@ export default function Registration3() {
 
 
           {/* Confirmation Modal */}
-          {isConfirmationModalOpen && (
-            <div className="modal">
-              <div className="modal-content">
+          {isConfirmationModalOpen && (  
+            <div className={registerModal.modalConfirmation}>
+              <div className={registerModal.modalContentConfirmation}>
                 <h4>Confirm Submission</h4>
                 <p>Are you sure you want to submit the form?</p>
-                <button onClick={collectDataRegistration2}>Confirm</button>
-                <button onClick={() => setIsConfirmationModalOpen(false)}>
+                <div className="d-flex">
+                <button onClick={collectDataRegistration1} className="m-3 btn-get-started buttonSeniorSize">Confirm</button>
+                <button onClick={() => setIsConfirmationModalOpen(false)} className="m-3 btn-get-started buttonSeniorSize">
                   Cancel
                 </button>
+                </div>
               </div>
             </div>
-          )}
+           )} 
 
 
  {/* Senior Citizen Modal */}
@@ -335,7 +368,7 @@ export default function Registration3() {
                 <select
                   id="barangay"
                   name="barangayId"
-                  className="form-control select-input"
+                  className="form-control"
                   required
                   value={initialData.barangayId} // Ensure you have this defined
                   onChange={handleChange} // Ensure you have a handleChange function defined
@@ -380,6 +413,8 @@ export default function Registration3() {
                 minLength="11"    
                 maxLength="11"    
                 title="Contact number must be exactly 11 digits" 
+                value={initialData.contactNumber}
+                onChange={handleChange} // Corrected here
                 required
               />
                 </div>
@@ -540,7 +575,7 @@ export default function Registration3() {
                 <select
                   id="barangay"
                   name="barangayId"
-                  className="form-control select-input"
+                  className="form-control"
                   required
                   value={initialData.barangayId} // Ensure you have this defined
                   onChange={handleChange} // Ensure you have a handleChange function defined
@@ -585,6 +620,8 @@ export default function Registration3() {
                 minLength="11"    
                 maxLength="11"    
                 title="Contact number must be exactly 11 digits" 
+                value={initialData.contactNumber}
+                onChange={handleChange} // Corrected here
                 required
               />
                       
@@ -592,7 +629,7 @@ export default function Registration3() {
                   <select
                     id="experience"
                     name="experienceId"
-                    className="form-control select-input"
+                    className="form-control"
                     required
                     value={initialData.experienceId} // Ensure you have this defined
                     onChange={handleChange} // Ensure you have a handleChange function defined
