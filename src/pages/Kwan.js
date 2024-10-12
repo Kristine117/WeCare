@@ -10,12 +10,11 @@ const Kwan = ()=>{
     async function uploadMe 
     (e) {
         const formData = new FormData();
-        formData.append("file",value)
+        formData.append("profileImage",value)
 
-        console.log(formData.get("file"));
         const data = await fetch(`${process.env.REACT_APP_API_URL}/main/user-profile`,{
             method:"POST",
-            formData
+            body:formData
         });
 
         console.log(await data.json());

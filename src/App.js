@@ -1,19 +1,12 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import Logout from "./pages/Logout/Logout";
-import HomeContainer from "./pages/Home/Home"
-import Registration1 from "./pages/Register/Registration1";
-// import Registration2 from "./pages/Registration2";
-import Registration3 from "./pages/Register/Registration3";
-// import DashBoardSenior from "./pages/DashBoardSenior";
-// import DashBoardSeniorFind from "./pages/DashBoardSeniorFind";
-// import DashBoardSeniorMessage from "./pages/DashBoardSeniorMessage";
-// import DashBoardSeniorAppointment from "./pages/DashBoardSeniorAppointment";
-
-
 import { BrowserRouter as Router } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
 import { UserProvider } from "./UserContext";
+import Logout from "./pages/Logout/Logout";
+import HomeContainer from "./pages/Home/Home"
+import Registration1 from "./pages/Register/Registration1";
+import Registration3 from "./pages/Register/Registration3";
 import Login from "./pages/Login/Login";
 import DashBoard from "./pages/Dashboard/DashBoard";
 import AppNavbar from "./components/AppNavbar/AppNavbar";
@@ -21,6 +14,10 @@ import Chat from "./pages/Chat/Chat";
 import ChatList from "./pages/ChatList/ChatList";
 import Error from "./pages/Error/Error";
 import Kwan from "./pages/Kwan";
+import FindCare from "./pages/FindCare/FindCare";
+import AboutUs from "./pages/AboutUs/AboutUs";
+import Appointment from "./pages/Appointment/Appointment";
+
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -89,17 +86,20 @@ function App() {
       <Router>
        {!user?.id &&  <AppNavbar />}
         <Routes>
-          
+          <Route path="*" errorElement={<Error/>}/>
           <Route path="/" element={<HomeContainer />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registration1" element={<Registration1 />} />
           <Route path="/registration3" element={<Registration3 />} />
           <Route path="/dashboard-main" element={<DashBoard/>} />    
-           <Route path="/chatlist" element={<ChatList />} />
+          <Route path="/chatlist" element={<ChatList />} />
           <Route path="/chat/:senderId/:receiverId" element={<Chat/>} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="*" errorElement={<Error/>}/>
+          <Route path="/about-us" element={<AboutUs/>}/>
+          <Route path="/find-care" element={<FindCare/>}/>
+          <Route path="/appointment-page/:assistantId" element={<Appointment/>}/>
           <Route path="/kwan" element={<Kwan/>}/>
+
         </Routes>
       </Router>
     </UserProvider>
