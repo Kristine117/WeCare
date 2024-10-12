@@ -15,7 +15,7 @@ export default function ProfileCard({list}) {
         </div>
       </div>
       <div className="profile-users">
-        {list.map(val=>{
+        {list?.map(val=>{
           return(
             <div className="card" key={val.userId}>
               <img
@@ -26,12 +26,12 @@ export default function ProfileCard({list}) {
                 className="user-picture"
               />
               <div className="card-body">
-                <h5 className="card-title text-blue">Ariel Dela Cruz</h5>
+                <h5 className="card-title text-blue">{val.fullName}</h5>
               </div>
             </div>
           )
         })}
-        <div className="card">
+        {/* <div className="card">
           <img
             src="./wecare_logo_smartphone.png"
             alt="We Care"
@@ -54,7 +54,7 @@ export default function ProfileCard({list}) {
           <div className="card-body">
             <h5 className="card-title text-blue">Cardo Dalisay</h5>
           </div>
-        </div>
+        </div> */}
         {/* <div className="card">
           <img
             src="./wecare_logo_smartphone.png"
