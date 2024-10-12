@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { useNavigate} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import AppNavbar from "../AppNavbar/AppNavbar";
 // import Nav from "react-bootstrap/Nav";
 import sidemenu from "./SideMenu.module.css";
@@ -66,8 +66,8 @@ export default function SideMenu({
             </span>
             <p className="ml-2">Home</p>
           </div>
-          <div
-            onClick={clickedActiveFind}
+          <Link
+            to={'/find'}
             className={
               activeNavFind ? "menu-item my-3 actives" : "menu-item my-3"
             }
@@ -76,9 +76,9 @@ export default function SideMenu({
               search
             </span>
             <p className="ml-2">Find</p>
-          </div>
-          <div
-            onClick={clickedActiveMess}
+          </Link>
+          <Link to={'/chatlist'}
+            // onClick={clickedActiveMess}
             className={
               activeNavMes ? "menu-item my-3 actives" : "menu-item my-3"
             }
@@ -87,7 +87,7 @@ export default function SideMenu({
               chat
             </span>
             <p className="ml-2">Message</p>
-          </div>
+          </Link>
 
           <div
             onClick={clickedActiveApp}
