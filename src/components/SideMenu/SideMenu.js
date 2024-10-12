@@ -1,5 +1,9 @@
 import React, { useRef, useState } from "react";
+
+import { useNavigate } from "react-router-dom";
+
 import { Link, useNavigate} from "react-router-dom";
+
 import AppNavbar from "../AppNavbar/AppNavbar";
 // import Nav from "react-bootstrap/Nav";
 import sidemenu from "./SideMenu.module.css";
@@ -23,8 +27,7 @@ export default function SideMenu({
   };
 
   const clickedActiveFind = () => {
-    <AppNavbar activeHead={true} />;
-    navigate("/dashboard-senior/find");
+    navigate("/find-care");
   };
 
   const clickedActiveMess = () => {
@@ -49,7 +52,7 @@ export default function SideMenu({
   return (
     <>
       {/* Sidebar */}
-      <div className={sidemenu['sidebar']}>
+      <div className={sidemenu["sidebar"]}>
         <div className="logo my-4 text-center">
           <img src="../wecare_logo.png" alt="WeCare" width="100" />
         </div>
@@ -129,7 +132,7 @@ export default function SideMenu({
             Log-Out
           </button>
         </div>
-      </div>  
+      </div>
 
       <div
         className="modal fade"
