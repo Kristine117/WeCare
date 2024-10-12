@@ -80,15 +80,15 @@ export default function Login() {
         <div className="login-box">
           <h3 className="pt-4 pb-4">Login to your account</h3>
           {user.error ? (
-            <di>
+            <div>
               <h5 className="error">Bad Credentials</h5>
-            </di>
+            </div>
           ) : (
-            <di></di>
+            <div></div>
           )}
           <form onSubmit={(e) => authenticate(e)}>
             <div className="form-group">
-              <label for="email" className="pb-3">
+              <label htmlFor="email" className="pb-3">
                 Email
               </label>
               <input
@@ -100,7 +100,7 @@ export default function Login() {
               />
             </div>
             <div className="form-group">
-              <label for="password" className="pb-3">
+              <label htmlFor="password" className="pb-3">
                 Password
               </label>
               <input
