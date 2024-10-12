@@ -15,7 +15,7 @@
 
 .footer {
   gap: 1rem;
-  width: 100%;
+  width: -webkit-fill-available;
   display: flex;
   justify-content: space-evenly;
 }
