@@ -42,7 +42,7 @@ const DashBoard = ()=>{
                 <SideMenu/>
                 <DashboardContainer>
                     <LoggedInCommonNavBar/>
-                    {user.userType === 'senior' && <ProfileCard/>}
+                    {user.userType === 'senior' && <ProfileCard list={assistantList}/>}
                     {user?.userType === 'assistant' && <AssistantContent/>}     
                 </DashboardContainer>            
             </section>}
