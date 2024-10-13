@@ -12,6 +12,7 @@ function FindList({
   experience,
   assistant_age,
   years_exp,
+  rate,
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
@@ -140,7 +141,7 @@ function FindList({
                       <span className="material-symbols-outlined">
                         attach_money
                       </span>
-                      <div>Rate: 500.00/hr</div>
+                      <div>Rate: {rate}/hr</div>
                     </div>
                   </div>
                 </div>

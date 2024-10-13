@@ -62,6 +62,7 @@ const Find = () => {
                     experience={val.experienceDescription}
                     assistant_age={val.assistant_age}
                     years_exp={val.numOfYears}
+                    rate={val.rate}
                   />
                 );
               })}

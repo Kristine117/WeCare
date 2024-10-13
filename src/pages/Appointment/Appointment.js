@@ -15,12 +15,15 @@ const Appointment = () => {
 
   return (
     <main>
-      {/*  {!user?.id && <Navigate to={"/login"} />} */}
+      {!user?.id && <Navigate to={"/login"} />}
       {user?.id && (
         <section className={wcdesign["dashboard"]}>
           <SideMenu />
-          {fromFind && <AppointmentForm assistantId={assistantId} />}
-          this is the appoint ment
+          {fromFind ? (
+            <AppointmentForm assistantId={assistantId} />
+          ) : (
+            <div>this is the appoint ment</div>
+          )}
         </section>
       )}
     </main>
