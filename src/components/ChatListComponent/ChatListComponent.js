@@ -1,4 +1,4 @@
-import React from "react";
+ import React from "react";
 import wcdesign from "./ChatListComponent.module.css";
 import { useNavigate } from "react-router-dom";
 
@@ -29,7 +29,7 @@ const ChatListComponent = ({ firstName, lastName, userId, profileImage }) => {
             </div>
             <div className={wcdesign["profile-message-chat"]}>
               <div>
-                Dedicated caregiver with heheheh haha 3 years of experience
+                Dedicated caregiver with heheheh haha haksksk 3 years of experience
                 providing care.
               </div>
               <div className={wcdesign["online-time"]}>
