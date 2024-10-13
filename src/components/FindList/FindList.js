@@ -15,7 +15,6 @@ function FindList({
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-  const [selectedUserId, setSelectedUserId] = useState(null);
 
   // Function to open modal
   const openModal = () => {
@@ -37,8 +36,8 @@ function FindList({
   };
 
   const handleRequest = () => {
-    navigate(`/appointment-page/${userId}`, {
-      state: { assistantId: userId },
+    navigate("/appointment-page/:assistantId", {
+      state: { assistantId: userId, fromFind: true },
     });
   };
 

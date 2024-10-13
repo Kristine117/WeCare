@@ -9,7 +9,7 @@ import wcdesign from "./Appointment.module.css";
 const Appointment = () => {
   const { user } = useContext(UserContext);
   const location = useLocation();
-  const { assistantId, fullName } = location.state;
+  const { assistantId, fromFind } = location.state;
 
   console.log(assistantId);
 
@@ -19,7 +19,8 @@ const Appointment = () => {
       {user?.id && (
         <section className={wcdesign["dashboard"]}>
           <SideMenu />
-          <AppointmentForm assistantId={assistantId} fullName={fullName} />
+          {fromFind && <AppointmentForm assistantId={assistantId} />}
+          this is the appoint ment
         </section>
       )}
     </main>
