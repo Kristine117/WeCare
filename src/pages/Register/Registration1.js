@@ -21,15 +21,33 @@ export default function Registration1() {
 
     // Check if the password and confirm password match
     if (initialData.password !== initialData.confirmPassword) {
-      alert("Passwords do not match!"); // Alert the user
-      return; // Prevent navigation
+      alert("Passwords do not match!");
+      return;
     }
 
-    // Handle registration logic here (e.g., API call)
-    console.log('Registered Data:', initialData);
-
-    // Navigate to the next page after form submission
-    navigate("/registration3");
+    fetch(`${process.env.REACT_APP_API_URL}/main/get-all-email`, {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(data => { // Directly using the response as an array of emails
+       // const emails = data.emails;
+        console.log(data);
+        console.log("inputed value: " + initialData.email);
+        // Check if the provided email exists in the fetched emails
+        if (data.includes(initialData.email)) {
+          console.log('has email');
+          alert("Email is already registered. Please use a different email.");
+        } else {
+          navigate("/registration3");
+        }
+      })
+      .catch(error => {
+        console.error("Error:", error);
+      });
+    
   }
 
   const handleChange = (e) => {
@@ -73,6 +91,7 @@ export default function Registration1() {
                 name="password"
                 value={initialData.password}
                 onChange={handleChange}
+                minLength="9"
                 required
               />
             </div>
@@ -83,16 +102,17 @@ export default function Registration1() {
                 className="form-control"
                 id="confirmPassword"
                 placeholder="Re Enter Password"
-                name="confirmPassword" // Make sure to include name to manage the state
-                value={initialData.confirmPassword} // Manage the confirm password field
+                name="confirmPassword"
+                value={initialData.confirmPassword}
                 onChange={handleChange}
+                minLength="9"
                 required
               />
             </div>
-              <div className="d-flex justify-content-center">                
-                <input type="submit" value="Submit and Next" className="btn-get-started" />          
-              </div>
-            </form>
+            <div className="d-flex justify-content-center">                
+              <input type="submit" value="Submit and Next" className="btn-get-started" />
+            </div>
+          </form>
         </div>
       </div>
     </div>

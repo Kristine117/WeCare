@@ -12,10 +12,10 @@ function FindList({
   experience,
   assistant_age,
   years_exp,
+  rate,
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-  const [selectedUserId, setSelectedUserId] = useState(null);
 
   // Function to open modal
   const openModal = () => {
@@ -37,8 +37,8 @@ function FindList({
   };
 
   const handleRequest = () => {
-    navigate(`/appointment-page/${userId}`, {
-      state: { assistantId: userId },
+    navigate("/appointment-page/:assistantId", {
+      state: { assistantId: userId, fromFind: true },
     });
   };
 
@@ -141,7 +141,7 @@ function FindList({
                       <span className="material-symbols-outlined">
                         attach_money
                       </span>
-                      <div>Rate: 500.00/hr</div>
+                      <div>Rate: {rate}/hr</div>
                     </div>
                   </div>
                 </div>

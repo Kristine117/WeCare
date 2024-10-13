@@ -1,39 +1,47 @@
-import React from "react-router-dom";
+import React, { useNavigate } from "react-router-dom";
 import "../../components/css/Appointment.css";
 import wcdesign from "./AppointmentForm.module.css";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import AppointmentList from "../../pages/AppointmentList/AppointmentList";
 
-const AppointmentForm = ({ assistantId, fullName }) => {
+const AppointmentForm = ({ assistantId }) => {
   const today = new Date().toISOString().split("T")[0];
   const appointmentDate = today;
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [assistant,setAssistant] = useState(null);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [assistant, setAssistant] = useState(null);
+  const [serviceDuration, setServiceDuration] = useState(null);
+  const [serviceDescription, setServiceDescription] = useState(null);
+  const [serviceDate, setServiceDate] = useState(null);
+  const navigate = useNavigate();
 
-  useEffect(()=>{
-    async function getAssistantDetails(){
-        try{
-          const data = await fetch(`${process.env.REACT_APP_API_URL}/main/assistant-details/${assistantId}`,{
-            headers:{
-              "Authorization": `Bearer ${localStorage.getItem("token")}`,
-            }
-          })
-
-          if(!data.ok){
-            throw new Error("Something went wrong");
+  useEffect(() => {
+    async function getAssistantDetails() {
+      try {
+        const data = await fetch(
+          `${process.env.REACT_APP_API_URL}/main/assistant-details/${assistantId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
           }
+        );
 
-          const newData = await data.json();
-
-          setAssistant(newData?.data)
-        }catch(e){
-          throw new Error(e.message)
+        if (!data.ok) {
+          throw new Error("Something went wrong");
         }
+
+        const newData = await data.json();
+
+        setAssistant(newData?.data);
+      } catch (e) {
+        throw new Error(e.message);
+      }
     }
 
     getAssistantDetails();
-  },[assistantId])
+  }, [assistantId]);
 
   console.log(assistant);
   function sendAppointment(e) {
@@ -52,6 +60,9 @@ const AppointmentForm = ({ assistantId, fullName }) => {
         startDate: startDate,
         endDate: endDate,
         assistantId: assistantId,
+        numberOfHours: serviceDuration,
+        serviceDescription: serviceDescription,
+        serviceDate: serviceDate,
       }),
     })
       .then((res) => res.json())
@@ -59,11 +70,11 @@ const AppointmentForm = ({ assistantId, fullName }) => {
         if (data.isSuccess === true) {
           Swal.fire({
             title: "Appointment Successfully Sent",
-            icon: "error",
+            icon: "successfull",
             text: "Check your login details and try again.",
           });
 
-          console.log("log-in successfully");
+          navigate(<AppointmentList />);
         } else {
           Swal.fire({
             title: "Appointment failed",
@@ -78,10 +89,28 @@ const AppointmentForm = ({ assistantId, fullName }) => {
   return (
     <div className={wcdesign["form-container"]}>
       <h3 className="head"> Appointment Details</h3>
-      <p>Assistant Name: {assistant?.fullName}</p>
+      <div className={wcdesign["profile-section"]}>
+        <img
+          src={assistant?.profileImage}
+          alt="assitan"
+          className={wcdesign["profile-image"]}
+        ></img>
+        <p className={wcdesign["name"]}>
+          Assistant Name: {assistant?.fullName}
+        </p>
+      </div>
       <form onSubmit={(e) => sendAppointment(e)}>
         <div className="form-group">
-          <label>Service Start Date</label>
+          <label htmlFor="serviceDate">Service Date</label>
+          <input
+            type="Date"
+            id="serviceDate"
+            className="form-control"
+            onChange={(e) => setServiceDate(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="startDate">Start Date</label>
           <input
             type="Date"
             id="startDate"
@@ -90,21 +119,31 @@ const AppointmentForm = ({ assistantId, fullName }) => {
           />
         </div>
         <div className="form-group">
-          <label>Service End Date</label>
+          <label htmlFor="endDate">End Date</label>
           <input
             type="Date"
-            id="startDate"
+            id="endDate"
             className="form-control"
             onChange={(e) => setEndDate(e.target.value)}
           />
         </div>
 
-
         <div className="form-group">
           <label htmlFor="service-duration">Service Duration</label>
-          <input type="number"
-          id="service-duration"
-          className="form-control"
+          <input
+            type="number"
+            id="service-duration"
+            className="form-control"
+            onChange={(e) => setServiceDuration(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="service-decription">Service Description</label>
+          <input
+            type="textarea"
+            id="service-description"
+            className="form-control"
+            onChange={(e) => setServiceDescription(e.target.value)}
           />
         </div>
 
