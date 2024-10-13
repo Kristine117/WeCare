@@ -29,7 +29,8 @@ const ChatListComponent = ({ firstName, lastName, userId, profileImage }) => {
             </div>
             <div className={wcdesign["profile-message-chat"]}>
               <div>
-                Dedicated caregiver with 3 years of experience providing care.
+                Dedicated caregiver with heheheh 3 years of experience providing
+                care.
               </div>
               <div className={wcdesign["online-time"]}>
                 1min
