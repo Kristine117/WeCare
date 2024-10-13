@@ -33,11 +33,11 @@ export default function Registration1() {
     })
       .then(response => response.json())
       .then(data => { // Directly using the response as an array of emails
-        const emails = data.emails;
-        console.log(emails);
+       // const emails = data.emails;
+        console.log(data);
         console.log("inputed value: " + initialData.email);
         // Check if the provided email exists in the fetched emails
-        if (emails.includes(initialData.email)) {
+        if (data.includes(initialData.email)) {
           console.log('has email');
           alert("Email is already registered. Please use a different email.");
         } else {
