@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import InputEmoji from "react-input-emoji";
+
 import UserContext from "../../UserContext";
 import { FaImage, FaPaperPlane , FaPlus,FaDownload} from 'react-icons/fa'; 
 import style from "./ChatComponent.module.css"
@@ -294,29 +295,30 @@ const ChatComponent = ({recipientId}) => {
                         </div>
 
                         <div className={style.footer}>    
+                        {/* {fileNames.length > 0 && (
                             <div>
-                                {/* {fileNames.length > 0 && (
-                                    <div>
-                                        {fileNames.map((name, index) => (
-                                            <div key={index} className={`${style.fileName}`}>{name}</div>
-                                        ))}
-                                    </div>
-                                )} */}                 
-                        
+                                {fileNames.map((name, index) => (
+                                    <div key={index} className={`${style.fileName}`}>{name}</div>
+                                ))}
+                            </div>
+                        )} */}
+                      
+                       
                                 <input 
                                     type="file" 
                                     className="d-none" 
                                     id="fileInput"
                                     multiple 
-                                    accept="image/*"
-                                    onChange={handleFileChange} 
-                                        
+                                     accept="image/*"
+                                     onChange={handleFileChange} 
+                                  
+                                  
                                 />
                                 <label htmlFor="fileInput" >
                                     <FaImage  className={style.iconImage} />
                                 </label>
 
-                                    <input 
+                                 <input 
                                     type="file" 
                                     className="d-none" 
                                     id="fileInputPlus"
@@ -325,34 +327,32 @@ const ChatComponent = ({recipientId}) => {
                                 />
                                 <label htmlFor="fileInputPlus" >
                                     <FaPlus className={style.iconPlus} />
-                                </label>                          
-                                <div  className={style.messageInput}>
-                                    <InputEmoji
-                                        value={messageContent}
-                                        onChange={(val) => setMessageContent(val)} // onChange provides the new value directly
-                                        onKeyDown={sendMessageOnEnter}
-                                        cleanOnEnter
-                                        placeholder="Type a message"
-                                    
-                                    /> 
-                                </div>
+                                </label>
+                            
+                            <div  className={style.messageInput}>
+                                <InputEmoji
+                                    value={messageContent}
+                                    onChange={(val) => setMessageContent(val)} // onChange provides the new value directly
+                                    onKeyDown={sendMessageOnEnter}
+                                    cleanOnEnter
+                                    placeholder="Type a message"
+                                 
+                                /> 
                             </div>
-                            <div className={style.sendButtonContainer}>
-                                <div>
-                                    {messageContent.trim() && (
-                                        <button className="btn " onClick={sendMessage}>
-                                        <FaPaperPlane size={20} className={style.iconPlane}  />
-                                        </button>
-                                    )}
-                                </div>
-                                <div>
-                                    {file && file.length > 0 && (
-                                        <button className=" mt-2 mx-auto" onClick={sending}>
-                                        <FaPaperPlane size={20} className={style.iconPlane}  />
-                                        </button>
-                                    )}
-                                </div>  
-                            </div>           
+                            <div>
+                                {messageContent.trim() && (
+                                    <button className="btn " onClick={sendMessage}>
+                                    <FaPaperPlane size={20} className={style.iconPlane}  />
+                                    </button>
+                                )}
+                            </div>
+                            <div>
+                                {file && file.length > 0 && (
+                                    <button className=" mt-2 mx-auto" onClick={sending}>
+                                    <FaPaperPlane size={20} className={style.iconPlane}  />
+                                    </button>
+                                )}
+                            </div>             
                         </div>
                     </div>
                 </div>
