@@ -17,10 +17,9 @@
   gap: 1rem;
   width: -webkit-fill-available;
   display: flex;
-  justify-content: space-evenly;
 }
 .messageBox {
-  max-width: 60%;
+  max-width: 100%;
 }
 
 .message {
@@ -45,4 +44,8 @@
 
 .messageInput {
   width: 60%;
+}
+
+.sendButtonContainer {
+  width: 10%;
 }
