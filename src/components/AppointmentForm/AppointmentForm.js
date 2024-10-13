@@ -1,8 +1,9 @@
-import React from "react-router-dom";
+import React, { useNavigate } from "react-router-dom";
 import "../../components/css/Appointment.css";
 import wcdesign from "./AppointmentForm.module.css";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import Appointment from "../../pages/Appointment/Appointment";
 
 const AppointmentForm = ({ assistantId }) => {
   const today = new Date().toISOString().split("T")[0];
@@ -13,6 +14,7 @@ const AppointmentForm = ({ assistantId }) => {
   const [serviceDuration, setServiceDuration] = useState(null);
   const [serviceDescription, setServiceDescription] = useState(null);
   const [serviceDate, setServiceDate] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getAssistantDetails() {
@@ -68,11 +70,11 @@ const AppointmentForm = ({ assistantId }) => {
         if (data.isSuccess === true) {
           Swal.fire({
             title: "Appointment Successfully Sent",
-            icon: "error",
+            icon: "successfull",
             text: "Check your login details and try again.",
           });
 
-          console.log("log-in successfully");
+          navigate(<Appointment />);
         } else {
           Swal.fire({
             title: "Appointment failed",

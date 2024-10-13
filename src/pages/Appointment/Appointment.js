@@ -9,7 +9,7 @@ import wcdesign from "./Appointment.module.css";
 const Appointment = () => {
   const { user } = useContext(UserContext);
   const location = useLocation();
-  const { assistantId, fromFind } = location.state;
+  const { assistantId, fromFind } = location.state || {};
 
   console.log(assistantId);
 
