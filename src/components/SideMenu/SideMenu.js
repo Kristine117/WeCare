@@ -91,7 +91,7 @@ export default function SideMenu({
           </Link>
 
           <Link
-            to="/appointment-page/:assistantId"
+            to="/appointment"
             className={
               activeNavApp ? "menu-item my-3 actives" : "menu-item my-3"
             }
