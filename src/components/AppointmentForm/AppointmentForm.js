@@ -4,36 +4,39 @@ import wcdesign from "./AppointmentForm.module.css";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-const AppointmentForm = ({ assistantId, fullName }) => {
+const AppointmentForm = ({ assistantId }) => {
   const today = new Date().toISOString().split("T")[0];
   const appointmentDate = today;
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [assistant,setAssistant] = useState(null);
+  const [assistant, setAssistant] = useState(null);
 
-  useEffect(()=>{
-    async function getAssistantDetails(){
-        try{
-          const data = await fetch(`${process.env.REACT_APP_API_URL}/main/assistant-details/${assistantId}`,{
-            headers:{
-              "Authorization": `Bearer ${localStorage.getItem("token")}`,
-            }
-          })
-
-          if(!data.ok){
-            throw new Error("Something went wrong");
+  useEffect(() => {
+    async function getAssistantDetails() {
+      try {
+        const data = await fetch(
+          `${process.env.REACT_APP_API_URL}/main/assistant-details/${assistantId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
           }
+        );
 
-          const newData = await data.json();
-
-          setAssistant(newData?.data)
-        }catch(e){
-          throw new Error(e.message)
+        if (!data.ok) {
+          throw new Error("Something went wrong");
         }
+
+        const newData = await data.json();
+
+        setAssistant(newData?.data);
+      } catch (e) {
+        throw new Error(e.message);
+      }
     }
 
     getAssistantDetails();
-  },[assistantId])
+  }, [assistantId]);
 
   console.log(assistant);
   function sendAppointment(e) {
@@ -99,13 +102,9 @@ const AppointmentForm = ({ assistantId, fullName }) => {
           />
         </div>
 
-
         <div className="form-group">
           <label htmlFor="service-duration">Service Duration</label>
-          <input type="number"
-          id="service-duration"
-          className="form-control"
-          />
+          <input type="number" id="service-duration" className="form-control" />
         </div>
 
         <button type="submit" className="btn btn-login">
