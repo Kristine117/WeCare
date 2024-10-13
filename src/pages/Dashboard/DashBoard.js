@@ -7,6 +7,7 @@ import { Navigate } from "react-router-dom";
 import DashboardContainer from "../../components/DashboardContainer/DashboardContainer";
 import LoggedInCommonNavBar from "../../components/LoggedInCommonNavBar/LoggedInCommonNavBar";
 import AssistantContent from "../../components/AssistantContent/AssistantContent";
+import Banner from "../../components/Banner/Banner"
 
 const DashBoard = ()=>{
     const {user} = useContext(UserContext);
@@ -42,6 +43,7 @@ const DashBoard = ()=>{
                 <SideMenu/>
                 <DashboardContainer>
                     <LoggedInCommonNavBar/>
+                    <Banner/>
                     {user.userType === 'senior' && <ProfileCard list={assistantList}/>}
                     {user?.userType === 'assistant' && <AssistantContent/>}     
                 </DashboardContainer>            

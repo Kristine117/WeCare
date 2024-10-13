@@ -4,7 +4,6 @@ import io from 'socket.io-client';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import InputEmoji from "react-input-emoji";
-
 import UserContext from "../../UserContext";
 import { FaImage, FaPaperPlane , FaPlus,FaDownload} from 'react-icons/fa'; 
 import style from "./ChatComponent.module.css"
@@ -329,7 +328,7 @@ const ChatComponent = ({recipientId}) => {
                                     <FaImage  className={style.iconImage} />
                                 </label>
 
-                                 <input 
+                                    <input 
                                     type="file" 
                                     className="d-none" 
                                     id="fileInputPlus"
