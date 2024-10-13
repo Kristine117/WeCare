@@ -33,7 +33,7 @@ const AppointmentForm = ({ assistantId, fullName }) => {
     }
 
     getAssistantDetails();
-  },[])
+  },[assistantId])
 
   console.log(assistant);
   function sendAppointment(e) {
