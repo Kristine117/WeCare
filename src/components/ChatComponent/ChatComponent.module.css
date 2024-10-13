@@ -20,7 +20,7 @@
   justify-content: space-evenly;
 }
 .messageBox {
-  max-width: 60%;
+  max-width: 53%;
 }
 
 .message {
@@ -39,10 +39,37 @@
   color: #678990;
 }
 
-.time {
+.timeSender {
   color: #678990;
 }
 
+.timeReceiver {
+  color: #678990;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .messageInput {
-  width: 60%;
+  width: 80%;
+}
+
+.sendButtonContainer {
+  width: 10%;
+}
+
+.sender {
+  display: flex;
+  justify-content: end;
+}
+
+.receiver {
+  display: flex;
+  justify-content: start;
+}
+
+.footerFirstDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 }

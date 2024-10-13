@@ -1,40 +1,30 @@
-import { useContext, useState } from "react";
+import React, { useContext } from "react";
 import UserContext from "../../UserContext";
+import SideMenu from "../../components/SideMenu/SideMenu";
+import DashboardContainer from "../../components/DashboardContainer/DashboardContainer";
+import { Navigate, useLocation } from "react-router-dom";
+import AppointmentForm from "../../components/AppointmentForm/AppointmentForm";
+import wcdesign from "./Appointment.module.css";
 
-import "../../components/css/Appointment.css";
-import { useParams } from "react-router-dom";
-const Appointment = ()=> {
-  const seniorId = useParams();
-  const { user, setUser } = useContext(UserContext);
+const Appointment = () => {
+  const { user } = useContext(UserContext);
+  const location = useLocation();
+  const { assistantId, fromFind } = location.state;
+
+  console.log(assistantId);
 
   return (
-    <div className="banner d-flex">
-      <h3 className="head"> Appointment Details</h3>
-      <form>
-        
-        <div className="form-group">
-          <label>Appointment Date</label>
-          <input type="Date" className="form-control" />
-        </div>
-        <div className="form-group">
-          <label>Service Date</label>
-          <input type="Date" className="form-control" />
-        </div>
-        <div className="form-group">
-          <label>Start Date</label>
-          <inp  ut type="Date" className="form-control" />
-        </div>
-        <div className="form-group">
-          <label>End Date</label>
-          <input type="Date" className="form-control" />
-        </div>
-
-        <button type="submit" className="btn btn-login">
-          Submit
-        </button>
-      </form>
-    </div>
+    <main>
+      {/*  {!user?.id && <Navigate to={"/login"} />} */}
+      {user?.id && (
+        <section className={wcdesign["dashboard"]}>
+          <SideMenu />
+          {fromFind && <AppointmentForm assistantId={assistantId} />}
+          this is the appoint ment
+        </section>
+      )}
+    </main>
   );
-}
+};
 
 export default Appointment;

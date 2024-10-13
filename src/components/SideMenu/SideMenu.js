@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 import AppNavbar from "../AppNavbar/AppNavbar";
 // import Nav from "react-bootstrap/Nav";
 import sidemenu from "./SideMenu.module.css";
@@ -23,8 +24,7 @@ export default function SideMenu({
   };
 
   const clickedActiveFind = () => {
-    <AppNavbar activeHead={true} />;
-    navigate("/dashboard-senior/find");
+    navigate("/find-care");
   };
 
   const clickedActiveMess = () => {
@@ -49,7 +49,7 @@ export default function SideMenu({
   return (
     <>
       {/* Sidebar */}
-      <div className={sidemenu['sidebar']}>
+      <div className={sidemenu["sidebar"]}>
         <div className="logo my-4 text-center">
           <img src="../wecare_logo.png" alt="WeCare" width="100" />
         </div>
@@ -67,7 +67,7 @@ export default function SideMenu({
             <p className="ml-2">Home</p>
           </div>
           <Link
-            to={'/find'}
+            to={"/find"}
             className={
               activeNavFind ? "menu-item my-3 actives" : "menu-item my-3"
             }
@@ -77,7 +77,8 @@ export default function SideMenu({
             </span>
             <p className="ml-2">Find</p>
           </Link>
-          <Link to={'/chatlist'}
+          <Link
+            to={"/chatlist"}
             // onClick={clickedActiveMess}
             className={
               activeNavMes ? "menu-item my-3 actives" : "menu-item my-3"
@@ -89,8 +90,8 @@ export default function SideMenu({
             <p className="ml-2">Message</p>
           </Link>
 
-          <div
-            onClick={clickedActiveApp}
+          <Link
+            to="/appointment-page/:assistantId"
             className={
               activeNavApp ? "menu-item my-3 actives" : "menu-item my-3"
             }
@@ -99,7 +100,7 @@ export default function SideMenu({
               list_alt
             </span>
             <p className="ml-2">Appointment</p>
-          </div>
+          </Link>
         </div>
 
         <div className="support-item mb-4 ml-4 mr-4">
@@ -129,7 +130,7 @@ export default function SideMenu({
             Log-Out
           </button>
         </div>
-      </div>  
+      </div>
 
       <div
         className="modal fade"

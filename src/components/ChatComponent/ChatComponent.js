@@ -4,7 +4,6 @@ import io from 'socket.io-client';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import InputEmoji from "react-input-emoji";
-
 import UserContext from "../../UserContext";
 import { FaImage, FaPaperPlane , FaPlus,FaDownload} from 'react-icons/fa'; 
 import style from "./ChatComponent.module.css"
@@ -23,9 +22,12 @@ const ChatComponent = ({recipientId}) => {
     const messagesEndRef = useRef(null);
     const senderId = user.id;
     const [socket, setSocket] = useState(null);
-    //const [roomId,setRoomId] = useState("5696c08e-d367-4934-88a5-115398f94ba0"); 
-   const [roomId,setRoomId] = useState(""); 
+    const [fileNames, setFileNames] = useState([]); // State to store selected filenames
+    const [inputActive ,setInputActive] = useState(false)
+
+
    const socketRef = useRef(null); // Initialize socketRef
+   const roomIdRef = useRef(null);
 
 
 
@@ -33,21 +35,27 @@ const ChatComponent = ({recipientId}) => {
      // Initialize socket and pass userId
      useEffect(() => {
         const socketconnection= io(apiUrl);
+       
+
        // setSocket(socketconnection)
        socketRef.current = socketconnection;
-          // Track connection status
-    socketconnection.on('connect', () => {
-        console.log('Socket connected:', socketconnection.id);
-        socketconnection.emit('joinRoom', { roomId, senderId });
-    });
 
-    // Handle socket disconnection
-    socketconnection.on('disconnect', () => {
-        console.log('Socket disconnected');
-    });
+        grabRoomId();
+        console.log("Room id in socket connection");
+        console.log(roomIdRef)
+        // Track connection status
+        socketconnection.on('connect', () => {
+            console.log('Socket connected:', socketconnection.id);
+            socketconnection.emit('joinRoom', { roomId: roomIdRef.current, senderId });
+        });
 
-      // Handle incoming messages
-      socketconnection.on('receiveMessage', (message) => {
+        // Handle socket disconnection
+        socketconnection.on('disconnect', () => {
+            console.log('Socket disconnected');
+        });
+
+        // Handle incoming messages
+        socketconnection.on('receiveMessage', (message) => {
         console.log("Message received:", message);
 
         setMessages((prevMessages) => {
@@ -98,6 +106,11 @@ const ChatComponent = ({recipientId}) => {
             })
 
             data1 = await data.json();
+
+            
+        roomIdRef.current = data1.roomId;
+            console.log("roomId result from fetch:")
+        console.log(roomIdRef);
         }catch(e){
             throw new Error(e.message)
         }
@@ -107,11 +120,8 @@ const ChatComponent = ({recipientId}) => {
         return newRoomId;
     }
 
-    useEffect(() => {
-        const grabroom= grabRoomId();
-       setRoomId(grabroom) 
-       console.log("this is room id:")
-       console.log(roomId)
+     useEffect(() => {    
+     
         const fetchMessages = async () => {
             const response = await axios.get(`${apiUrl}/chat`, {
                 headers: {
@@ -141,20 +151,14 @@ const ChatComponent = ({recipientId}) => {
             messageContent,
             contentType: 'text' // Or 'file' depending on your use case
         };
-    
-        console.log(message);
-        console.log(socketRef.current); // Log the actual socket instance
+      //  console.log(socketRef.current); // Log the actual socket instance
     
         try {
             // Emit the message to the server through Socket.IO using socketRef.current
             if (socketRef.current) {
                 socketRef.current.emit('sendMessage', message);
     
-                // Clear the input after sending
-                setMessageContent('');
-    
-                // Scroll the chat to the bottom after sending the message
-                scrollToBottom();
+               
             } else {
                 console.error("Socket is not connected.");
             }
@@ -163,7 +167,7 @@ const ChatComponent = ({recipientId}) => {
         }
     };
     
-    const handleFileUpload = async (e) => {
+    const sending = async (e) => {
         const data = new FormData();
         
         // Loop through all selected files and append each to the form data
@@ -180,18 +184,34 @@ const ChatComponent = ({recipientId}) => {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            console.log(response.data);
-            // Assuming the response contains an array of messages
-            const messages = response.data;
-           
-            // Emit each message to the sender and recipient
-            messages.forEach(message => {
-                socketRef.current.emit('sendMessage', message);
-            });
-            setFile(null); 
+            
+
            
         } catch (error) {
             console.error("Error uploading files:", error);
+        }
+    
+
+    };
+
+    const handleButtonClick = () => {
+        if (file && file.length > 0) {
+            // If a file is selected, call sending function
+            sending();
+            setFile(null); 
+            setFileNames('');
+            setInputActive(false); 
+            scrollToBottom();
+        } else if (messageContent.trim()) {
+            // If there's message content, call sendMessage function
+            sendMessage();
+
+             // Clear the input after sending
+             setMessageContent('');
+                
+             // Scroll the chat to the bottom after sending the message
+             scrollToBottom();
+
         }
     };
     const handleImageClick = (imageUrl) => {
@@ -210,7 +230,14 @@ const ChatComponent = ({recipientId}) => {
             })
             .catch(error => console.error('Download failed', error));
     };
-    
+
+    const handleFileChange = (e) => {
+        const files = e.target.files;
+        setFile(files);
+        setFileNames(Array.from(files).map(file => file.name)); // Set the filenames
+    };
+
+
     const handleCloseModal = () => {
         setModalOpen(false); // Close the modal
         setSelectedImage(null); // Reset selected image
@@ -251,14 +278,15 @@ const ChatComponent = ({recipientId}) => {
                                 const isForReceiver = msg.isForReceiver;                       
                                 const isTextMessage = msg.contentType === 'text';
                                 const isFileMessage = msg.contentType === 'file';
-                                const isPicture = msg.contentType === 'picture';
-                              
-                               // const formattedTime = convertTime(msg.time);
+                                const isPicture = msg.contentType === 'picture';      
+                                const formattedTime = convertTime(msg.time);
 
                                 return (
                                     <div key={index} className={`mb-2 d-flex ${isForReceiver ? 'justify-content-start' : 'justify-content-end'}`}>
                                         <div className={style.messageBox}>
-                                            {/* <div className={style.time}>{formattedTime}</div>                                     */}
+                                            <div className={style.time}  >
+                                                <div className={isForReceiver? `${style.timeReceiver}`:`${style.timeSender}`}>{formattedTime}</div>
+                                            </div>                                     
                                             <div className={`p-2 rounded ${!isPicture ? (!isForReceiver && (isTextMessage || isFileMessage) ? `${style.textBoxSender} text-white` : `${style.textBoxReceiver}`) : ''}`}>
 
                                                 {msg.contentType === 'picture' ? (
@@ -285,59 +313,68 @@ const ChatComponent = ({recipientId}) => {
                             <div ref={messagesEndRef} />
                         </div>
 
-                        <div className={style.footer}>
-                         
-                         
-                           
-                            <div className="mt-2 d-flex p-2 align-items-center"> 
+                        <div className={style.footer}>    
+                            <div className={style.footerFirstDiv}>                                                                
                                 <input 
                                     type="file" 
                                     className="d-none" 
                                     id="fileInput"
                                     multiple 
-                                     accept="image/*"
-                                    onChange={(e) => setFile(e.target.files)} 
-                                  
-                                  
+                                    accept="image/*"
+                                    onChange={handleFileChange} 
+                                    onClick={() => setInputActive(true)}                                      
                                 />
                                 <label htmlFor="fileInput" >
                                     <FaImage  className={style.iconImage} />
                                 </label>
 
-                                 <input 
+                                    <input 
                                     type="file" 
                                     className="d-none" 
                                     id="fileInputPlus"
                                     accept=".xls,.xlsx,.doc,.docx,.pdf"
-                                    onChange={(e) => setFile(e.target.files)} 
+                                    onChange={handleFileChange} 
+                                    onClick={() => setInputActive(true)}                                      
                                 />
                                 <label htmlFor="fileInputPlus" >
                                     <FaPlus className={style.iconPlus} />
-                                </label>
-                            </div>  
-                            <div  className={style.messageInput}>
-                                <InputEmoji
-                                    value={messageContent}
-                                    onChange={(val) => setMessageContent(val)} // onChange provides the new value directly
-                                    onKeyDown={sendMessageOnEnter}
-                                    cleanOnEnter
-                                    placeholder="Type a message"
-                                 
-                                /> 
+                                </label>                          
+                               
+                                <div className={style.messageInput}>
+                                    {!inputActive && ( <InputEmoji
+                                            value={messageContent}
+                                            onChange={(val) => setMessageContent(val)}
+                                            onKeyDown={sendMessageOnEnter}
+                                            cleanOnEnter
+                                            placeholder="Type a message"
+                                        />
+                                    )}
+                                    {fileNames.length > 0 && (
+                                        <div>
+                                            {fileNames.map((name, index) => (
+                                                <div key={index} className={`${style.fileName}`}>{name}</div>
+                                            ))}
+                                        </div>
+                                     )}  
+                                </div>
+                              
                             </div>
-                            <div>
-                            {messageContent.trim() && (
-                                <button className="btn " onClick={sendMessage}>
-                                 <FaPaperPlane size={20} className={style.iconPlane}  />
-                                </button>
-                            )}
-                            
-                            {file && file.length > 0 && (
-                                <button className=" mt-2 mx-auto" onClick={handleFileUpload}>
-                                 <FaPaperPlane size={20} className={style.iconPlane}  />
-                                </button>
-                            )}
-                            </div>             
+                            <div className={style.sendButtonContainer}>
+                                <div>
+                                    {(messageContent.trim() || file && file.length > 0  ) && (
+                                        <button className="btn " onClick={handleButtonClick}>
+                                        <FaPaperPlane size={20} className={style.iconPlane}  />
+                                        </button>
+                                    )}
+                                </div>
+                                {/* <div>
+                                    {file && file.length > 0 && (
+                                        <button className=" mt-2 mx-auto" onClick={sending}>
+                                        <FaPaperPlane size={20} className={style.iconPlane}  />
+                                        </button>
+                                    )}
+                                </div>   */}
+                            </div>           
                         </div>
                     </div>
                 </div>

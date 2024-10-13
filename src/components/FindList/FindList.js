@@ -1,8 +1,20 @@
 import React, { useState } from "react";
 import wcdesign from "./FindList.module.css";
+import { useNavigate } from "react-router-dom";
 
-function FindList() {
+function FindList({
+  fullName,
+  assistant_address,
+  userId,
+  profileImage,
+  reviews,
+  gender,
+  experience,
+  assistant_age,
+  years_exp,
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   // Function to open modal
   const openModal = () => {
@@ -23,13 +35,21 @@ function FindList() {
     }
   };
 
+  const handleRequest = () => {
+    navigate("/appointment-page/:assistantId", {
+      state: { assistantId: userId, fromFind: true },
+    });
+  };
+
+  console.log(userId);
+
   return (
     <div>
       <div className={wcdesign["profile-section"]} onClick={openModal}>
         <div className={wcdesign["profile-picture"]}>
           <div className={wcdesign["piture-section"]}>
             <img
-              src="https://images.stockcake.com/public/1/1/a/11a88fd4-67cd-46f6-ba91-ce86df5f891c/nurse-holding-syringe-stockcake.jpg"
+              src={profileImage}
               alt="Nurse holding syringe"
               className={wcdesign["profile-image"]}
             ></img>
@@ -60,7 +80,9 @@ function FindList() {
                 star_rate_half
               </span>
             </div>
-            <div className={wcdesign["rating-section"]}>4.50 (12 reviews)</div>
+            <div className={wcdesign["rating-section"]}>
+              4.50 ({reviews} reviews)
+            </div>
           </div>
         </div>
         <div className={wcdesign["message-section"]}>
@@ -68,17 +90,8 @@ function FindList() {
             arrow_left
           </div>
           <div className={wcdesign["message-container"]}>
-            <div className={wcdesign["profile-name"]}>Hi! User Name</div>
-            <div className={wcdesign["profile-message"]}>
-              Dedicated caregiver with 3 years of experience providing
-              compassionate care to elderly and disabled individuals. Skilled in
-              personal care, medication management, mobility assistance, and
-              emotional support. Known for building strong relationships with
-              clients and creating a safe, supportive environment that enhances
-              quality of life. Certified in CPR and First Aid, with a deep
-              commitment to improving the well-being and comfort of those in my
-              care.
-            </div>
+            <div className={wcdesign["profile-name"]}>{fullName}</div>
+            <div className={wcdesign["profile-message"]}>{experience}</div>
           </div>
         </div>
       </div>
@@ -94,7 +107,7 @@ function FindList() {
                 <div className={wcdesign["profile-picture-modal"]}>
                   <div className={wcdesign["piture-section-modal"]}>
                     <img
-                      src="https://images.stockcake.com/public/1/1/a/11a88fd4-67cd-46f6-ba91-ce86df5f891c/nurse-holding-syringe-stockcake.jpg"
+                      src={profileImage}
                       alt="Nurse holding syringe"
                       className={wcdesign["profile-image"]}
                     ></img>
@@ -103,22 +116,28 @@ function FindList() {
                 <div className={wcdesign["message-section-modal"]}>
                   <div className={wcdesign["message-container-modal"]}>
                     <div className={wcdesign["profile-name-modal"]}>
-                      <div>User Name</div>
-                      <span class="material-symbols-outlined">female</span>
-                      <div>29</div>
+                      <div>{fullName}</div>
+                      {gender === "Male" ? (
+                        <span className="material-symbols-outlined">male</span>
+                      ) : (
+                        <span className="material-symbols-outlined">
+                          female
+                        </span>
+                      )}
+                      <div>{assistant_age}</div>
                     </div>
                     <div className={wcdesign["profile-exp"]}>
                       <span className={`material-symbols-outlined`}>
                         list_alt_check
                       </span>
-                      <div>2.5yrs work experience</div>
+                      <div>{years_exp}yrs work experience</div>
                     </div>
                     <div className={wcdesign["profile-address"]}>
-                      <span class="material-symbols-outlined">home</span>
-                      <div>Cabahug St.123, Cebu, City</div>
+                      <span className="material-symbols-outlined">home</span>
+                      <div>{assistant_address}</div>
                     </div>
                     <div className={wcdesign["profile-rate"]}>
-                      <span class="material-symbols-outlined">
+                      <span className="material-symbols-outlined">
                         attach_money
                       </span>
                       <div>Rate: 500.00/hr</div>
@@ -128,7 +147,7 @@ function FindList() {
               </div>
             </div>
             <div className={wcdesign["modal-footer"]}>
-              <button className={wcdesign["button"]} onClick={closeModal}>
+              <button className={wcdesign["button"]} onClick={handleRequest}>
                 Request
               </button>
               <button className={wcdesign["button"]} onClick={closeModal}>
