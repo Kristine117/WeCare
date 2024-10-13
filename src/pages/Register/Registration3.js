@@ -17,6 +17,7 @@ export default function Registration3() {
   
     const [barangays, setBarangays] = useState([]);
     const [experiences, setExperiences] = useState([]);
+    const [people, setPeople] = useState([]);
     const [activeForm, setActiveForm] = useState(null);
     const [isSeniorModalOpen, setIsSeniorModalOpen] = useState(false);
     const [isCaregiverModalOpen, setIsCaregiverModalOpen] = useState(false);
@@ -39,9 +40,13 @@ export default function Registration3() {
       birthDate: "",
       experienceId: "",
       password: "",
-      profileImage: ""
+      profileImage: "",
+      seniorNumber: "",
+      prescribeMeds: "",
+      healthStatus:"",
+      remarks:"",
+      relationships: [] // This will store authorized people
     });
-
 
 
 
@@ -78,7 +83,7 @@ export default function Registration3() {
       setInitialData((prevData) => ({
         ...prevData,
         userType: "senior",
-        experienceId: "4",
+        experienceId: null,
         email: storedEmail,
         password: storedPassword,
       }));
@@ -145,7 +150,6 @@ export default function Registration3() {
     })
 
 
-
   }, []);
 
 
@@ -158,7 +162,7 @@ export default function Registration3() {
             setErrorMessage("Please select either 'Senior' or 'Caregiver' before proceeding.");
             return; // Prevent further execution if no activeForm is selected
           }
-        
+          console.log(initialData);
           // Reset error message if activeForm is valid
           setErrorMessage("");
           //console.log(initialData);
@@ -168,7 +172,8 @@ export default function Registration3() {
 
   
     const collectDataRegistration1 = (e) => {
-
+      console.log(initialData);
+      
       fetch(`${process.env.REACT_APP_API_URL}/main/register-user`,{
         method:'POST',
         headers:{
@@ -234,6 +239,24 @@ export default function Registration3() {
         profileImage: base64String, // Store the base64 string of the image
       }));
     };
+
+        // Handle changes in the dynamic fields for each person
+        const handlePersonChange = (index, e) => {
+          const { name, value } = e.target;
+          const newPeople = [...people];
+          newPeople[index][name] = value;
+          setPeople(newPeople);
+          setInitialData((prevData) => ({
+              ...prevData,
+              relationships: newPeople
+          }));
+      };
+  
+      // Function to add a new person input set
+      const addPersonHandler = (e) => {
+          e.preventDefault();
+          setPeople([...people, { name: '', age: '', relationship: '', civilstatus: '', occupation: '', contactNumber: '' }]);
+      };
     
   
     const seniorButtonClass = isSeniorFormComplete() || formCompletedSenior
@@ -398,7 +421,7 @@ export default function Registration3() {
                       id="birthDate" name="birthDate"
                       value={initialData.birthDate}
                       onChange={handleChange} // Corrected here
-                    />
+                      required/>
                 </div>
 
 
@@ -444,44 +467,30 @@ export default function Registration3() {
                         required/>
                         <label htmlFor="female">Female</label>
                     </div>
-
-                
-
-                    </div>
-
-
+                </div>
+                    
                     <div className="form-group d-block">
-                        <input type="number" className="form-control" placeholder="Enter Senior ID "
-                        id="seniodId" name="seniodId"
-                        required/>
+                    
+                        <input type="text" className="form-control" placeholder="Enter First Name"
+                      id="seniorNumber" name="seniorNumber" 
+                      value={initialData.seniorNumber}
+                      onChange={handleChange}
+                      required />
                         <label className="mt-2">(If Applicable)</label>
                     </div>
-
                 </div> 
-            </div> 
-
-            <div className="d-flex mb-5 mt-3 "> 
-                <label className="mr-4">Civil status:</label>
-                <input type="radio" name="civilStatus" value="single" className="mr-2" id="single" required/>
-                <label className="mr-3">Single</label>
-                <input type="radio" name="civilStatus" value="married" className="mr-2" id="married" required/>
-                <label className="mr-3">Married</label>
-                <input type="radio" name="civilStatus" value="separated" className="mr-2" id="separated" required/>
-                <label className="mr-3">Separated</label>
-                <input type="radio" name="civilStatus" value="window" className="mr-2" id="window" required/>
-                <label>widow/her</label>
             </div> 
  
 
             <div className="d-flex mb-5 mt-3"> 
                 <label className="mr-3">Health status:</label>
-                <input type="radio" name="healthStatus" value="physicallyFit" className="mr-2" id="physicallyFit" required/>
+                <input type="radio" name="healthStatus" value="physicallyFit" onChange={handleChange} className="mr-2" id="physicallyFit" required/>
                 <label className="mr-3">Physically fit</label>
-                <input type="radio" name="healthStatus" value="frailSickly" className="mr-2" id="frailSickly" required/>
+                <input type="radio" name="healthStatus" value="frailSickly" onChange={handleChange} className="mr-2" id="frailSickly" required/>
                 <label className="mr-3">Frail/Sickly</label>
-                <input type="radio" name="healthStatus" value="pwd" className="mr-2" id="pwd" required/>
+                <input type="radio" name="healthStatus" value="pwd" onChange={handleChange} className="mr-2" id="pwd" required/>
                 <label className="mr-3">PWD</label>
-                <input type="radio" name="healthStatus" value="bedRidden" className="mr-2" id="bedRidden" required/>
+                <input type="radio" name="healthStatus" value="bedRidden" onChange={handleChange} className="mr-2" id="bedRidden" required/>
                 <label>Bedridden</label>
             </div> 
  
@@ -489,27 +498,110 @@ export default function Registration3() {
             <div className="d-block mb-3 mt-4"> 
                 <label className="mr-3 mb-3">Are you taking medicines/maintenance as prescribed by a doctor?</label>
 
-                <input type="radio" name="medsTaken" value="medsYes" className="mr-2" id="medsYes" required/>
+                <input type="radio" name="prescribeMeds" value="medsYes" onChange={handleChange} className="mr-2" id="medsYes" required/>
                 <label className="mr-3">YES</label>
-                <input type="radio" name="medsTaken" value="medsNo" className="mr-2" id="medsNo" required/>
+                <input type="radio" name="prescribeMeds" value="medsNo" onChange={handleChange} className="mr-2" id="medsNo" required/>
                 <label>NO</label>
             </div>
 
             <div className="sex-checkBox-container mb-3 mt-4 ml-2"> 
             <label className="mr-3 mb-1">If yes, please write the prescribed medicine/s</label>
-            <textarea id="prescribeMed" name="prescribeMed" rows="4" cols="50" className="form-control" required>
+            <textarea id="remarks" name="remarks" rows="4" cols="50" 
+            value={initialData.remarks}
+            onChange={handleChange} // Corrected here
+            className="form-control" required>
            
             </textarea>
             </div>
 
-            <div className="sex-checkBox-container mb-3 mt-4 ml-2"> 
-            <label className="mr-3"> Authorized representative     (Leave Blank if None)</label>
-            <input type="submit" className="btn btn-login buttonSeniorSize" value="Add Person" required/>
+            <div className="sex-checkBox-container mb-3 mt-4 ml-2">
+                <label className="mr-3"> Authorized representative (Leave Blank if None)</label>
+                <button className="btn-get-started buttonSeniorSize" onClick={addPersonHandler}>Add Person</button>
             </div>
+
+            <div>
+                {people.map((person, index) => (
+                    <div key={index} className="person-inputs mt-4">
+                    <h5>Relationship {index + 1}</h5> {/* Dynamic label showing "Relationship X" */}
+                
+                    <div className="form-group">
+                        <label>Name:</label>
+                        <input 
+                            type="text" 
+                            name="name" 
+                            value={person.name} 
+                            onChange={(e) => handlePersonChange(index, e)} 
+                            className="form-control" 
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Age:</label>
+                        <input 
+                            type="number" 
+                            name="age" 
+                            value={person.age} 
+                            onChange={(e) => handlePersonChange(index, e)} 
+                            className="form-control" 
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Relationship:</label>
+                        <input 
+                            type="text" 
+                            name="relationship" 
+                            value={person.relationship} 
+                            onChange={(e) => handlePersonChange(index, e)} 
+                            className="form-control" 
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Civil Status:</label>
+                        <input 
+                            type="text" 
+                            name="civilstatus" 
+                            value={person.civilstatus} 
+                            onChange={(e) => handlePersonChange(index, e)} 
+                            className="form-control" 
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Occupation:</label>
+                        <input 
+                            type="text" 
+                            name="occupation" 
+                            value={person.occupation} 
+                            onChange={(e) => handlePersonChange(index, e)} 
+                            className="form-control" 
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Contact Number:</label>
+                        <input 
+                            type="text" 
+                            name="contactNumber" 
+                            value={person.contactNumber} 
+                            onChange={(e) => handlePersonChange(index, e)} 
+                            className="form-control" 
+                            required
+                        />
+                    </div>
+                    <hr />
+                </div>
+              
+                ))}
+            </div>
+
+
             
             <div className="form-group d-block mt-4">
                 <ProfileUpload onFileSelect={handleFileSelect} />
             </div>
+
 
  
               {/* Add more fields as necessary */}
