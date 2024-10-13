@@ -22,7 +22,7 @@ const Appointment = () => {
           {fromFind ? (
             <AppointmentForm assistantId={assistantId} />
           ) : (
-            <div>this is the appoint ment</div>
+            <Navigate to="/appointment" />
           )}
         </section>
       )}

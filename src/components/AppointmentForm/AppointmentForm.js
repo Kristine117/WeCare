@@ -3,7 +3,7 @@ import "../../components/css/Appointment.css";
 import wcdesign from "./AppointmentForm.module.css";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import Appointment from "../../pages/Appointment/Appointment";
+import AppointmentList from "../../pages/AppointmentList/AppointmentList";
 
 const AppointmentForm = ({ assistantId }) => {
   const today = new Date().toISOString().split("T")[0];
@@ -74,7 +74,7 @@ const AppointmentForm = ({ assistantId }) => {
             text: "Check your login details and try again.",
           });
 
-          navigate(<Appointment />);
+          navigate(<AppointmentList />);
         } else {
           Swal.fire({
             title: "Appointment failed",
