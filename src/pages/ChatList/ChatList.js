@@ -59,6 +59,7 @@ const ChatList = () => {
                     firstName={val.firstname}
                     lastName={val.lastname}
                     userId={val.userId}
+                    profileImage={val.profileImage}
                   />
                 );
               })}
