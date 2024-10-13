@@ -23,6 +23,7 @@ const ChatComponent = ({recipientId}) => {
     const senderId = user.id;
     const [socket, setSocket] = useState(null);
     const [fileNames, setFileNames] = useState([]); // State to store selected filenames
+    const [inputActive ,setInputActive] = useState(false)
 
 
    const socketRef = useRef(null); // Initialize socketRef
@@ -157,11 +158,7 @@ const ChatComponent = ({recipientId}) => {
             if (socketRef.current) {
                 socketRef.current.emit('sendMessage', message);
     
-                // Clear the input after sending
-                setMessageContent('');
-    
-                // Scroll the chat to the bottom after sending the message
-                scrollToBottom();
+               
             } else {
                 console.error("Socket is not connected.");
             }
@@ -187,14 +184,35 @@ const ChatComponent = ({recipientId}) => {
                     'Content-Type': 'multipart/form-data'
                 }
             });
+            
+
            
-            setFile(null); 
-            setFileNames('');
         } catch (error) {
             console.error("Error uploading files:", error);
         }
+    
 
+    };
 
+    const handleButtonClick = () => {
+        if (file && file.length > 0) {
+            // If a file is selected, call sending function
+            sending();
+            setFile(null); 
+            setFileNames('');
+            setInputActive(false); 
+            scrollToBottom();
+        } else if (messageContent.trim()) {
+            // If there's message content, call sendMessage function
+            sendMessage();
+
+             // Clear the input after sending
+             setMessageContent('');
+                
+             // Scroll the chat to the bottom after sending the message
+             scrollToBottom();
+
+        }
     };
     const handleImageClick = (imageUrl) => {
         setSelectedImage(imageUrl); // Set the clicked image for display
@@ -218,8 +236,8 @@ const ChatComponent = ({recipientId}) => {
         setFile(files);
         setFileNames(Array.from(files).map(file => file.name)); // Set the filenames
     };
-    
-    
+
+
     const handleCloseModal = () => {
         setModalOpen(false); // Close the modal
         setSelectedImage(null); // Reset selected image
@@ -266,7 +284,9 @@ const ChatComponent = ({recipientId}) => {
                                 return (
                                     <div key={index} className={`mb-2 d-flex ${isForReceiver ? 'justify-content-start' : 'justify-content-end'}`}>
                                         <div className={style.messageBox}>
-                                            <div className={style.time}>{formattedTime}</div>                                     
+                                            <div className={style.time}  >
+                                                <div className={isForReceiver? `${style.timeReceiver}`:`${style.timeSender}`}>{formattedTime}</div>
+                                            </div>                                     
                                             <div className={`p-2 rounded ${!isPicture ? (!isForReceiver && (isTextMessage || isFileMessage) ? `${style.textBoxSender} text-white` : `${style.textBoxReceiver}`) : ''}`}>
 
                                                 {msg.contentType === 'picture' ? (
@@ -294,15 +314,7 @@ const ChatComponent = ({recipientId}) => {
                         </div>
 
                         <div className={style.footer}>    
-                            <div>
-                                {/* {fileNames.length > 0 && (
-                                    <div>
-                                        {fileNames.map((name, index) => (
-                                            <div key={index} className={`${style.fileName}`}>{name}</div>
-                                        ))}
-                                    </div>
-                                )} */}                 
-                        
+                            <div className={style.footerFirstDiv}>                                                                
                                 <input 
                                     type="file" 
                                     className="d-none" 
@@ -310,7 +322,7 @@ const ChatComponent = ({recipientId}) => {
                                     multiple 
                                     accept="image/*"
                                     onChange={handleFileChange} 
-                                        
+                                    onClick={() => setInputActive(true)}                                      
                                 />
                                 <label htmlFor="fileInput" >
                                     <FaImage  className={style.iconImage} />
@@ -322,36 +334,46 @@ const ChatComponent = ({recipientId}) => {
                                     id="fileInputPlus"
                                     accept=".xls,.xlsx,.doc,.docx,.pdf"
                                     onChange={handleFileChange} 
+                                    onClick={() => setInputActive(true)}                                      
                                 />
                                 <label htmlFor="fileInputPlus" >
                                     <FaPlus className={style.iconPlus} />
                                 </label>                          
-                                <div  className={style.messageInput}>
-                                    <InputEmoji
-                                        value={messageContent}
-                                        onChange={(val) => setMessageContent(val)} // onChange provides the new value directly
-                                        onKeyDown={sendMessageOnEnter}
-                                        cleanOnEnter
-                                        placeholder="Type a message"
-                                    
-                                    /> 
+                               
+                                <div className={style.messageInput}>
+                                    {!inputActive && ( <InputEmoji
+                                            value={messageContent}
+                                            onChange={(val) => setMessageContent(val)}
+                                            onKeyDown={sendMessageOnEnter}
+                                            cleanOnEnter
+                                            placeholder="Type a message"
+                                        />
+                                    )}
+                                    {fileNames.length > 0 && (
+                                        <div>
+                                            {fileNames.map((name, index) => (
+                                                <div key={index} className={`${style.fileName}`}>{name}</div>
+                                            ))}
+                                        </div>
+                                     )}  
                                 </div>
+                              
                             </div>
                             <div className={style.sendButtonContainer}>
                                 <div>
-                                    {messageContent.trim() && (
-                                        <button className="btn " onClick={sendMessage}>
+                                    {(messageContent.trim() || file && file.length > 0  ) && (
+                                        <button className="btn " onClick={handleButtonClick}>
                                         <FaPaperPlane size={20} className={style.iconPlane}  />
                                         </button>
                                     )}
                                 </div>
-                                <div>
+                                {/* <div>
                                     {file && file.length > 0 && (
                                         <button className=" mt-2 mx-auto" onClick={sending}>
                                         <FaPaperPlane size={20} className={style.iconPlane}  />
                                         </button>
                                     )}
-                                </div>  
+                                </div>   */}
                             </div>           
                         </div>
                     </div>
