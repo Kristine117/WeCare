@@ -10,7 +10,7 @@ const AppointmentList = ()=>{
     return(
         <main>
            {(!user?.id && user.userType !== 'senior' && user.userType !== null) && <Navigate to={"/login"}/>}
-           {(!user?.id && user.userType !== 'senior' && user.userType !== null) && <section className={appList['page-flex']}>
+           {(user.userType === 'senior' && user.userType !== null) && <section className={appList['page-flex']}>
                 <SideMenu/>
                 <DashboardContainer>
                     <p>Hello World</p>
