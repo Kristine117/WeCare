@@ -52,7 +52,7 @@ const ChatList = () => {
               </div>
             </div>
             <div className={wcdesign["message-list-container"]}>
-              {assistantUserList.map((val) => {
+              {assistantUserList?.map((val) => {
                 return (
                   <ChatListComponent
                     key={val.userId}
