@@ -2,7 +2,7 @@ import React from "react";
 import wcdesign from "./ChatListComponent.module.css";
 import { useNavigate } from "react-router-dom";
 
-const ChatListComponent = ({ firstName, lastName, userId }) => {
+const ChatListComponent = ({ firstName, lastName, userId, profileImage }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -16,7 +16,7 @@ const ChatListComponent = ({ firstName, lastName, userId }) => {
         <div className={wcdesign["profile-picture-chat"]}>
           <div className={wcdesign["piture-section-chat"]}>
             <img
-              src="https://images.stockcake.com/public/1/1/a/11a88fd4-67cd-46f6-ba91-ce86df5f891c/nurse-holding-syringe-stockcake.jpg"
+              src={profileImage}
               alt="Nurse holding syringe"
               className={wcdesign["profile-image-chat"]}
             ></img>
