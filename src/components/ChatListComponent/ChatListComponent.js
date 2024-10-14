@@ -2,7 +2,7 @@
 import wcdesign from "./ChatListComponent.module.css";
 import { useNavigate } from "react-router-dom";
 
-const ChatListComponent = ({ firstName, lastName, userId, profileImage }) => {
+const ChatListComponent = ({ fullName,userId, profileImage,message }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -25,12 +25,10 @@ const ChatListComponent = ({ firstName, lastName, userId, profileImage }) => {
         <div className={wcdesign["message-section-chat"]}>
           <div className={wcdesign["message-container-chat"]}>
             <div className={wcdesign["profile-name-chat"]}>
-              {firstName} {lastName}
+              {fullName }
             </div>
             <div className={wcdesign["profile-message-chat"]}>
-              <div>
-                Dedicated caregiver with heheheh haha haksksk 3 years of experience
-                providing care.
+              <div>{!message ? "No message yet. Start Chat Now!": message}
               </div>
               <div className={wcdesign["online-time"]}>
                 1min
