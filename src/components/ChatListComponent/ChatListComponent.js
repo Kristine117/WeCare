@@ -7,9 +7,11 @@ const ChatListComponent = ({ firstName, lastName, userId, profileImage }) => {
 
   const handleClick = () => {
     navigate("/chat/:senderId/:receiverId", {
-      state: { recipientId: userId },
+      state: { recipientId: userId,firstName:firstName,lastName:lastName,profileImage:profileImage },
     });
   };
+
+
   return (
     <div className={wcdesign["list"]} onClick={handleClick}>
       <div className={wcdesign["profile-section-chat"]}>

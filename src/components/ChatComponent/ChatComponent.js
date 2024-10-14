@@ -12,7 +12,7 @@ import style from "./ChatComponent.module.css"
 const apiUrl =`${process.env.REACT_APP_API_URL}`;
 
 
-const ChatComponent = ({recipientId}) => {
+const ChatComponent = ({recipientId,lastName,firstName,profileImage}) => {
     const {user} = useContext(UserContext);
     const [messages, setMessages] = useState([]);
     const [messageContent, setMessageContent] = useState('');
@@ -268,7 +268,10 @@ const ChatComponent = ({recipientId}) => {
     
     return  (
         <div className="container-fluid">
-           
+           {/* <div>
+                <div>{firstName}  {lastName}</div>
+                <img className={style.profileImage} src={profileImage}/>
+           </div> */}
             <div className="row justify-content-center">
                 <div className="col-12 col-md-8 col-lg-6 w-100">
                     <div className=" w-100">
@@ -282,6 +285,7 @@ const ChatComponent = ({recipientId}) => {
                                 const formattedTime = convertTime(msg.time);
 
                                 return (
+                                    
                                     <div key={index} className={`mb-2 d-flex ${isForReceiver ? 'justify-content-start' : 'justify-content-end'}`}>
                                         <div className={style.messageBox}>
                                             <div className={style.time}  >
@@ -339,9 +343,9 @@ const ChatComponent = ({recipientId}) => {
                                 <label htmlFor="fileInputPlus" >
                                     <FaPlus className={style.iconPlus} />
                                 </label>                          
-                               
+                               {console.log(file)}
                                 <div className={style.messageInput}>
-                                    {!inputActive && ( <InputEmoji
+                                    {file == null && ( <InputEmoji
                                             value={messageContent}
                                             onChange={(val) => setMessageContent(val)}
                                             onKeyDown={sendMessageOnEnter}
@@ -349,7 +353,9 @@ const ChatComponent = ({recipientId}) => {
                                             placeholder="Type a message"
                                         />
                                     )}
-                                    {fileNames.length > 0 && (
+                                   
+                                   
+                                    {file != null  && (
                                         <div>
                                             {fileNames.map((name, index) => (
                                                 <div key={index} className={`${style.fileName}`}>{name}</div>

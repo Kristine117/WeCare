@@ -49,7 +49,7 @@ const Find = () => {
               </div>
             </div>
             <div className={wcdesign["find-list-container"]}>
-              {assistantUserList.map((val) => {
+              {assistantUserList?.map((val) => {
                 return (
                   <FindList
                     key={val.userId}

@@ -27,7 +27,8 @@
   height: 90vh;
   overflow-y: scroll;
   width: 100%;
-  padding: 5rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
 }
 
 .textBoxSender {
@@ -71,5 +72,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
+}
+.profileImage {
+  height: 10rem;
+  width: 10rem;
+  border-radius: 50%;
+  object-fit: cover;
 }
