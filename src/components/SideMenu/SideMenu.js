@@ -55,8 +55,7 @@ export default function SideMenu({
         </div>
 
         <div className="menu-items flex-grow-1 d-flex flex-column ml-4 mr-4">
-          <div
-            onClick={clickedActiveHome}
+          <Link to={'/dashboard-main'}
             className={
               activeNavHome ? "menu-item my-3 actives" : "menu-item my-3"
             }
@@ -65,7 +64,7 @@ export default function SideMenu({
               home
             </span>
             <p className="ml-2">Home</p>
-          </div>
+          </Link>
           <Link
             to={"/find"}
             className={
