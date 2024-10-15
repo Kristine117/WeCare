@@ -142,7 +142,7 @@ export default function Registration3() {
       if (data.isSuccess) {
         setExperiences(data.data); // Update the state with barangay data
       } else {
-        console.error("Failed to fetch barangay data.");
+        console.error("Failed to fetch experience data.");
       }
     })
     .catch(error => {
