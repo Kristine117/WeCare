@@ -1,17 +1,38 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import SideMenu from "../../components/SideMenu/SideMenu";
+import io from 'socket.io-client';
 import wcdesign from "./ChatList.module.css";
 import UserContext from "../../UserContext";
 import ChatListComponent from "../../components/ChatListComponent/ChatListComponent";
+
+const apiUrl =`${process.env.REACT_APP_API_URL}`;
 
 const ChatList = () => {
   const [assistantUserList, setAssistantUserList] = useState([]);
   const [isOpen, setIsOpen] = useState(true);
 
+  useEffect(() => {
+    const socket= io(apiUrl);
+
+    socket.on('connect', () => {
+        console.log('Connected to Socket.IO server');
+  });
+
+  socket.on('newMessageReceived', () => { 
+
+      fetchData(); 
+  });
+
+    return () => {
+        socket.disconnect(); // Clean up the socket connection when component unmounts
+    };
+  }, []);
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+  
   const fetchData = () => {
     fetch(`${process.env.REACT_APP_API_URL}/main/user-list`, {
       headers: {
@@ -28,6 +49,8 @@ const ChatList = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+
 
  const convertdate = (dateTime) =>  {
     const now = new Date();
@@ -88,8 +111,18 @@ const ChatList = () => {
                     fullName={val.fullName}
                     userId={val.userId}
                     profileImage={val.profileImage}
-                    message={val.messageContent}
+                    message={
+                      val.contentType === 'picture' 
+                        ? `${val.isFromLoggedInUser ? 'You' : val.fullName} sent a photo`
+                        : val.contentType === 'file' 
+                          ? `${val.isFromLoggedInUser ? 'You' : val.fullName} sent a file`
+                          : `${val.isFromLoggedInUser ? 'You ' : val.fullName } : ${val.messageContent}`
+                    }
                     date={convertdate(val.date)}
+                    readFlag={val.readFlag}
+                    isFromLoggedInUser={val.isFromLoggedInUser}
+                    messageId={val.messageId}
+                   
                   />
                 );
               })}
