@@ -52,14 +52,14 @@ const ChatList = () => {
               </div>
             </div>
             <div className={wcdesign["message-list-container"]}>
-              {assistantUserList.map((val) => {
+              {assistantUserList?.map((val) => {
                 return (
                   <ChatListComponent
                     key={val.userId}
-                    firstName={val.firstname}
-                    lastName={val.lastname}
+                    fullName={val.fullName}
                     userId={val.userId}
                     profileImage={val.profileImage}
+                    message={val.message}
                   />
                 );
               })}
