@@ -12,8 +12,10 @@
   align-items: center;
 }
 .profile-image-chat {
-  height: 10rem;
-  width: 10rem;
+  min-height: 10rem;
+  max-height: 10rem;
+  min-width: 10rem;
+  max-width: 10rem;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -35,6 +37,10 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.profile {
+  display: flex;
 }
 
 .online-time {

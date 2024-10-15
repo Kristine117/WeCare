@@ -2,14 +2,16 @@
 import wcdesign from "./ChatListComponent.module.css";
 import { Link, useNavigate } from "react-router-dom";
 
-const ChatListComponent = ({ fullName,userId, profileImage,message }) => {
+const ChatListComponent = ({ fullName,userId, profileImage,message,date }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
     navigate("/chat/:senderId/:receiverId", {
-      state: { recipientId: userId },
+      state: { recipientId: userId, fullName: fullName,profileImage:profileImage },
     });
   };
+
+
   return (
     // <div className={wcdesign["list"]} onClick={handleClick}>
     //   <div className={wcdesign["profile-section-chat"]}>
@@ -64,7 +66,7 @@ const ChatListComponent = ({ fullName,userId, profileImage,message }) => {
               <div>{!message ? "No message yet. Start Chat Now!": message}
               </div>
               <div className={wcdesign["online-time"]}>
-                1min
+                {date}
                 <span
                   className={`material-symbols-outlined wcdesign["active-time"]`}
                 >

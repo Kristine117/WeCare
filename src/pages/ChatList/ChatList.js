@@ -29,6 +29,35 @@ const ChatList = () => {
     fetchData();
   }, []);
 
+ const convertdate = (dateTime) =>  {
+    const now = new Date();
+    const pastDate = new Date(dateTime);
+    const diffInSeconds = Math.floor((now - pastDate) / 1000);
+  
+    const seconds = diffInSeconds;
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const years = Math.floor(days / 365);
+  
+    if (seconds < 60) {
+      return seconds === 1 ? "1s" : `${seconds}s`;
+    } else if (minutes < 60) {
+      return minutes === 1 ? "1m" : `${minutes}m`;
+    } else if (hours < 24) {
+      return hours === 1 ? "1h" : `${hours}h`;
+    } else if (days < 7) {
+      return days === 1 ? "1 day ago" : `${days} days ago`;
+    } else if (days < 365) {
+      // Format as '10 Oct' or '13 Mar', etc.
+      const options = { month: 'short', day: 'numeric' };
+      return pastDate.toLocaleDateString(undefined, options);
+    } else {
+      return years === 1 ? "1 year ago" : `${years} years ago`;
+    }
+  }
+  
+
   const { user } = useContext(UserContext);
   return (
     <main>
@@ -59,7 +88,8 @@ const ChatList = () => {
                     fullName={val.fullName}
                     userId={val.userId}
                     profileImage={val.profileImage}
-                    message={val.message}
+                    message={val.messageContent}
+                    date={convertdate(val.date)}
                   />
                 );
               })}
