@@ -1,18 +1,18 @@
 
-import React, { useEffect, useState, useRef, useContext ,useLayoutEffect} from "react";
+import React, { useEffect, useState, useRef, useContext,useNavigate ,useLayoutEffect} from "react";
 import io from 'socket.io-client';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import InputEmoji from "react-input-emoji";
 import UserContext from "../../UserContext";
-import { FaImage, FaPaperPlane , FaPlus,FaDownload} from 'react-icons/fa'; 
+import { FaImage, FaPaperPlane , FaPlus,FaDownload,FaArrowLeft} from 'react-icons/fa'; 
 import style from "./ChatComponent.module.css"
 
 
 const apiUrl =`${process.env.REACT_APP_API_URL}`;
 
 
-const ChatComponent = ({recipientId,lastName,firstName,profileImage}) => {
+const ChatComponent = ({recipientId,fullName,profileImage}) => {
     const {user} = useContext(UserContext);
     const [messages, setMessages] = useState([]);
     const [messageContent, setMessageContent] = useState('');
@@ -24,6 +24,7 @@ const ChatComponent = ({recipientId,lastName,firstName,profileImage}) => {
     const [socket, setSocket] = useState(null);
     const [fileNames, setFileNames] = useState([]); // State to store selected filenames
     const [inputActive ,setInputActive] = useState(false)
+
 
 
    const socketRef = useRef(null); // Initialize socketRef
@@ -268,10 +269,11 @@ const ChatComponent = ({recipientId,lastName,firstName,profileImage}) => {
     
     return  (
         <div className="container-fluid">
-           {/* <div>
-                <div>{firstName}  {lastName}</div>
+           <div className={style.chatheader}> 
+                <FaArrowLeft  className={style.iconImage} />
                 <img className={style.profileImage} src={profileImage}/>
-           </div> */}
+                <div>{fullName}</div>
+           </div>
             <div className="row justify-content-center">
                 <div className="col-12 col-md-8 col-lg-6 w-100">
                     <div className=" w-100">
@@ -291,7 +293,7 @@ const ChatComponent = ({recipientId,lastName,firstName,profileImage}) => {
                                             <div className={style.time}  >
                                                 <div className={isForReceiver? `${style.timeReceiver}`:`${style.timeSender}`}>{formattedTime}</div>
                                             </div>                                     
-                                            <div className={`p-2 rounded ${!isPicture ? (!isForReceiver && (isTextMessage || isFileMessage) ? `${style.textBoxSender} text-white` : `${style.textBoxReceiver}`) : ''}`}>
+                                            <div className={` ${!isPicture ? (!isForReceiver && (isTextMessage || isFileMessage) ? `${style.textBoxSender} text-white` : `${style.textBoxReceiver}`) : ''}`}>
 
                                                 {msg.contentType === 'picture' ? (
                                                     <img

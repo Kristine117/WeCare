@@ -6,6 +6,9 @@
   width: 2rem;
 }
 
+.container-fluid {
+  height: 100vh;
+}
 .iconPlus {
   border: 0.25rem solid #678990;
   border-radius: 50%;
@@ -21,23 +24,28 @@
 }
 .messageBox {
   max-width: 53%;
+  padding: 0.5rem;
 }
 
 .message {
-  height: 90vh;
   overflow-y: scroll;
   width: 100%;
   padding-left: 5rem;
   padding-right: 5rem;
+  height: 65vh;
 }
 
 .textBoxSender {
   background-color: #98cabe;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
 }
 
 .textBoxReceiver {
   background-color: #d9d9d9;
   color: #678990;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
 }
 
 .timeSender {
@@ -79,4 +87,14 @@
   width: 10rem;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.chatheader {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  color: #678990;
+  font-size: 3rem;
+  font-weight: 600;
+  padding: 2rem;
 }
