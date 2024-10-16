@@ -12,7 +12,7 @@ export default function Logout() {
       id: null,
       userType: null,
     });
-  }, []);
+  }, [setUser]);
 
   return <Navigate to="/login" />;
 }

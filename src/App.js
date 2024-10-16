@@ -13,11 +13,10 @@ import AppNavbar from "./components/AppNavbar/AppNavbar";
 import Chat from "./pages/Chat/Chat";
 import ChatList from "./pages/ChatList/ChatList";
 import Error from "./pages/Error/Error";
-import Kwan from "./pages/Kwan";
 import FindCare from "./pages/FindCare/FindCare";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import Appointment from "./pages/Appointment/Appointment";
-
+ 
 import Find from "./pages/Find/Find";
 import AppointmentList from "./pages/AppointmentList/AppointmentList";
 
@@ -101,8 +100,7 @@ function App() {
             element={<Appointment />}
           />
           <Route path="/appointment" element={<AppointmentList />} />
-          
-          <Route path="/kwan" element={<Kwan />} />
+
           <Route path="/find" element={<Find />} />
         </Routes>
       </Router>
