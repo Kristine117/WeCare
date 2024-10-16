@@ -1,51 +1,54 @@
-import React, { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useRef, useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import AppNavbar from "../AppNavbar/AppNavbar";
-// import Nav from "react-bootstrap/Nav";
 import sidemenu from "./SideMenu.module.css";
 
-export default function SideMenu({
-  activeFind,
-  activeHome,
-  activeMessage,
-  activeAppointment,
-}) {
+export default function SideMenu() {
   const modalRef = useRef(null); // Reference for the modal element
   const navigate = useNavigate(); // React Router's navigation hook
-  const [activeNavHome, setactiveNavHome] = useState(activeHome);
-  const [activeNavFind, setActiveNavFind] = useState(activeFind);
-  const [activeNavMes, setActiveNavMes] = useState(activeMessage);
-  const [activeNavApp, setActiveNavApp] = useState(activeAppointment);
-  const [activeNavSupp, setActiveNavSupp] = useState(false);
+  const location = useLocation(); // Hook to get the current location
+
+  // State to determine which nav item is active
+  const [activeNavHome, setActiveNavHome] = useState(false);
+  const [activeNavFind, setActiveNavFind] = useState(false);
+  const [activeNavMes, setActiveNavMes] = useState(false);
+  const [activeNavApp, setActiveNavApp] = useState(false);
+  //const [activeNavSupp, setActiveNavSupp] = useState(false);
+
+  // Update active states based on current location
+  useEffect(() => {
+    setActiveNavHome(location.pathname === '/dashboard-main');
+    setActiveNavFind(location.pathname === '/find');
+    setActiveNavMes(location.pathname === '/chatlist');
+    setActiveNavApp(location.pathname === '/appointment');
+    //setActiveNavSupp(location.pathname === '/support'); // Update as per your support route
+  }, [location.pathname]);
 
   const clickedActiveHome = () => {
-    navigate("/dashboard-senior");
+    navigate("/dashboard-main");
   };
 
   const clickedActiveFind = () => {
-    navigate("/find-care");
+    navigate("/find");
   };
 
   const clickedActiveMess = () => {
-    navigate("/dashboard-senior/message");
+    navigate("/chatlist");
   };
 
   const clickedActiveApp = () => {
-    navigate("/dashboard-senior/appointment");
+    navigate("/appointment");
   };
 
-  const clickedActiveSupp = () => {
-    setactiveNavHome(false);
-    setActiveNavFind(false);
-    setActiveNavMes(false);
-    setActiveNavSupp(true);
-    setActiveNavApp(false);
-  };
+  // const clickedActiveSupp = () => {
+  //   navigate("/support"); // Navigate to support route if needed
+  // };
 
   const handleLogout = () => {
     navigate("/logout");
   };
+
   return (
     <>
       {/* Sidebar */}
@@ -56,58 +59,51 @@ export default function SideMenu({
 
         <div className="menu-items flex-grow-1 d-flex flex-column ml-4 mr-4">
           <Link to={'/dashboard-main'}
-            className={
-              activeNavHome ? "menu-item my-3 actives" : "menu-item my-3"
-            }
+            onClick={clickedActiveHome}
+            className={activeNavHome ? "menu-item actives" : "menu-item"}
           >
             <span className="material-symbols-outlined side-menu-color icon-size ">
               home
             </span>
-            <p className="ml-2">Home</p>
+            <p className="ml-2 pt-3">Home</p>
           </Link>
           <Link
             to={"/find"}
-            className={
-              activeNavFind ? "menu-item my-3 actives" : "menu-item my-3"
-            }
+            onClick={clickedActiveFind}
+            className={activeNavFind ? "menu-item actives" : "menu-item"}
           >
             <span className="material-symbols-outlined side-menu-color icon-size">
               search
             </span>
-            <p className="ml-2">Find</p>
+            <p className="ml-2 pt-3">Find</p>
           </Link>
           <Link
             to={"/chatlist"}
-            // onClick={clickedActiveMess}
-            className={
-              activeNavMes ? "menu-item my-3 actives" : "menu-item my-3"
-            }
+            onClick={clickedActiveMess}
+            className={activeNavMes ? "menu-item actives" : "menu-item"}
           >
             <span className="material-symbols-outlined side-menu-color icon-size">
               chat
             </span>
-            <p className="ml-2">Message</p>
+            <p className="ml-2 pt-3">Message</p>
           </Link>
 
           <Link
             to="/appointment"
-            className={
-              activeNavApp ? "menu-item my-3 actives" : "menu-item my-3"
-            }
+            onClick={clickedActiveApp}
+            className={activeNavApp ? "menu-item actives" : "menu-item"}
           >
             <span className="material-symbols-outlined side-menu-color icon-size">
               list_alt
             </span>
-            <p className="ml-2">Appointment</p>
+            <p className="ml-2 pt-3">Appointment</p>
           </Link>
         </div>
 
         <div className="support-item mb-4 ml-4 mr-4">
           <div
-            onClick={clickedActiveSupp}
-            className={
-              activeNavSupp ? "menu-item my-3 actives" : "menu-item my-3"
-            }
+            // onClick={clickedActiveSupp}
+            //className={activeNavSupp ? "menu-item my-3 actives" : "menu-item"}
           >
             <span className="material-symbols-outlined side-menu-color icon-size">
               volunteer_activism

@@ -1,27 +1,49 @@
-import React from "react";
+import React, { useRef } from 'react';
 import style from "./LoggedInCommonNavBar.module.css";
 import { FaBell,FaUser,FaSearch} from 'react-icons/fa'; 
 
 const LoggedInCommonNavBar = ()=>{
+      // Create a reference to the input element
+  const inputRef = useRef(null);
+
+  // Function to handle click on the search icon
+  const handleIconClick = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();  // Focus the input field
+    }
+  };
+
+
     return (
         <div className={style.container}>
             <div>
                 <h1>Home</h1>
             </div>
            <div className={style.navbarIconSearchContainer}>
+
                 <div className={style.inputSearch}>
-                    <input type="text" className={style.search} placeholder="Search..."></input>
-                    <FaSearch className="search-icon" />
-                </div>
-                <div className={style.navbarIconContainer}>
-                    <div className={style.bell}>
-                        <button> <FaBell size={40} className={style.icons} /></button>
+                        <input
+                            type="text"
+                            ref={inputRef}  // Attach the ref to the input
+                            className={style.search}
+                            placeholder="Search..."
+                        />
+                        <FaSearch className="search-icon" onClick={handleIconClick} />  {/* Add onClick handler */}
                     </div>
-                    <div className={style.profile}>
-                        <button> <FaUser size={40} className={style.profileButton}   /></button>
+
+
+
+                    <div className={style.navbarIconContainer}>
+                        <div >
+                            <button className={style.bell}> <FaBell size={40} className={style.icons} /></button>
+                        </div>
+                        <div >
+                            <button className={style.profile}> <FaUser size={40} className={style.profileButton}   /></button>
+                        </div>
                     </div>
-                </div>
+                    
            </div>
+
         </div>
     )
 }
