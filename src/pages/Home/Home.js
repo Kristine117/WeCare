@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import HomeLabel1 from '../../components/HomeLabel/HomeLabel1'; // Assuming you have separate files for these components
 import HomeLabel2 from '../../components/HomeLabel/HomeLabel2';
 import homeModuleCss from './Home.module.css';
-import { Container, Row, Col, Button, Carousel } from 'react-bootstrap';
+import { Container, Row, Col, Carousel } from 'react-bootstrap';
 
 const Home = () => {
   const [activeLabel, setActiveLabel] = useState(0); // Not needed anymore for manual dot control
