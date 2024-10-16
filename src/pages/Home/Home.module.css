@@ -34,4 +34,9 @@
   .slide-right-exit {
     transform: translateX(-100%); /* Current slide exits to the left */
   }
-  
+  .backgroundHome {
+    background-color: #b0d6d3;
+    height: 86vh;
+    display: flex;
+    align-items: center;
+  }

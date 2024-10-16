@@ -268,9 +268,9 @@ export default function Registration3() {
     : `${registerModal["square-place-holder"]}`;  
 
     return (
-      <div className="background1">
-        <div className="login-container">
-          <div className="login-box">
+      <div className={registerModal.background1}>
+        <div className={registerModal.loginContainer}>
+          <div className={registerModal.loginBox}>
             <span
               className="material-symbols-outlined"
               onClick={() => navigate("/registration1")}
@@ -316,13 +316,13 @@ export default function Registration3() {
                 </label>
               </div>
 
-              <div className="form-group">
+              <div>
                 <input type="checkbox" className="mr-2" required />
                 <label className="pb-1">I agree to the Data Privacy</label>
               </div>
 
-              <div className="form-group">
-                <input type="checkbox" className="mr-2" required />
+              <div>
+                <input type="checkbox"  className={`${registerModal.inputDisableCssDefault} mr-2`} required />
                 <label className="pb-2">I agree to the Terms & Conditions.</label>
               </div>
             </div>

@@ -495,4 +495,11 @@ a {
   background-color: #007bff; /* Change background color on hover */
   transform: scale(1.05); /* Slightly scale the button */
 }
+.menu-item {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Inherit text color from parent */
+}
 
+.menu-item:hover {
+  text-decoration: none; /* Ensure no underline on hover */
+}
