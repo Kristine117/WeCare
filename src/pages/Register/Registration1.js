@@ -60,13 +60,13 @@ export default function Registration1() {
 
   return (
     <div className={moduleCSS.background1}>
-      <div className="login-container">
-        <div className="login-box">
+      <div className={moduleCSS.loginContainer}>
+        <div className={moduleCSS.loginBox}>
           <span className="material-symbols-outlined" onClick={() => navigate("/login")}>
             arrow_back
           </span>
           <h3 className="pb-3">Let's create your account</h3>
-          <form onSubmit={collectData}>
+          <form onSubmit={collectData} className="pr-4">
             <div className="form-group">
               <label className="pb-3">Step 1: Account Details</label>
               <label className="pb-3">Email</label>

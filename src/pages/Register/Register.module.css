@@ -138,16 +138,16 @@ table {
 }
 .background1 {
   background-color: #b0d6d3;
-  height: 86vh;
+  height: 100vh;
 }
-.login-container {
+.loginContainer {
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.login-box {
+.loginBox {
   background-color: white;
   padding: 2rem;
   border-radius: 10px;
@@ -156,7 +156,7 @@ table {
   max-width: 400px;
 }
 
-.login-box h3 {
+.loginBox h3 {
   text-align: center;
   margin-bottom: 1.5rem;
   color: #5a6268;
@@ -716,3 +716,6 @@ a {
 .errorMessage {
   color: red;
 }
+/* input {
+  all: revert !important;
+} */

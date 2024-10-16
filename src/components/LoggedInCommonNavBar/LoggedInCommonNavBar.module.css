@@ -3,9 +3,11 @@
   padding: 2rem;
   color: #678990;
 }
-input {
+
+/* removed by alier */
+/* input {
   all: unset;
-}
+} */
 .navbarIconContainer {
   display: flex;
   justify-content: center;
@@ -16,9 +18,10 @@ input {
   display: flex;
 }
 
-div {
+/* removed by alier */
+/* div {
   width: -webkit-fill-available;
-}
+} */
 
 .icons {
   fill: #678990;

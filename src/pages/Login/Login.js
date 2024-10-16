@@ -114,10 +114,11 @@ export default function Login() {
             <div className="form-text mb-4 mt-4">
               {/* <a href="#">Forgot Password?</a> */}
             </div>
-            <button type="submit" className="btn btn-login">
-              Login
-            </button>
-
+            <div className="d-flex justify-content-center">
+              <button type="submit" className="btn-get-started buttonSeniorSize">
+                Login
+              </button>
+            </div>
             <div className="signup-text">
               <small>
                 Don't have an account?{" "}
