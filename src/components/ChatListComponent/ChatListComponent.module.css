@@ -50,3 +50,7 @@
   flex-direction: row;
   align-items: center;
 }
+
+.unread {
+  font-weight: 700;
+}
