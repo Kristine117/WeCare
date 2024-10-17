@@ -3,7 +3,7 @@ import design from "./AppointmentDetails.module.css";
 import { FaUser} from 'react-icons/fa'; 
 import Button from "../Button/Button";
 import { redirect } from "react-router-dom";
-
+  
 const AppointmentDetails = ({appId,description,statusDes,price,servingName,loggedInUserType,servingProfileImage})=>{
 
     async function decideHandler(e){
