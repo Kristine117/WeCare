@@ -5,9 +5,12 @@ import DashboardContainer from "../../components/DashboardContainer/DashboardCon
 import appList from "./AppointmentList.module.css";
 import SideMenu from "../../components/SideMenu/SideMenu";
 import AppointmentDetails from "../../components/AppointmentDetails/AppointmentDetails";
+import LoggedInCommonNavBar from "../../components/LoggedInCommonNavBar/LoggedInCommonNavBar";
+import AppointmentListController from "../../components/AppointmentListController/AppointmentListController";
 
 const AppointmentList = ()=>{
     const [list,setList] = useState([]);
+    const [status,setStatus ]= useState();
     useEffect(()=>{
         async function getAppointmentList(){
 
@@ -22,7 +25,7 @@ const AppointmentList = ()=>{
 
         getAppointmentList();
     },[])
-    console.log(list)
+    
     const {user} = useContext(UserContext);
     return(
         <main>
@@ -30,13 +33,16 @@ const AppointmentList = ()=>{
            {(user.userType !== 'admin' && user.userType !== null) && <section className={appList['page-flex']}>
                 <SideMenu/>
                 <DashboardContainer>
+                    <LoggedInCommonNavBar title="Request"/>
                     <div>Appointment List</div>
+                    <AppointmentListController/>
                     {list?.map(val=><AppointmentDetails key={val.appointmentId} appId={val.appointmentId}
                         description={val.serviceDescription}
                         statusDes={val.statusDescription}
                         price={val.totalAmount}
                         servingName={val.servingName}
                         loggedInUserType={val.loggedInUserType}
+                        servingProfileImage={val.servingProfileImage}
                         />)}
                 </DashboardContainer>            
             </section>}

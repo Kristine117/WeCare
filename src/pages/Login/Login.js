@@ -2,6 +2,7 @@ import { Link, Navigate, NavLink } from "react-router-dom";
 import React, { useState, useContext} from "react";
 import Swal from "sweetalert2";
 import UserContext from "../../UserContext";
+import AppNavbar from "../../components/AppNavbar/AppNavbar";
 
 export default function Login() {
   const { user, setUser } = useContext(UserContext);
@@ -75,6 +76,7 @@ export default function Login() {
 
   return (
    <React.Fragment>
+      <AppNavbar/>
       {!user.id && <div className="background1">
       <div className="login-container">
         <div className="login-box">
