@@ -2,6 +2,7 @@
   display: flex;
   padding: 2rem;
   color: #678990;
+  justify-content: space-between;
 }
 
 /* removed by alier */
@@ -27,12 +28,14 @@
   fill: #678990;
 }
 
-button {
+/* button {
   background-color: white;
-}
+} */
 
 .search {
   background-color: #d9d9d9;
+  border: none;
+  outline: none; 
 }
 
 .profileButton {
@@ -56,4 +59,6 @@ button {
 .profile {
   display: flex;
   justify-content: center;
+  border: none;
+  outline: none; 
 }
