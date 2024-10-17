@@ -2,22 +2,22 @@ import React, { useRef } from 'react';
 import style from "./LoggedInCommonNavBar.module.css";
 import { FaBell,FaUser,FaSearch} from 'react-icons/fa'; 
 
-const LoggedInCommonNavBar = ()=>{
+
+const LoggedInCommonNavBar = ({title})=>{
+
       // Create a reference to the input element
-  const inputRef = useRef(null);
+      const inputRef = useRef(null);
 
-  // Function to handle click on the search icon
-  const handleIconClick = () => {
-    if (inputRef.current) {
-      inputRef.current.focus();  // Focus the input field
-    }
-  };
-
-
+      // Function to handle click on the search icon
+      const handleIconClick = () => {
+        if (inputRef.current) {
+          inputRef.current.focus();  // Focus the input field
+        }
+      };
     return (
         <div className={style.container}>
             <div>
-                <h1>Home</h1>
+                <h1>{title}</h1>
             </div>
            <div className={style.navbarIconSearchContainer}>
 

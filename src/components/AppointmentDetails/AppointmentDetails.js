@@ -1,10 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import design from "./AppointmentDetails.module.css";
-const AppointmentDetails = ({appId,description,statusDes,price,servingName,loggedInUserType})=>{
+import { FaUser} from 'react-icons/fa'; 
+import Button from "../Button/Button";
+
+const AppointmentDetails = ({appId,description,statusDes,price,servingName,loggedInUserType,servingProfileImage})=>{
 
     async function decideHandler(e){
-
         try {
             const data = await fetch(`${process.env.REACT_APP_API_URL}/appointment/update-appointment/${appId}`,{
                 method:"put",
@@ -18,8 +19,7 @@ const AppointmentDetails = ({appId,description,statusDes,price,servingName,logge
                 )
             })
 
-            console.log(await data)
-
+        
             if(!data.ok){
                 throw new Error("Failed to Update");
             }
@@ -30,25 +30,26 @@ const AppointmentDetails = ({appId,description,statusDes,price,servingName,logge
         }
     }
     return (
-        <div>
-            <div className={design['header']}>
-            <div>Appointment ID: {appId}</div>
+        <div className={design["card"]}>
+            <div>
+                {servingProfileImage && <img src={servingProfileImage} alt="This is your Serving User Image"/>}
+                {!servingProfileImage && <FaUser size={40} className={design["default-profile"]}/>}   
             </div>
-            <div>You have Appointment Pending with {servingName}</div>
-            
-            <div>Price: {price}</div>
-            <div>Description: {description}</div>
-            <div>Status: {statusDes === "0" && "Pending"}</div>
-            {statusDes === '0' && 
+            <div>
+                <div className={design["indicator"]}><strong>{servingName}</strong> would like to request an appointment with you.</div>
+                <div className={design["price"]}>Price: {price}</div>
+                <div className={design["description"]}>Description: {description}</div>
+            </div>
+            {/* <div>Status: {statusDes === "0" && "Pending"}</div> */}
+            {/* {statusDes === '0' && 
             <div>
                 {loggedInUserType === "senior"&&
                 <p>Waiting for Assistant to Approve</p>}
-                <Link>Contact {servingName}</Link>
-                </div>}
+                </div>} */}
 
             {loggedInUserType === "assistant"&& <div>
-                <button name="accept" onClick={decideHandler}>Accept</button>
-                <button name="reject" onClick={decideHandler}>Reject</button>
+                <Button name="accept" onClick={decideHandler}>Accept</Button>
+                <Button name="reject" onClick={decideHandler}>Accept</Button>
             </div>}
     </div>
     )
