@@ -3,6 +3,7 @@ import HomeLabel1 from '../../components/HomeLabel/HomeLabel1'; // Assuming you 
 import HomeLabel2 from '../../components/HomeLabel/HomeLabel2';
 import homeModuleCss from './Home.module.css';
 import { Container, Row, Col, Carousel } from 'react-bootstrap';
+import AppNavbar from '../../components/AppNavbar/AppNavbar';
 
 const Home = () => {
   const [activeLabel, setActiveLabel] = useState(0); // Not needed anymore for manual dot control
@@ -13,7 +14,8 @@ const Home = () => {
   ];
 
   return (
-    <>
+    <React.Fragment>
+      <AppNavbar/>
     <div className={homeModuleCss.backgroundHome}>
       <Container>
         <Row>
@@ -57,7 +59,7 @@ const Home = () => {
         </Row>
       </Container>
     </div>
-  </>
+  </React.Fragment>
   );
 };
 

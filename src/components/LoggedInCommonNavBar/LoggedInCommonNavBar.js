@@ -2,11 +2,11 @@ import React from "react";
 import style from "./LoggedInCommonNavBar.module.css";
 import { FaBell,FaUser,FaSearch} from 'react-icons/fa'; 
 
-const LoggedInCommonNavBar = ()=>{
+const LoggedInCommonNavBar = ({title})=>{
     return (
         <div className={style.container}>
             <div>
-                <h1>Home</h1>
+                <h1>{title}</h1>
             </div>
            <div className={style.navbarIconSearchContainer}>
                 <div className={style.inputSearch}>
