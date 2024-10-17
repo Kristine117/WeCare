@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../../UserContext";
 import { Navigate } from "react-router-dom";
 import DashboardContainer from "../../components/DashboardContainer/DashboardContainer";
-import appList from "./AppointmentList.module.css";
 import SideMenu from "../../components/SideMenu/SideMenu";
 import AppointmentDetails from "../../components/AppointmentDetails/AppointmentDetails";
 import LoggedInCommonNavBar from "../../components/LoggedInCommonNavBar/LoggedInCommonNavBar";
 import AppointmentListController from "../../components/AppointmentListController/AppointmentListController";
+import appList from "./AppointmentList.module.css";
 
 const AppointmentList = ()=>{
     const [list,setList] = useState([]);
