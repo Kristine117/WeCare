@@ -13,7 +13,7 @@ const LoggedInCommonNavBar = ({title})=>{
         if (inputRef.current) {
           inputRef.current.focus();  // Focus the input field
         }
-      };
+      }; 
     return (
         <div className={style.container}>
             <div>
