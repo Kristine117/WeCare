@@ -10,13 +10,27 @@ import AppointmentListController from "../../components/AppointmentListControlle
 
 const AppointmentList = ()=>{
     const [list,setList] = useState([]);
-    const [status,setStatus ]= useState();
+    const [status,setStatus ]= useState("ongoing");
+
+    async function switchListRequests(e){
+        setStatus(e.target.name);
+        const data = await fetch(`${process.env.REACT_APP_API_URL}/appointment/appointment-list`,{
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                "status": status
+              },
+        })
+        const parseData = await data.json();
+        setList(parseData?.data);
+
+    }
     useEffect(()=>{
         async function getAppointmentList(){
 
             const data = await fetch(`${process.env.REACT_APP_API_URL}/appointment/appointment-list`,{
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                    "status": status
                   },
             })
             const parseData = await data.json();
@@ -24,7 +38,7 @@ const AppointmentList = ()=>{
         }
 
         getAppointmentList();
-    },[])
+    },[status])
     
     const {user} = useContext(UserContext);
     return(
@@ -35,7 +49,7 @@ const AppointmentList = ()=>{
                 <DashboardContainer>
                     <LoggedInCommonNavBar title="Request"/>
                     <div>Appointment List</div>
-                    <AppointmentListController/>
+                    {user.userType === "assistant" && <AppointmentListController switchListRequests={switchListRequests}/>}
                     {list?.map(val=><AppointmentDetails key={val.appointmentId} appId={val.appointmentId}
                         description={val.serviceDescription}
                         statusDes={val.statusDescription}

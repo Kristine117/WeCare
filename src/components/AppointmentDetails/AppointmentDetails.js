@@ -20,7 +20,7 @@ const AppointmentDetails = ({appId,description,statusDes,price,servingName,logge
             })
 
         
-            if(!data.ok){
+            if(!data.ok){   
                 throw new Error("Failed to Update");
             }
 
@@ -32,7 +32,7 @@ const AppointmentDetails = ({appId,description,statusDes,price,servingName,logge
     return (
         <div className={design["card"]}>
             <div>
-                {servingProfileImage && <img src={servingProfileImage} alt="This is your Serving User Image"/>}
+                {servingProfileImage && <img src={servingProfileImage} alt="This is your Serving User Image" />}
                 {!servingProfileImage && <FaUser size={40} className={design["default-profile"]}/>}   
             </div>
             <div>
@@ -40,16 +40,10 @@ const AppointmentDetails = ({appId,description,statusDes,price,servingName,logge
                 <div className={design["price"]}>Price: {price}</div>
                 <div className={design["description"]}>Description: {description}</div>
             </div>
-            {/* <div>Status: {statusDes === "0" && "Pending"}</div> */}
-            {/* {statusDes === '0' && 
-            <div>
-                {loggedInUserType === "senior"&&
-                <p>Waiting for Assistant to Approve</p>}
-                </div>} */}
 
             {loggedInUserType === "assistant"&& <div>
                 <Button name="accept" onClick={decideHandler}>Accept</Button>
-                <Button name="reject" onClick={decideHandler}>Accept</Button>
+                <Button name="reject" onClick={decideHandler}>Reject</Button>
             </div>}
     </div>
     )
