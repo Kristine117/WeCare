@@ -22,13 +22,12 @@ const AppointmentList = ()=>{
 
         getAppointmentList();
     },[])
-    
     console.log(list)
     const {user} = useContext(UserContext);
     return(
         <main>
-           {(!user?.id && user.userType !== 'senior' && user.userType !== null) && <Navigate to={"/login"}/>}
-           {(user.userType === 'senior' && user.userType !== null) && <section className={appList['page-flex']}>
+           {(!user?.id && user.userType !== 'admin' && user.userType !== null) && <Navigate to={"/login"}/>}
+           {(user.userType !== 'admin' && user.userType !== null) && <section className={appList['page-flex']}>
                 <SideMenu/>
                 <DashboardContainer>
                     <div>Appointment List</div>
@@ -36,7 +35,8 @@ const AppointmentList = ()=>{
                         description={val.serviceDescription}
                         statusDes={val.statusDescription}
                         price={val.totalAmount}
-                        assistantName={val.assistantName}
+                        servingName={val.servingName}
+                        loggedInUserType={val.loggedInUserType}
                         />)}
                 </DashboardContainer>            
             </section>}
