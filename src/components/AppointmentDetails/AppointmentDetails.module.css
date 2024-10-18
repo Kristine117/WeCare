@@ -1,0 +1,14 @@
+.card{
+    display: grid;
+    grid-template-columns: repeat(3,15rem);
+    align-items: center;
+}
+
+.price {
+    font-size: .75rem;
+    font-weight: 600;
+}
+
+.description {
+    font-size: .75rem;
+}   

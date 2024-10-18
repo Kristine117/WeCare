@@ -267,6 +267,23 @@ export default function Registration3() {
     ? `${registerModal.complete} ${registerModal["square-place-holder"]}`
     : `${registerModal["square-place-holder"]}`;  
 
+
+      // Automatic scroll to bottom effect
+    useEffect(() => {
+      const scrollToBottom = () => {
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          behavior: 'smooth'
+        });
+      };
+  
+      // Start scrolling after a small delay to allow the component to render
+      const scrollTimeout = setTimeout(scrollToBottom, 500);
+  
+      // Clean up the timeout when the component unmounts
+      return () => clearTimeout(scrollTimeout);
+    }, []);
+
     return (
       <div className={registerModal.background1}>
         <div className={registerModal.loginContainer}>
