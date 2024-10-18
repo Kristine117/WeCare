@@ -235,12 +235,12 @@ table {
   height: auto;
 }
 
-.speech-bubble {
+/* .speech-bubble {
   position: relative;
-  background-color: white; /* Gray background color */
-  width: 500px; /* Adjust the width as needed */
-  height: auto; /* Adjust the height as needed */
-  border-radius: 10px; /* Rounded corners */
+  background-color: white; 
+  width: 500px; 
+  height: auto; 
+  border-radius: 10px;
   padding: 4rem;
   z-index: 0;
 }
@@ -248,14 +248,14 @@ table {
 .speech-bubble::after {
   content: "";
   position: absolute;
-  right: -20px; /* Position the triangle on the right */
-  top: 100px; /* Adjust the vertical position of the triangle */
+  right: -20px; 
+  top: 100px; 
   width: 0;
   height: 0;
-  border-left: 20px solid white; /* Same color as the speech bubble */
+  border-left: 20px solid white; 
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
-}
+} */
 
 .square-place-holder {
   background-color: #98cabe;
@@ -645,3 +645,4 @@ a {
 .menu-item:hover {
   text-decoration: none; /* Ensure no underline on hover */
 }
+

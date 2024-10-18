@@ -171,39 +171,65 @@ export default function Registration3() {
         };
 
   
-    const collectDataRegistration1 = (e) => {
-      console.log(initialData);
-      
-      fetch(`${process.env.REACT_APP_API_URL}/main/register-user`,{
-        method:'POST',
-        headers:{
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(initialData) 
-      })
-      .then(response => response.json())  // Assuming the server responds with JSON
-      .then(data => {
-        if(data.isSuccess === true){
-          Swal.fire({
-            title:"Registered Successfully",
-            icon:"success",
-            text:"Account Registered Sucessfully"
-            });
-            navigate("/"); // Navigate to the homepage
-            storedEmail = "";
-            storedPassword = "";
-        } else {
-          Swal.fire({
-            title: "Registeration failed",
-            icon: "error",
-            text: "Check account details and try again.",
+        const collectDataRegistration1 = (e) => {
+          e.preventDefault(); // Prevent default form submission
+        
+          // Prepare FormData object to send file and other data
+          const formData = new FormData();
+          
+          // Append all user data to the formData
+          formData.append('lastname', initialData.lastname);
+          formData.append('firstname', initialData.firstname);
+          formData.append('email', initialData.email);
+          formData.append('userType', initialData.userType);
+          formData.append('street', initialData.street);
+          formData.append('barangayId', initialData.barangayId);
+          formData.append('contactNumber', initialData.contactNumber);
+          formData.append('gender', initialData.gender);
+          formData.append('birthDate', initialData.birthDate);
+          if (initialData.experienceId) {
+            formData.append('experienceId', initialData.experienceId);  // Append the value if it exists
+          } else {
+            formData.append('experienceId', '');  // Append a blank if experienceId is not provided
+          }
+          formData.append('password', initialData.password);
+          formData.append('seniorNumber', initialData.seniorNumber);
+          formData.append('prescribeMeds', initialData.prescribeMeds);
+          formData.append('healthStatus', initialData.healthStatus);
+          formData.append('remarks', initialData.remarks);
+          
+          // If relationships exist, convert them to JSON and append
+          if (initialData.relationships.length > 0) {
+            formData.append('relationships', JSON.stringify(initialData.relationships));
+          }
+        
+          // Append the profile image file (if selected)
+          if (initialData.profileImage) {
+            formData.append('profileImage', initialData.profileImage); // The file itself
+          }
+        
+          // Send the request using fetch with FormData (no need for "Content-Type" header, it’s automatically set by FormData)
+          fetch(`${process.env.REACT_APP_API_URL}/main/register-user`, {
+            method: 'POST',
+            body: formData // Send FormData directly
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.isSuccess === true) {
+              Swal.fire({ title: "Registered Successfully", icon: "success", text: "Account Registered Successfully" });
+              navigate("/"); 
+            } else {
+              Swal.fire({ title: "Registration failed", icon: "error", text: "Check account details and try again." });
+            }
+          })
+          .catch(error => {
+            console.error("Error:", error);
           });
-        }
-      })
-      .catch(error => {
-        console.error("Error:", error);
-      });
-    };
+        };        
+
+
+
+
 
     const collectDataRegistration2 = (e) => {
       e.preventDefault();
@@ -396,7 +422,7 @@ export default function Registration3() {
                 <input type="text" className="form-control mr-4" 
                       placeholder="Enter Family Name" id="familyName" name="lastname" 
                       value={initialData.lastname}
-                      onChange={handleChange}/>
+                      onChange={handleChange} required/>
                 <input type="text" className="form-control" placeholder="Enter First Name"
                       id="firstName" name="firstname" 
                       value={initialData.firstname}
@@ -424,7 +450,7 @@ export default function Registration3() {
                     <input type="text" className="form-control ml-3" placeholder="Enter Street"
                       id="street" name="street" 
                       value={initialData.street}
-                      onChange={handleChange} />
+                      onChange={handleChange}  required/>
                 </div>
 
 
@@ -650,7 +676,8 @@ export default function Registration3() {
                 <input type="text" className="form-control mr-4" 
                       placeholder="Enter Family Name" id="familyName" name="lastname" 
                       value={initialData.lastname}
-                      onChange={handleChange}/>
+                      onChange={handleChange} 
+                      required/>
                 <input type="text" className="form-control" placeholder="Enter First Name"
                       id="firstName" name="firstname" 
                       value={initialData.firstname}
@@ -700,7 +727,7 @@ export default function Registration3() {
                     <input type="text" className="form-control ml-3" placeholder="Enter Street"
                       id="street" name="street" 
                       value={initialData.street}
-                      onChange={handleChange} />
+                      onChange={handleChange} required/>
                 </div>
 
 
