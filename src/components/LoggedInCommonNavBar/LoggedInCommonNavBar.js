@@ -4,8 +4,9 @@ import { FaBell,FaUser,FaSearch} from 'react-icons/fa';
 
 const LoggedInCommonNavBar = ()=>{
     return (
+        
         <div className={style.container}>
-            <div>
+            <div className={style.home}>
                 <h1>Home</h1>
             </div>
            <div className={style.navbarIconSearchContainer}>
@@ -15,10 +16,10 @@ const LoggedInCommonNavBar = ()=>{
                 </div>
                 <div className={style.navbarIconContainer}>
                     <div className={style.bell}>
-                        <button> <FaBell size={40} className={style.icons} /></button>
+                        <button className={style.button}> <FaBell size={40} className={style.icons} /></button>
                     </div>
                     <div className={style.profile}>
-                        <button> <FaUser size={40} className={style.profileButton}   /></button>
+                        <button  className={style.button}> <FaUser size={40} className={style.profileButton}   /></button>
                     </div>
                 </div>
            </div>

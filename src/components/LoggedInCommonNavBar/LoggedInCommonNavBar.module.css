@@ -3,7 +3,9 @@
   padding: 2rem;
   color: #678990;
 }
-
+.home {
+  width: 40%;
+}
 /* removed by alier */
 /* input {
   all: unset;
@@ -12,10 +14,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 2rem;
 }
 
 .navbarIconSearchContainer {
   display: flex;
+  width: 60%;
+  justify-content: space-between;
 }
 
 /* removed by alier */
@@ -32,6 +37,8 @@ button {
 }
 
 .search {
+  all: unset;
+  border: none;
   background-color: #d9d9d9;
 }
 
@@ -56,4 +63,8 @@ button {
 .profile {
   display: flex;
   justify-content: center;
+}
+
+.button {
+  border: none;
 }
