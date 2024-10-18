@@ -15,6 +15,7 @@ const LoggedInCommonNavBar = ({title})=>{
         }
       }; 
     return (
+        
         <div className={style.container}>
             <div>
                 <h1>{title}</h1>

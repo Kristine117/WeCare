@@ -95,6 +95,7 @@ const ChatListComponent = ({ fullName,userId, profileImage,message,date ,readFla
               </div>
               <div className={wcdesign["online-time"]}>
                 {date}
+                {console.log("date"+ date)}
                 <span
                   className={`material-symbols-outlined wcdesign["active-time"]`}
                 >

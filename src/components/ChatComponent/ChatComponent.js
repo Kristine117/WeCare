@@ -375,13 +375,6 @@ const ChatComponent = ({recipientId,fullName,profileImage}) => {
                                         </button>
                                     )}
                                 </div>
-                                {/* <div>
-                                    {file && file.length > 0 && (
-                                        <button className=" mt-2 mx-auto" onClick={sending}>
-                                        <FaPaperPlane size={20} className={style.iconPlane}  />
-                                        </button>
-                                    )}
-                                </div>   */}
                             </div>           
                         </div>
                     </div>

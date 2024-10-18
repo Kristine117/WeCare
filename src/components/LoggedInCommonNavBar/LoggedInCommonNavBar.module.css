@@ -4,7 +4,9 @@
   color: #678990;
   justify-content: space-between;
 }
-
+.home {
+  width: 40%;
+}
 /* removed by alier */
 /* input {
   all: unset;
@@ -13,10 +15,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 2rem;
 }
 
 .navbarIconSearchContainer {
   display: flex;
+  width: 60%;
+  justify-content: space-between;
 }
 
 /* removed by alier */
@@ -33,6 +38,8 @@
 } */
 
 .search {
+  all: unset;
+  border: none;
   background-color: #d9d9d9;
   border: none;
   outline: none; 
@@ -61,4 +68,8 @@
   justify-content: center;
   border: none;
   outline: none; 
+}
+
+.button {
+  border: none;
 }
