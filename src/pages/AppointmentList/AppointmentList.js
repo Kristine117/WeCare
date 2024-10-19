@@ -24,6 +24,10 @@ const AppointmentList = ()=>{
         setList(parseData?.data);
 
     }
+
+    function sampleFunc(){
+        console.log("hello hello")
+    }
     useEffect(()=>{
         async function getAppointmentList(){
 
@@ -39,6 +43,8 @@ const AppointmentList = ()=>{
 
         getAppointmentList();
     },[status])
+
+    
     
     const {user} = useContext(UserContext);
     return(
@@ -57,6 +63,7 @@ const AppointmentList = ()=>{
                         servingName={val.servingName}
                         loggedInUserType={val.loggedInUserType}
                         servingProfileImage={val.servingProfileImage}
+                        sampleFunc={sampleFunc}
                         />)}
                 </DashboardContainer>            
             </section>}

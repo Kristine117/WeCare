@@ -1,15 +1,14 @@
-import React from "react";
+import React, { useCallback } from "react";
 import design from "./AppointmentDetails.module.css";
 import { FaUser} from 'react-icons/fa'; 
 import Button from "../Button/Button";
 import { redirect } from "react-router-dom";
   
-const AppointmentDetails = ({appId,description,statusDes,price,servingName,loggedInUserType,servingProfileImage})=>{
+const AppointmentDetails = ({appId,description,statusDes,price,servingName,
+    loggedInUserType,servingProfileImage,sampleFunc})=>{
 
-    async function decideHandler(e){
-        console.log(JSON.stringify(
-            {result: e.target.name}
-        ))
+    const decideHandler = useCallback(async(e)=>{
+
         try {
             const data = await fetch(`${process.env.REACT_APP_API_URL}/appointment/update-appointment/${appId}`,{
                 method:"put",
@@ -33,7 +32,9 @@ const AppointmentDetails = ({appId,description,statusDes,price,servingName,logge
         }
 
         return redirect("/appointment");
-    }
+    })
+
+    const userTypeCheck = loggedInUserType === "assistant";
     return (
         <div className={design["card"]}>
             <div>
@@ -41,15 +42,18 @@ const AppointmentDetails = ({appId,description,statusDes,price,servingName,logge
                 {!servingProfileImage && <FaUser size={40} className={design["default-profile"]}/>}   
             </div>
             <div>
-                <div className={design["indicator"]}><strong>{servingName}</strong> would like to request an appointment with you.</div>
+                {userTypeCheck &&  <div className={design["indicator"]}><strong>{servingName}</strong> would like to request an appointment with you.</div>}
+                {!userTypeCheck &&  <div className={design["indicator"]}>You have appointment with <strong>{servingName}</strong> </div>}
                 <div className={design["price"]}>Price: {price}</div>
                 <div className={design["description"]}>Description: {description}</div>
             </div>
 
-            {loggedInUserType === "assistant"&& <div>
-                <Button name="accept" onClick={decideHandler}>Accept</Button>
+            {userTypeCheck&& <div>
+                <Button name="accept" onClick={sampleFunc}>Accept</Button>
                 <Button name="reject" onClick={decideHandler}>Reject</Button>
             </div>}
+
+            {!userTypeCheck && <div>{statusDes}</div>}
     </div>
     )
 }
