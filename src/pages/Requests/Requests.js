@@ -19,7 +19,7 @@ const Requests = ()=>{
      
             </DashboardContainer>            
         </section>}
-    </main>
+    </main> 
     )
 }
 
