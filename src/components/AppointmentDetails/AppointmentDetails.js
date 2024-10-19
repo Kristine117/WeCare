@@ -1,38 +1,23 @@
-import React, { useCallback } from "react";
+import React from "react";
 import design from "./AppointmentDetails.module.css";
 import { FaUser} from 'react-icons/fa'; 
 import Button from "../Button/Button";
-import { redirect } from "react-router-dom";
-  
+
+import useUpdateAppointment from "../../hooks/useUpdateAppointment";
 const AppointmentDetails = ({appId,description,statusDes,price,servingName,
-    loggedInUserType,servingProfileImage,sampleFunc})=>{
+    loggedInUserType,servingProfileImage})=>{
+    const { updateAppointment, error } = useUpdateAppointment();
 
-    const decideHandler = useCallback(async(e)=>{
-
-        try {
-            const data = await fetch(`${process.env.REACT_APP_API_URL}/appointment/update-appointment/${appId}`,{
-                method:"put",
-                headers:{
-                    "servingName": servingName,
-                    "appId":appId,
-                    "Authorization": `Bearer ${localStorage.getItem("token")}`,
-                },
-                body:JSON.stringify(
-                    {result: e.target.name}
-                )
-            })
-            if(!data.ok){   
-                throw new Error("Failed to Update");
-            }
-
-            console.log(await data.json());
-           
-        }catch(e){
-            console.log(e.message);
-        }
-
-        return redirect("/appointment");
-    })
+    const decideHandler = async (e) => {
+        const method = "PUT";
+        await updateAppointment(
+            appId,
+            method, 
+        {
+            servingName:servingName, 
+            result: e.target.name
+        }); 
+        };
 
     const userTypeCheck = loggedInUserType === "assistant";
     return (
@@ -49,8 +34,8 @@ const AppointmentDetails = ({appId,description,statusDes,price,servingName,
             </div>
 
             {userTypeCheck&& <div>
-                <Button name="accept" onClick={sampleFunc}>Accept</Button>
-                <Button name="reject" onClick={decideHandler}>Reject</Button>
+                <Button type="button" name="accept" onClick={decideHandler}>Accept</Button>
+                <Button type="button" name="reject" onClick={decideHandler}>Reject</Button>
             </div>}
 
             {!userTypeCheck && <div>{statusDes}</div>}
