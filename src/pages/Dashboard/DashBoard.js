@@ -42,8 +42,8 @@ const DashBoard = ()=>{
            {user?.id &&  <section className={dashboard['dashboard']}>
                 <SideMenu/>
                 <DashboardContainer>
-                    <LoggedInCommonNavBar title="Home"s/>
-                    {user.userType === "admin" && <AdminDashboardCards/>}
+                    <LoggedInCommonNavBar title="Home"/>
+                    {user.userType === "admin" && <AdminDashboardCards fullName={`${user?.firstname} ${user?.lastname}`}/>}
                     {user.userType !== "admin" && <Banner/>}
                     {user.userType === 'senior' && <ProfileCard list={assistantList}/>}
                     {user?.userType === 'assistant' && <AssistantContent/>} 

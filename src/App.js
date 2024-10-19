@@ -9,7 +9,6 @@ import Registration1 from "./pages/Register/Registration1";
 import Registration3 from "./pages/Register/Registration3";
 import Login from "./pages/Login/Login";
 import DashBoard from "./pages/Dashboard/DashBoard";
-// import AppNavbar from "./components/AppNavbar/AppNavbar";
 import Chat from "./pages/Chat/Chat";
 import ChatList from "./pages/ChatList/ChatList";
 import Error from "./pages/Error/Error";
