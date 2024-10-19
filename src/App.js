@@ -91,7 +91,7 @@ function App() {
           <Route path="/registration3" element={<Registration3 />} />
           <Route path="/dashboard-main" element={<DashBoard />} />
           <Route path="/chatlist" element={<ChatList />} />
-          <Route path="/chat/:senderId/:receiverId" element={<Chat />} />
+          <Route path="/chat/:receiverId" element={<Chat />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/find-care" element={<FindCare />} />
