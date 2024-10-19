@@ -38,7 +38,9 @@ export default function Registration3() {
       contactNumber: "",
       gender: "", 
       birthDate: "",
-      experienceId: "",
+      numOfYears:"",
+      experienceDescription:"",
+      rate:"",
       password: "",
       profileImage: "",
       seniorNumber: "",
@@ -60,7 +62,11 @@ export default function Registration3() {
              initialData.birthDate && 
              initialData.userType && 
              initialData.barangayId && 
-             initialData.experienceId && 
+             initialData.profileImage &&
+             initialData.seniorNumber &&
+             initialData.prescribeMeds &&
+             initialData.healthStatus &&
+             initialData.remarks &&
              initialData.street;
     };
     
@@ -73,7 +79,9 @@ export default function Registration3() {
              initialData.birthDate && 
              initialData.userType && 
              initialData.barangayId && 
-             initialData.experienceId && 
+             initialData.numOfYears &&
+             initialData.experienceDescription &&
+             initialData.rate &&
              initialData.street;
     };
     
@@ -83,7 +91,9 @@ export default function Registration3() {
       setInitialData((prevData) => ({
         ...prevData,
         userType: "senior",
-        experienceId: null,
+        numOfYears: null,
+        experienceDescription: null,
+        rate: null,
         email: storedEmail,
         password: storedPassword,
       }));
@@ -131,25 +141,6 @@ export default function Registration3() {
     })
     
 
-    fetch(`${process.env.REACT_APP_API_URL}/experience/registered-experiences`,{
-      method:'GET',
-      headers:{
-        "Content-Type": "application/json"
-     }
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.isSuccess) {
-        setExperiences(data.data); // Update the state with barangay data
-      } else {
-        console.error("Failed to fetch experience data.");
-      }
-    })
-    .catch(error => {
-      console.error("Error:", error);
-    })
-
-
   }, []);
 
 
@@ -187,10 +178,20 @@ export default function Registration3() {
           formData.append('contactNumber', initialData.contactNumber);
           formData.append('gender', initialData.gender);
           formData.append('birthDate', initialData.birthDate);
-          if (initialData.experienceId) {
-            formData.append('experienceId', initialData.experienceId);  // Append the value if it exists
+          if (initialData.prescribeMeds) {
+            formData.append('prescribeMeds', initialData.prescribeMeds);  
           } else {
-            formData.append('experienceId', '');  // Append a blank if experienceId is not provided
+            formData.append('prescribeMeds', '');  
+          }
+          if (initialData.healthStatus) {
+            formData.append('healthStatus', initialData.healthStatus); 
+          } else {
+            formData.append('healthStatus', '');  
+          }
+          if (initialData.remarks) {
+            formData.append('remarks', initialData.remarks);  
+          } else {
+            formData.append('remarks', '');  
           }
           formData.append('password', initialData.password);
           formData.append('seniorNumber', initialData.seniorNumber);
@@ -198,12 +199,10 @@ export default function Registration3() {
           formData.append('healthStatus', initialData.healthStatus);
           formData.append('remarks', initialData.remarks);
           
-          // If relationships exist, convert them to JSON and append
           if (initialData.relationships.length > 0) {
             formData.append('relationships', JSON.stringify(initialData.relationships));
           }
         
-          // Append the profile image file (if selected)
           if (initialData.profileImage) {
             formData.append('profileImage', initialData.profileImage); // The file itself
           }
@@ -315,7 +314,7 @@ export default function Registration3() {
         <div className={registerModal.loginContainer}>
           <div className={registerModal.loginBox}>
             <span
-              className="material-symbols-outlined"
+              className="material-symbols-outlined hover-glow"
               onClick={() => navigate("/registration1")}
             >
               arrow_back
@@ -460,7 +459,7 @@ export default function Registration3() {
                         <input type="date" className="form-control mr-4" 
                         required/>
                     </div>
-                    <input type="text" className="form-control mt-4 ml-3" placeholder="Enter Age" 
+                    <input type="number" className="form-control mt-4 ml-3" placeholder="Enter Age" 
                       id="birthDate" name="birthDate"
                       value={initialData.birthDate}
                       onChange={handleChange} // Corrected here
@@ -514,7 +513,7 @@ export default function Registration3() {
                     
                     <div className="form-group d-block">
                     
-                        <input type="text" className="form-control" placeholder="Enter First Name"
+                        <input type="text" className="form-control" placeholder="Enter senior citizen number"
                       id="seniorNumber" name="seniorNumber" 
                       value={initialData.seniorNumber}
                       onChange={handleChange}
@@ -543,7 +542,7 @@ export default function Registration3() {
 
                 <input type="radio" name="prescribeMeds" value="medsYes" onChange={handleChange} className="mr-2" id="medsYes" required/>
                 <label className="mr-3">YES</label>
-                <input type="radio" name="prescribeMeds" value="medsNo" onChange={handleChange} className="mr-2" id="medsNo" required/>
+                <input type="radio" name="prescribeMeds" value="medsNo" onChange={handleChange} className="mr-2" id="medsNo" requi9red/>
                 <label>NO</label>
             </div>
 
@@ -760,25 +759,47 @@ export default function Registration3() {
                 onChange={handleChange} // Corrected here
                 required
               />
-                      
-
-                  <select
-                    id="experience"
-                    name="experienceId"
-                    className="form-control"
-                    required
-                    value={initialData.experienceId} // Ensure you have this defined
-                    onChange={handleChange} // Ensure you have a handleChange function defined
-                  >
-                    <option value="">Experience</option>
-                    {experiences.map((experience) => (
-                      <option key={experience.experienceId} value={experience.experienceId}>
-                        Years of Experience: {experience.numOfYears}
-                        -Experience Description:{experience.experienceDescription}
-                      </option>
-                    ))}
-                  </select>
                 </div>
+
+                <div className="form-group d-flex mt-4">
+                <input 
+                type="number"
+                className="form-control mr-2"
+                placeholder="Enter years of experience"
+                id="numOfYears"
+                name="numOfYears"  
+                value={initialData.numOfYears} 
+                onChange={handleChange}               
+                required
+              />
+                </div>
+
+                <div className="form-group d-flex mt-4">
+                <input 
+                type="text"
+                className="form-control mr-2"
+                placeholder="Enter experience description"
+                id="experienceDescription"
+                name="experienceDescription"  
+                value={initialData.experienceDescription} 
+                onChange={handleChange}               
+                required
+              />
+                </div>
+
+                <div className="form-group d-flex mt-4">
+                <input 
+                type="number"
+                className="form-control mr-2"
+                placeholder="Enter rate"
+                id="rate"
+                name="rate"  
+                value={initialData.rate} 
+                onChange={handleChange}               
+                required
+              />
+                </div>
+
 
                 <div className="form-group d-block mt-4">
                     <ProfileUpload onFileSelect={handleFileSelect} />

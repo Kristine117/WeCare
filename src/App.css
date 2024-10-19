@@ -235,27 +235,15 @@ table {
   height: auto;
 }
 
-/* .speech-bubble {
-  position: relative;
-  background-color: white; 
-  width: 500px; 
-  height: auto; 
-  border-radius: 10px;
-  padding: 4rem;
-  z-index: 0;
+.hover-glow {
+  cursor: pointer; /* Change cursor to pointer */
+  transition: all 0.3s ease; /* Smooth transition */
 }
 
-.speech-bubble::after {
-  content: "";
-  position: absolute;
-  right: -20px; 
-  top: 100px; 
-  width: 0;
-  height: 0;
-  border-left: 20px solid white; 
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-} */
+.hover-glow:hover {
+  color: #f0f0f0; /* Change color on hover (optional) */
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 20px rgba(255, 255, 255, 0.5); /* Glow effect */
+}
 
 .square-place-holder {
   background-color: #98cabe;
