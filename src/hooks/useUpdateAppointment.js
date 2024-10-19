@@ -9,12 +9,14 @@ const useUpdateAppointment = () => {
     console.log(body)
     const newAppId = encodeURIComponent(appId)
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/appointment/update-appointment/${newAppId}`, {
+      const response = await 
+      fetch(`${process.env.REACT_APP_API_URL}/appointment/update-appointment/${newAppId}`, {
         method: method,
         headers: {
+          "servingname":body.servingName,
+          "status":body.result,
           'Authorization': `Bearer ${localStorage.getItem("token")}`,
-        },
-        body:JSON.stringify({...body})
+        }
       });
 
       if (!response.ok) {
