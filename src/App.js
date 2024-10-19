@@ -21,6 +21,10 @@ import Appointment from "./pages/Appointment/Appointment";
  
 import Find from "./pages/Find/Find";
 import AppointmentList from "./pages/AppointmentList/AppointmentList";
+import Support from "./pages/Support/Support";
+import Ratings from "./pages/Ratings/Ratings";
+import Requests from "./pages/Requests/Requests";
+import Users from "./pages/Users/Users";
 
 function App() {
   // for getting token this is for global this is helped whit the UserContext.js
@@ -104,6 +108,10 @@ function App() {
           <Route path="/appointment" element={<AppointmentList />} />
 
           <Route path="/find" element={<Find />} />
+          <Route path="/support" element={<Support />} />
+          <Route path="/ratings" element={<Ratings />} />
+          <Route path="/requests" element={<Requests />} />
+          <Route path="/users" element={<Users />} />
         </Routes>
       </Router>
     </UserProvider>
