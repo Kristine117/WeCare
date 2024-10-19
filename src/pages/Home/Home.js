@@ -19,8 +19,8 @@ const Home = () => {
     <div className={homeModuleCss.backgroundHome}>
       <Container>
         <Row>
-          <Col lg={7} className="d-none d-lg-flex flex-column justify-content-center">
-            <div className="speech-bubble z-index-1">
+          <Col lg={7} className=" d-lg-flex flex-column justify-content-center">
+            <div className={`${homeModuleCss.speechBubble} z-index-1`}>
 
               {/* Bootstrap Carousel for sliding effect */}
               <Carousel activeIndex={activeLabel} onSelect={(index) => setActiveLabel(index)} indicators={false}>
