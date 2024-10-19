@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import db from "./AdminDashboardCards.module.css";
-const AdminDashboardCards = ()=>{
+const AdminDashboardCards = ({fullName})=>{
+    
+    
+    useEffect(()=>{
+      async function getAdminDashBoardData(){
+        try{
+            
+        }catch(e){
+            throw new Error(e.message);
+        }
+
+      }
+    },[fullName])
     return (
-        <div className={db["header"]}>
+       <React.Fragment>
+        <h1>Hi, {fullName}</h1>
+         <div className={db["header"]}>
             <div>Total Users</div>
             <div>Assistance</div>
             <div>New Users</div>
         </div>
+       </React.Fragment>
     )
 }
 
