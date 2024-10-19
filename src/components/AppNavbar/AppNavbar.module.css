@@ -1,11 +1,73 @@
 .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: #9ec7cf;
+  padding: 10px 20px; /* Adjust padding as needed */
+  position: relative; /* Needed for absolute positioning of links */
 }
 
-.font-white {
+.brandContainer {
+  display: flex;
+  align-items: center;
+}
+
+.fontWhite {
+  color: white;
+  margin-left: 10px; /* Add margin to separate text from the logo */
+}
+
+.toggleButton {
+  display: none; /* Hidden by default */
+  cursor: pointer;
+  font-size: 24px; /* Adjust size as needed */
   color: white;
 }
 
+.navLinks {
+  display: flex;
+  flex-direction: row; /* Horizontal by default */
+  overflow: hidden; /* Hide overflow for the sliding effect */
+ 
+  transition: max-height 0.8s linear; /* Transition effect for sliding */
+}
 
+.link {
+  margin-left: 20px;
+  color: white;
+  text-decoration: none !important;
+  list-style-type: none !important;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 
+/* Mobile specific styles */
+@media (max-width: 768px) {
+  .toggleButton {
+    display: block; /* Show toggle button on mobile */
+  }
 
+  .navLinks {
+    display: flex; /* Still keep it as flex for layout */
+    flex-direction: column; /* Stack links vertically */
+    width: 100%; /* Full width */
+    position: absolute; /* Position absolutely to overlay */
+    top: 90px; /* Adjust based on your navbar height */
+    left: 0;
+      background-color: #9ec7cf; /* Same as navbar background */
+      max-height: 0; /* Collapse the height initially */
+      margin-top: 1rem;
+      z-index: 1;
+  }
+
+  .navLinks.show {
+    max-height: 300px; /* Adjust based on the number of links and their heights */
+    margin-top: 1rem; /* Position it below the navbar */
+  }
+
+  .link {
+    margin: 10px 0; /* Space between links on mobile */
+    text-align: center; /* Center align text */
+  }
+}
