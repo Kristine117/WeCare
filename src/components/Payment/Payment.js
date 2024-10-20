@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { createPortal } from "react-dom";
 import pm from "./Payment.module.css";
 import Button from "../Button/Button";
@@ -18,24 +18,43 @@ const PAYMENT_SELECTION =[
     }
 ]
 const Payment = ({openModal})=>{
-    return createPortal(
-        <div className={pm["backdrop-modal"]}>
-            <div className={pm["payment-selection"]}>
-               <div className={pm["payment-selection__header"]}>
-                {PAYMENT_SELECTION.map(val=>{
-                        return(
-                            <div key={val.src}>
-                                <img className={pm["img"]} src={val.src}/>
-                                <div className={pm["title"]}>{val.mode}</div>
-                            </div>
-                        )
-                    })}
+    const [pay,setPay] = useState(null);
+    const [payMethod,setPayMethod] = useState({
+        method:""
+    });
+    function selectedPaymentMethod(e){
+        setPayMethod({method: e.target.dataset.pay})
+    }
 
-                <Button type="button" onClick={openModal}>Cancel</Button>
-                <Button type="button">Proceed</Button>
-               </div>
+    function proceedPaymentPage(){
+        
+        setPay(payMethod);
+    }
+    return createPortal(
+        <React.Fragment>
+             <div className={pm["backdrop-modal"]} onClick={openModal}>
+            
             </div>
-        </div>,
+
+            <div className={pm["payment-selection"]}>
+                
+               {!pay &&
+               <div className={pm["payment-selection__header"]}>
+               {PAYMENT_SELECTION.map(val=>{
+                       return(
+                           <div key={val.src} onClick={selectedPaymentMethod} data-pay={val.mode}>
+                               <img className={pm["img"]} src={val.src}/>
+                               <div className={pm["title"]}>{val.mode}</div>
+                           </div>
+                       )
+                   })}
+
+               <Button type="button" onClick={openModal}>Cancel</Button>
+               <Button type="button" onClick={proceedPaymentPage}>Proceed</Button>
+              </div>}
+            </div>
+        </React.Fragment>
+       ,
         document.querySelector("#modal")
     )
 }
