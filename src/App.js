@@ -1,5 +1,5 @@
 import "./App.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
@@ -17,21 +17,15 @@ import FindCare from "./pages/FindCare/FindCare";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import Appointment from "./pages/Appointment/Appointment";
 
- 
 import Find from "./pages/Find/Find";
 import AppointmentList from "./pages/AppointmentList/AppointmentList";
-<<<<<<< HEAD
+
 import Notes from "./pages/Notes/Notes";
-=======
->>>>>>> b60180e3b73d722bf3f005b3b730b96eeb399c20
+
 import Support from "./pages/Support/Support";
 import Ratings from "./pages/Ratings/Ratings";
 import Requests from "./pages/Requests/Requests";
 import Users from "./pages/Users/Users";
-<<<<<<< HEAD
-
-=======
->>>>>>> b60180e3b73d722bf3f005b3b730b96eeb399c20
 
 function App() {
   // for getting token this is for global this is helped whit the UserContext.js
@@ -95,7 +89,6 @@ function App() {
   return (
     <UserProvider value={{ user, setUser, unsetUser }}>
       <Router>
- 
         <Routes>
           <Route path="*" errorElement={<Error />} />
           <Route path="/" element={<HomeContainer />} />
