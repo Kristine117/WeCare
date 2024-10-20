@@ -11,4 +11,9 @@
 
 .description {
     font-size: .75rem;
-}   
+} 
+
+
+.app-status {
+    display: block;
+}

@@ -5,9 +5,9 @@ import Button from "../Button/Button";
 
 import useUpdateAppointment from "../../hooks/useUpdateAppointment";
 const AppointmentDetails = ({appId,description,statusDes,price,servingName,
-    loggedInUserType,servingProfileImage})=>{
+    loggedInUserType,servingProfileImage, statusId,openModal})=>{
     const { updateAppointment, error } = useUpdateAppointment();
-
+    
     const decideHandler = async (e) => {
         const method = "PUT";
         await updateAppointment(
@@ -33,13 +33,17 @@ const AppointmentDetails = ({appId,description,statusDes,price,servingName,
                 <div className={design["description"]}>Description: {description}</div>
             </div>
 
-            {userTypeCheck&& <div>
+            {userTypeCheck && <div>
                 <Button type="button" name="accept" onClick={decideHandler}>Accept</Button>
                 <Button type="button" name="reject" onClick={decideHandler}>Reject</Button>
             </div>}
 
-            {!userTypeCheck && <div>{statusDes}</div>}
-    </div>
+            {!userTypeCheck && 
+            <div className={design["app-status"]}> 
+                <div><strong>{statusDes}</strong></div>
+                {statusId === 2 && <Button type="button" onClick={openModal}>Pay Now</Button>}
+                </div>}
+        </div>
     )
 }
 
