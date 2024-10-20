@@ -20,7 +20,7 @@ const AppointmentForm = ({ assistantId, assistantName, assistantProfile }) => {
     async function getAssistantDetails() {
       try {
         const data = await fetch(
-          `${process.env.REACT_APP_API_URL}/main/assistant-details/${assistantId}`,
+          `${process.env.REACT_APP_API_URL}/main/assistant-details/${encodeURIComponent(assistantId)}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -137,12 +137,13 @@ const AppointmentForm = ({ assistantId, assistantName, assistantProfile }) => {
         </div>
         <div className="form-group">
           <label htmlFor="service-decription">Service Description</label>
-          <input
-            type="textarea"
+    
+          <textarea type="textarea"
             id="service-description"
             className="form-control"
-            onChange={(e) => setServiceDescription(e.target.value)}
-          />
+            onChange={(e) => setServiceDescription(e.target.value)}>
+
+          </textarea>
         </div>
 
         <button type="submit" className="btn btn-login">

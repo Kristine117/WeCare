@@ -1,40 +1,44 @@
-import React from "react";
-import { Navbar, Nav } from "react-bootstrap";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import navDesign from "./AppNavbar.module.css";
 
 export default function AppNavbar() {
-  return (
-    <Navbar className={navDesign["navbar"]} expand="lg">
-      <Navbar.Brand as={NavLink} to="/" className="mr-5">
-        <div className="d-flex align-items-center">
-          <img
-            src="./wecare_logo.png"
-            alt="We Care"
-            width="100px"
-            height="auto"
-          />
-          <h3 className="font-weight-bold font-white">WeCare</h3>
-        </div>
-      </Navbar.Brand>
+  const [isOpen, setIsOpen] = useState(false);
 
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav" className="d-flex align-items-center justify-content-end">
-        <Nav className=" mr-5">
-          <Nav.Link as={NavLink} to="/about" className="pr-4">
-            <span className="font-white">About Us</span>
-          </Nav.Link>
-          <Nav.Link as={NavLink} to="/find-care" className="pr-4">
-            <span className="font-white">Find Care</span>
-          </Nav.Link>
-          <Nav.Link as={NavLink} to="/services" className="pr-4">
-            <span className="font-white">Services</span>
-          </Nav.Link>
-          <Nav.Link as={NavLink} to="/login">
-            <span className="font-white">Sign In</span>
-          </Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+  const toggleNavbar = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <nav className={navDesign.navbar}>
+      <div className={navDesign.brandContainer}>
+        <NavLink to="/" className={navDesign.link}>
+        <img
+          src="./wecare_logo.png"
+          alt="We Care"
+          width="100px"
+          height="auto"
+        />
+        <h3 className={navDesign.fontWhite}>WeCare</h3>
+         </NavLink>
+      </div>
+      <div className={navDesign.toggleButton} onClick={toggleNavbar}>
+        {isOpen ?  "✖" : "☰"} {/* Simple icon toggle */}
+      </div>
+      <div className={`${navDesign.navLinks} ${isOpen ? navDesign.show : ""} pl-5 pt-3`}>
+        <NavLink to="/" className={`${navDesign.link} pr-4`}>
+          About Us
+        </NavLink>
+        <NavLink to="/" className={`${navDesign.link} pr-4`}>
+          Find Care
+        </NavLink>
+        <NavLink to="/" className={`${navDesign.link} pr-4`}>
+          Services
+        </NavLink>
+        <NavLink to="/login" className={`${navDesign.link} pr-4`}>
+          Sign In
+        </NavLink>
+      </div>
+    </nav>
   );
 }
