@@ -20,12 +20,18 @@ import Appointment from "./pages/Appointment/Appointment";
  
 import Find from "./pages/Find/Find";
 import AppointmentList from "./pages/AppointmentList/AppointmentList";
+<<<<<<< HEAD
 import Notes from "./pages/Notes/Notes";
+=======
+>>>>>>> b60180e3b73d722bf3f005b3b730b96eeb399c20
 import Support from "./pages/Support/Support";
 import Ratings from "./pages/Ratings/Ratings";
 import Requests from "./pages/Requests/Requests";
 import Users from "./pages/Users/Users";
+<<<<<<< HEAD
 
+=======
+>>>>>>> b60180e3b73d722bf3f005b3b730b96eeb399c20
 
 function App() {
   // for getting token this is for global this is helped whit the UserContext.js

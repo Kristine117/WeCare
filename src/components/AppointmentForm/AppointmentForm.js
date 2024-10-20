@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import AppointmentList from "../../pages/AppointmentList/AppointmentList";
 
-const AppointmentForm = ({ assistantId }) => {
+const AppointmentForm = ({ assistantId, assistantName, assistantProfile }) => {
   const today = new Date().toISOString().split("T")[0];
   const appointmentDate = today;
   const [startDate, setStartDate] = useState(null);
@@ -16,7 +16,7 @@ const AppointmentForm = ({ assistantId }) => {
   const [serviceDate, setServiceDate] = useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  /*  useEffect(() => {
     async function getAssistantDetails() {
       try {
         const data = await fetch(
@@ -41,7 +41,7 @@ const AppointmentForm = ({ assistantId }) => {
     }
 
     getAssistantDetails();
-  }, [assistantId]);
+  }, [assistantId]); */
 
   console.log(assistant);
   function sendAppointment(e) {
@@ -91,13 +91,11 @@ const AppointmentForm = ({ assistantId }) => {
       <h3 className="head"> Appointment Details</h3>
       <div className={wcdesign["profile-section"]}>
         <img
-          src={assistant?.profileImage}
+          src={assistantProfile}
           alt="assitan"
           className={wcdesign["profile-image"]}
         ></img>
-        <p className={wcdesign["name"]}>
-          Assistant Name: {assistant?.fullName}
-        </p>
+        <p className={wcdesign["name"]}>Assistant Name: {assistantName}</p>
       </div>
       <form onSubmit={(e) => sendAppointment(e)}>
         <div className="form-group">

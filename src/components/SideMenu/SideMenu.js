@@ -27,6 +27,7 @@ export default function SideMenu() {
     //setActiveNavSupp(location.pathname === '/support'); // Update as per your support route
   }, [location.pathname]);
 
+<<<<<<< HEAD
 
   const clickedActiveHome = () => {
     navigate("/dashboard-main");
@@ -47,6 +48,8 @@ export default function SideMenu() {
   const clickedActiveNotes = () => {
     navigate("/notes");
   };
+=======
+>>>>>>> b60180e3b73d722bf3f005b3b730b96eeb399c20
   
   const handleLogout = () => {
     navigate("/logout");
@@ -94,7 +97,11 @@ export default function SideMenu() {
         </Link>}
 
           {user?.userType !== "admin" && 
+<<<<<<< HEAD
           <Link       
+=======
+          <Link
+>>>>>>> b60180e3b73d722bf3f005b3b730b96eeb399c20
           to="/appointment"
           // onClick={clickedActiveApp}
           className={activeNavApp ? "menu-item actives" : "menu-item"}
@@ -128,6 +135,7 @@ export default function SideMenu() {
           </span>
           <p className="ml-2 pt-3">Ratings</p>
         </Link>
+<<<<<<< HEAD
 
         <Link
             to="/notes"
@@ -142,6 +150,10 @@ export default function SideMenu() {
         
         </>}
 
+=======
+        
+        </>}
+>>>>>>> b60180e3b73d722bf3f005b3b730b96eeb399c20
         </div>
 
         {user?.userType !== "admin" && 
