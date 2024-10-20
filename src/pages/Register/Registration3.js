@@ -34,7 +34,6 @@ export default function Registration3() {
       email: "",  
       userType: "",
       street: "",
-      barangayId: "",
       contactNumber: "",
       gender: "", 
       birthDate: "",
@@ -91,9 +90,9 @@ export default function Registration3() {
       setInitialData((prevData) => ({
         ...prevData,
         userType: "senior",
-        numOfYears: null,
-        experienceDescription: null,
-        rate: null,
+        numOfYears:"",
+        experienceDescription:"",
+        rate:"",
         email: storedEmail,
         password: storedPassword,
       }));
@@ -153,10 +152,8 @@ export default function Registration3() {
             setErrorMessage("Please select either 'Senior' or 'Caregiver' before proceeding.");
             return; // Prevent further execution if no activeForm is selected
           }
-          console.log(initialData);
           // Reset error message if activeForm is valid
           setErrorMessage("");
-          //console.log(initialData);
           // If activeForm is valid, open the confirmation modal
           setIsConfirmationModalOpen(true);
         };
@@ -178,36 +175,48 @@ export default function Registration3() {
           formData.append('contactNumber', initialData.contactNumber);
           formData.append('gender', initialData.gender);
           formData.append('birthDate', initialData.birthDate);
-          if (initialData.prescribeMeds) {
-            formData.append('prescribeMeds', initialData.prescribeMeds);  
+          formData.append('password', initialData.password);
+          
+          if (initialData.seniorNumber) {
+            formData.append('seniorNumber', initialData.seniorNumber);
           } else {
-            formData.append('prescribeMeds', '');  
+            formData.append('seniorNumber', "");
+          }
+          if (initialData.prescribeMeds) {
+            formData.append('prescribeMeds', initialData.prescribeMeds);            
+          } else {
+            formData.append('prescribeMeds', "");
           }
           if (initialData.healthStatus) {
-            formData.append('healthStatus', initialData.healthStatus); 
+            formData.append('healthStatus', initialData.healthStatus);
           } else {
-            formData.append('healthStatus', '');  
+            formData.append('healthStatus', "");
           }
-          if (initialData.remarks) {
-            formData.append('remarks', initialData.remarks);  
-          } else {
-            formData.append('remarks', '');  
-          }
-          formData.append('password', initialData.password);
-          formData.append('seniorNumber', initialData.seniorNumber);
-          formData.append('prescribeMeds', initialData.prescribeMeds);
-          formData.append('healthStatus', initialData.healthStatus);
           formData.append('remarks', initialData.remarks);
           
-          if (initialData.relationships.length > 0) {
-            formData.append('relationships', JSON.stringify(initialData.relationships));
+          console.log(initialData.relationships.length)
+          
+          if(initialData.relationships && initialData.relationships.length > 0){
+            console.log("the relationship has value");          
+            formData.append('relationships', JSON.stringify(initialData.relationships));  
+          } else {
+            console.log("the relationship has no value");
+            formData.append('relationships', JSON.stringify([])); // Ensure an empty array is passed as a string
           }
-        
+          
+
+
           if (initialData.profileImage) {
             formData.append('profileImage', initialData.profileImage); // The file itself
           }
         
-          // Send the request using fetch with FormData (no need for "Content-Type" header, it’s automatically set by FormData)
+          // Log FormData contents
+          console.log('FormData contents:');
+          for (const [key, value] of formData.entries()) {
+            console.log(`${key}:`, value);
+          }
+        
+          // Send the request using fetch with FormData
           fetch(`${process.env.REACT_APP_API_URL}/main/register-user`, {
             method: 'POST',
             body: formData // Send FormData directly
@@ -218,17 +227,15 @@ export default function Registration3() {
               Swal.fire({ title: "Registered Successfully", icon: "success", text: "Account Registered Successfully" });
               navigate("/"); 
             } else {
+              console.log(data.errorMessage);
               Swal.fire({ title: "Registration failed", icon: "error", text: "Check account details and try again." });
             }
           })
           .catch(error => {
             console.error("Error:", error);
           });
-        };        
-
-
-
-
+        
+        };
 
     const collectDataRegistration2 = (e) => {
       e.preventDefault();
@@ -244,8 +251,7 @@ export default function Registration3() {
         setFormCompletedSenior(false);
       }
 
-      console.log(initialData)
-    };
+      };
     
 
 
@@ -265,15 +271,6 @@ export default function Registration3() {
     };
 
   
-    // Handle changes in form input fields
-    // const handleChange = (e) => {
-    //   const { name, value } = e.target;
-    //   setInitialData((prevData) => ({
-    //     ...prevData,
-    //     [name]: value,
-    //   }));
-    // };
-
         // Handle changes in form input fields
         const handleChange = (e) => {
           const { name, value } = e.target;
@@ -328,22 +325,6 @@ export default function Registration3() {
     ? `${registerModal.complete} ${registerModal["square-place-holder"]}`
     : `${registerModal["square-place-holder"]}`;  
 
-
-      // Automatic scroll to bottom effect
-    useEffect(() => {
-      const scrollToBottom = () => {
-        window.scrollTo({
-          top: document.body.scrollHeight,
-          behavior: 'smooth'
-        });
-      };
-  
-      // Start scrolling after a small delay to allow the component to render
-      const scrollTimeout = setTimeout(scrollToBottom, 500);
-  
-      // Clean up the timeout when the component unmounts
-      return () => clearTimeout(scrollTimeout);
-    }, []);
 
     return (
       <div className={registerModal.background1}>
@@ -588,7 +569,7 @@ export default function Registration3() {
 
                 <input type="radio" name="prescribeMeds" value="medsYes" onChange={handleChange} className="mr-2" id="medsYes" required/>
                 <label className="mr-3">YES</label>
-                <input type="radio" name="prescribeMeds" value="medsNo" onChange={handleChange} className="mr-2" id="medsNo" requi9red/>
+                <input type="radio" name="prescribeMeds" value="medsNo" onChange={handleChange} className="mr-2" id="medsNo" required/>
                 <label>NO</label>
             </div>
 
