@@ -587,3 +587,7 @@ a {
 /* input {
   all: revert !important;
 } */
+
+.spacingLabel{
+  margin:initial;
+}

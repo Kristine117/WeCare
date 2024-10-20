@@ -16,7 +16,6 @@ export default function Registration3() {
     let storedPassword = storedInitialData ? storedInitialData.password : "";
   
     const [barangays, setBarangays] = useState([]);
-    const [experiences, setExperiences] = useState([]);
     const [people, setPeople] = useState([]);
     const [activeForm, setActiveForm] = useState(null);
     const [isSeniorModalOpen, setIsSeniorModalOpen] = useState(false);
@@ -25,6 +24,7 @@ export default function Registration3() {
     const [formCompletedSenior, setFormCompletedSenior] = useState(false);  
     const [formCompletedGiver, setFormCompletedGiver] = useState(false);
     const [errorMessage, setErrorMessage] = useState(""); // State to hold error message
+    const [age, setAge] = useState('');
 
   
     // Initialize initialData without Redux state
@@ -248,15 +248,51 @@ export default function Registration3() {
     };
     
 
+
+    const calculateAge = (dateString) => {
+      const birthDate = new Date(dateString);
+      const today = new Date();
+
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDifference = today.getMonth() - birthDate.getMonth();
+
+      // Adjust age if the birth date hasn't occurred yet this year
+      if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+      }
+
+      return age;
+    };
+
   
     // Handle changes in form input fields
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setInitialData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    };
+    // const handleChange = (e) => {
+    //   const { name, value } = e.target;
+    //   setInitialData((prevData) => ({
+    //     ...prevData,
+    //     [name]: value,
+    //   }));
+    // };
+
+        // Handle changes in form input fields
+        const handleChange = (e) => {
+          const { name, value } = e.target;
+          setInitialData((prevData) => ({
+              ...prevData,
+              [name]: value,
+          }));
+  
+          // If the changed field is the birth date, calculate the age
+          if (name === 'birthDate') {
+              if (value) {
+                  const calculatedAge = calculateAge(value);
+                  setAge(calculatedAge);
+              } else {
+                  setAge('');
+              }
+          }
+      };
+  
 
     const handleFileSelect = (base64String) => {
       setInitialData((prevData) => ({
@@ -452,19 +488,29 @@ export default function Registration3() {
                       onChange={handleChange}  required/>
                 </div>
 
-
-                <div className="form-group d-flex">
-                    <div className="d-block">
-                        <label className="mb-2 ml-2">Birth Date</label>
-                        <input type="date" className="form-control mr-4" 
-                        required/>
-                    </div>
-                    <input type="number" className="form-control mt-4 ml-3" placeholder="Enter Age" 
-                      id="birthDate" name="birthDate"
-                      value={initialData.birthDate}
-                      onChange={handleChange} // Corrected here
-                      required/>
+                <div className={`registerModal.spacingLabel form-group d-flex`}>
+                <label className={registerModal.spacingLabel}>
+                  Birth Date
+                  </label>                  
                 </div>
+                <div className="form-group d-flex">
+                        <input 
+                    type="date" 
+                    className="form-control mr-4" 
+                    name="birthDate" // Ensure name matches initialData
+                    value={initialData.birthDate}
+                    onChange={handleChange}
+                    required 
+                />
+                    <input 
+                        type="number" 
+                        className="form-control UserAge" 
+                        placeholder="Enter Age" 
+                        value={age} // Set the value to the calculated age
+                        readOnly // Make the age input read-only
+                        required 
+                    />
+                  </div>
 
 
                 <div className="form-group d-flex mt-4">
@@ -517,7 +563,7 @@ export default function Registration3() {
                       id="seniorNumber" name="seniorNumber" 
                       value={initialData.seniorNumber}
                       onChange={handleChange}
-                      required />
+                      />
                         <label className="mt-2">(If Applicable)</label>
                     </div>
                 </div> 
@@ -730,18 +776,29 @@ export default function Registration3() {
                 </div>
 
 
-                <div className="form-group d-flex">
-                    <div className="d-block">
-                        <label className="mb-2 ml-2">Birth Date</label>
-                        <input type="date" className="form-control mr-4" />
-                    </div>
-                    <input type="text" className="form-control mt-4 ml-3" placeholder="Enter Age" 
-                      id="birthDate" name="birthDate"
-                      value={initialData.birthDate}
-                      onChange={handleChange} // Corrected here
-                      required
-                    />
+                <div className={`registerModal.spacingLabel form-group d-flex`}>
+                <label className={registerModal.spacingLabel}>
+                  Birth Date
+                  </label>                  
                 </div>
+                <div className="form-group d-flex">
+                        <input 
+                    type="date" 
+                    className="form-control mr-4" 
+                    name="birthDate" // Ensure name matches initialData
+                    value={initialData.birthDate}
+                    onChange={handleChange}
+                    required 
+                />
+                    <input 
+                        type="number" 
+                        className="form-control UserAge" 
+                        placeholder="Enter Age" 
+                        value={age} // Set the value to the calculated age
+                        readOnly // Make the age input read-only
+                        required 
+                    />
+                  </div>
 
 
                 <div className="form-group d-flex mt-4">
