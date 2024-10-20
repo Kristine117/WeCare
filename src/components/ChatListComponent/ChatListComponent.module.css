@@ -4,6 +4,7 @@
   color: #678990;
   margin: 0.5rem;
   cursor: pointer;
+  width: -webkit-fill-available;
 }
 
 .piture-section-chat {
@@ -26,11 +27,12 @@
 
 .message-section-chat {
   display: flex;
+  width: -webkit-fill-available;
 }
 .message-container-chat {
   border-radius: 1rem;
   padding: 1rem;
-  width: 60rem;
+  width: -webkit-fill-available;
 }
 
 .profile-message-chat {
