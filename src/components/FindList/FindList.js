@@ -37,7 +37,7 @@ function FindList({
   };
 
   const handleRequest = () => {
-    navigate("/appointment-page/:assistantId", {
+    navigate(`/appointment-page/${encodeURIComponent(userId)}`, {
       state: { assistantId: userId, fromFind: true },
     });
   };

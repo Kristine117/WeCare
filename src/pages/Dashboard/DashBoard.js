@@ -8,7 +8,7 @@ import DashboardContainer from "../../components/DashboardContainer/DashboardCon
 import LoggedInCommonNavBar from "../../components/LoggedInCommonNavBar/LoggedInCommonNavBar";
 import AssistantContent from "../../components/AssistantContent/AssistantContent";
 import Banner from "../../components/Banner/Banner"
-
+import AdminDashboardCards from "../../components/AdminDashboardCards/AdminDashboardCards";
 const DashBoard = ()=>{
     const {user} = useContext(UserContext);
 
@@ -42,10 +42,12 @@ const DashBoard = ()=>{
            {user?.id &&  <section className={dashboard['dashboard']}>
                 <SideMenu/>
                 <DashboardContainer>
-                    <LoggedInCommonNavBar/>
-                    <Banner/>
+                    <LoggedInCommonNavBar title="Home"/>
+                    {user.userType === "admin" && <AdminDashboardCards fullName={`${user?.firstname} ${user?.lastname}`}/>}
+                    {user.userType !== "admin" && <Banner/>}
                     {user.userType === 'senior' && <ProfileCard list={assistantList}/>}
-                    {user?.userType === 'assistant' && <AssistantContent/>}     
+                    {user?.userType === 'assistant' && <AssistantContent/>} 
+
                 </DashboardContainer>            
             </section>}
         </main>        
