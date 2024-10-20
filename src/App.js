@@ -100,6 +100,7 @@ function App() {
           <Route path="/logout" element={<Logout />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/find-care" element={<FindCare />} />
+          <Route path="/notes" element={<Notes />} />
           <Route
             path="/appointment-page/:assistantId"
             element={<Appointment />}

@@ -14,6 +14,7 @@ export default function SideMenu() {
   const [activeNavFind, setActiveNavFind] = useState(false);
   const [activeNavMes, setActiveNavMes] = useState(false);
   const [activeNavApp, setActiveNavApp] = useState(false);
+  const [activeNavNOtes, setActiveNavNotes] = useState(false);
   //const [activeNavSupp, setActiveNavSupp] = useState(false);
 
   // Update active states based on current location
@@ -22,6 +23,7 @@ export default function SideMenu() {
     setActiveNavFind(location.pathname === '/find');
     setActiveNavMes(location.pathname === '/chatlist');
     setActiveNavApp(location.pathname === '/appointment');
+    setActiveNavNotes(location.pathname === '/notes');
     //setActiveNavSupp(location.pathname === '/support'); // Update as per your support route
   }, [location.pathname]);
 
