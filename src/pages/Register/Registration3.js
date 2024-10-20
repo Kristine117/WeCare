@@ -16,7 +16,6 @@ export default function Registration3() {
     let storedPassword = storedInitialData ? storedInitialData.password : "";
   
     const [barangays, setBarangays] = useState([]);
-    const [experiences, setExperiences] = useState([]);
     const [people, setPeople] = useState([]);
     const [activeForm, setActiveForm] = useState(null);
     const [isSeniorModalOpen, setIsSeniorModalOpen] = useState(false);
@@ -25,6 +24,7 @@ export default function Registration3() {
     const [formCompletedSenior, setFormCompletedSenior] = useState(false);  
     const [formCompletedGiver, setFormCompletedGiver] = useState(false);
     const [errorMessage, setErrorMessage] = useState(""); // State to hold error message
+    const [age, setAge] = useState('');
 
   
     // Initialize initialData without Redux state
@@ -34,7 +34,6 @@ export default function Registration3() {
       email: "",  
       userType: "",
       street: "",
-      barangayId: "",
       contactNumber: "",
       gender: "", 
       birthDate: "",
@@ -91,9 +90,9 @@ export default function Registration3() {
       setInitialData((prevData) => ({
         ...prevData,
         userType: "senior",
-        numOfYears: null,
-        experienceDescription: null,
-        rate: null,
+        numOfYears:"",
+        experienceDescription:"",
+        rate:"",
         email: storedEmail,
         password: storedPassword,
       }));
@@ -153,10 +152,8 @@ export default function Registration3() {
             setErrorMessage("Please select either 'Senior' or 'Caregiver' before proceeding.");
             return; // Prevent further execution if no activeForm is selected
           }
-          console.log(initialData);
           // Reset error message if activeForm is valid
           setErrorMessage("");
-          //console.log(initialData);
           // If activeForm is valid, open the confirmation modal
           setIsConfirmationModalOpen(true);
         };
@@ -178,36 +175,48 @@ export default function Registration3() {
           formData.append('contactNumber', initialData.contactNumber);
           formData.append('gender', initialData.gender);
           formData.append('birthDate', initialData.birthDate);
-          if (initialData.prescribeMeds) {
-            formData.append('prescribeMeds', initialData.prescribeMeds);  
+          formData.append('password', initialData.password);
+          
+          if (initialData.seniorNumber) {
+            formData.append('seniorNumber', initialData.seniorNumber);
           } else {
-            formData.append('prescribeMeds', '');  
+            formData.append('seniorNumber', "");
+          }
+          if (initialData.prescribeMeds) {
+            formData.append('prescribeMeds', initialData.prescribeMeds);            
+          } else {
+            formData.append('prescribeMeds', "");
           }
           if (initialData.healthStatus) {
-            formData.append('healthStatus', initialData.healthStatus); 
+            formData.append('healthStatus', initialData.healthStatus);
           } else {
-            formData.append('healthStatus', '');  
+            formData.append('healthStatus', "");
           }
-          if (initialData.remarks) {
-            formData.append('remarks', initialData.remarks);  
-          } else {
-            formData.append('remarks', '');  
-          }
-          formData.append('password', initialData.password);
-          formData.append('seniorNumber', initialData.seniorNumber);
-          formData.append('prescribeMeds', initialData.prescribeMeds);
-          formData.append('healthStatus', initialData.healthStatus);
           formData.append('remarks', initialData.remarks);
           
-          if (initialData.relationships.length > 0) {
-            formData.append('relationships', JSON.stringify(initialData.relationships));
+          console.log(initialData.relationships.length)
+          
+          if(initialData.relationships && initialData.relationships.length > 0){
+            console.log("the relationship has value");          
+            formData.append('relationships', JSON.stringify(initialData.relationships));  
+          } else {
+            console.log("the relationship has no value");
+            formData.append('relationships', JSON.stringify([])); // Ensure an empty array is passed as a string
           }
-        
+          
+
+
           if (initialData.profileImage) {
             formData.append('profileImage', initialData.profileImage); // The file itself
           }
         
-          // Send the request using fetch with FormData (no need for "Content-Type" header, it’s automatically set by FormData)
+          // Log FormData contents
+          console.log('FormData contents:');
+          for (const [key, value] of formData.entries()) {
+            console.log(`${key}:`, value);
+          }
+        
+          // Send the request using fetch with FormData
           fetch(`${process.env.REACT_APP_API_URL}/main/register-user`, {
             method: 'POST',
             body: formData // Send FormData directly
@@ -218,17 +227,15 @@ export default function Registration3() {
               Swal.fire({ title: "Registered Successfully", icon: "success", text: "Account Registered Successfully" });
               navigate("/"); 
             } else {
+              console.log(data.errorMessage);
               Swal.fire({ title: "Registration failed", icon: "error", text: "Check account details and try again." });
             }
           })
           .catch(error => {
             console.error("Error:", error);
           });
-        };        
-
-
-
-
+        
+        };
 
     const collectDataRegistration2 = (e) => {
       e.preventDefault();
@@ -244,19 +251,45 @@ export default function Registration3() {
         setFormCompletedSenior(false);
       }
 
-      console.log(initialData)
-    };
+      };
     
 
-  
-    // Handle changes in form input fields
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setInitialData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
+
+    const calculateAge = (dateString) => {
+      const birthDate = new Date(dateString);
+      const today = new Date();
+
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDifference = today.getMonth() - birthDate.getMonth();
+
+      // Adjust age if the birth date hasn't occurred yet this year
+      if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+      }
+
+      return age;
     };
+
+  
+        // Handle changes in form input fields
+        const handleChange = (e) => {
+          const { name, value } = e.target;
+          setInitialData((prevData) => ({
+              ...prevData,
+              [name]: value,
+          }));
+  
+          // If the changed field is the birth date, calculate the age
+          if (name === 'birthDate') {
+              if (value) {
+                  const calculatedAge = calculateAge(value);
+                  setAge(calculatedAge);
+              } else {
+                  setAge('');
+              }
+          }
+      };
+  
 
     const handleFileSelect = (base64String) => {
       setInitialData((prevData) => ({
@@ -292,22 +325,6 @@ export default function Registration3() {
     ? `${registerModal.complete} ${registerModal["square-place-holder"]}`
     : `${registerModal["square-place-holder"]}`;  
 
-
-      // Automatic scroll to bottom effect
-    useEffect(() => {
-      const scrollToBottom = () => {
-        window.scrollTo({
-          top: document.body.scrollHeight,
-          behavior: 'smooth'
-        });
-      };
-  
-      // Start scrolling after a small delay to allow the component to render
-      const scrollTimeout = setTimeout(scrollToBottom, 500);
-  
-      // Clean up the timeout when the component unmounts
-      return () => clearTimeout(scrollTimeout);
-    }, []);
 
     return (
       <div className={registerModal.background1}>
@@ -452,19 +469,29 @@ export default function Registration3() {
                       onChange={handleChange}  required/>
                 </div>
 
-
-                <div className="form-group d-flex">
-                    <div className="d-block">
-                        <label className="mb-2 ml-2">Birth Date</label>
-                        <input type="date" className="form-control mr-4" 
-                        required/>
-                    </div>
-                    <input type="number" className="form-control mt-4 ml-3" placeholder="Enter Age" 
-                      id="birthDate" name="birthDate"
-                      value={initialData.birthDate}
-                      onChange={handleChange} // Corrected here
-                      required/>
+                <div className={`registerModal.spacingLabel form-group d-flex`}>
+                <label className={registerModal.spacingLabel}>
+                  Birth Date
+                  </label>                  
                 </div>
+                <div className="form-group d-flex">
+                        <input 
+                    type="date" 
+                    className="form-control mr-4" 
+                    name="birthDate" // Ensure name matches initialData
+                    value={initialData.birthDate}
+                    onChange={handleChange}
+                    required 
+                />
+                    <input 
+                        type="number" 
+                        className="form-control UserAge" 
+                        placeholder="Enter Age" 
+                        value={age} // Set the value to the calculated age
+                        readOnly // Make the age input read-only
+                        required 
+                    />
+                  </div>
 
 
                 <div className="form-group d-flex mt-4">
@@ -517,7 +544,7 @@ export default function Registration3() {
                       id="seniorNumber" name="seniorNumber" 
                       value={initialData.seniorNumber}
                       onChange={handleChange}
-                      required />
+                      />
                         <label className="mt-2">(If Applicable)</label>
                     </div>
                 </div> 
@@ -542,7 +569,7 @@ export default function Registration3() {
 
                 <input type="radio" name="prescribeMeds" value="medsYes" onChange={handleChange} className="mr-2" id="medsYes" required/>
                 <label className="mr-3">YES</label>
-                <input type="radio" name="prescribeMeds" value="medsNo" onChange={handleChange} className="mr-2" id="medsNo" requi9red/>
+                <input type="radio" name="prescribeMeds" value="medsNo" onChange={handleChange} className="mr-2" id="medsNo" required/>
                 <label>NO</label>
             </div>
 
@@ -730,18 +757,29 @@ export default function Registration3() {
                 </div>
 
 
-                <div className="form-group d-flex">
-                    <div className="d-block">
-                        <label className="mb-2 ml-2">Birth Date</label>
-                        <input type="date" className="form-control mr-4" />
-                    </div>
-                    <input type="text" className="form-control mt-4 ml-3" placeholder="Enter Age" 
-                      id="birthDate" name="birthDate"
-                      value={initialData.birthDate}
-                      onChange={handleChange} // Corrected here
-                      required
-                    />
+                <div className={`registerModal.spacingLabel form-group d-flex`}>
+                <label className={registerModal.spacingLabel}>
+                  Birth Date
+                  </label>                  
                 </div>
+                <div className="form-group d-flex">
+                        <input 
+                    type="date" 
+                    className="form-control mr-4" 
+                    name="birthDate" // Ensure name matches initialData
+                    value={initialData.birthDate}
+                    onChange={handleChange}
+                    required 
+                />
+                    <input 
+                        type="number" 
+                        className="form-control UserAge" 
+                        placeholder="Enter Age" 
+                        value={age} // Set the value to the calculated age
+                        readOnly // Make the age input read-only
+                        required 
+                    />
+                  </div>
 
 
                 <div className="form-group d-flex mt-4">
