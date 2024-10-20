@@ -88,68 +88,73 @@ const AppointmentForm = ({ assistantId, assistantName, assistantProfile }) => {
 
   return (
     <div className={wcdesign["form-container"]}>
-      <h3 className="head"> Appointment Details</h3>
-      <div className={wcdesign["profile-section"]}>
-        <img
-          src={assistantProfile}
-          alt="assitan"
-          className={wcdesign["profile-image"]}
-        ></img>
-        <p className={wcdesign["name"]}>Assistant Name: {assistantName}</p>
+      <div className={wcdesign["form-head"]}>Appointment</div>
+      <div className={wcdesign["form-section"]}>
+        <div className={wcdesign["profile-section"]}>
+          <img
+            src={assistantProfile}
+            alt="assitan"
+            className={wcdesign["profile-image"]}
+          ></img>
+          <p className={wcdesign["name"]}>Assistant Name: {assistantName}</p>
+        </div>
+        <form onSubmit={(e) => sendAppointment(e)}>
+          <div className="form-group">
+            <label htmlFor="serviceDate">Service Date</label>
+            <input
+              type="Date"
+              id="serviceDate"
+              className="form-control"
+              onChange={(e) => setServiceDate(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="startDate">Start Date</label>
+            <input
+              type="Date"
+              id="startDate"
+              className="form-control"
+              onChange={(e) => setStartDate(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="endDate">End Date</label>
+            <input
+              type="Date"
+              id="endDate"
+              className="form-control"
+              onChange={(e) => setEndDate(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="service-duration">Service Duration</label>
+            <input
+              type="number"
+              id="service-duration"
+              className="form-control"
+              onChange={(e) => setServiceDuration(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="service-decription">Service Description</label>
+
+            <textarea
+              type="textarea"
+              id="service-description"
+              className="form-control"
+              onChange={(e) => setServiceDescription(e.target.value)}
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            className={`btn btn-login ${wcdesign["submit-button"]}`}
+          >
+            Submit
+          </button>
+        </form>
       </div>
-      <form onSubmit={(e) => sendAppointment(e)}>
-        <div className="form-group">
-          <label htmlFor="serviceDate">Service Date</label>
-          <input
-            type="Date"
-            id="serviceDate"
-            className="form-control"
-            onChange={(e) => setServiceDate(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="startDate">Start Date</label>
-          <input
-            type="Date"
-            id="startDate"
-            className="form-control"
-            onChange={(e) => setStartDate(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="endDate">End Date</label>
-          <input
-            type="Date"
-            id="endDate"
-            className="form-control"
-            onChange={(e) => setEndDate(e.target.value)}
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="service-duration">Service Duration</label>
-          <input
-            type="number"
-            id="service-duration"
-            className="form-control"
-            onChange={(e) => setServiceDuration(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="service-decription">Service Description</label>
-    
-          <textarea type="textarea"
-            id="service-description"
-            className="form-control"
-            onChange={(e) => setServiceDescription(e.target.value)}>
-
-          </textarea>
-        </div>
-
-        <button type="submit" className="btn btn-login">
-          Submit
-        </button>
-      </form>
     </div>
   );
 };
