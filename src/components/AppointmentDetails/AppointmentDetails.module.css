@@ -1,14 +1,21 @@
-.card{
-    display: grid;
-    grid-template-columns: repeat(3,15rem);
-    align-items: center;
+.card {
+  display: grid;
+  grid-template-columns: repeat(3, 15rem);
+  align-items: center;
+  padding: 1rem;
 }
 
 .price {
-    font-size: .75rem;
-    font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 600;
 }
 
 .description {
-    font-size: .75rem;
-}   
+  font-size: 0.75rem;
+}
+.profile-image {
+  height: 10rem;
+  width: 10rem;
+  border-radius: 50%;
+  object-fit: cover;
+}

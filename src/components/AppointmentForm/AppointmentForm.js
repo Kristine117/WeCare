@@ -43,11 +43,8 @@ const AppointmentForm = ({ assistantId, assistantName, assistantProfile }) => {
     getAssistantDetails();
   }, [assistantId]); */
 
-  console.log(assistant);
   function sendAppointment(e) {
     e.preventDefault();
-
-    console.log("sent boy!");
 
     fetch(`${process.env.REACT_APP_API_URL}/appointment/create-appointment`, {
       method: "POST",
