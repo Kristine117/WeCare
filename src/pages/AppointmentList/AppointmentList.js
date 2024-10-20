@@ -38,6 +38,8 @@ const AppointmentList = ()=>{
                   },
             })
             const parseData = await data.json();
+
+            console.log(parseData?.data)
             setList(parseData?.data);
         }
 
