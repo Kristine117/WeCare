@@ -50,7 +50,7 @@ const AppointmentList = ()=>{
     const {user} = useContext(UserContext);
     return(
         <React.Fragment>
-            {openModal && <Payment/>}
+            {openModal && <Payment openModal={openModalFuncHandler}/>}
             <main>
             {(!user?.id && user.userType !== 'admin' && user.userType !== null) && <Navigate to={"/login"}/>}
             {(user.userType !== 'admin' && user.userType !== null) && <section className={appList['page-flex']}>
