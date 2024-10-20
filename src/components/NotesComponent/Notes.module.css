@@ -62,8 +62,8 @@
   color: #678990;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-around;
+  padding: 0.5rem;
   border-radius: 5%;
   border: 0.08rem solid #678990;
   position: relative;
@@ -88,7 +88,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 2000;
 }
 
 /* Modal container */
@@ -99,7 +99,7 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   width: 300px;
   position: relative;
-  z-index: 1001;
+  z-index: 2001;
 }
 
 /* Input field */
@@ -140,6 +140,20 @@
   z-index: 1001;
 }
 
+.modalReminder {
+  background-color: white;
+  padding: 20px;
+  border-radius: 0.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  border: 1px solid #737373;
+  width: 200px;
+  height: 200px;
+  position: absolute; /* Position relative to the noteItem */
+  bottom: -4rem;
+  right: -4rem;
+  z-index: 100;
+}
+
 .pin {
   border: none;
   color: #757575;
@@ -172,4 +186,20 @@
   justify-content: flex-end;
   width: -webkit-fill-available;
   padding: 1rem;
+}
+
+.modalButtonDiv {
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
+}
+
+.saveReminderbtn {
+  color: #678990;
+  border: none;
+}
+
+.saveReminderbtnDiv {
+  display: flex;
+  justify-content: end;
 }

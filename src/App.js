@@ -16,10 +16,8 @@ import Error from "./pages/Error/Error";
 import FindCare from "./pages/FindCare/FindCare";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import Appointment from "./pages/Appointment/Appointment";
-
 import Find from "./pages/Find/Find";
 import AppointmentList from "./pages/AppointmentList/AppointmentList";
-
 import Support from "./pages/Support/Support";
 import Ratings from "./pages/Ratings/Ratings";
 import Requests from "./pages/Requests/Requests";
