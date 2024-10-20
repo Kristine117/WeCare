@@ -11,13 +11,27 @@
 
 .payment-selection {
     position: absolute;
-    width: 30rem;
-    max-width: 30rem;
+    width: 40rem;
+    max-width: 40rem;
     height: 20rem;
     background-color: aliceblue;
-    
+    top: 0;
     transform: translate(-50%, 50%);
     left: 50%;
-    
     z-index: 10;
+}
+
+.payment-selection__header {
+    display: grid;
+    grid-template-columns: repeat(3,30%);
+}
+
+.img {
+    width: 10rem;
+    height: 5rem;
+    object-fit: fill;
+}
+
+.title {
+    color: black;
 }
