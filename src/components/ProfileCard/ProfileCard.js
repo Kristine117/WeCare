@@ -1,9 +1,22 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; // Import navigate hook
 import styles from "./ProfileCard.module.css";
 import { Link } from "react-router-dom";
 
 export default function ProfileCard({ list }) {
+  const navigate = useNavigate();
   console.log(list);
+
+  const handleRequest = (val) => {
+    navigate(`/appointment-page/${encodeURIComponent(val.userId)}`, {
+      state: {
+        assistantId: val.userId,
+        fromFind: true,
+        assistantName: val.fullName,
+        assistantProfile: val.profileImage,
+      },
+    });
+  };
 
   return (
     <div className={styles["profile-card"]}>
@@ -26,14 +39,18 @@ export default function ProfileCard({ list }) {
       <div className={styles["profile-users"]}>
         {list?.map((val) => {
           return (
-            <div className={styles["card"]} key={val.userId}>
+            <button
+              className={styles["card"]}
+              key={val.userId}
+              onClick={() => handleRequest(val)}
+            >
               <img
                 src={val.profileImage}
                 alt="We Care"
                 className={styles["profile-image"]}
               />
               <div className={styles["card-body"]}>{val.fullName}</div>
-            </div>
+            </button>
           );
         })}
       </div>

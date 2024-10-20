@@ -3,15 +3,37 @@
   flex-direction: column;
   width: 100%;
   padding: 1rem;
+  color: #678990;
 }
 .profile-section {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-size: 2rem;
 }
+
 .profile-image {
   height: 10rem;
   width: 10rem;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.form-head {
+  display: flex;
+  font-size: 4rem;
+  font-weight: bold;
+  color: #678990;
+  border: none;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  width: -webkit-fill-available;
+  height: calc(100vh - 10rem);
+  padding: 1rem;
+}
+.submit-button {
+  background: #b0d8d8;
 }
