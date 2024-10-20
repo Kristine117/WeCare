@@ -20,8 +20,6 @@ import Appointment from "./pages/Appointment/Appointment";
 import Find from "./pages/Find/Find";
 import AppointmentList from "./pages/AppointmentList/AppointmentList";
 
-import Notes from "./pages/Notes/Notes";
-
 import Support from "./pages/Support/Support";
 import Ratings from "./pages/Ratings/Ratings";
 import Requests from "./pages/Requests/Requests";

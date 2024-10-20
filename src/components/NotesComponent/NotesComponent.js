@@ -252,6 +252,9 @@ const updateNote = async (noteItem) => {
               </div>
               <div >
                 <button className={styles.deletePinModal} onClick={() => handleOpenModal(noteItem.noteId)}>...</button>
+                <button>
+                <img src="../Vector(1).png" alt="reminderIcon" />
+                </button>
               </div>
 
 
