@@ -1,0 +1,23 @@
+.backdrop-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgb(0 0 0 / 25%);
+    opacity: 1;
+    z-index: 5;
+}
+
+.payment-selection {
+    position: absolute;
+    width: 30rem;
+    max-width: 30rem;
+    height: 20rem;
+    background-color: aliceblue;
+    
+    transform: translate(-50%, 50%);
+    left: 50%;
+    
+    z-index: 10;
+}
