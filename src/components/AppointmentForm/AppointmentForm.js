@@ -43,11 +43,8 @@ const AppointmentForm = ({ assistantId, assistantName, assistantProfile }) => {
     getAssistantDetails();
   }, [assistantId]); */
 
-  console.log(assistant);
   function sendAppointment(e) {
     e.preventDefault();
-
-    console.log("sent boy!");
 
     fetch(`${process.env.REACT_APP_API_URL}/appointment/create-appointment`, {
       method: "POST",
@@ -71,7 +68,7 @@ const AppointmentForm = ({ assistantId, assistantName, assistantProfile }) => {
           Swal.fire({
             title: "Appointment Successfully Sent",
             icon: "successfull",
-            text: "Check your login details and try again.",
+            text: "Your Appointment is Successfull.",
           });
 
           navigate(<AppointmentList />);
@@ -79,7 +76,7 @@ const AppointmentForm = ({ assistantId, assistantName, assistantProfile }) => {
           Swal.fire({
             title: "Appointment failed",
             icon: "error",
-            text: "Check your login details and try again.",
+            text: "Your Appointment was not Successfull.",
           });
           console.log("log-in failed");
         }
