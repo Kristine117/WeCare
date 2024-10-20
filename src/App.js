@@ -1,4 +1,5 @@
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
@@ -9,17 +10,22 @@ import Registration1 from "./pages/Register/Registration1";
 import Registration3 from "./pages/Register/Registration3";
 import Login from "./pages/Login/Login";
 import DashBoard from "./pages/Dashboard/DashBoard";
-// import AppNavbar from "./components/AppNavbar/AppNavbar";
 import Chat from "./pages/Chat/Chat";
 import ChatList from "./pages/ChatList/ChatList";
 import Error from "./pages/Error/Error";
 import FindCare from "./pages/FindCare/FindCare";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import Appointment from "./pages/Appointment/Appointment";
+
  
 import Find from "./pages/Find/Find";
 import AppointmentList from "./pages/AppointmentList/AppointmentList";
 import Notes from "./pages/Notes/Notes";
+import Support from "./pages/Support/Support";
+import Ratings from "./pages/Ratings/Ratings";
+import Requests from "./pages/Requests/Requests";
+import Users from "./pages/Users/Users";
+
 
 function App() {
   // for getting token this is for global this is helped whit the UserContext.js
@@ -92,7 +98,7 @@ function App() {
           <Route path="/registration3" element={<Registration3 />} />
           <Route path="/dashboard-main" element={<DashBoard />} />
           <Route path="/chatlist" element={<ChatList />} />
-          <Route path="/chat/:senderId/:receiverId" element={<Chat />} />
+          <Route path="/chat/:receiverId" element={<Chat />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/find-care" element={<FindCare />} />
@@ -104,6 +110,10 @@ function App() {
           <Route path="/appointment" element={<AppointmentList />} />
 
           <Route path="/find" element={<Find />} />
+          <Route path="/support" element={<Support />} />
+          <Route path="/ratings" element={<Ratings />} />
+          <Route path="/requests" element={<Requests />} />
+          <Route path="/users" element={<Users />} />
         </Routes>
       </Router>
     </UserProvider>
