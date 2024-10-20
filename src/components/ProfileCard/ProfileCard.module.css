@@ -16,6 +16,7 @@ Link {
   padding: 2rem;
   display: grid;
   gap: 2rem;
+  width: -webkit-fill-available;
 }
 
 .profile-head {
@@ -34,6 +35,8 @@ Link {
   align-items: center;
   background: #f0f0f0;
   border: none;
+  display: flex;
+  flex-direction: column;
 }
 
 .user-picture {
@@ -49,4 +52,17 @@ Link {
   background: #f0f0f0;
   border-radius: 1rem;
   width: calc(100% - 1rem);
+  overflow: auto;
+}
+
+.profile-image {
+  height: 10rem;
+  width: 10rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.card-body {
+  font-size: 1.5rem;
+  color: #678990;
 }
