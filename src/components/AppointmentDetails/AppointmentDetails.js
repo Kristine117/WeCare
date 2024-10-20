@@ -4,6 +4,7 @@ import { FaUser } from "react-icons/fa";
 import Button from "../Button/Button";
 
 import useUpdateAppointment from "../../hooks/useUpdateAppointment";
+
 const AppointmentDetails = ({
   appId,
   description,
@@ -12,6 +13,8 @@ const AppointmentDetails = ({
   servingName,
   loggedInUserType,
   servingProfileImage,
+  statusId,
+  openModal,
 }) => {
   const { updateAppointment, error } = useUpdateAppointment();
 
@@ -65,7 +68,18 @@ const AppointmentDetails = ({
         </div>
       )}
 
-      {!userTypeCheck && <div>{statusDes}</div>}
+      {!userTypeCheck && (
+        <div className={design["app-status"]}>
+          <div>
+            <strong>{statusDes}</strong>
+          </div>
+          {statusId === 2 && (
+            <Button type="button" onClick={openModal}>
+              Pay Now
+            </Button>
+          )}
+        </div>
+      )}
     </div>
   );
 };

@@ -68,7 +68,7 @@ const AppointmentForm = ({ assistantId, assistantName, assistantProfile }) => {
           Swal.fire({
             title: "Appointment Successfully Sent",
             icon: "successfull",
-            text: "Check your login details and try again.",
+            text: "Your Appointment is Successfull.",
           });
 
           navigate(<AppointmentList />);
@@ -76,7 +76,7 @@ const AppointmentForm = ({ assistantId, assistantName, assistantProfile }) => {
           Swal.fire({
             title: "Appointment failed",
             icon: "error",
-            text: "Check your login details and try again.",
+            text: "Your Appointment was not Successfull.",
           });
           console.log("log-in failed");
         }

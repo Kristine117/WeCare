@@ -19,3 +19,7 @@
   border-radius: 50%;
   object-fit: cover;
 }
+
+.app-status {
+  display: block;
+}
