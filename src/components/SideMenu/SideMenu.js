@@ -14,6 +14,7 @@ export default function SideMenu() {
   const [activeNavFind, setActiveNavFind] = useState(false);
   const [activeNavMes, setActiveNavMes] = useState(false);
   const [activeNavApp, setActiveNavApp] = useState(false);
+  const [activeNavNOtes, setActiveNavNotes] = useState(false);
   //const [activeNavSupp, setActiveNavSupp] = useState(false);
 
   // Update active states based on current location
@@ -22,6 +23,7 @@ export default function SideMenu() {
     setActiveNavFind(location.pathname === '/find');
     setActiveNavMes(location.pathname === '/chatlist');
     setActiveNavApp(location.pathname === '/appointment');
+    setActiveNavNotes(location.pathname === '/notes');
     //setActiveNavSupp(location.pathname === '/support'); // Update as per your support route
   }, [location.pathname]);
 
@@ -40,6 +42,11 @@ export default function SideMenu() {
   const clickedActiveApp = () => {
     navigate("/appointment");
   };
+
+  const clickedActiveNotes = () => {
+    navigate("/notes");
+  };
+  
 
   // const clickedActiveSupp = () => {
   //   navigate("/support"); // Navigate to support route if needed
@@ -97,6 +104,17 @@ export default function SideMenu() {
               list_alt
             </span>
             <p className="ml-2 pt-3">Appointment</p>
+          </Link>
+
+          <Link
+            to="/notes"
+            onClick={clickedActiveNotes}
+            className={activeNavNOtes ? "menu-item actives" : "menu-item"}
+          >
+            <span className="material-symbols-outlined side-menu-color icon-size">
+              list_alt
+            </span>
+            <p className="ml-2 pt-3">Notes</p>
           </Link>
         </div>
 

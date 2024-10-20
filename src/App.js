@@ -19,6 +19,7 @@ import Appointment from "./pages/Appointment/Appointment";
  
 import Find from "./pages/Find/Find";
 import AppointmentList from "./pages/AppointmentList/AppointmentList";
+import Notes from "./pages/Notes/Notes";
 
 function App() {
   // for getting token this is for global this is helped whit the UserContext.js
@@ -95,6 +96,7 @@ function App() {
           <Route path="/logout" element={<Logout />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/find-care" element={<FindCare />} />
+          <Route path="/notes" element={<Notes />} />
           <Route
             path="/appointment-page/:assistantId"
             element={<Appointment />}

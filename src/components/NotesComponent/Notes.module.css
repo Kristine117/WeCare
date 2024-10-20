@@ -1,0 +1,175 @@
+.inactive {
+  display: none;
+}
+
+.header {
+  color: #678990;
+}
+
+.active {
+  display: block;
+  margin: auto;
+  z-index: 1;
+}
+
+.mainContainer {
+  padding: 1rem;
+}
+
+.notescontainer {
+  display: flex;
+  flex-wrap: wrap; /* Allows notes to wrap to the next line */
+  justify-content: center;
+  gap: 10px; /* Space between notes */
+  width: 90%; /* Use full available width */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.notesAndAddButtonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.notelist {
+  display: flex;
+  flex-wrap: wrap; /* Ensure the list items wrap */
+  gap: 1rem;
+  padding: 1rem;
+  overflow-y: scroll;
+  height: 85vh;
+  width: 100%;
+  justify-content: center;
+
+  /* Hide scrollbar for WebKit browsers */
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.notelist::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for WebKit browsers */
+}
+
+.addButtonDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.noteItem {
+  width: 20rem; /* Fixed width for each note */
+  height: 15rem;
+  color: #678990;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5%;
+  border: 0.08rem solid #678990;
+  position: relative;
+}
+
+.modernButton {
+  border-radius: 50%;
+  border-color: #678990;
+  height: 2rem;
+  width: 2rem;
+  fill: #678990;
+}
+
+/* Modal backdrop */
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Dim background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal container */
+.modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  width: 300px;
+  position: relative;
+  z-index: 1001;
+}
+
+/* Input field */
+.modernInput {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Notes container */
+.notescontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/*delete and unpin modal*/
+
+.deletePinModal {
+  border: none;
+  color: #678990;
+  font-size: 2rem;
+}
+
+.modal2 {
+  background-color: white;
+  padding: 20px;
+  border-radius: 0.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  border: 1px solid #737373;
+  width: 200px;
+  height: 100px;
+  position: absolute; /* Position relative to the noteItem */
+  bottom: -4rem;
+  right: -4rem;
+  z-index: 1001;
+}
+
+.pin {
+  border: none;
+  color: #757575;
+  font-weight: bolder;
+}
+.delete {
+  border: none;
+  color: #ea4040;
+  font-weight: bolder;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.showPin {
+  display: block;
+}
+
+.hidePin {
+  display: none;
+  position: absolute;
+  right: 2rem;
+}
+
+.pinDiv {
+  display: flex;
+  justify-content: flex-end;
+  width: -webkit-fill-available;
+  padding: 1rem;
+}
