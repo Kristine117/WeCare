@@ -27,6 +27,29 @@ export default function SideMenu() {
     //setActiveNavSupp(location.pathname === '/support'); // Update as per your support route
   }, [location.pathname]);
 
+<<<<<<< HEAD
+
+  const clickedActiveHome = () => {
+    navigate("/dashboard-main");
+  };
+
+  const clickedActiveFind = () => {
+    navigate("/find");
+  };
+
+  const clickedActiveMess = () => {
+    navigate("/chatlist");
+  };
+
+  const clickedActiveApp = () => {
+    navigate("/appointment");
+  };
+
+  const clickedActiveNotes = () => {
+    navigate("/notes");
+  };
+=======
+>>>>>>> b60180e3b73d722bf3f005b3b730b96eeb399c20
   
   const handleLogout = () => {
     navigate("/logout");
@@ -74,7 +97,11 @@ export default function SideMenu() {
         </Link>}
 
           {user?.userType !== "admin" && 
+<<<<<<< HEAD
+          <Link       
+=======
           <Link
+>>>>>>> b60180e3b73d722bf3f005b3b730b96eeb399c20
           to="/appointment"
           // onClick={clickedActiveApp}
           className={activeNavApp ? "menu-item actives" : "menu-item"}
@@ -108,8 +135,25 @@ export default function SideMenu() {
           </span>
           <p className="ml-2 pt-3">Ratings</p>
         </Link>
+<<<<<<< HEAD
+
+        <Link
+            to="/notes"
+            onClick={clickedActiveNotes}
+            className={activeNavNOtes ? "menu-item actives" : "menu-item"}
+          >
+            <span className="material-symbols-outlined side-menu-color icon-size">
+              list_alt
+            </span>
+            <p className="ml-2 pt-3">Notes</p>
+        </Link>
         
         </>}
+
+=======
+        
+        </>}
+>>>>>>> b60180e3b73d722bf3f005b3b730b96eeb399c20
         </div>
 
         {user?.userType !== "admin" && 
