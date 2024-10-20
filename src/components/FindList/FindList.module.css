@@ -27,11 +27,13 @@
 }
 .message-section {
   display: flex;
+  width: -webkit-fill-available;
 }
 .message-container {
   border: solid 2px #678990;
   border-radius: 1rem;
   padding: 1rem;
+  width: -webkit-fill-available;
 }
 
 .arrow-icon {

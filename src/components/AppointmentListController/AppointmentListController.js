@@ -2,11 +2,11 @@ import React from "react";
 import dsgn from "./AppointmentListController.module.css";
 import Button from "../Button/Button";
 
-const AppointmentListController = ()=>{
+const AppointmentListController = ({switchListRequests})=>{
     return(
         <section className={dsgn["header"]}>
-            <Button name="ongoing">Ongoing</Button>
-            <Button name="approve">Approve</Button>
+            <Button name="ongoing" onClick={switchListRequests}>Ongoing</Button>
+            <Button name="approve" onClick={switchListRequests}>Approve</Button>
         </section>
     )
 }

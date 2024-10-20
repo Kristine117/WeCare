@@ -3,54 +3,42 @@ import design from "./AppointmentDetails.module.css";
 import { FaUser} from 'react-icons/fa'; 
 import Button from "../Button/Button";
 
-const AppointmentDetails = ({appId,description,statusDes,price,servingName,loggedInUserType,servingProfileImage})=>{
+import useUpdateAppointment from "../../hooks/useUpdateAppointment";
+const AppointmentDetails = ({appId,description,statusDes,price,servingName,
+    loggedInUserType,servingProfileImage})=>{
+    const { updateAppointment, error } = useUpdateAppointment();
 
-    async function decideHandler(e){
-        try {
-            const data = await fetch(`${process.env.REACT_APP_API_URL}/appointment/update-appointment/${appId}`,{
-                method:"put",
-                headers:{
-                    servingName: servingName,
-                    appId:appId,
-                    "Authorization": `Bearer ${localStorage.getItem("token")}`,
-                },
-                body:JSON.stringify(
-                    {result: e.target.name}
-                )
-            })
+    const decideHandler = async (e) => {
+        const method = "PUT";
+        await updateAppointment(
+            appId,
+            method, 
+        {
+            servingName:servingName, 
+            result: e.target.name
+        }); 
+        };
 
-        
-            if(!data.ok){
-                throw new Error("Failed to Update");
-            }
-
-            console.log(await data.json());
-        }catch(e){
-            console.log(e.message);
-        }
-    }
+    const userTypeCheck = loggedInUserType === "assistant";
     return (
         <div className={design["card"]}>
             <div>
-                {servingProfileImage && <img src={servingProfileImage} alt="This is your Serving User Image"/>}
+                {servingProfileImage && <img src={servingProfileImage} alt="This is your Serving User Image" />}
                 {!servingProfileImage && <FaUser size={40} className={design["default-profile"]}/>}   
             </div>
             <div>
-                <div className={design["indicator"]}><strong>{servingName}</strong> would like to request an appointment with you.</div>
+                {userTypeCheck &&  <div className={design["indicator"]}><strong>{servingName}</strong> would like to request an appointment with you.</div>}
+                {!userTypeCheck &&  <div className={design["indicator"]}>You have appointment with <strong>{servingName}</strong> </div>}
                 <div className={design["price"]}>Price: {price}</div>
                 <div className={design["description"]}>Description: {description}</div>
             </div>
-            {/* <div>Status: {statusDes === "0" && "Pending"}</div> */}
-            {/* {statusDes === '0' && 
-            <div>
-                {loggedInUserType === "senior"&&
-                <p>Waiting for Assistant to Approve</p>}
-                </div>} */}
 
-            {loggedInUserType === "assistant"&& <div>
-                <Button name="accept" onClick={decideHandler}>Accept</Button>
-                <Button name="reject" onClick={decideHandler}>Accept</Button>
+            {userTypeCheck&& <div>
+                <Button type="button" name="accept" onClick={decideHandler}>Accept</Button>
+                <Button type="button" name="reject" onClick={decideHandler}>Reject</Button>
             </div>}
+
+            {!userTypeCheck && <div>{statusDes}</div>}
     </div>
     )
 }

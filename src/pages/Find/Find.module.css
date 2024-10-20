@@ -15,6 +15,16 @@
   font-size: 4rem;
   font-weight: bold;
   color: #678990;
+  border: none;
+}
+.find-head-content-button {
+  font-size: 4rem;
+  font-weight: bold;
+  color: #678990;
+  border: none;
+}
+.button-side {
+  border: none;
 }
 .find-list-container {
   width: 100%;
@@ -22,6 +32,8 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  height: calc(100vh - 10rem);
+  overflow: auto;
 }
 
 /* Lef Filter  */
@@ -63,6 +75,9 @@
   align-items: center;
   justify-content: space-evenly;
   flex-direction: row;
+  border: none;
+  background: #d9d9d9;
+  font-weight: bold;
 }
 
 .hamburgerProfile span {
@@ -92,6 +107,13 @@
   color: #678990;
 }
 
+.filter-button {
+  border: none;
+  color: #f2f2f2;
+  border-radius: 0.5rem;
+  background-color: #757575;
+}
+
 .rating-section {
   color: #678990;
   background-color: #f2f2f2;
@@ -102,10 +124,17 @@
 }
 .rating {
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 .rating-star {
   color: #edc04e;
 }
+.rating-star-div {
+  border: none;
+}
+
 .age-section {
   color: #678990;
   background-color: #f2f2f2;

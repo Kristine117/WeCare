@@ -1,0 +1,8 @@
+.dashboard {
+  display: flex;
+}
+
+section {
+  width: -webkit-fill-available;
+  min-height: 100vh;
+}

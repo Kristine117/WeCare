@@ -112,18 +112,22 @@ const ChatList = () => {
                     userId={val.userId}
                     profileImage={val.profileImage}
                     message={
-                      val.contentType === 'picture' 
-                        ? `${val.isFromLoggedInUser ? 'You' : val.fullName} sent a photo`
-                        : val.contentType === 'file' 
-                          ? `${val.isFromLoggedInUser ? 'You' : val.fullName} sent a file`
-                          : `${val.isFromLoggedInUser ? 'You ' : val.fullName } : ${val.messageContent}`
+                      val.messageContent === null 
+                        ? '' 
+                        : val.contentType === 'picture' 
+                          ? `${val.isFromLoggedInUser ? 'You' : val.fullName} sent a photo`
+                          : val.contentType === 'file' 
+                            ? `${val.isFromLoggedInUser ? 'You' : val.fullName} sent a file`
+                            : `${val.isFromLoggedInUser ? 'You ' : val.fullName} : ${val.messageContent}`
                     }
-                    date={convertdate(val.date)}
+                    
+                    date={val.date ? convertdate(val.date) : ''}
                     readFlag={val.readFlag}
                     isFromLoggedInUser={val.isFromLoggedInUser}
-                    messageId={val.messageId}
+                    messageId={val.messageId}      
                    
                   />
+                  
                 );
               })}
             </div>
