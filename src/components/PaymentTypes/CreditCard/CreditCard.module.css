@@ -1,0 +1,41 @@
+
+.container{
+    text-align: center;
+    margin: .75rem 0;
+}
+
+.cc-container {
+    display: grid;
+    grid-template-columns: repeat(2,45%);
+    justify-content: space-evenly;
+    background-color: #F3F3F3;
+    padding: .75rem 0;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.img {
+    height: 7.5rem;
+    width: 15rem;
+    object-fit: cover;
+    border-radius: .75rem;
+}
+
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 1.25rem;
+}
+
+.btn {
+    background-color: #6BB9B9;
+    width: 10.5rem;
+    max-width: 10.5rem;
+    color: white;
+}
+
+
