@@ -1,16 +1,18 @@
-
 /* Sidebar for authenticated one */
 .sidebar {
-    background: linear-gradient(180deg, #c1e1e1 0%, #b0d8d8 100%);
-    width: 200px;
-    height: 100vh;
-    transition: left 0.3s ease; /* Smooth sliding */
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Sidebar open state */
-  .sidebar.open {
-    left: 0; /* Show sidebar */
-  }
-  
+  background: linear-gradient(180deg, #c1e1e1 0%, #b0d8d8 100%);
+  width: 200px;
+  height: 100vh;
+  transition: left 0.3s ease; /* Smooth sliding */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sidebar open state */
+.sidebar.open {
+  left: 0; /* Show sidebar */
+}
+
+.support {
+  display: flex;
+}

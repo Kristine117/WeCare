@@ -23,6 +23,7 @@ import Ratings from "./pages/Ratings/Ratings";
 import Requests from "./pages/Requests/Requests";
 import Users from "./pages/Users/Users";
 import Notes from "./pages/Notes/Notes";
+import Profile from "./pages/Profile/Profile";
 function App() {
   // for getting token this is for global this is helped whit the UserContext.js
   const [user, setUser] = useState({
@@ -98,6 +99,7 @@ function App() {
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/find-care" element={<FindCare />} />
           <Route path="/notes" element={<Notes />} />
+          <Route path="/profile" element={<Profile />} />
           <Route
             path="/appointment-page/:assistantId"
             element={<Appointment />}

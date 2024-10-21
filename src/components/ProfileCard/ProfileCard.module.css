@@ -51,7 +51,7 @@ Link {
   padding: 1rem;
   background: #f0f0f0;
   border-radius: 1rem;
-  width: calc(100% - 1rem);
+  width: calc(100% - 20rem);
   overflow: auto;
 }
 
