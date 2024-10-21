@@ -74,7 +74,7 @@ const AppointmentDetails = ({
             <strong>{statusDes}</strong>
           </div>
           {statusId === 2 && (
-            <Button type="button" onClick={openModal}>
+            <Button type="button" data-amount={price} onClick={openModal} >
               Pay Now
             </Button>
           )}
