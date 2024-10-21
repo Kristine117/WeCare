@@ -22,9 +22,12 @@ const PAYMENT_SELECTION =[
     }
 ]
 
-const PAYMONGO_SECRET_KEY = process.env.PAYMONGO_SECRET_KEY;
+
 
 const Payment = ({openModal,amount})=>{
+
+    const PAYMONGO_SECRET_KEY = process.env;
+console.log(PAYMONGO_SECRET_KEY);
 
     const [pay,setPay] = useState(null);
     const [payMethod,setPayMethod] = useState(null);
@@ -74,7 +77,7 @@ const Payment = ({openModal,amount})=>{
             },
             {
                 headers: {
-                Authorization: `Basic ${Buffer.from(PAYMONGO_SECRET_KEY).toString('base64')}`,
+                Authorization: `Basic ${btoa(`${PAYMONGO_SECRET_KEY}`)}`,
                 'Content-Type': 'application/json',
                 }
             }
@@ -113,11 +116,16 @@ const Payment = ({openModal,amount})=>{
       
       
   
-    const gcash = pay?.mode === "GCash" && <Gcash handleBackFunc={handleBackFuncHandler}/>;
+    const gcash = pay?.mode === "GCash" && 
+    <Gcash handleBackFunc={handleBackFuncHandler} confirmPaymentFunc={confirmPaymentIntent}
+    createPaymentIntentFunc={createPaymentIntent}/>;
     
-    const paymaya = pay?.mode === "Paymaya" && <Paymaya handleBackFunc={handleBackFuncHandler}/>;
+    const paymaya = pay?.mode === "Paymaya" && 
+    <Paymaya handleBackFunc={handleBackFuncHandler} confirmPaymentFunc={confirmPaymentIntent}/>;
     
-    const cc = pay?.mode === "Credit Card" && <CreditCard handleBackFunc={handleBackFuncHandler}/>;
+    const cc = pay?.mode === "Credit Card" && 
+    <CreditCard handleBackFunc={handleBackFuncHandler} confirmPaymentFunc={confirmPaymentIntent}
+    createPaymentIntentFunc={createPaymentIntent}/>;
 
     return createPortal(    
         <React.Fragment>
