@@ -5,6 +5,7 @@ import Button from "../Button/Button";
 import Gcash from "../PaymentTypes/Gcash/Gcash";
 import Paymaya from "../PaymentTypes/Paymaya/Paymaya";
 import CreditCard from "../PaymentTypes/CreditCard/CreditCard";
+import axios from "axios";
 
 const PAYMENT_SELECTION =[
     {
@@ -50,6 +51,101 @@ const Payment = ({openModal})=>{
     function handleBackFuncHandler(){
         setPay(null);
     }
+
+    const PAYMONGO_SECRET_KEY = process.env.PAYMONGO_SECRET_KEY;
+
+    async function createPaymentIntent(paymentType) {
+    try {
+        const response = await axios.post(
+        'https://api.paymongo.com/v1/payment_intents',
+        {
+            data: {
+            attributes: {
+                amount: 50000,  // Amount in centavos (50000 = PHP 500.00)
+                payment_method_allowed: [`${payMethod}`],
+                currency: "PHP",
+                description: "Transfer via GCash",
+                statement_descriptor: "Your Store",
+            }
+            }
+        },
+        {
+            headers: {
+            Authorization: `Basic ${Buffer.from(PAYMONGO_SECRET_KEY).toString('base64')}`,
+            'Content-Type': 'application/json',
+            }
+        }
+        );
+        console.log('Payment Intent Created:', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Error creating payment intent:', error.response ? error.response.data : error.message);
+    }
+    }
+
+
+    
+
+
+    async function attachPaymentMethod(paymentIntentId, phoneNumber) {
+        try {
+          const response = await axios.post(
+            'https://api.paymongo.com/v1/payment_methods',
+            {
+              data: {
+                attributes: {
+                  type: "gcash",
+                  details: {
+                    phone: phoneNumber,  // GCash phone number to charge
+                  },
+                },
+              },
+            },
+            {
+              headers: {
+                Authorization: `Basic ${Buffer.from(PAYMONGO_SECRET_KEY).toString('base64')}`,
+                'Content-Type': 'application/json',
+              }
+            }
+          );
+          
+          const paymentMethodId = response.data.data.id;
+          console.log('Payment Method Attached:', paymentMethodId);
+      
+          // Now confirm the payment using this payment method
+          await confirmPaymentIntent(paymentIntentId, paymentMethodId);
+        } catch (error) {
+          console.error('Error attaching payment method:', error.response ? error.response.data : error.message);
+        }
+      }
+
+
+      async function confirmPaymentIntent(paymentIntentId, paymentMethodId) {
+        try {
+          const response = await axios.post(
+            `https://api.paymongo.com/v1/payment_intents/${paymentIntentId}/attach`,
+            {
+              data: {
+                attributes: {
+                  payment_method: paymentMethodId,
+                }
+              }
+            },
+            {
+              headers: {
+                Authorization: `Basic ${Buffer.from(PAYMONGO_SECRET_KEY).toString('base64')}`,
+                'Content-Type': 'application/json',
+              }
+            }
+          );
+          
+          console.log('Payment Confirmed:', response.data);
+        } catch (error) {
+          console.error('Error confirming payment:', error.response ? error.response.data : error.message);
+        }
+      }
+      
+      
   
     const gcash = pay?.mode === "GCash" && <Gcash handleBackFunc={handleBackFuncHandler}/>;
     
@@ -89,4 +185,5 @@ const Payment = ({openModal})=>{
 }
 
 export default Payment;
+
 
