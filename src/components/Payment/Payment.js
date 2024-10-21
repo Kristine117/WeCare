@@ -4,6 +4,7 @@ import pm from "./Payment.module.css";
 import Button from "../Button/Button";
 import Gcash from "../PaymentTypes/Gcash/Gcash";
 import Paymaya from "../PaymentTypes/Paymaya/Paymaya";
+import CreditCard from "../PaymentTypes/CreditCard/CreditCard";
 
 const PAYMENT_SELECTION =[
     {
@@ -53,6 +54,8 @@ const Payment = ({openModal})=>{
     const gcash = pay?.mode === "GCash" && <Gcash handleBackFunc={handleBackFuncHandler}/>;
     
     const paymaya = pay?.mode === "Paymaya" && <Paymaya handleBackFunc={handleBackFuncHandler}/>;
+    
+    const cc = pay?.mode === "Credit Card" && <CreditCard handleBackFunc={handleBackFuncHandler}/>;
     return createPortal(    
         <React.Fragment>
              <div className={pm["backdrop-modal"]} onClick={openModal}>
@@ -62,11 +65,13 @@ const Payment = ({openModal})=>{
                 {errMsg && <div className={pm['error-msg']}>{errMsg}</div>}
                 {gcash}
                 {paymaya}
+                {cc}
                {!pay &&
                <div className={pm["payment-selection__header"]}>
                {PAYMENT_SELECTION.map(val=>{
                        return(
-                           <div key={val.src} data-pay={val.mode} onClick={selectedPaymentMethod} >
+                           <div key={val.src} data-pay={val.mode} 
+                           onClick={selectedPaymentMethod} className={pm["payment-selection__item"]}>
                                <img className={pm["img"]} src={val.src} data-pay={val.mode} onClick={selectedPaymentMethod}/>
                                <div className={pm["title"]} data-pay={val.mode} onClick={selectedPaymentMethod}>{val.mode} </div>
                            </div>
