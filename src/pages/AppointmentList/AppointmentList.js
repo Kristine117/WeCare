@@ -13,6 +13,8 @@ const AppointmentList = () => {
   const [list, setList] = useState([]);
   const [status, setStatus] = useState("ongoing");
   const [openModal, setOpenModal] = useState(false);
+  const [amount,setAmount] = useState(null);
+
   async function switchListRequests(e) {
     setStatus(e.target.name);
     const data = await fetch(
@@ -31,20 +33,7 @@ const AppointmentList = () => {
       console.log("hello hello");
     }
   }
-  useEffect(() => {
-    async function getAppointmentList() {
-      const data = await fetch(
-        `${process.env.REACT_APP_API_URL}/appointment/appointment-list`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            status: status,
-          },
-        }
-      );
-      const parseData = await data.json();
-    }
-  });
+
 
   useEffect(() => {
     async function getAppointmentList() {
@@ -58,22 +47,22 @@ const AppointmentList = () => {
         }
       );
       const parseData = await data.json();
-
-      console.log(parseData?.data);
+      console.log(parseData)
       setList(parseData?.data);
     }
 
     getAppointmentList();
   }, [status]);
 
-  function openModalFuncHandler() {
+  function openModalFuncHandler(e) {
     setOpenModal((val) => (val ? false : true));
+    setAmount(e.target.dataset.amount);
   }
 
   const { user } = useContext(UserContext);
   return (
     <React.Fragment>
-      {openModal && <Payment openModal={openModalFuncHandler} />}
+      {openModal && <Payment openModal={openModalFuncHandler} amount={amount}/>}
       <main>
         {!user?.id && user.userType !== "admin" && user.userType !== null && (
           <Navigate to={"/login"} />

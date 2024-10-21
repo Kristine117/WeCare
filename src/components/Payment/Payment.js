@@ -21,7 +21,11 @@ const PAYMENT_SELECTION =[
         mode: "GCash"
     }
 ]
-const Payment = ({openModal})=>{
+
+const PAYMONGO_SECRET_KEY = process.env.PAYMONGO_SECRET_KEY;
+
+const Payment = ({openModal,amount})=>{
+
     const [pay,setPay] = useState(null);
     const [payMethod,setPayMethod] = useState(null);
 
@@ -31,9 +35,10 @@ const Payment = ({openModal})=>{
         setPayMethod({mode: e.target.dataset.pay})
     }
 
+    const newAmount = String(amount) + "00";
+   
     function proceedPaymentPage(){
         if(payMethod){
-            
            setPay(payMethod);
         }else {
             setErrMsg("Please Choose a Payment method");
@@ -52,73 +57,34 @@ const Payment = ({openModal})=>{
         setPay(null);
     }
 
-    const PAYMONGO_SECRET_KEY = process.env.PAYMONGO_SECRET_KEY;
-
-    async function createPaymentIntent(paymentType) {
-    try {
-        const response = await axios.post(
-        'https://api.paymongo.com/v1/payment_intents',
-        {
-            data: {
-            attributes: {
-                amount: 50000,  // Amount in centavos (50000 = PHP 500.00)
-                payment_method_allowed: [`${payMethod}`],
-                currency: "PHP",
-                description: "Transfer via GCash",
-                statement_descriptor: "Your Store",
-            }
-            }
-        },
-        {
-            headers: {
-            Authorization: `Basic ${Buffer.from(PAYMONGO_SECRET_KEY).toString('base64')}`,
-            'Content-Type': 'application/json',
-            }
-        }
-        );
-        console.log('Payment Intent Created:', response.data);
-        return response.data;
-    } catch (error) {
-        console.error('Error creating payment intent:', error.response ? error.response.data : error.message);
-    }
-    }
-
-
-    
-
-
-    async function attachPaymentMethod(paymentIntentId, phoneNumber) {
+    async function createPaymentIntent() {
         try {
-          const response = await axios.post(
-            'https://api.paymongo.com/v1/payment_methods',
+            const response = await axios.post(
+            'https://api.paymongo.com/v1/payment_intents',
             {
-              data: {
+                data: {
                 attributes: {
-                  type: "gcash",
-                  details: {
-                    phone: phoneNumber,  // GCash phone number to charge
-                  },
-                },
-              },
+                    amount: +newAmount,  // Amount in centavos (50000 = PHP 500.00)
+                    payment_method_allowed: ["gcash","card","paymaya"],
+                    currency: "PHP",
+                    description: "Transfer via Payment Method",
+                    statement_descriptor: "We Care",
+                }
+                }
             },
             {
-              headers: {
+                headers: {
                 Authorization: `Basic ${Buffer.from(PAYMONGO_SECRET_KEY).toString('base64')}`,
                 'Content-Type': 'application/json',
-              }
+                }
             }
-          );
-          
-          const paymentMethodId = response.data.data.id;
-          console.log('Payment Method Attached:', paymentMethodId);
-      
-          // Now confirm the payment using this payment method
-          await confirmPaymentIntent(paymentIntentId, paymentMethodId);
+            );
+            console.log('Payment Intent Created:', response.data);
+            return response.data;
         } catch (error) {
-          console.error('Error attaching payment method:', error.response ? error.response.data : error.message);
+            console.error('Error creating payment intent:', error.response ? error.response.data : error.message);
         }
-      }
-
+    }
 
       async function confirmPaymentIntent(paymentIntentId, paymentMethodId) {
         try {
@@ -152,6 +118,7 @@ const Payment = ({openModal})=>{
     const paymaya = pay?.mode === "Paymaya" && <Paymaya handleBackFunc={handleBackFuncHandler}/>;
     
     const cc = pay?.mode === "Credit Card" && <CreditCard handleBackFunc={handleBackFuncHandler}/>;
+
     return createPortal(    
         <React.Fragment>
              <div className={pm["backdrop-modal"]} onClick={openModal}>
