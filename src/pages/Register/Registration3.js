@@ -601,7 +601,7 @@ export default function Registration3() {
 
             <div className="sex-checkBox-container mb-3 mt-4 ml-2">
               <label className="mr-3"> Authorized representative (Leave Blank if None)</label>
-              <button className="btn-get-started buttonSeniorSize mr-4" onClick={addPersonHandler}>Add Person</button>
+              <button className="btn-get-started buttonSeniorSize" onClick={addPersonHandler}>Add Person</button>
               <button className="btn-get-started buttonSeniorSize" onClick={removePersonHandler}>Remove Person</button>
             </div>
 

@@ -99,8 +99,8 @@ export default function Registration1() {
           <h3 className="pb-3">Let's create your account</h3>
           <form onSubmit={collectData} className="pr-4" noValidate>
               <div className="form-group">
-                <label className="pb-3">Step 1: Account Details</label>
-                <label className="pb-3">Email</label>
+                <label>Step 1: Account Details</label>
+                <label>Email</label>
                 <input
                   type="email"
                   className="form-control"
@@ -116,7 +116,7 @@ export default function Registration1() {
               </div>
 
               <div className="form-group">
-                <label className="pb-3">Password</label>
+                <label>Password</label>
                 <input
                   type="password"
                   className="form-control"
@@ -131,7 +131,7 @@ export default function Registration1() {
               </div>
 
               <div className="form-group">
-                <label className="pb-3">Confirm Password</label>
+                <label>Confirm Password</label>
                 <input
                   type="password"
                   className="form-control"
