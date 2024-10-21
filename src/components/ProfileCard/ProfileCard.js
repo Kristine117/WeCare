@@ -37,7 +37,7 @@ export default function ProfileCard({ list }) {
         </Link>
       </div>
       <div className={styles["profile-users"]}>
-        {list?.map((val) => {
+        {list?.slice(0, 3).map((val) => {
           return (
             <button
               className={styles["card"]}

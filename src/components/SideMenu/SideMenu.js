@@ -108,20 +108,19 @@ export default function SideMenu() {
               </span>
               <p className="ml-2 pt-3">Appointment</p>
             </Link>
-            
           )}
 
           {user?.userType === "assistant" && (
-               <Link
-               to="/notes"
-               onClick={clickedActiveNotes}
-               className={activeNavNOtes ? "menu-item actives" : "menu-item"}
-             >
-               <span className="material-symbols-outlined side-menu-color icon-size">
-                 list_alt
-               </span>
-               <p className="ml-2 pt-3">Notes</p>
-             </Link>
+            <Link
+              to="/notes"
+              onClick={clickedActiveNotes}
+              className={activeNavNOtes ? "menu-item actives" : "menu-item"}
+            >
+              <span className="material-symbols-outlined side-menu-color icon-size">
+                list_alt
+              </span>
+              <p className="ml-2 pt-3">Notes</p>
+            </Link>
           )}
 
           {user?.userType === "admin" && (
@@ -147,15 +146,13 @@ export default function SideMenu() {
                 </span>
                 <p className="ml-2 pt-3">Ratings</p>
               </Link>
-              
-             
             </>
           )}
         </div>
 
         {user?.userType !== "admin" && (
           <div className="support-item mb-4 ml-4 mr-4">
-            <div>
+            <div className={sidemenu["support"]}>
               <span className="material-symbols-outlined side-menu-color icon-size">
                 volunteer_activism
               </span>

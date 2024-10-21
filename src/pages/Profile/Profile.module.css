@@ -1,0 +1,40 @@
+.profile {
+  display: flex;
+}
+.profile-container {
+  display: flex;
+  padding: 1rem;
+  width: -webkit-fill-available;
+  flex-direction: column;
+}
+.profile-body {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: -webkit-fill-available;
+}
+.profile-image-section {
+  display: flex;
+  flex-direction: column;
+}
+.profile-head {
+  font-size: 4rem;
+  font-weight: bold;
+  color: #678990;
+  border: none;
+}
+.profile-image {
+  height: 10rem;
+  width: 10rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.details-section {
+  display: flex;
+  flex-direction: column;
+  width: -webkit-fill-available;
+}
+.detail {
+  display: flex;
+  width: -webkit-fill-available;
+}
