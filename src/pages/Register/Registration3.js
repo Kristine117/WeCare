@@ -315,6 +315,22 @@ export default function Registration3() {
           e.preventDefault();
           setPeople([...people, { name: '', age: '', relationship: '', civilstatus: '', occupation: '', contactNumber: '' }]);
       };
+
+
+      // Function to remove the latest added person
+      const removePersonHandler = (e) => {
+        e.preventDefault();
+        if (people.length > 0) {
+          const newPeople = people.slice(0, -1); // Remove the last person
+          setPeople(newPeople); // Update the state
+          setInitialData((prevData) => ({
+            ...prevData,
+            relationships: newPeople
+          }));
+        } else {
+          alert('No person to remove.');
+        }
+      };
     
   
     const seniorButtonClass = isSeniorFormComplete() || formCompletedSenior
@@ -584,86 +600,85 @@ export default function Registration3() {
             </div>
 
             <div className="sex-checkBox-container mb-3 mt-4 ml-2">
-                <label className="mr-3"> Authorized representative (Leave Blank if None)</label>
-                <button className="btn-get-started buttonSeniorSize" onClick={addPersonHandler}>Add Person</button>
+              <label className="mr-3"> Authorized representative (Leave Blank if None)</label>
+              <button className="btn-get-started buttonSeniorSize mr-4" onClick={addPersonHandler}>Add Person</button>
+              <button className="btn-get-started buttonSeniorSize" onClick={removePersonHandler}>Remove Person</button>
             </div>
 
             <div>
                 {people.map((person, index) => (
-                    <div key={index} className="person-inputs mt-4">
+                  <div key={index} className="person-inputs mt-4">
                     <h5>Relationship {index + 1}</h5> {/* Dynamic label showing "Relationship X" */}
-                
                     <div className="form-group">
-                        <label>Name:</label>
-                        <input 
-                            type="text" 
-                            name="name" 
-                            value={person.name} 
-                            onChange={(e) => handlePersonChange(index, e)} 
-                            className="form-control" 
-                            required
-                        />
+                      <label>Name:</label>
+                      <input 
+                        type="text" 
+                        name="name" 
+                        value={person.name} 
+                        onChange={(e) => handlePersonChange(index, e)} 
+                        className="form-control" 
+                        required
+                      />
                     </div>
                     <div className="form-group">
-                        <label>Age:</label>
-                        <input 
-                            type="number" 
-                            name="age" 
-                            value={person.age} 
-                            onChange={(e) => handlePersonChange(index, e)} 
-                            className="form-control" 
-                            required
-                        />
+                      <label>Age:</label>
+                      <input 
+                        type="number" 
+                        name="age" 
+                        value={person.age} 
+                        onChange={(e) => handlePersonChange(index, e)} 
+                        className="form-control" 
+                        required
+                      />
                     </div>
                     <div className="form-group">
-                        <label>Relationship:</label>
-                        <input 
-                            type="text" 
-                            name="relationship" 
-                            value={person.relationship} 
-                            onChange={(e) => handlePersonChange(index, e)} 
-                            className="form-control" 
-                            required
-                        />
+                      <label>Relationship:</label>
+                      <input 
+                        type="text" 
+                        name="relationship" 
+                        value={person.relationship} 
+                        onChange={(e) => handlePersonChange(index, e)} 
+                        className="form-control" 
+                        required
+                      />
                     </div>
                     <div className="form-group">
-                        <label>Civil Status:</label>
-                        <input 
-                            type="text" 
-                            name="civilstatus" 
-                            value={person.civilstatus} 
-                            onChange={(e) => handlePersonChange(index, e)} 
-                            className="form-control" 
-                            required
-                        />
+                      <label>Civil Status:</label>
+                      <input 
+                        type="text" 
+                        name="civilstatus" 
+                        value={person.civilstatus} 
+                        onChange={(e) => handlePersonChange(index, e)} 
+                        className="form-control" 
+                        required
+                      />
                     </div>
                     <div className="form-group">
-                        <label>Occupation:</label>
-                        <input 
-                            type="text" 
-                            name="occupation" 
-                            value={person.occupation} 
-                            onChange={(e) => handlePersonChange(index, e)} 
-                            className="form-control" 
-                            required
-                        />
+                      <label>Occupation:</label>
+                      <input 
+                        type="text" 
+                        name="occupation" 
+                        value={person.occupation} 
+                        onChange={(e) => handlePersonChange(index, e)} 
+                        className="form-control" 
+                        required
+                      />
                     </div>
                     <div className="form-group">
-                        <label>Contact Number:</label>
-                        <input 
-                            type="text" 
-                            name="contactNumber" 
-                            value={person.contactNumber} 
-                            onChange={(e) => handlePersonChange(index, e)} 
-                            className="form-control" 
-                            required
-                        />
+                      <label>Contact Number:</label>
+                      <input 
+                        type="text" 
+                        name="contactNumber" 
+                        value={person.contactNumber} 
+                        onChange={(e) => handlePersonChange(index, e)} 
+                        className="form-control" 
+                        required
+                      />
                     </div>
                     <hr />
-                </div>
-              
+                  </div>
                 ))}
-            </div>
+              </div>
 
 
             
