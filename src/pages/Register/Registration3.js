@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import registerModal from "./Register.module.css";
-import ProfileUpload from '../../components/ProfileUpload';
 import Swal from "sweetalert2";
+import ProfileUpload from "../../components/ProfileUpload/ProfileUpload";
 
 
 export default function Registration3() {
