@@ -4,3 +4,17 @@
 .head-section {
   padding: 1rem;
 }
+
+.header-title {
+  padding: .75rem 2rem;
+  font-size: 1.5rem;
+  color: #678990;
+  font-weight: 700;
+  margin: 0;
+}
+
+.app-list {
+  height: 5rem;
+  overflow-y: scroll;
+  background-color: black;
+}

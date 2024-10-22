@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import style from "./LoggedInCommonNavBar.module.css";
 import { FaBell,FaUser,FaSearch} from 'react-icons/fa'; 
 
-
 const LoggedInCommonNavBar = ({title})=>{
 
       // Create a reference to the input element
@@ -30,20 +29,17 @@ const LoggedInCommonNavBar = ({title})=>{
                             placeholder="Search..."
                         />
                         <FaSearch className="search-icon" onClick={handleIconClick} />  {/* Add onClick handler */}
-                    </div>
-
-
-
-                    <div className={style.navbarIconContainer}>
-                        <div >
-                            <button className={style.bell}> <FaBell size={40} className={style.icons} /></button>
-                        </div>
-                        <div >
-                            <button className={style.profile}> <FaUser size={40} className={style.profileButton}   /></button>
-                        </div>
-                    </div>
-                    
+                </div>    
            </div>
+
+           <div className={style.navbarIconContainer}>
+                <div >
+                    <button className={style.bell}> <FaBell size={40} className={style.icons} /></button>
+                </div>
+                <div >
+                    <button className={style.profile}> <FaUser size={40} className={style.profileButton}   /></button>
+                </div>
+            </div>
 
         </div>
     )
