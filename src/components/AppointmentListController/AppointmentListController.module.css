@@ -3,4 +3,23 @@
     align-items: center;
     height: 5rem;
     min-height: 5rem;
+    padding: 0 2rem;
+    gap: 2rem;
+}
+
+.btn-active,.btn-inactive{
+    width: 10.55rem;
+    max-width: 10.55rem;
+    border-radius: .5rem;
+    border: 1px solid #678990;
+    padding: .35rem;
+}
+
+.btn-active {
+    background: #F0F0F0;
+}
+
+.btn-inactive {
+    border: 1px solid #678990;
+
 }
