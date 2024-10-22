@@ -10,28 +10,27 @@ import appList from "./AppointmentList.module.css";
 
 import Payment from "../../components/Payment/Payment";
 const AppointmentList = () => {
+  const { user, appListStatus,setAppListStatus} = useContext(UserContext);
+
   const [list, setList] = useState([]);
-  const [status, setStatus] = useState("ongoing");
   const [openModal, setOpenModal] = useState(false);
   const [amount,setAmount] = useState(null);
 
   async function switchListRequests(e) {
-    setStatus(e.target.name);
+    setAppListStatus(e.target.name);
+
     const data = await fetch(
       `${process.env.REACT_APP_API_URL}/appointment/appointment-list`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
-          status: status,
+          status: appListStatus,
         },
       }
     );
     const parseData = await data.json();
     setList(parseData?.data);
 
-    function sampleFunc() {
-      console.log("hello hello");
-    }
   }
 
 
@@ -42,24 +41,24 @@ const AppointmentList = () => {
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
-            status: status,
+            status: appListStatus,
           },
         }
       );
       const parseData = await data.json();
-      console.log(parseData)
+     
       setList(parseData?.data);
     }
 
     getAppointmentList();
-  }, [status]);
+  }, [appListStatus]);
 
   function openModalFuncHandler(e) {
     setOpenModal((val) => (val ? false : true));
     setAmount(e.target.dataset.amount);
   }
 
-  const { user } = useContext(UserContext);
+ 
   return (
     <React.Fragment>
       {openModal && <Payment openModal={openModalFuncHandler} amount={amount}/>}
@@ -72,26 +71,29 @@ const AppointmentList = () => {
             <SideMenu />
             <DashboardContainer>
               <LoggedInCommonNavBar title="Request" />
-              <div>Appointment List</div>
+              <div className={appList["header-title"]}>Appointment List</div>
               {user.userType === "assistant" && (
                 <AppointmentListController
                   switchListRequests={switchListRequests}
                 />
               )}
-              {list?.map((val) => (
-                <AppointmentDetails
-                  key={val.appointmentId}
-                  appId={val.appointmentId}
-                  description={val.serviceDescription}
-                  statusDes={val.statusDescription}
-                  price={val.totalAmount}
-                  servingName={val.servingName}
-                  loggedInUserType={val.loggedInUserType}
-                  servingProfileImage={val.servingProfileImage}
-                  statusId={val.statusId}
-                  openModal={openModalFuncHandler}
-                />
-              ))}
+              <section className={appList["app-list"]}>
+                {list?.map((val) => (
+                  <AppointmentDetails
+                    key={val.appointmentId}
+                    appId={val.appointmentId}
+                    description={val.serviceDescription}
+                    statusDes={val.statusDescription}
+                    price={val.totalAmount}
+                    servingName={val.servingName}
+                    loggedInUserType={val.loggedInUserType}
+                    servingProfileImage={val.servingProfileImage}
+                    statusId={val.statusId}
+                    openModal={openModalFuncHandler}
+                    statusTab={appListStatus}
+                  />
+                ))}
+              </section>
             </DashboardContainer>
           </section>
         )}

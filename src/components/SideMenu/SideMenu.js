@@ -27,22 +27,6 @@ export default function SideMenu() {
     //setActiveNavSupp(location.pathname === '/support'); // Update as per your support route
   }, [location.pathname]);
 
-  const clickedActiveHome = () => {
-    navigate("/dashboard-main");
-  };
-
-  const clickedActiveFind = () => {
-    navigate("/find");
-  };
-
-  const clickedActiveMess = () => {
-    navigate("/chatlist");
-  };
-
-  const clickedActiveApp = () => {
-    navigate("/appointment");
-  };
-
   const clickedActiveNotes = () => {
     navigate("/notes");
   };
