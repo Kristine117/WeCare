@@ -1,10 +1,12 @@
 .container {
   display: grid;
   grid-template-columns: repeat(3,30%);
+  grid-template-rows: 5rem;
   padding: 2rem;
   color: #678990;
   justify-content: space-between;
-  width: 100%;
+  width: 65rem;
+  
 }
 
 /* removed by alier */
@@ -24,6 +26,12 @@
   width: 25%;
   justify-content: space-between;
   text-align: center;
+
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: 700;
 }
 
 /* removed by alier */
@@ -42,9 +50,9 @@
 .search {
   all: unset;
   border: none;
-  background-color: #d9d9d9;
   border: none;
   outline: none;
+  height: 5rem;
 }
 
 .profileButton {
@@ -62,6 +70,7 @@
   justify-content: center;
   margin: 0.5rem;
   padding: 0.5rem;
+  
 }
 
 .bell,

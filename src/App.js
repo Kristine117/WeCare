@@ -76,6 +76,7 @@ function App() {
             gender: data.data.gender,
             birthDate: data.data.birthDate,
             experienceId: data.data.experienceId,
+            approveFlg: data.data?.approveFlg
           });
         } else {
           setUser({
