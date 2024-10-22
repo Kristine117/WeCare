@@ -26,8 +26,7 @@ const PAYMENT_SELECTION =[
 
 const Payment = ({openModal,amount})=>{
 
-    const PAYMONGO_SECRET_KEY = process.env;
-console.log(PAYMONGO_SECRET_KEY);
+    const PAYMONGO_SECRET_KEY = "sk_test_C62auzHAPXNnEp88vSASfGYC";
 
     const [pay,setPay] = useState(null);
     const [payMethod,setPayMethod] = useState(null);
@@ -102,7 +101,7 @@ console.log(PAYMONGO_SECRET_KEY);
             },
             {
               headers: {
-                Authorization: `Basic ${Buffer.from(PAYMONGO_SECRET_KEY).toString('base64')}`,
+                Authorization: `Basic ${btoa(`${PAYMONGO_SECRET_KEY}`)}`,
                 'Content-Type': 'application/json',
               }
             }

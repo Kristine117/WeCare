@@ -3,7 +3,7 @@ import cc from "./CreditCard.module.css";
 import Button from "../../Button/Button";
 import axios from "axios";
 
-const PAYMONGO_SECRET_KEY = process.env.PAYMONGO_SECRET_KEY;
+const PAYMONGO_SECRET_KEY = "sk_test_C62auzHAPXNnEp88vSASfGYC";
 
 const CreditCard = ({handleBackFunc,confirmPaymentFunc,createPaymentIntentFunc})=>{
 
@@ -42,9 +42,9 @@ const CreditCard = ({handleBackFunc,confirmPaymentFunc,createPaymentIntentFunc})
       }
 
       const cardDetails = {
-        number: '4111111111111111',  // Test card number
-        exp_month: '12',
-        exp_year: '2025',
+        number: '4343434343434345',  // Test card number
+        exp_month: 12,
+        exp_year: 2026,
         cvc: '123'
       };
 

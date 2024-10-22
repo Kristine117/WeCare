@@ -25,3 +25,15 @@ const Ratings = ()=>{
 
 
 export default Ratings;
+
+
+export async function fetchRatingsData(){
+    let data;
+
+    try{
+        
+    }catch(e) {
+
+    }
+
+}
