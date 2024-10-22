@@ -131,8 +131,11 @@ const Payment = ({openModal,amount})=>{
              <div className={pm["backdrop-modal"]} onClick={openModal}>
             
             </div>
+
+            {errMsg && <div className={pm['error-msg']}>{errMsg}</div>}
+
             <div className={pm["payment-selection"]}>
-                {errMsg && <div className={pm['error-msg']}>{errMsg}</div>}
+                
                 {gcash}
                 {paymaya}
                 {cc}
@@ -148,8 +151,11 @@ const Payment = ({openModal,amount})=>{
                        )
                    })}
 
-               <Button type="button" onClick={openModal}>Cancel</Button>
-               <Button type="button" onClick={proceedPaymentPage}>Proceed</Button>
+              
+                <div className={pm["payment-footer"]}>
+                    <Button type="button" onClick={openModal} className={pm["btn"]}>Cancel</Button>
+                    <Button type="button" onClick={proceedPaymentPage} className={pm["btn"]}>Proceed</Button>
+                </div>
               </div>}
             </div>
         </React.Fragment>
