@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 export default function ProfileCard({ list }) {
   const navigate = useNavigate();
-  console.log(list);
 
   const handleRequest = (val) => {
     navigate(`/appointment-page/${encodeURIComponent(val.userId)}`, {

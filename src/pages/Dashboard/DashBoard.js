@@ -35,9 +35,8 @@ const DashBoard = ()=>{
     getAssistantList();
   },[])
 
-
     return(
-        <main>
+        <main className={dashboard["dashboard-container"]}>
            {!user?.id && <Navigate to={"/login"}/>}
            {user?.id &&  <section className={dashboard['dashboard']}>
                 <SideMenu/>

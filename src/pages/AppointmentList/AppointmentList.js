@@ -71,27 +71,29 @@ const AppointmentList = () => {
             <SideMenu />
             <DashboardContainer>
               <LoggedInCommonNavBar title="Request" />
-              <div>Appointment List</div>
+              <div className={appList["header-title"]}>Appointment List</div>
               {user.userType === "assistant" && (
                 <AppointmentListController
                   switchListRequests={switchListRequests}
                 />
               )}
-              {list?.map((val) => (
-                <AppointmentDetails
-                  key={val.appointmentId}
-                  appId={val.appointmentId}
-                  description={val.serviceDescription}
-                  statusDes={val.statusDescription}
-                  price={val.totalAmount}
-                  servingName={val.servingName}
-                  loggedInUserType={val.loggedInUserType}
-                  servingProfileImage={val.servingProfileImage}
-                  statusId={val.statusId}
-                  openModal={openModalFuncHandler}
-                  statusTab={appListStatus}
-                />
-              ))}
+              <section className={appList["app-list"]}>
+                {list?.map((val) => (
+                  <AppointmentDetails
+                    key={val.appointmentId}
+                    appId={val.appointmentId}
+                    description={val.serviceDescription}
+                    statusDes={val.statusDescription}
+                    price={val.totalAmount}
+                    servingName={val.servingName}
+                    loggedInUserType={val.loggedInUserType}
+                    servingProfileImage={val.servingProfileImage}
+                    statusId={val.statusId}
+                    openModal={openModalFuncHandler}
+                    statusTab={appListStatus}
+                  />
+                ))}
+              </section>
             </DashboardContainer>
           </section>
         )}
