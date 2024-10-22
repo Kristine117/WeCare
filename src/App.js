@@ -18,14 +18,13 @@ import AboutUs from "./pages/AboutUs/AboutUs";
 import Appointment from "./pages/Appointment/Appointment";
 import Find from "./pages/Find/Find";
 import AppointmentList from "./pages/AppointmentList/AppointmentList";
-
-
 import Support from "./pages/Support/Support";
 import Ratings from "./pages/Ratings/Ratings";
 import Requests from "./pages/Requests/Requests";
 import Users from "./pages/Users/Users";
 import Notes from "./pages/Notes/Notes";
 import Profile from "./pages/Profile/Profile";
+
 function App() {
   // for getting token this is for global this is helped whit the UserContext.js
   const [user, setUser] = useState({
@@ -43,6 +42,8 @@ function App() {
     birthDate: null,
     experienceId: null,
   });
+
+  const [appListStatus,setAppListStatus]= useState("ongoing");
 
   // for clearing token of logout
   const unsetUser = () => {
@@ -86,7 +87,7 @@ function App() {
   }, []);
 
   return (
-    <UserProvider value={{ user, setUser, unsetUser }}>
+    <UserProvider value={{ user, setUser, unsetUser,appListStatus,setAppListStatus }}>
       <Router>
         <Routes>
           <Route path="*" errorElement={<Error />} />
