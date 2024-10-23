@@ -176,6 +176,9 @@ export default function Registration3() {
           formData.append('gender', initialData.gender);
           formData.append('birthDate', initialData.birthDate);
           formData.append('password', initialData.password);
+          formData.append('numOfYears', initialData.numOfYears);
+          formData.append('experienceDescription', initialData.experienceDescription);
+          formData.append('rate', initialData.rate);
           
           if (initialData.seniorNumber) {
             formData.append('seniorNumber', initialData.seniorNumber);
