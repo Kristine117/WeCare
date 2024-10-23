@@ -51,6 +51,8 @@ export default function SideMenu() {
   const handleToggleSidebar = () => {
     setIsOpen(!isOpen); // Toggle sidebar visibility
   };
+
+  console.log(user);
   return (
     <>
       {isMobile ? (
@@ -82,19 +84,9 @@ export default function SideMenu() {
             </p>
           </Link>
 
+        
 
-          {user?.userType !== "admin" && (
-            <Link
-              to={"/find"}
-              // onClick={clickedActiveFind}
-              className={activeNavFind ? "menu-item actives" : "menu-item"}
-            >
-              <span className="material-symbols-outlined side-menu-color icon-size">
-                search
-              </span>
-              <p className="ml-2 pt-3">Find</p>
-            </Link>
-          )}
+    
           {user?.userType !== "admin" && (
             <Link
               to={"/chatlist"}
@@ -226,7 +218,7 @@ export default function SideMenu() {
           </Link>
 
 
-          {user?.userType !== "admin" && (
+          {user?.userType === "senior" && (
             <Link
               to={"/find"}
               // onClick={clickedActiveFind}

@@ -11,7 +11,7 @@ function NotesComponent({loggedInUserId}) {
   const [userId, setUserId] = useState(loggedInUserId);
   const [note, setNote] = useState({ appointmentId: 0, noteContent: "", isPinned: false, createdBy: userId });
   const [isFormActive, setIsFormActive] = useState(false);
-  const [status,setStatus ]= useState("ongoing");
+  const [status,setStatus ]= useState("approve");
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
   const [selectedNote, setSelectedNote] = useState(null);
