@@ -447,11 +447,11 @@ export default function Registration3() {
             <h2>Senior Application Form</h2>
             <form onSubmit={collectDataRegistration2} className="spacing">
 
-            <div className="d-flex mt-5">  
+            <div className="d-lg-flex mt-5">  
 
              <div className="d-block">  
-                <div className="form-group d-flex">
-                <input type="text" className="form-control mr-4" 
+                <div className="form-group d-lg-flex ">
+                <input type="text" className={`${registerModal.marginPhone1} form-control mr-4`} 
                       placeholder="Enter Family Name" id="familyName" name="lastname" 
                       value={initialData.lastname}
                       onChange={handleChange} required/>
@@ -462,11 +462,11 @@ export default function Registration3() {
                       required />
                 </div>
 
-                <div className="form-group d-flex mt-4">
+                <div className="form-group d-lg-flex mt-4">
                 <select
                   id="barangay"
                   name="barangayId"
-                  className="form-control"
+                  className={`${registerModal.marginPhone1} form-control`}
                   required
                   value={initialData.barangayId} // Ensure you have this defined
                   onChange={handleChange} // Ensure you have a handleChange function defined
@@ -479,21 +479,21 @@ export default function Registration3() {
                   ))}
                 </select>
 
-                    <input type="text" className="form-control ml-3" placeholder="Enter Street"
+                    <input type="text" className="form-control ml-lg-3" placeholder="Enter Street"
                       id="street" name="street" 
                       value={initialData.street}
                       onChange={handleChange}  required/>
                 </div>
 
-                <div className={`registerModal.spacingLabel form-group d-flex`}>
+                <div className={`${registerModal.spacingLabel} form-group d-lg-flex`}>
                 <label className={registerModal.spacingLabel}>
                   Birth Date
                   </label>                  
                 </div>
-                <div className="form-group d-flex">
+                <div className="form-group d-lg-flex">
                         <input 
                     type="date" 
-                    className="form-control mr-4" 
+                    className={`${registerModal.marginPhone1} form-control mr-4`}
                     name="birthDate" // Ensure name matches initialData
                     value={initialData.birthDate}
                     onChange={handleChange}
@@ -502,7 +502,7 @@ export default function Registration3() {
                     <input 
                         type="number" 
                         className="form-control UserAge" 
-                        placeholder="Enter Age" 
+                        placeholder="Enter Birthdate for Age" 
                         value={age} // Set the value to the calculated age
                         readOnly // Make the age input read-only
                         required 
@@ -533,11 +533,11 @@ export default function Registration3() {
 
 
 
-              <div className="d-block ml-5">  
+              <div className="d-block ml-lg-5">  
 
                 <div className="form-group sex-checkBox-container mb-4">
                     <label>Sex: </label>
-                    <div className="d-flex ml-5">
+                    <div className="d-flex">
                     <input type="radio" name="gender" className="mr-2" id="male"
                         value="male" // Corrected to set a specific value
                         onChange={handleChange}
@@ -545,7 +545,7 @@ export default function Registration3() {
                         <label htmlFor="male">Male</label>
                     </div>
 
-                    <div className="d-flex ml-5">
+                    <div className="d-flex">
                     <input type="radio" name="gender" className="mr-2" id="female" 
                         value="female" // Corrected to set a specific value
                         onChange={handleChange}
@@ -566,9 +566,9 @@ export default function Registration3() {
                 </div> 
             </div> 
  
-
-            <div className="d-flex mb-5 mt-3"> 
-                <label className="mr-3">Health status:</label>
+            <label className="mr-3 mt-3">Health status:</label>
+            <div
+            className={`${registerModal.displayBlockPhone} d-lg-flex mb-4 mt-3`}> 
                 <input type="radio" name="healthStatus" value="physicallyFit" onChange={handleChange} className="mr-2" id="physicallyFit" required/>
                 <label className="mr-3">Physically fit</label>
                 <input type="radio" name="healthStatus" value="frailSickly" onChange={handleChange} className="mr-2" id="frailSickly" required/>
@@ -579,29 +579,27 @@ export default function Registration3() {
                 <label>Bedridden</label>
             </div> 
  
-
-            <div className="d-block mb-3 mt-4"> 
-                <label className="mr-3 mb-3">Are you taking medicines/maintenance as prescribed by a doctor?</label>
-
-                <input type="radio" name="prescribeMeds" value="medsYes" onChange={handleChange} className="mr-2" id="medsYes" required/>
+            <label className="mr-3 mb-3 mt-1">Are you taking medicines/maintenance as prescribed by a doctor?</label>
+            <div className="d-block mb-3"> 
+                 <input type="radio" name="prescribeMeds" value="medsYes" onChange={handleChange} className="mr-2" id="medsYes" required/>
                 <label className="mr-3">YES</label>
                 <input type="radio" name="prescribeMeds" value="medsNo" onChange={handleChange} className="mr-2" id="medsNo" required/>
                 <label>NO</label>
             </div>
 
-            <div className="sex-checkBox-container mb-3 mt-4 ml-2"> 
+            <div className="sex-checkBox-container mb-3 mt-4 ml-lg-2"> 
             <label className="mr-3 mb-1">If yes, please write the prescribed medicine/s</label>
             <textarea id="remarks" name="remarks" rows="4" cols="50" 
             value={initialData.remarks}
             onChange={handleChange} // Corrected here
-            className="form-control" required>
+            className={`form-control`} required>
            
             </textarea>
             </div>
 
             <div className="sex-checkBox-container mb-3 mt-4 ml-2">
               <label className="mr-3"> Authorized representative (Leave Blank if None)</label>
-              <button className="btn-get-started buttonSeniorSize" onClick={addPersonHandler}>Add Person</button>
+              <button  className={`${registerModal.marginPhone1} btn-get-started buttonSeniorSize mr-lg-3`} onClick={addPersonHandler}>Add Person</button>
               <button className="btn-get-started buttonSeniorSize" onClick={removePersonHandler}>Remove Person</button>
             </div>
 
@@ -682,7 +680,7 @@ export default function Registration3() {
 
 
             
-            <div className="form-group d-block mt-4">
+            <div className="form-group d-block mt-4 mb-3">
                 <ProfileUpload onFileSelect={handleFileSelect} />
             </div>
 

@@ -1,11 +1,12 @@
-/* Sidebar for authenticated one */
-.sidebar {
+
+/* Sidebar for authenticated users */
+.sidebarLaptopView {
   background: linear-gradient(180deg, #c1e1e1 0%, #b0d8d8 100%);
   width: 15rem;
   max-width: 15rem;
   height: 100vh;
   min-height: 100vh;
-  transition: left 0.3s ease; /* Smooth sliding */
+  padding-right: 4rem;
   display: flex;
   flex-direction: column;
 }
@@ -15,6 +16,58 @@
   left: 0; /* Show sidebar */
 }
 
+/* Toggle button */
+.toggleButton {
+  position: fixed;
+  top: 3px;
+  left: 3px;
+  background-color: rgba(103, 137, 144, 0.2); /* More transparent background */
+  color: black;
+  border: none;
+  padding: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 1000; /* Ensure it is above other elements */
+}
+
 .support {
   display: flex;
+}
+
+.customLogoutBtn{
+  color: #678990;
+  margin-left: .20rem;
+  font-size: 0.9rem;
+}
+
+.supportSpacing{
+  margin-top: 12rem;
+}
+
+
+/* Adjust sidebar for mobile view */
+@media(max-width: 768px) {
+  .sidebar {
+    background: linear-gradient(180deg, #c1e1e1 0%, #b0d8d8 100%);
+    width: 15rem;
+    max-width: 15rem;
+    height: 100vh;
+    min-height: 100vh;
+    position: fixed; /* Make it fixed */
+    top: 0;
+    left: -15rem; /* Initially hide the sidebar */
+    transition: left 0.3s ease; /* Smooth sliding */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 15rem;
+    left: -15rem; /* Hidden by default */
+    transition: left 0.3s ease;
+  }
+
+  .sidebar.open {
+    left: 0; /* Sidebar slides in */
+  }
 }

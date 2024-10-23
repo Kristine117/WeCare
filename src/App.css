@@ -320,9 +320,10 @@ a.btn-get-started:hover {
 }
 
 .support-item p {
-  margin-left: 10px;
+  margin-left: 5px;
   font-size: 0.9rem;
   color: #678990;
+  margin-top: 1rem;
 }
 
 /* Icon sizes */
@@ -437,6 +438,7 @@ a {
 .actives {
   background: #ffffff;
   border-radius: 0.5rem;
+  padding-right: 10rem;
 }
 
 @media only screen and (max-width: 600px) {

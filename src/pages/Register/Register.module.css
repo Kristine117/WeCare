@@ -627,4 +627,21 @@ a {
     overflow-y: auto; /* Enable vertical scrolling */
     overflow-x: hidden; /* Prevent horizontal scrolling */
   }
+  .marginPhone1{
+    margin-bottom: 1rem;
+  }
+  .displayBlockPhone{
+    display: block;
+  }
+  .modalContentSenior {
+    background-color: #fff;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 100%;
+    max-width: 55rem;
+    max-height: 100%; /* Set a maximum height for the modal content */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
 }

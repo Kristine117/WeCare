@@ -16,16 +16,29 @@ export default function SideMenu() {
   const [activeNavApp, setActiveNavApp] = useState(false);
   const [activeNavNOtes, setActiveNavNotes] = useState(false);
   //const [activeNavSupp, setActiveNavSupp] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   // Update active states based on current location
   useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Update isMobile state
+    };
+    window.addEventListener("resize", handleResize);
+
+    
+
     setActiveNavHome(location.pathname === "/dashboard-main");
     setActiveNavFind(location.pathname === "/find");
     setActiveNavMes(location.pathname === "/chatlist");
     setActiveNavApp(location.pathname === "/appointment");
     setActiveNavNotes(location.pathname === "/notes");
     //setActiveNavSupp(location.pathname === '/support'); // Update as per your support route
-  }, [location.pathname]);
+  
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+ }, [location.pathname]);
 
   const clickedActiveNotes = () => {
     navigate("/notes");
@@ -35,16 +48,28 @@ export default function SideMenu() {
     navigate("/logout");
   };
 
+  const handleToggleSidebar = () => {
+    setIsOpen(!isOpen); // Toggle sidebar visibility
+  };
   return (
     <>
-      {/* Sidebar */}
-      <div className={sidemenu["sidebar"]}>
-        <div className="logo my-4 text-center">
-          <img src="../wecare_logo.png" alt="WeCare" width="100" />
-        </div>
+      {isMobile ? (
+        <>
+          {/* Content for mobile view */}
+          <button onClick={handleToggleSidebar} className={sidemenu.toggleButton}>
+            ☰
+          </button>
+          {/* Sidebar */}
+          <div className={`${sidemenu.sidebar} ${isOpen ? sidemenu.open : ""}`}>
+            <div className="logo my-4 text-center">
+              <img src="../wecare_logo.png" alt="WeCare" width="100" />
+            </div>
 
-        <div className="menu-items flex-grow-1 d-flex flex-column ml-4 mr-4">
-          <Link
+
+
+            <div className="menu-items flex-grow-1 d-flex flex-column ml-4 mr-4">
+              {/* Add your Links here */}
+              <Link
             to={"/dashboard-main"}
             // onClick={clickedActiveHome}
             className={activeNavHome ? "menu-item actives" : "menu-item"}
@@ -56,6 +81,8 @@ export default function SideMenu() {
               {user?.userType !== "admin" ? "Home" : "Dashboard"}
             </p>
           </Link>
+
+
           {user?.userType !== "admin" && (
             <Link
               to={"/find"}
@@ -93,6 +120,151 @@ export default function SideMenu() {
               <p className="ml-2 pt-3">Appointment</p>
             </Link>
           )}
+          {user?.userType === "assistant" && (
+            <Link
+              to="/notes"
+              onClick={clickedActiveNotes}
+              className={activeNavNOtes ? "menu-item actives" : "menu-item"}
+            >
+              <span className="material-symbols-outlined side-menu-color icon-size">
+                list_alt
+              </span>
+              <p className="ml-2 pt-3">Notes</p>
+            </Link>
+          )}
+
+          {user?.userType === "admin" && (
+            <>
+              <Link
+                to="/users"
+                // onClick={clickedActiveApp}
+                className={activeNavApp ? "menu-item actives" : "menu-item"}
+              >
+                <span className="material-symbols-outlined side-menu-color icon-size">
+                  list_alt
+                </span>
+                <p className="ml-2 pt-3">Users</p>
+              </Link>
+
+              <Link
+                to="/ratings"
+                // onClick={clickedActiveApp}
+                className={activeNavApp ? "menu-item actives" : "menu-item"}
+              >
+                <span className="material-symbols-outlined side-menu-color icon-size">
+                  list_alt
+                </span>
+                <p className="ml-2 pt-3">Ratings</p>
+              </Link>
+            </>
+          )}
+          </div>
+
+
+          <div className={`${sidemenu.supportSpacing}`}>
+        {user?.userType !== "admin" && (
+          <div className="support-item ml-4 mr-4">
+            <div className={sidemenu["support"]}>
+              <span className="material-symbols-outlined side-menu-color icon-size">
+                volunteer_activism
+              </span>
+              <p>Support</p>
+            </div>
+          </div>
+        )}
+
+        {user?.userType === "admin" && (
+          <div className="support-item ml-4 mr-4">
+            <div>
+              <span className="material-symbols-outlined side-menu-color icon-size">
+                volunteer_activism
+              </span>
+              <p>Requests</p>
+            </div>
+          </div>
+        )}
+        <div className="support-item logout-bottom ml-4">
+          <span className="material-symbols-outlined side-menu-color icon-size">
+            logout
+          </span>
+          <button
+            type="button"
+            className={`${sidemenu.customLogoutBtn} button-logout`}
+            data-toggle="modal"
+            data-target="#exampleModal"
+          >
+            Log-Out
+          </button>
+        </div>
+      </div>
+
+
+
+          </div>
+        </>
+      ) : (
+        <>
+          {/* Content for desktop view */}
+          <div className={`${sidemenu.sidebarLaptopView}`}>
+        <div className="logo my-4 text-center">
+          <img src="../wecare_logo.png" alt="WeCare" width="100" />
+        </div>
+
+
+        <div className="menu-items flex-grow-1 d-flex flex-column ml-4 mr-4">
+          <Link
+            to={"/dashboard-main"}
+            // onClick={clickedActiveHome}
+            className={activeNavHome ? "menu-item actives" : "menu-item"}
+          >
+            <span className="material-symbols-outlined side-menu-color icon-size ">
+              home
+            </span>
+            <p className="ml-2 pt-3">
+              {user?.userType !== "admin" ? "Home" : "Dashboard"}
+            </p>
+          </Link>
+
+
+          {user?.userType !== "admin" && (
+            <Link
+              to={"/find"}
+              // onClick={clickedActiveFind}
+              className={activeNavFind ? "menu-item actives" : "menu-item"}
+            >
+              <span className="material-symbols-outlined side-menu-color icon-size">
+                search
+              </span>
+              <p className="ml-2 pt-3">Find</p>
+            </Link>
+          )}
+          {user?.userType !== "admin" && (
+            <Link
+              to={"/chatlist"}
+              // onClick={clickedActiveMess}
+              className={activeNavMes ? "menu-item actives" : "menu-item"}
+            >
+              <span className="material-symbols-outlined side-menu-color icon-size">
+                chat
+              </span>
+              <p className="ml-2 pt-3">Message</p>
+            </Link>
+          )}
+
+          {user?.userType !== "admin" && (
+            <Link
+              to="/appointment"
+              // onClick={clickedActiveApp}
+              className={activeNavApp ? "menu-item actives" : "menu-item"}
+            >
+              <span className="material-symbols-outlined side-menu-color icon-size">
+                list_alt
+              </span>
+              <p className="ml-2 pt-3">Appointment</p>
+            </Link>
+          )}
+
+          
 
           {user?.userType === "assistant" && (
             <Link
@@ -134,8 +306,9 @@ export default function SideMenu() {
           )}
         </div>
 
+        <div className={`${sidemenu.supportSpacing}`}>
         {user?.userType !== "admin" && (
-          <div className="support-item mb-4 ml-4 mr-4">
+          <div className="support-item ml-4 mr-4">
             <div className={sidemenu["support"]}>
               <span className="material-symbols-outlined side-menu-color icon-size">
                 volunteer_activism
@@ -146,7 +319,7 @@ export default function SideMenu() {
         )}
 
         {user?.userType === "admin" && (
-          <div className="support-item mb-4 ml-4 mr-4">
+          <div className="support-item ml-4 mr-4">
             <div>
               <span className="material-symbols-outlined side-menu-color icon-size">
                 volunteer_activism
@@ -155,13 +328,13 @@ export default function SideMenu() {
             </div>
           </div>
         )}
-        <div className="support-item logout-bottom mb-4 ml-4">
+        <div className="support-item logout-bottom ml-4">
           <span className="material-symbols-outlined side-menu-color icon-size">
             logout
           </span>
           <button
             type="button"
-            className="button-logout"
+            className={`${sidemenu.customLogoutBtn} button-logout`}
             data-toggle="modal"
             data-target="#exampleModal"
           >
@@ -169,8 +342,14 @@ export default function SideMenu() {
           </button>
         </div>
       </div>
+      </div>
+        </>
+      )}
 
-      <div
+
+      
+
+ <div
         className="modal fade"
         id="exampleModal"
         tabIndex="-1"
@@ -207,4 +386,5 @@ export default function SideMenu() {
       </div>
     </>
   );
+  
 }
