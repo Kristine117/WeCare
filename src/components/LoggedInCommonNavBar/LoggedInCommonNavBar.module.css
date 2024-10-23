@@ -73,6 +73,9 @@
   
 }
 
+
+
+
 .bell,
 .profile {
   display: flex;
@@ -83,4 +86,32 @@
 
 .button {
   border: none;
+}
+
+/* For tablet */
+@media(max-width: 1200px){
+
+}
+
+/* For phone view */
+@media(max-width: 768px){
+  .title {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  .container {
+    display: grid;
+    grid-template-columns: repeat(3,30%);
+    grid-template-rows: 5rem;
+    padding: 2rem;
+    color: #678990;
+    justify-content: initial;
+    width: initial;
+  }
+
+  
+  .inputSearch {
+    height: 2rem;
+    width:8rem;
+  }
 }
