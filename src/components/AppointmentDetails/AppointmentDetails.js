@@ -64,7 +64,7 @@ const AppointmentDetails = ({
           </div>
 
           {statusTab === 'ongoing' && 
-            <div>
+            <div className={design["container-indicator"]}>
               {userTypeCheck && (
                 <div className={design["indicator"]}>
                   <strong>{servingName}</strong> would like to request an appointment
@@ -73,7 +73,7 @@ const AppointmentDetails = ({
               )}
               {!userTypeCheck && (
                 <div className={design["indicator"]}>
-                  You have appointment with <strong>{servingName}</strong>{" "}
+                  You have booked appointment with <strong>{servingName}</strong>{" "}
                 </div>
               )}
               <div className={design["price"]}>Price: {price}</div>

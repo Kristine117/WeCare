@@ -75,6 +75,7 @@ const AppointmentList = () => {
               {user.userType === "assistant" && (
                 <AppointmentListController
                   switchListRequests={switchListRequests}
+                  status={appListStatus}
                 />
               )}
               <section className={appList["app-list"]}>

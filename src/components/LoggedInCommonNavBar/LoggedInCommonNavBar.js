@@ -16,9 +16,9 @@ const LoggedInCommonNavBar = ({title})=>{
     return (
         
         <div className={style.container}>
-            <div>
-                <h1>{title}</h1>
-            </div>
+          
+            <div className={style["title"]}>{title}</div>
+            
            <div className={style.navbarIconSearchContainer}>
 
                 <div className={style.inputSearch}>
