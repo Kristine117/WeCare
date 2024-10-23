@@ -1,6 +1,7 @@
 import { Link, Navigate, NavLink } from "react-router-dom";
 import React, { useState, useContext} from "react";
 import Swal from "sweetalert2";
+import loginModuleCss from "./Login.module.css";
 import UserContext from "../../UserContext";
 import AppNavbar from "../../components/AppNavbar/AppNavbar";
 
@@ -77,10 +78,10 @@ export default function Login() {
   return (
    <React.Fragment>
       <AppNavbar/>
-      {!user.id && <div className="background1">
-      <div className="login-container">
+      {!user.id && <div className={`${loginModuleCss.background1} background1`}>
+      <div className={`${loginModuleCss.loginContainer} login-container`}>
         <div className="login-box">
-          <h3 className="pt-4 pb-4">Login to your account</h3>
+          <h3 className="pt-4 pb-4">Login account</h3>
           {user.error ? (
             <div>
               <h5 className="error">Bad Credentials</h5>
@@ -90,7 +91,7 @@ export default function Login() {
           )}
           <form onSubmit={(e) => authenticate(e)}>
             <div className="form-group">
-              <label htmlFor="email" className="pb-3">
+              <label htmlFor="email">
                 Email
               </label>
               <input
@@ -102,7 +103,7 @@ export default function Login() {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="password" className="pb-3">
+              <label htmlFor="password">
                 Password
               </label>
               <input

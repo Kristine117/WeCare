@@ -70,4 +70,14 @@
     margin: 10px 0; /* Space between links on mobile */
     text-align: center; /* Center align text */
   }
+
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #9ec7cf;
+    padding-left: 20px;
+    padding-right: 35px;
+    position: relative; /* Needed for absolute positioning of links */
+  }
 }
