@@ -1,12 +1,11 @@
 .container {
   display: grid;
-  grid-template-columns: repeat(3,30%);
+  grid-template-columns: repeat(3, 30%);
   grid-template-rows: 5rem;
   padding: 2rem;
   color: #678990;
   justify-content: space-between;
-  width: 65rem;
-  
+  width: -webkit-fill-available;
 }
 
 /* removed by alier */
@@ -26,7 +25,6 @@
   width: 25%;
   justify-content: space-between;
   text-align: center;
-
 }
 
 .title {
@@ -70,7 +68,6 @@
   justify-content: center;
   margin: 0.5rem;
   padding: 0.5rem;
-  
 }
 
 

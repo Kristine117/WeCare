@@ -36,24 +36,32 @@ const Profile = () => {
         <section className={wcdesign["profile"]}>
           <SideMenu />
           <div className={wcdesign["profile-container"]}>
-            <div className={wcdesign["profile-head"]}>Profile Details</div>
-            <div className={wcdesign["profile-body"]}>
-              <div className={wcdesign["profile-image-section"]}>
-                <img
-                  src="https://images.stockcake.com/public/3/a/0/3a0180f8-3d87-4c69-bcbc-223d52e6f902_large/dynamic-basketball-action-stockcake.jpg"
-                  alt="We Care"
-                  className={wcdesign["profile-image"]}
-                />
-                <div>John Loyd Cruz</div>
-              </div>
+            <div className={wcdesign["profile-head"]}>Profile Edit Details</div>
+            <form>
               <div className={wcdesign["details-section"]}>
                 <div className={wcdesign["detail"]}>
-                  <div>Email:</div>
-                  <div>Hakdog@mail.com</div>
+                  <label htmlFor="email">Email:</label>
+                  <input
+                    id="email"
+                    type="text"
+                    className="form-control"
+                    value={"Hakdog@mail.com"}
+                  ></input>
                 </div>
                 <div className={wcdesign["detail"]}>
-                  <div>Address:</div>
-                  <div>Kidanpawan St.,Mabolo,Cebu City</div>
+                  <label htmlFor="barangay">Barangay:</label>
+                  <select id="barangy" className="form-control">
+                    <option>Mabolo</option>
+                  </select>
+                </div>
+                <div className={wcdesign["detail"]}>
+                  <label htmlFor="street">Street:</label>
+                  <input
+                    id="street"
+                    type="text"
+                    className="form-control"
+                    value={"Kidanpawan St."}
+                  ></input>
                 </div>
                 <div className={wcdesign["detail"]}>
                   <div>Contact Number:</div>
@@ -68,7 +76,7 @@ const Profile = () => {
                   <div>2yrs</div>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
         </section>
       )}

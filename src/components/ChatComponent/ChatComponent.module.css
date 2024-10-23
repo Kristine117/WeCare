@@ -6,6 +6,10 @@
   width: 2rem;
 }
 
+.container {
+  width: 100%;
+}
+
 .container-fluid {
   height: 100vh;
 }
@@ -21,18 +25,19 @@
   width: -webkit-fill-available;
   display: flex;
   justify-content: space-evenly;
+  padding: 1rem;
 }
 .messageBox {
-  max-width: 53%;
-  padding: 0.5rem;
+  /* max-width: 53%;
+  padding: 0.5rem; */
 }
 
 .message {
   overflow-y: scroll;
-  width: 100%;
+  width: -webkit-fill-available;
   padding-left: 5rem;
   padding-right: 5rem;
-  height: 65vh;
+  height: calc(100vh - 20rem);
 }
 
 .textBoxSender {
@@ -59,11 +64,10 @@
 }
 
 .messageInput {
-  width: 60rem;
+  width: -webkit-fill-available;
 }
 
 .sendButtonContainer {
-  width: 10%;
 }
 
 .sender {
@@ -81,6 +85,7 @@
   justify-content: center;
   align-items: center;
   gap: 1.5rem;
+  width: -webkit-fill-available;
 }
 .profileImage {
   height: 10rem;
