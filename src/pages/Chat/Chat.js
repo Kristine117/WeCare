@@ -9,7 +9,7 @@ import ChatComponent from "../../components/ChatComponent/ChatComponent";
 const Chat = () => {
   const { user } = useContext(UserContext);
   const location = useLocation();
-  const { recipientId ,fullName,profileImage} = location.state;
+  const { recipientId, fullName, profileImage } = location.state;
   return (
     <main>
       {!user?.id && <Navigate to={"/login"} />}
@@ -17,9 +17,11 @@ const Chat = () => {
       {user?.id && (
         <section className={dashboard["dashboard"]}>
           <SideMenu />
-          <DashboardContainer>
-            <ChatComponent recipientId={recipientId} fullName={fullName} profileImage={profileImage}/>
-          </DashboardContainer>
+          <ChatComponent
+            recipientId={recipientId}
+            fullName={fullName}
+            profileImage={profileImage}
+          />
         </section>
       )}
     </main>
