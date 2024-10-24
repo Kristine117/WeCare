@@ -4,6 +4,7 @@
   color: #678990;
   margin: 0.5rem;
   cursor: pointer;
+  padding: 2rem;
 }
 
 .piture-section {
@@ -19,8 +20,9 @@
 }
 
 .profile-name {
-  font-size: 2rem;
+  font-size: 1rem;
 }
+
 
 .rating-star {
   color: #edc04e;
@@ -139,4 +141,7 @@
 .message-container-modal {
   padding: 1rem;
   width: 20rem;
+}
+.rating-section{
+  font-size:1rem;
 }

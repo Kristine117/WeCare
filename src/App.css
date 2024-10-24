@@ -328,7 +328,7 @@ a.btn-get-started:hover {
 
 /* Icon sizes */
 .icon-size {
-  font-size: 2.5rem;
+  font-size: 28px;
   color: #678990;
 }
 
@@ -438,7 +438,6 @@ a {
 .actives {
   background: #ffffff;
   border-radius: 0.5rem;
-  padding-right: 10rem;
 }
 
 @media only screen and (max-width: 600px) {

@@ -1,8 +1,11 @@
 import React from "react";
+import assistantStyle from "./AssistantContent.module.css";
 
 const AssistantContent = ()=>{
     return (
-        <div>Assistant Content</div>
+        <div className={`${assistantStyle.assistantBanner}`}>
+            <div className={`${assistantStyle.content}`}>Assistant Content</div>            
+        </div>
     )
 }
 

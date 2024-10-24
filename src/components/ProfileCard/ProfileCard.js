@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom"; // Import navigate hook
 import styles from "./ProfileCard.module.css";
 import { Link } from "react-router-dom";
@@ -16,24 +15,25 @@ export default function ProfileCard({ list }) {
       },
     });
   };
-
   return (
     <div className={styles["profile-card"]}>
       <div className={styles["profile-head"]}>
         <div className={styles["h1-authencated"]}>Recommended</div>
 
-        <Link to={"/find"} className={styles["link-section"]}>
-          <div className={styles["h1-authencated"]}>
-            See more{""}
+        <div className="d-flex">
+            <Link to={"/find"} className={styles["link-section"]}>
+              <div className={styles["h1-authencated"]}>
+                See more{""}
+              </div>
+            </Link>
             <span
-              className={
-                'material-symbols-outlined styles["material-symbols-outlined h1-authencated"]'
-              }
-            >
+                  className={
+                   `${styles.iconColor} material-symbols-outlined styles["material-symbols-outlined h1-authencated"]`
+                  }
+                >
               arrow_forward
             </span>
-          </div>
-        </Link>
+        </div>
       </div>
       <div className={styles["profile-users"]}>
         {list?.slice(0, 3).map((val) => {
@@ -44,10 +44,10 @@ export default function ProfileCard({ list }) {
               onClick={() => handleRequest(val)}
             >
               <img
-                src={val.profileImage}
-                alt="We Care"
-                className={styles["profile-image"]}
-              />
+                  src={`${process.env.REACT_APP_API_URL}/profilePictures${val.profileImage}`}
+                  alt="Profile"
+                  className={styles["profile-image"]}
+                />
               <div className={styles["card-body"]}>{val.fullName}</div>
             </button>
           );

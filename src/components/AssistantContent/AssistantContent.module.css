@@ -1,0 +1,15 @@
+.assistantBanner {
+    flex-direction: column;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    padding: .75rem 2rem;
+}
+
+.content{
+    font-size: 1rem;
+    color: #678990;
+    text-transform: uppercase;
+}
