@@ -6,16 +6,10 @@
   max-width: 15rem;
   height: 100vh;
   min-height: 100vh;
-  padding-right: 4rem;
+  /* padding-right: 4rem; */
   display: flex;
   flex-direction: column;
 }
-
-/* Sidebar open state */
-.sidebar.open {
-  left: 0; /* Show sidebar */
-}
-
 /* Toggle button */
 .toggleButton {
   position: fixed;
