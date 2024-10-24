@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom"; // Import navigate hook
 import styles from "./ProfileCard.module.css";
 import { Link } from "react-router-dom";
@@ -16,7 +15,6 @@ export default function ProfileCard({ list }) {
       },
     });
   };
-
   return (
     <div className={styles["profile-card"]}>
       <div className={styles["profile-head"]}>
@@ -46,10 +44,10 @@ export default function ProfileCard({ list }) {
               onClick={() => handleRequest(val)}
             >
               <img
-                src={val.profileImage}
-                alt="We Care"
-                className={styles["profile-image"]}
-              />
+                  src={`${process.env.REACT_APP_API_URL}/profilePictures${val.profileImage}`}
+                  alt="Profile"
+                  className={styles["profile-image"]}
+                />
               <div className={styles["card-body"]}>{val.fullName}</div>
             </button>
           );
