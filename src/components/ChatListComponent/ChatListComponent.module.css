@@ -56,3 +56,38 @@
 .unread {
   font-weight: 700;
 }
+/* For tablet */
+@media(max-width: 1200px){
+
+}
+
+/* For phone view */
+@media(max-width: 768px){
+  .profile-image-chat {
+    min-height: 5rem;
+    max-height: 5rem;
+    min-width: 5rem;
+    max-width: 5rem;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .profile-name-chat {
+    font-size: .90rem;
+  }
+
+  .online-time {
+    font-size: .90rem;
+  }
+
+  .unread {
+    font-weight: initial;
+    font-size: .90rem;
+  }
+  .read{
+    font-size: .90rem;
+  }
+  .iconSize{
+    font-size: .90rem !important;
+  }
+  
+}
