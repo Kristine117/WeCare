@@ -5,10 +5,19 @@ import DashboardContainer from "../../components/DashboardContainer/DashboardCon
 import SideMenu from "../../components/SideMenu/SideMenu";
 import AppointmentDetails from "../../components/AppointmentDetails/AppointmentDetails";
 import LoggedInCommonNavBar from "../../components/LoggedInCommonNavBar/LoggedInCommonNavBar";
-import AppointmentListController from "../../components/AppointmentListController/AppointmentListController";
 import appList from "./AppointmentList.module.css";
 
 import Payment from "../../components/Payment/Payment";
+import ListController from "../../components/ListController/ListController";
+
+const APP_LIST_STATUS =[
+  {btnName:"ongoing",
+    btnTitle: "Ongoing"
+  },
+  {btnName:"approve",
+    btnTitle: "Approve"
+  }
+]
 const AppointmentList = () => {
   const { user, appListStatus,setAppListStatus} = useContext(UserContext);
 
@@ -58,6 +67,7 @@ const AppointmentList = () => {
     setAmount(e.target.dataset.amount);
   }
 
+  console.log(user.userType)
  
   return (
     <React.Fragment>
@@ -73,9 +83,10 @@ const AppointmentList = () => {
               <LoggedInCommonNavBar title="Request" />
               <div className={appList["header-title"]}>Appointment List</div>
               {user.userType === "assistant" && (
-                <AppointmentListController
+                <ListController
                   switchListRequests={switchListRequests}
                   status={appListStatus}
+                  btnList={APP_LIST_STATUS}
                 />
               )}
               <section className={appList["app-list"]}>
