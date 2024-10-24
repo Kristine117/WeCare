@@ -19,28 +19,27 @@ const LoggedInCommonNavBar = ({title})=>{
           
             <div className={style["title"]}>{title}</div>
             
-           <div className={style.navbarIconSearchContainer}>
 
-                <div className={style.inputSearch}>
-                        <input
-                            type="text"
-                            ref={inputRef}  // Attach the ref to the input
-                            className={style.search}
-                            placeholder="Search..."
-                        />
-                        <FaSearch className="search-icon" onClick={handleIconClick} />  {/* Add onClick handler */}
-                </div>    
-           </div>
 
-           <div className={style.navbarIconContainer}>
-                <div >
-                    <button className={style.bell}> <FaBell size={40} className={style.icons} /></button>
+
+            <div className={`${style.subContainer}`}>
+                <div className={style.navbarIconSearchContainer}>
+                        <div className={style.inputSearch}>
+                                <input
+                                    type="text"
+                                    ref={inputRef}  // Attach the ref to the input
+                                    className={style.search}
+                                    placeholder="Search..."
+                                />
+                                <FaSearch className="search-icon" onClick={handleIconClick} />  {/* Add onClick handler */}
+                        </div>    
                 </div>
-                <div >
-                    <button className={style.profile}> <FaUser size={40} className={style.profileButton}   /></button>
+
+                <div className={style.navbarIconContainer}>
+                    <button className={style.bell}> <FaBell size={28} className={style.icons} /></button>
+                    <button className={style.profile}> <FaUser size={28} className={style.profileButton}   /></button>     
                 </div>
             </div>
-
         </div>
     )
 }

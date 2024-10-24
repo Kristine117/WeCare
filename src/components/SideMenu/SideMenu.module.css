@@ -2,20 +2,22 @@
 /* Sidebar for authenticated users */
 .sidebarLaptopView {
   background: linear-gradient(180deg, #c1e1e1 0%, #b0d8d8 100%);
+    /* width: 15rem; */
+    min-width: 15rem;
+    /* height: 100vh; */
+    min-height: 100vh;
+    /* padding-right: 4rem; */
+    display: flex;
+    flex-direction: column;
+  /* background: linear-gradient(180deg, #c1e1e1 0%, #b0d8d8 100%);
   width: 15rem;
   max-width: 15rem;
   height: 100vh;
-  min-height: 100vh;
-  padding-right: 4rem;
-  display: flex;
-  flex-direction: column;
+  min-height: 100vh; */
+  /* padding-right: 4rem; */
+  /* display: flex;
+  flex-direction: column; */
 }
-
-/* Sidebar open state */
-.sidebar.open {
-  left: 0; /* Show sidebar */
-}
-
 /* Toggle button */
 .toggleButton {
   position: fixed;
@@ -40,9 +42,9 @@
   font-size: 0.9rem;
 }
 
-.supportSpacing{
+/* .supportSpacing{
   margin-top: 12rem;
-}
+} */
 
 
 /* Adjust sidebar for mobile view */

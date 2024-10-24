@@ -10,14 +10,13 @@
 }
 
 .greeting {
-  font-size: 3rem;
+  font-size: 1rem;
   font-weight: bolder;
   color: #678990;
 }
 
 .user {
-  font-size: 2rem;
+  font-size: 1rem;
   color: #678990;
-  font-weight: bold;
   text-transform: uppercase;
 }

@@ -7,9 +7,9 @@
 
 .header-title {
   padding: .75rem 2rem;
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: #678990;
-  font-weight: 700;
+  /* font-weight: 700; */
   margin: 0;
 }
 

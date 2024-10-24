@@ -9,13 +9,13 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 1rem;
+  padding: 2rem;
 }
 .find-head-content {
-  font-size: 4rem;
-  font-weight: bold;
+  font-size: 2rem;
   color: #678990;
   border: none;
+  font-weight: 700;
 }
 .find-head-content-button {
   font-size: 4rem;
