@@ -39,4 +39,14 @@
     color: white;
 }
 
+.error-msg {
+    position: absolute;
+    transform: translate(-50%,-125%);
+    left: 50%;
+    color: red;
+    background-color: aliceblue;
+    z-index: 10;
+    padding: .5rem 3.75rem;
+    width: 100%;
+}
 

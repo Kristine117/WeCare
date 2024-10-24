@@ -71,6 +71,7 @@ const Payment = ({openModal,amount})=>{
                     currency: "PHP",
                     description: "Transfer via Payment Method",
                     statement_descriptor: "We Care",
+                   
                 }
                 }
             },
@@ -96,6 +97,7 @@ const Payment = ({openModal,amount})=>{
               data: {
                 attributes: {
                   payment_method: paymentMethodId,
+                   return_url: "http://localhost:3000/dashboard-main"
                 }
               }
             },

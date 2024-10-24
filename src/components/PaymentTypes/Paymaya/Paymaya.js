@@ -45,7 +45,8 @@ const Paymaya = ({handleBackFunc,confirmPaymentFunc,createPaymentIntentFunc})=>{
         e.preventDefault();
 
         const formData = await formData(e.target);
-        const {phoneNumber} = formData.get("phone-number")
+        const {phoneNumber} =await formData.get("phone-number");
+      console.log(phoneNumber)
         try {
           // Step 1: Create the Payment Intent with all methods allowed
           const paymentIntentData = await createPaymentIntentFunc();
