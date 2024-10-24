@@ -1,6 +1,6 @@
 .container {
   display: grid;
-  grid-template-columns: repeat(3, 30%);
+  grid-template-columns: 50% repeat(2, 25%);
   grid-template-rows: 5rem;
   padding: 2rem;
   color: #678990;
@@ -28,7 +28,7 @@
 }
 
 .title {
-  font-size: 4rem;
+  font-size: 2.75rem;
   font-weight: 700;
 }
 
