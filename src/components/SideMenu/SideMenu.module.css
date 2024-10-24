@@ -2,13 +2,21 @@
 /* Sidebar for authenticated users */
 .sidebarLaptopView {
   background: linear-gradient(180deg, #c1e1e1 0%, #b0d8d8 100%);
+    /* width: 15rem; */
+    min-width: 15rem;
+    /* height: 100vh; */
+    min-height: 100vh;
+    /* padding-right: 4rem; */
+    display: flex;
+    flex-direction: column;
+  /* background: linear-gradient(180deg, #c1e1e1 0%, #b0d8d8 100%);
   width: 15rem;
   max-width: 15rem;
   height: 100vh;
-  min-height: 100vh;
+  min-height: 100vh; */
   /* padding-right: 4rem; */
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
 }
 /* Toggle button */
 .toggleButton {

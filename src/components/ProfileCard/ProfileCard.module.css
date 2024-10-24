@@ -1,11 +1,26 @@
 .material-symbols-outlined {
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+
+}
+
+.iconColor{
+  color:#678990 !important;
 }
 
 .h1-authencated {
-  font-size: 2rem;
+  font-size: 1rem;
   color: #678990;
   font-weight: bold;
+  display: flex;
+}
+
+
+.h1-authencated:hover {
+  font-size: 1rem;
+  color: #678990;
+  font-weight: bold;
+  display: flex;
+  text-decoration: none;
 }
 
 .profile-card {
@@ -47,7 +62,8 @@
   padding: 1rem;
   background: #f0f0f0;
   border-radius: 1rem;
-  width: calc(100% - 20rem);
+  /* width: calc(100% - 20rem); */
+  min-width: calc(100% - 20rem);
   overflow: auto;
 }
 
@@ -59,6 +75,6 @@
 }
 
 .card-body {
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: #678990;
 }

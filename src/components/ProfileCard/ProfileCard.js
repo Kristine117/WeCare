@@ -22,18 +22,20 @@ export default function ProfileCard({ list }) {
       <div className={styles["profile-head"]}>
         <div className={styles["h1-authencated"]}>Recommended</div>
 
-        <Link to={"/find"} className={styles["link-section"]}>
-          <div className={styles["h1-authencated"]}>
-            See more{""}
+        <div className="d-flex">
+            <Link to={"/find"} className={styles["link-section"]}>
+              <div className={styles["h1-authencated"]}>
+                See more{""}
+              </div>
+            </Link>
             <span
-              className={
-                'material-symbols-outlined styles["material-symbols-outlined h1-authencated"]'
-              }
-            >
+                  className={
+                   `${styles.iconColor} material-symbols-outlined styles["material-symbols-outlined h1-authencated"]`
+                  }
+                >
               arrow_forward
             </span>
-          </div>
-        </Link>
+        </div>
       </div>
       <div className={styles["profile-users"]}>
         {list?.slice(0, 3).map((val) => {
