@@ -269,7 +269,7 @@ const ChatComponent = ({ recipientId, fullName, profileImage }) => {
       <div className={style.chatheader}>
         <FaArrowLeft className={style.iconImage} />
         <img className={style.profileImage} src={profileImage} />
-        <div>{fullName}</div>
+        <div className={style.userFullname}>{fullName}</div>
       </div>
       <div className="">
         <div className="">

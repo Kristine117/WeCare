@@ -153,7 +153,7 @@ export default function SideMenu() {
 
           <div className={`${sidemenu.supportSpacing}`}>
         {user?.userType !== "admin" && (
-          <div className="support-item ml-4 mr-4">
+          <div className="support-item ml-4 mr-4 mb-4">
             <div className={sidemenu["support"]}>
               <span className="material-symbols-outlined side-menu-color icon-size">
                 volunteer_activism
@@ -164,7 +164,7 @@ export default function SideMenu() {
         )}
 
         {user?.userType === "admin" && (
-          <div className="support-item ml-4 mr-4">
+          <div className="support-item ml-4 mr-4 mb-4">
             <div>
               <span className="material-symbols-outlined side-menu-color icon-size">
                 volunteer_activism
@@ -173,6 +173,9 @@ export default function SideMenu() {
             </div>
           </div>
         )}
+
+
+        
         <div className="support-item logout-bottom ml-4">
           <span className="material-symbols-outlined side-menu-color icon-size">
             logout
@@ -296,7 +299,7 @@ export default function SideMenu() {
 
         <div className={`${sidemenu.supportSpacing}`}>
         {user?.userType !== "admin" && (
-          <div className="support-item ml-4 mr-4">
+          <div className="support-item ml-4 mr-4 mb-2">
             <div className={sidemenu["support"]}>
               <span className="material-symbols-outlined side-menu-color icon-size">
                 volunteer_activism

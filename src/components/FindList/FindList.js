@@ -55,8 +55,8 @@ function FindList({
         <div className={wcdesign["profile-picture"]}>
           <div className={wcdesign["piture-section"]}>
             <img
-              src={profileImage}
-              alt="Nurse holding syringe"
+              src={`${process.env.REACT_APP_API_URL}/profilePictures${profileImage}`}
+              alt="Profile"
               className={wcdesign["profile-image"]}
             ></img>
             <div>

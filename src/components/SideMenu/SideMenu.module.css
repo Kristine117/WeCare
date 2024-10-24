@@ -34,6 +34,7 @@
 
 .support {
   display: flex;
+  align-items: center;
 }
 
 .customLogoutBtn{
@@ -42,9 +43,9 @@
   font-size: 0.9rem;
 }
 
-/* .supportSpacing{
-  margin-top: 12rem;
-} */
+ .supportSpacing{
+  margin-bottom:3rem;
+} 
 
 
 /* Adjust sidebar for mobile view */

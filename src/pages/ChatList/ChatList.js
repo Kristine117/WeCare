@@ -110,7 +110,7 @@ const ChatList = () => {
                     key={val.userId}
                     fullName={val.fullName}
                     userId={val.userId}
-                    profileImage={val.profileImage}
+                    profileImage={`${process.env.REACT_APP_API_URL}/profilePictures/${val.profileImage}`}
                     message={
                       val.messageContent === null 
                         ? '' 

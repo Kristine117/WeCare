@@ -8,6 +8,7 @@
 
 .container {
   width: 100%;
+  margin-left: 2rem;
 }
 
 .container-fluid {
@@ -37,7 +38,8 @@
   width: -webkit-fill-available;
   padding-left: 5rem;
   padding-right: 5rem;
-  height: calc(100vh - 20rem);
+  /* height: calc(100vh - 20rem); */
+  height: 90%;
 }
 
 .textBoxSender {
@@ -88,18 +90,26 @@
   width: -webkit-fill-available;
 }
 .profileImage {
-  height: 10rem;
-  width: 10rem;
+  height: 5rem;
+  width: 5rem;
   border-radius: 50%;
   object-fit: cover;
+  margin-left:2rem;
 }
 
 .chatheader {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  /* gap: 2rem; */
   color: #678990;
   font-size: 3rem;
   font-weight: 600;
   padding: 1rem;
 }
+
+.userFullname{
+  font-size: 2rem;
+  font-weight: 100;
+  padding-left: 1rem;
+}
+
