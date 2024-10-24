@@ -52,9 +52,9 @@ export default function SideMenu() {
     setIsOpen(!isOpen); // Toggle sidebar visibility
   };
 
-  console.log(user);
+
   return (
-    <>
+    <React.Fragment>
       {isMobile ? (
         <>
           {/* Content for mobile view */}
@@ -84,9 +84,7 @@ export default function SideMenu() {
             </p>
           </Link>
 
-        
-
-    
+  
           {user?.userType !== "admin" && (
             <Link
               to={"/chatlist"}
@@ -189,8 +187,6 @@ export default function SideMenu() {
           </button>
         </div>
       </div>
-
-
 
           </div>
         </>
@@ -376,7 +372,7 @@ export default function SideMenu() {
           </div>
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
   
 }
