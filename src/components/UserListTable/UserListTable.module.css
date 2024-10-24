@@ -1,0 +1,16 @@
+.header,
+.list-item {
+    display: grid;
+    grid-template-columns: 5rem repeat(4,13rem) 2rem;
+    margin: 0 2rem;
+    align-items: center;
+}
+
+.list-item {
+    height: 4rem;
+    min-height: 4rem;
+}
+
+.ellipsis {
+    cursor: pointer;
+}
