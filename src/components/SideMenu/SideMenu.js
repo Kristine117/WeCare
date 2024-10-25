@@ -83,6 +83,21 @@ export default function SideMenu() {
               {user?.userType !== "admin" ? "Home" : "Dashboard"}
             </p>
           </Link>
+          {user?.userType === "senior" && (
+            <Link
+              to={"/find"}
+              // onClick={clickedActiveFind}
+              className={activeNavFind ? "menu-item actives" : "menu-item"}
+            >
+              <span className="material-symbols-outlined side-menu-color icon-size">
+                search
+              </span>
+              <p className="ml-2 pt-3">Find</p>
+            </Link>
+          )}
+
+
+
 
   
           {user?.userType !== "admin" && (
@@ -97,6 +112,8 @@ export default function SideMenu() {
               <p className="ml-2 pt-3">Message</p>
             </Link>
           )}
+
+
 
           {user?.userType !== "admin" && (
             <Link
@@ -153,7 +170,7 @@ export default function SideMenu() {
 
           <div className={`${sidemenu.supportSpacing}`}>
         {user?.userType !== "admin" && (
-          <div className="support-item ml-4 mr-4">
+          <div className="support-item ml-4 mr-4 mb-4">
             <div className={sidemenu["support"]}>
               <span className="material-symbols-outlined side-menu-color icon-size">
                 volunteer_activism
@@ -164,7 +181,7 @@ export default function SideMenu() {
         )}
 
         {user?.userType === "admin" && (
-          <div className="support-item ml-4 mr-4">
+          <div className="support-item ml-4 mr-4 mb-4">
             <div>
               <span className="material-symbols-outlined side-menu-color icon-size">
                 volunteer_activism
@@ -173,6 +190,9 @@ export default function SideMenu() {
             </div>
           </div>
         )}
+
+
+        
         <div className="support-item logout-bottom ml-4">
           <span className="material-symbols-outlined side-menu-color icon-size">
             logout
@@ -296,7 +316,7 @@ export default function SideMenu() {
 
         <div className={`${sidemenu.supportSpacing}`}>
         {user?.userType !== "admin" && (
-          <div className="support-item ml-4 mr-4">
+          <div className="support-item ml-4 mr-4 mb-2">
             <div className={sidemenu["support"]}>
               <span className="material-symbols-outlined side-menu-color icon-size">
                 volunteer_activism

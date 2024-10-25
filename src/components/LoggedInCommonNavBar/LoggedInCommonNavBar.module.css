@@ -106,18 +106,28 @@
     font-weight: 700;
   }
   .container {
-    display: grid;
-    grid-template-columns: repeat(3,30%);
-    grid-template-rows: 5rem;
+    display: flex;
     padding: 2rem;
     color: #678990;
     justify-content: initial;
     width: initial;
   }
 
-  
+  .subContainer{
+    display: flex;
+    gap: initial;
+  }
   .inputSearch {
     height: 2rem;
     width:8rem;
+  }
+
+  .navbarIconContainer {
+    gap: initial;
+  }
+
+  .bell,
+  .profile {
+    padding-right: .20rem;
   }
 }

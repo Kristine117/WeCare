@@ -87,70 +87,96 @@ const AppointmentForm = ({ assistantId, assistantName, assistantProfile }) => {
     <div className={wcdesign["form-container"]}>
       <div className={wcdesign["form-head"]}>Appointment</div>
       <div className={wcdesign["form-section"]}>
+
+        
+        <div className={`${wcdesign.card}`}>
         <div className={wcdesign["profile-section"]}>
           <img
-            src={assistantProfile}
+            src={`${process.env.REACT_APP_API_URL}/profilePictures/${assistantProfile}`}
             alt="assitan"
             className={wcdesign["profile-image"]}
           ></img>
-          <p className={wcdesign["name"]}>Assistant Name: {assistantName}</p>
+          <p className={`pt-3 ${wcdesign.assistantName}`}>Assistant Name: {assistantName}</p>
         </div>
-        <form onSubmit={(e) => sendAppointment(e)}>
+        <form className="d-block ml-3 mb-4" onSubmit={(e) => sendAppointment(e)}>
+
+        <div className={`${wcdesign.serviceContainer}`}>
           <div className="form-group">
-            <label htmlFor="serviceDate">Service Date</label>
+            <label
+            className={`${wcdesign.appointmentLabel}`}
+             htmlFor="serviceDate">Service Date</label>
             <input
               type="Date"
               id="serviceDate"
-              className="form-control"
+              className={`form-control ${wcdesign.inputDateSize} mr-4`}
               onChange={(e) => setServiceDate(e.target.value)}
             />
           </div>
+
           <div className="form-group">
-            <label htmlFor="startDate">Start Date</label>
+            <label 
+            className={`${wcdesign.appointmentLabel}`}
+            htmlFor="service-duration">Service Duration</label>
+            <input
+              type="number"
+              id="service-duration"
+              className={`form-control ${wcdesign.inputDateSize} `}
+              onChange={(e) => setServiceDuration(e.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className={`${wcdesign.startAndEndDateContainer}`}>
+          <div className="form-group">
+            <label 
+            className={`${wcdesign.appointmentLabel}`}
+            htmlFor="startDate">Start Date</label>
             <input
               type="Date"
               id="startDate"
-              className="form-control"
+              className={`form-control ${wcdesign.inputDateSize} mr-4`}
               onChange={(e) => setStartDate(e.target.value)}
             />
           </div>
           <div className="form-group">
-            <label htmlFor="endDate">End Date</label>
+            <label 
+            className={`${wcdesign.appointmentLabel}`}
+            htmlFor="endDate">End Date</label>
             <input
               type="Date"
               id="endDate"
-              className="form-control"
+              className={`form-control ${wcdesign.inputDateSize}`}
               onChange={(e) => setEndDate(e.target.value)}
             />
           </div>
+        </div>
 
           <div className="form-group">
-            <label htmlFor="service-duration">Service Duration</label>
-            <input
-              type="number"
-              id="service-duration"
-              className="form-control"
-              onChange={(e) => setServiceDuration(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="service-decription">Service Description</label>
+            <label
+            className={`${wcdesign.appointmentLabel}`}
+            htmlFor="service-decription">Service Description</label>
 
             <textarea
               type="textarea"
               id="service-description"
-              className="form-control"
+              className={`form-control ${wcdesign.inputTextArea} mb-4`}
               onChange={(e) => setServiceDescription(e.target.value)}
             ></textarea>
           </div>
 
+          <div className={`${wcdesign.buttonContainer}`}>
           <button
             type="submit"
-            className={`btn btn-login ${wcdesign["submit-button"]}`}
+            className={`btn-get-started buttonSeniorSize`}
           >
             Submit
           </button>
+          </div>
         </form>
+        </div>
+
+
+
       </div>
     </div>
   );

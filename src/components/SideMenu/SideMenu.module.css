@@ -3,7 +3,7 @@
 .sidebarLaptopView {
   background: linear-gradient(180deg, #c1e1e1 0%, #b0d8d8 100%);
     /* width: 15rem; */
-    min-width: 15rem;
+    min-width: 12rem;
     /* height: 100vh; */
     min-height: 100vh;
     /* padding-right: 4rem; */
@@ -34,6 +34,7 @@
 
 .support {
   display: flex;
+  align-items: center;
 }
 
 .customLogoutBtn{
@@ -42,9 +43,9 @@
   font-size: 0.9rem;
 }
 
-/* .supportSpacing{
-  margin-top: 12rem;
-} */
+ .supportSpacing{
+  margin-bottom:3rem;
+} 
 
 
 /* Adjust sidebar for mobile view */

@@ -112,7 +112,7 @@ const ChatListComponent = ({
                 {date}
                 {console.log("date" + date)}
                 <span
-                  className={`material-symbols-outlined wcdesign["active-time"]`}
+                  className={`${wcdesign.iconSize} material-symbols-outlined wcdesign["active-time"]`}
                 >
                   radio_button_checked
                 </span>

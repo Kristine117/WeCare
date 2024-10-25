@@ -101,7 +101,7 @@ const ChatList = () => {
                 <span className="material-symbols-outlined side-menu-color icon-size mr-5">
                   account_circle
                 </span>
-              </div>
+              </div> 
             </div>
             <div className={wcdesign["message-list-container"]}>
               {assistantUserList?.map((val) => {
@@ -110,7 +110,7 @@ const ChatList = () => {
                     key={val.userId}
                     fullName={val.fullName}
                     userId={val.userId}
-                    profileImage={val.profileImage}
+                    profileImage={`${process.env.REACT_APP_API_URL}/profilePictures/${val.profileImage}`}
                     message={
                       val.messageContent === null 
                         ? '' 

@@ -19,3 +19,16 @@
   margin: 0 2rem;
   overflow-y: scroll;
 }
+
+
+/* For tablet */
+@media(max-width: 1200px){
+
+}
+
+/* For phone view */
+@media(max-width: 768px){
+  .header-title {
+    font-size: .90rem;
+  }
+}

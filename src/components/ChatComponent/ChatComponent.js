@@ -34,6 +34,7 @@ const ChatComponent = ({ recipientId, fullName, profileImage }) => {
   const [socket, setSocket] = useState(null);
   const [fileNames, setFileNames] = useState([]); // State to store selected filenames
   const [inputActive, setInputActive] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   const socketRef = useRef(null); // Initialize socketRef
   const roomIdRef = useRef(null);
@@ -269,7 +270,7 @@ const ChatComponent = ({ recipientId, fullName, profileImage }) => {
       <div className={style.chatheader}>
         <FaArrowLeft className={style.iconImage} />
         <img className={style.profileImage} src={profileImage} />
-        <div>{fullName}</div>
+        <div className={style.userFullname}>{fullName}</div>
       </div>
       <div className="">
         <div className="">
@@ -316,8 +317,8 @@ const ChatComponent = ({ recipientId, fullName, profileImage }) => {
                           <img
                             src={`${apiUrl}${msg.messageContent}`}
                             alt="uploaded"
-                            className="img-fluid"
-                            style={{ maxWidth: "35rem", cursor: "pointer" }}
+                            className={`${style.defaultMsgPhoto} img-fluid`}
+                            // style={{ maxWidth: "35rem", cursor: "pointer" }}
                             onClick={() =>
                               handleImageClick(`${apiUrl}${msg.messageContent}`)
                             } // Click to open modal
@@ -370,12 +371,15 @@ const ChatComponent = ({ recipientId, fullName, profileImage }) => {
                   <FaPlus className={style.iconPlus} />
                 </label>
                 {console.log(file)}
-                <div className={style.messageInput}>
+                {/* <div className={style.messageInput}> */}
+                <div className={`${style.messageInput} ${isFocused ? style.inUse : ""}`}>
                   {file == null && (
                     <InputEmoji
                       value={messageContent}
                       onChange={(val) => setMessageContent(val)}
                       onKeyDown={sendMessageOnEnter}
+                      onFocus={() => setIsFocused(true)} 
+                      onBlur={() => setIsFocused(false)}  
                       cleanOnEnter
                       placeholder="Type a message"
                     />
@@ -432,7 +436,7 @@ const ChatComponent = ({ recipientId, fullName, profileImage }) => {
                 <img
                   src={selectedImage}
                   alt="Enlarged"
-                  className="img-fluid"
+                  className={`${style.msgContentPhoto} img-fluid`}
                   style={{
                     maxWidth: "800px",
                     maxHeight: "600px",

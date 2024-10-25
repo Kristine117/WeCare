@@ -10,21 +10,24 @@
   flex-direction: column;
   align-items: center;
   font-size: 2rem;
+  
 }
 
 .profile-image {
-  height: 10rem;
-  width: 10rem;
+  height: 9rem;
+  width: 9rem;
   border-radius: 50%;
   object-fit: cover;
 }
 
+
 .form-head {
   display: flex;
-  font-size: 4rem;
-  font-weight: bold;
+  font-size: 2rem;
+  font-weight: 700;
   color: #678990;
   border: none;
+  padding: 2rem;
 }
 
 .form-section {
@@ -32,8 +35,86 @@
   flex-direction: column;
   width: -webkit-fill-available;
   height: calc(100vh - 10rem);
-  padding: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  align-items: center;
 }
+
+
 .submit-button {
-  background: #b0d8d8;
+  background: #346464;
+  color:#678990;
+  width: 13rem;
+}
+
+.assistantName{
+  font-size: 1rem;
+}
+
+.serviceContainer{
+  display: flex;
+}
+
+.startAndEndDateContainer{
+  display: flex;
+}
+.inputDateSize{
+  width: 13rem;
+}
+.inputTextArea{
+  width: 27.5rem;
+}
+.buttonContainer{
+  display: flex;
+  justify-content: center;
+}
+.card{
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+  padding-top: 2rem;
+  /* padding-bottom: 2rem; */
+}
+.card:hover{
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Adjust sidebar for mobile view */
+@media(max-width: 768px) {
+  .appointmentLabel{
+    font-size: .90rem;
+  }
+  .serviceContainer{
+    display: block;
+  }
+  .startAndEndDateContainer{
+    display: block;
+  }
+  .inputTextArea{
+    width: 20rem;
+  }
+  .inputDateSize{
+    width: 20rem;
+  }
+  .card{
+    padding: 2px;
+    border-radius: 10px;
+    box-shadow: initial;
+    transition: initial;
+  }
+  .card:hover{
+    box-shadow: initial;
+  }
+  .phoneCentering{
+    display: flex;
+    justify-content: center;
+  }
+  .form-head {
+    padding: 1rem;
+  }
+  .assistantName{
+    font-size: 1rem;
+    padding-bottom: 2rem;
+  }
 }
