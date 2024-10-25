@@ -4,7 +4,7 @@ import { BiArrowBack } from "react-icons/bi";
 import gh from "./Gcash.module.css";
 import axios from "axios";
 
-const PAYMONGO_SECRET_KEY = process.env.PAYMONGO_SECRET_KEY;
+const PAYMONGO_SECRET_KEY = "sk_test_C62auzHAPXNnEp88vSASfGYC";
 
 const Gcash = ({handleBackFunc,confirmPaymentFunc,createPaymentIntentFunc})=>{
 
@@ -17,22 +17,23 @@ const Gcash = ({handleBackFunc,confirmPaymentFunc,createPaymentIntentFunc})=>{
                 attributes: {
                   type: "gcash",
                   details: {
-                    phone: phoneNumber,  // GCash phone number to charge
+                    phone: phoneNumber,  
+                    
                   },
+                  returnUrl: "http://localhost:3000/dashboard-main"
                 },
               },
             },
             {
               headers: {
-                Authorization: `Basic ${Buffer.from(PAYMONGO_SECRET_KEY).toString('base64')}`,
+                Authorization: `Basic ${btoa(`${PAYMONGO_SECRET_KEY}`)}`,
                 'Content-Type': 'application/json',
               }
             }
           );
           
           const paymentMethodId = response.data.data.id;
-          console.log('Payment Method Attached:', paymentMethodId);
-      
+
           // Now confirm the payment using this payment method
           await confirmPaymentFunc(paymentIntentId, paymentMethodId);
         } catch (error) {
@@ -44,20 +45,20 @@ const Gcash = ({handleBackFunc,confirmPaymentFunc,createPaymentIntentFunc})=>{
         e.preventDefault();
 
         const form = new FormData(e.target);
-        console.log(await form.get("phone-number"));
+        const phoneNumber = await form.get("phone-number");
 
-        // try {
-        //   // Step 1: Create the Payment Intent with all methods allowed
-        //   const paymentIntentData = await createPaymentIntentFunc();
+        try {
+          // Step 1: Create the Payment Intent with all methods allowed
+          const paymentIntentData = await createPaymentIntentFunc();
       
-        //   if (paymentIntentData) {
-        //     const paymentIntentId = paymentIntentData.data.id;
+          if (paymentIntentData) {
+            const paymentIntentId = paymentIntentData.data.id;
       
-        //    attachGcashPaymentMethod(paymentIntentId,"09300250061")
-        //   }
-        // } catch (error) {
-        //   console.error('Error processing payment:', error.message);
-        // }
+           attachGcashPaymentMethod(paymentIntentId,phoneNumber)
+          }
+        } catch (error) {
+          console.error('Error processing payment:', error.message);
+        }
       }
       
     return (

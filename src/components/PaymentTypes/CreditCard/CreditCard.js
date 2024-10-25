@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import cc from "./CreditCard.module.css";
 import Button from "../../Button/Button";
 import axios from "axios";
@@ -6,6 +6,11 @@ import axios from "axios";
 const PAYMONGO_SECRET_KEY = "sk_test_C62auzHAPXNnEp88vSASfGYC";
 
 const CreditCard = ({handleBackFunc,confirmPaymentFunc,createPaymentIntentFunc})=>{
+  const [ccName,setCCName]= useState("");
+  const [expiration,setExpiration]=useState("");
+  const [cardNumber,setCardNumber] = useState("");
+  const [cyy,setCyy] = useState("");
+  const [error,setError] = useState("");
 
     async function attachCardPaymentMethod(paymentIntentId, cardDetails) {
         try {
@@ -37,15 +42,16 @@ const CreditCard = ({handleBackFunc,confirmPaymentFunc,createPaymentIntentFunc})
       
           await confirmPaymentFunc(paymentIntentId, paymentMethodId);
         } catch (error) {
+          setError("Error with your Card Details. Kindly check for the following fields")
           console.error('Error attaching card payment method:', error.response ? error.response.data : error.message);
         }
       }
 
       const cardDetails = {
-        number: '4343434343434345',  // Test card number
-        exp_month: 12,
-        exp_year: 2026,
-        cvc: '123'
+        number:cardNumber,  // Test card number
+        exp_month: +expiration.split("/")[0],
+        exp_year: +expiration.split("/")[1],
+        cvc: cyy
       };
 
     async function processPayment(e) {
@@ -68,28 +74,29 @@ const CreditCard = ({handleBackFunc,confirmPaymentFunc,createPaymentIntentFunc})
 
       
     return(
-        <form className={cc["container"]} onSubmit={processPayment}>
+        <React.Fragment>
+          <p className={cc["error-msg"]}>{error}</p>
+          <form className={cc["container"]} onSubmit={processPayment}>
             <img src="./cc.png" className={cc["img"]}/>
-
             <div className={cc["cc-container"]}>
                 <div className={cc["form-group"]}>
                     <label htmlFor="cs-name">Name</label>
-                    <input name="cs-name"/>
+                    <input name="cs-name" onChange={(e)=>setCCName(e.target.value)}/>
                 </div>
 
                 <div className={cc["form-group"]}>
                     <label htmlFor="expiration">Expiration</label>
-                    <input name="expiration"/>
+                    <input name="expiration" onChange={(e)=>setExpiration(e.target.value)}/>
                 </div>
 
                 <div className={cc["form-group"]}>
                     <label htmlFor="card-number">Card No.</label>
-                    <input name="card-number" type="number"/>
+                    <input name="card-number" type="number" onChange={(e)=>setCardNumber(e.target.value)}/>
                 </div>
 
                 <div className={cc["form-group"]}>
                     <label htmlFor="cyy">CYY</label>
-                    <input name="cyy"/>
+                    <input name="cyy" onChange={(e)=>setCyy(e.target.value)}/>
                 </div>
             </div>
             <div className={cc["footer"]}>
@@ -98,6 +105,7 @@ const CreditCard = ({handleBackFunc,confirmPaymentFunc,createPaymentIntentFunc})
             <Button type="submit" className={cc['btn']}>Proceed</Button>
             </div>
         </form>
+        </React.Fragment>
     )
 }
 

@@ -64,18 +64,18 @@ function App() {
         if (data.auth !== "Failed") {
           // the passed id will be set in the setUser asand will be set globally carried in line 21 const [user, setUser] = useState and so on
           setUser({
-            id: data.data.userId,
-            encryptedId: data.data.userType,
-            lastname: data.data.lastname,
-            firstname: data.data.firstname,
-            email: data.data.email,
-            userType: data.data.userType,
-            street: data.data.street,
-            barangayId: data.data.barangayId,
-            contactNumber: data.data.contactNumber,
-            gender: data.data.gender,
-            birthDate: data.data.birthDate,
-            experienceId: data.data.experienceId,
+            id: data.data?.userId,
+            encryptedId: data.data?.userType,
+            lastname: data.data?.lastname,
+            firstname: data.data?.firstname,
+            email: data.data?.email,
+            userType: data.data?.userType,
+            street: data.data?.street,
+            barangayId: data.data?.barangayId,
+            contactNumber: data.data?.contactNumber,
+            gender: data.data?.gender,
+            birthDate: data.data?.birthDate,
+            experienceId: data.data?.experienceId,
             approveFlg: data.data?.approveFlg
           });
         } else {
