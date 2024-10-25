@@ -3,7 +3,7 @@
 .sidebarLaptopView {
   background: linear-gradient(180deg, #c1e1e1 0%, #b0d8d8 100%);
     /* width: 15rem; */
-    min-width: 15rem;
+    min-width: 12rem;
     /* height: 100vh; */
     min-height: 100vh;
     /* padding-right: 4rem; */

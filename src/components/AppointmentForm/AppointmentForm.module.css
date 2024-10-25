@@ -13,18 +13,20 @@
 }
 
 .profile-image {
-  height: 10rem;
-  width: 10rem;
+  height: 9rem;
+  width: 9rem;
   border-radius: 50%;
   object-fit: cover;
 }
 
+
 .form-head {
   display: flex;
-  font-size: 4rem;
-  font-weight: bold;
+  font-size: 2rem;
+  font-weight: 700;
   color: #678990;
   border: none;
+  padding: 2rem;
 }
 
 .form-section {
@@ -36,4 +38,8 @@
 }
 .submit-button {
   background: #b0d8d8;
+}
+
+.assistantName{
+  font-size: 1rem;
 }

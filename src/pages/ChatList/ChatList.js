@@ -101,7 +101,7 @@ const ChatList = () => {
                 <span className="material-symbols-outlined side-menu-color icon-size mr-5">
                   account_circle
                 </span>
-              </div>
+              </div> 
             </div>
             <div className={wcdesign["message-list-container"]}>
               {assistantUserList?.map((val) => {

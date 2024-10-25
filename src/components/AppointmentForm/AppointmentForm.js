@@ -89,7 +89,7 @@ const AppointmentForm = ({ assistantId, assistantName, assistantProfile }) => {
       <div className={wcdesign["form-section"]}>
         <div className={wcdesign["profile-section"]}>
           <img
-            src={assistantProfile}
+            src={`${process.env.REACT_APP_API_URL}/profilePictures/${assistantProfile}`}
             alt="assitan"
             className={wcdesign["profile-image"]}
           ></img>
