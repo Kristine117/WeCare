@@ -1,13 +1,19 @@
 .card {
-  display: grid;
-  grid-template-columns: 7.5rem repeat(2, 20rem);
+  display: flex;
   align-items: center;
   padding: 1rem;
-  text-align: center;
+  gap: 1rem;
+  width: -webkit-fill-available;
+  flex-direction: row;
+  justify-content: space-evenly;
+  border: 1px solid;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
 }
 
 .container-indicator {
   text-align: left;
+  width: 30rem;
 }
 
 .indicator {

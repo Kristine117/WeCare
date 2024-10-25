@@ -10,20 +10,16 @@ import appList from "./AppointmentList.module.css";
 import Payment from "../../components/Payment/Payment";
 import ListController from "../../components/ListController/ListController";
 
-const APP_LIST_STATUS =[
-  {btnName:"ongoing",
-    btnTitle: "Ongoing"
-  },
-  {btnName:"approve",
-    btnTitle: "Approve"
-  }
-]
+const APP_LIST_STATUS = [
+  { btnName: "ongoing", btnTitle: "Ongoing" },
+  { btnName: "approve", btnTitle: "Approve" },
+];
 const AppointmentList = () => {
-  const { user, appListStatus,setAppListStatus} = useContext(UserContext);
+  const { user, appListStatus, setAppListStatus } = useContext(UserContext);
 
   const [list, setList] = useState([]);
   const [openModal, setOpenModal] = useState(false);
-  const [amount,setAmount] = useState(null);
+  const [amount, setAmount] = useState(null);
 
   async function switchListRequests(e) {
     setAppListStatus(e.target.name);
@@ -39,9 +35,7 @@ const AppointmentList = () => {
     );
     const parseData = await data.json();
     setList(parseData?.data);
-
   }
-
 
   useEffect(() => {
     async function getAppointmentList() {
@@ -55,7 +49,7 @@ const AppointmentList = () => {
         }
       );
       const parseData = await data.json();
-     
+
       setList(parseData?.data);
     }
 
@@ -67,11 +61,13 @@ const AppointmentList = () => {
     setAmount(e.target.dataset.amount);
   }
 
-  console.log(user.userType)
- 
+  console.log(user.userType);
+
   return (
     <React.Fragment>
-      {openModal && <Payment openModal={openModalFuncHandler} amount={amount}/>}
+      {openModal && (
+        <Payment openModal={openModalFuncHandler} amount={amount} />
+      )}
       <main>
         {!user?.id && user.userType !== "admin" && user.userType !== null && (
           <Navigate to={"/login"} />
@@ -81,7 +77,6 @@ const AppointmentList = () => {
             <SideMenu />
             <DashboardContainer>
               <LoggedInCommonNavBar title="Request" />
-              <div className={appList["header-title"]}>Appointment List</div>
               {user.userType === "assistant" && (
                 <ListController
                   switchListRequests={switchListRequests}
