@@ -422,9 +422,11 @@ const updateNote = async (noteItem) => {
                       className={styles.hiddenInput} 
                     />
 
-                   <div className={styles.saveReminderbtnDiv} >
-                    <button className={styles.saveReminderbtn} onClick={() => handleSaveReminder(noteItem)}>Save</button>
-                   </div>
+                   {reminderDate != "" && reminderTime != "" &&(
+                      <div className={styles.saveReminderbtnDiv} >
+                      <button className={styles.saveReminderbtn} onClick={() => handleSaveReminder(noteItem)}>Save</button>
+                    </div>
+                   )}
                   </div>
                 </div>
               )}
