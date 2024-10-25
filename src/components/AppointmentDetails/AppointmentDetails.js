@@ -18,7 +18,7 @@ const AppointmentDetails = ({
   servingProfileImage,
   statusId,
   openModal,
-  statusTab
+  statusTab,
 }) => {
   const navigate = useNavigate();
 
@@ -26,13 +26,13 @@ const AppointmentDetails = ({
 
   const decideHandler = async (e) => {
     const method = "PUT";
-    const result= await updateAppointment(appId, method, {
-        servingName: servingName,
-        result: e.target.name,
-      });
+    const result = await updateAppointment(appId, method, {
+      servingName: servingName,
+      result: e.target.name,
+    });
 
     const declaredOption = e.target.name === "approve" ? "Approve" : "Rejected";
-    if(result.isSuccess) {
+    if (result.isSuccess) {
       Swal.fire({
         title: `You have ${declaredOption} Appointment with ${servingName}`,
         icon: "successful",
@@ -45,75 +45,79 @@ const AppointmentDetails = ({
 
   const userTypeCheck = loggedInUserType === "assistant";
 
-
   return (
     <React.Fragment>
-        {updateAppointment.isSuccess && <Navigate to={'/dashboard-main'}/>}
-        <div className={design["card"]}>
-          <div>
-            {servingProfileImage && (
-              <img
-                src={servingProfileImage}
-                className={design["profile-image"]}
-                alt="This is your Serving User Image"
-              />
+      {updateAppointment.isSuccess && <Navigate to={"/dashboard-main"} />}
+      <div className={design["card"]}>
+        <div>
+          {servingProfileImage && (
+            <img
+              src={`${process.env.REACT_APP_API_URL}/profilePictures${servingProfileImage}`}
+              className={design["profile-image"]}
+              alt="This is your Serving User Image"
+            />
+          )}
+          {!servingProfileImage && (
+            <FaUser size={40} className={design["default-profile"]} />
+          )}
+        </div>
+
+        {statusTab === "ongoing" && (
+          <div className={design["container-indicator"]}>
+            {userTypeCheck && (
+              <div className={design["indicator"]}>
+                <strong>{servingName}</strong> would like to request an
+                appointment with you.
+              </div>
             )}
-            {!servingProfileImage && (
-              <FaUser size={40} className={design["default-profile"]} />
+            {!userTypeCheck && (
+              <div className={design["indicator"]}>
+                You have booked appointment with <strong>{servingName}</strong>{" "}
+              </div>
+            )}
+            <div className={design["price"]}>Price: {price}</div>
+            <div className={design["description"]}>
+              Description: {description}
+            </div>
+          </div>
+        )}
+
+        {statusTab === "approve" && (
+          <div>
+            <h1>{servingName}</h1>
+          </div>
+        )}
+
+        {userTypeCheck && statusTab === "ongoing" && (
+          <div>
+            <Button type="button" name="accept" onClick={decideHandler}>
+              Accept
+            </Button>
+            <Button type="button" name="reject" onClick={decideHandler}>
+              Reject
+            </Button>
+          </div>
+        )}
+
+        {!userTypeCheck && statusTab === "ongoing" && (
+          <div className={design["app-status"]}>
+            <div>
+              <strong>{statusDes}</strong>
+            </div>
+            {statusId === 2 && (
+              <Button type="button" data-amount={price} onClick={openModal}>
+                Pay Now
+              </Button>
             )}
           </div>
+        )}
 
-          {statusTab === 'ongoing' && 
-            <div className={design["container-indicator"]}>
-              {userTypeCheck && (
-                <div className={design["indicator"]}>
-                  <strong>{servingName}</strong> would like to request an appointment
-                  with you.
-                </div>
-              )}
-              {!userTypeCheck && (
-                <div className={design["indicator"]}>
-                  You have booked appointment with <strong>{servingName}</strong>{" "}
-                </div>
-              )}
-              <div className={design["price"]}>Price: {price}</div>
-              <div className={design["description"]}>Description: {description}</div>
-            </div>}
-
-          {statusTab === "approve" && 
-            <div>
-              <h1>{servingName}</h1>  
-            </div>
-          }
-
-          {(userTypeCheck && statusTab === "ongoing") && 
-            <div>
-              <Button type="button" name="accept" onClick={decideHandler}>
-                Accept
-              </Button>
-              <Button type="button" name="reject" onClick={decideHandler}>
-                Reject
-              </Button>
-            </div>
-          }
-
-          {(!userTypeCheck && statusTab === "ongoing")  && 
-            <div className={design["app-status"]}>
-              <div>
-                <strong>{statusDes}</strong>
-              </div>
-              {statusId === 2 && (
-                <Button type="button" data-amount={price} onClick={openModal} >
-                  Pay Now
-                </Button>
-              )}
-            </div>
-          }
-
-          {statusTab === "approve" && <div>
-              <FaEllipsisV className={design["ellipsis"]}/>
-            </div>}
-        </div>
+        {statusTab === "approve" && (
+          <div>
+            <FaEllipsisV className={design["ellipsis"]} />
+          </div>
+        )}
+      </div>
     </React.Fragment>
   );
 };
