@@ -145,3 +145,29 @@
 .rating-section{
   font-size:1rem;
 }
+
+/* Adjust sidebar for mobile view */
+@media(max-width: 768px) {
+  .profile-image {
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .rating-star {
+    color: #edc04e;
+    font-size: 1rem !important;
+  }
+  .profile-section {
+    display: flex;
+    gap: initial;
+    color: #678990;
+    margin: 0.5rem;
+    cursor: pointer;
+    padding: initial;
+  }
+  .rating-section{
+    font-size:.90rem;
+    display: flex;
+  }
+}

@@ -83,6 +83,21 @@ export default function SideMenu() {
               {user?.userType !== "admin" ? "Home" : "Dashboard"}
             </p>
           </Link>
+          {user?.userType === "senior" && (
+            <Link
+              to={"/find"}
+              // onClick={clickedActiveFind}
+              className={activeNavFind ? "menu-item actives" : "menu-item"}
+            >
+              <span className="material-symbols-outlined side-menu-color icon-size">
+                search
+              </span>
+              <p className="ml-2 pt-3">Find</p>
+            </Link>
+          )}
+
+
+
 
   
           {user?.userType !== "admin" && (
@@ -97,6 +112,8 @@ export default function SideMenu() {
               <p className="ml-2 pt-3">Message</p>
             </Link>
           )}
+
+
 
           {user?.userType !== "admin" && (
             <Link
