@@ -3,29 +3,29 @@ import UserContext from "../../UserContext";
 import { Navigate, useLocation } from "react-router-dom";
 import SideMenu from "../../components/SideMenu/SideMenu";
 import DashboardContainer from "../../components/DashboardContainer/DashboardContainer";
-import NotesComponent from '../../components/NotesComponent/NotesComponent'
-import styles from './Notes.module.css'
+import NotesComponent from "../../components/NotesComponent/NotesComponent";
+import styles from "./Notes.module.css";
+import LoggedInCommonNavBar from "../../components/LoggedInCommonNavBar/LoggedInCommonNavBar";
 
 function Notes() {
   const { user } = useContext(UserContext);
   const location = useLocation();
 
-
-  
   return (
-      <main>
+    <main>
       {/* {!user?.id && <Navigate to={"/login"} />} */}
-    {console.log(user.id)}
-       {user?.id && ( 
+      {console.log(user.id)}
+      {user?.id && (
         <section className={styles.dashboard}>
           <SideMenu />
-            <DashboardContainer>
-              <NotesComponent loggedInUserId={user.id}/>
-            </DashboardContainer>
+          <DashboardContainer>
+            <LoggedInCommonNavBar title="Notes" />
+            <NotesComponent loggedInUserId={user.id} />
+          </DashboardContainer>
         </section>
-       )} 
-      </main>
-  )
+      )}
+    </main>
+  );
 }
 
-export default Notes
+export default Notes;

@@ -90,7 +90,7 @@ const AppointmentDetails = ({
 
         {userTypeCheck && statusTab === "ongoing" && (
           <div>
-            <Button type="button" name="accept" onClick={decideHandler}>
+            <Button type="button" name="approve" onClick={decideHandler}>
               Accept
             </Button>
             <Button type="button" name="reject" onClick={decideHandler}>
