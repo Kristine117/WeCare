@@ -16,7 +16,6 @@ const Requests = ()=>{
             <SideMenu/>
             <DashboardContainer>
                 <LoggedInCommonNavBar title="Requests"/>
-     
             </DashboardContainer>            
         </section>}
     </main> 

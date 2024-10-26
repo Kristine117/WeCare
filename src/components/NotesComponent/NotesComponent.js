@@ -442,6 +442,19 @@ const updateNote = async (noteItem) => {
       </div>
       </div>
     </div>
+    // <>
+    //  <div className={`${styles.list}`}>
+    //   <div className={`${styles.noteTitle}`}>
+    //     <strong>Title</strong>
+    //   </div>
+    //   <div className={`${styles.noteContent}`}>
+    //     <p>asdasdasdasd</p>
+    //   </div>
+    //   <div className={`${styles.noteDate}`}>
+    //     01/20/2024
+    //   </div>
+    // </div>
+    // </>
   );
 }
 
