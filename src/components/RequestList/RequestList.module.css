@@ -1,0 +1,29 @@
+.container {
+    margin: .25rem 2rem;
+}
+
+.list-item {
+    display: grid;
+    grid-template-columns: repeat(3,15rem);
+}
+
+.controller {
+    display: flex;
+    gap: .5rem;
+}
+
+.approve-btn,.reject-btn{
+    width: 6.85rem;
+    padding: .5rem;
+    color: white;
+    font-weight: 600;
+    border-radius: .75rem;
+}
+
+.approve-btn {
+    background-color: #98CABE;
+}
+
+.reject-btn {
+    background-color: #FF8F8F;
+}
