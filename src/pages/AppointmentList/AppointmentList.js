@@ -61,8 +61,6 @@ const AppointmentList = () => {
     setAmount(e.target.dataset.amount);
   }
 
-  console.log(user.userType);
-
   return (
     <React.Fragment>
       {openModal && (

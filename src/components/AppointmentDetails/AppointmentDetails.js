@@ -4,9 +4,7 @@ import { FaEllipsisV, FaUser } from "react-icons/fa";
 import Button from "../Button/Button";
 import useUpdateAppointment from "../../hooks/useUpdateAppointment";
 import { Navigate, useNavigate } from "react-router-dom";
-// import UserContext from "../../UserContext";
 import Swal from "sweetalert2";
-import AppointmentList from "../../pages/AppointmentList/AppointmentList";
 
 const AppointmentDetails = ({
   appId,

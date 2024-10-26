@@ -16,7 +16,7 @@ const ChatListComponent = ({
 
   const handleClick = () => {
     updateReadFlg(messageId);
-    navigate(`/chat/${encodeURIComponent(userId)}`, {
+    navigate(`/chatlist/${encodeURIComponent(userId)}`, {
       state: {
         recipientId: userId,
         fullName: fullName,
