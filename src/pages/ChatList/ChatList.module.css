@@ -19,7 +19,6 @@
 }
 .message-list-container {
   width: -webkit-fill-available;
-  padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -27,18 +26,29 @@
   overflow: auto;
 }
 
-/* Lef Filter  */
-.sidebarProfile {
-  background: #d9d9d9;
-  width: 20rem;
+.overlay {
+  background: rgba(0, 0, 0, 0.5); /* Dark gray overlay */
+  width: 100%;
   height: 100vh;
   position: fixed;
   top: 0;
-  right: 0px;
+  left: 0;
+  z-index: 900; /* Below the sidebar */
+  transition: opacity 0.3s ease;
+}
+
+.sidebarProfile {
+  background: #d9d9d9; /* Light gray background */
+  width: 30%; /* Set the width to 30% */
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
   transition: right 0.3s ease;
   z-index: 1000;
   display: flex;
   flex-direction: column;
+  opacity: 1; /* Ensure visibility when opened */
 }
 
 .sidebarProfileOther {

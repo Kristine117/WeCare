@@ -12,6 +12,13 @@
   flex-direction: column;
   align-items: center;
 }
+.profileImage {
+  height: 10rem;
+  width: 10rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .profile-image {
   height: 10rem;
   width: 10rem;
@@ -94,9 +101,10 @@
 }
 
 .profile-name-modal {
-  font-size: 2rem;
+  font-size: 1.7rem;
   display: flex;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .profile-exp {
@@ -148,9 +156,9 @@
 
 /* Adjust sidebar for mobile view */
 @media(max-width: 768px) {
-  .profile-image {
-    height: 4rem;
-    width: 4rem;
+  .findProfilePhoto {
+    height: 10rem;
+    width: 10rem;
     border-radius: 50%;
     object-fit: cover;
   }
@@ -170,4 +178,27 @@
     font-size:.90rem;
     display: flex;
   }
+
+
+  .profile-section-modal {
+    display: flex;
+    gap: 1rem;
+    color: #678990;
+    margin: 0.5rem;
+    cursor: pointer;
+    flex-direction: row;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .modal {
+    width: 25rem;
+    height: 30rem;
+  }
+  .profile-image {
+    height: 5rem;
+    width: 5rem;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
 }

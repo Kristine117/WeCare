@@ -4,6 +4,9 @@
 
 .header {
   color: #678990;
+  font-size: 2rem;
+  font-weight: 700;
+  padding: 2rem;
 }
 
 .active {
@@ -203,3 +206,51 @@
   display: flex;
   justify-content: end;
 }
+
+
+/* .list {
+  background-color: #fffb85; 
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); 
+  border-radius: 8px 50px 8px 8px; 
+  transform: rotate(-2deg); 
+  transition: transform 0.2s ease, box-shadow 0.3s ease; 
+  width: fit-content;
+  max-width: 90%;
+  position: relative;
+}
+
+.list:hover {
+  transform: rotate(0deg) scale(1.02);
+  box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.list::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -8px;
+  left: 10px;
+  width: 80%;
+  height: 10px;
+  background: #fffb85;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.noteTitle {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.noteContent {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.noteDate {
+  font-size: 0.9rem;
+  text-align: right;
+  color: gray;
+} */
