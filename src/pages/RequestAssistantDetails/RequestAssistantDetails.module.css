@@ -1,3 +1,10 @@
 .dashboard {
     display: flex;
 }
+
+.assistant-card {
+    margin: 1.25rem auto 0 auto;
+    max-width: 50rem;
+    width: 50rem;
+    background-color: black;
+}
