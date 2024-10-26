@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import wcdesign from "./FindList.module.css";
 import { useNavigate } from "react-router-dom";
 
@@ -21,6 +21,7 @@ function FindList({
   const openModal = () => {
     setIsModalOpen(true);
     console.log("m1");
+    console.log(gender);
   };
 
   // Function to close modal
@@ -47,7 +48,8 @@ function FindList({
     });
   };
 
-  console.log(userId);
+
+
 
   return (
     <div>
@@ -116,15 +118,35 @@ function FindList({
                     <img
                       src={`${process.env.REACT_APP_API_URL}/profilePictures/${profileImage}`}
                       alt="Nurse holding syringe"
-                      className={wcdesign["profile-image"]}
+                      className={`${wcdesign.profileImage} selectFindProfilePP`}
                     ></img>
                   </div>
                 </div>
                 <div className={wcdesign["message-section-modal"]}>
                   <div className={wcdesign["message-container-modal"]}>
+
+
+                  <div className="d-flex">
                     <div className={wcdesign["profile-name-modal"]}>
-                      <div>{fullName}</div>
+                        <div>{fullName}</div>
+                        <div>
+                            {gender === "Male" ? (
+                              <span className={`material-symbols-outlined male`}>male</span>
+                            ) : (
+                              <span className={`material-symbols-outlined female`}>female</span>
+                            )}
+                          </div>
+                          <div>{assistant_age}</div>
                     </div>
+
+
+
+
+
+                    </div>
+
+
+
                     <div className={wcdesign["profile-exp"]}>
                       <span className={`material-symbols-outlined`}>
                         list_alt_check
@@ -141,17 +163,7 @@ function FindList({
                       </span>
                       <div>Rate: {rate}/hr</div>
                     </div>
-                    <div className={wcdesign["profile-rate"]}>
-                      {gender === "Male" ? (
-                          <span className="material-symbols-outlined">male</span>
-                        ) : (
-                          <span className="material-symbols-outlined">
-                            female
-                          </span>
-                        )}
-                    </div>
 
-                      <div>{assistant_age}</div>
                   </div>
                 </div>
               </div>

@@ -5,6 +5,8 @@ import io from 'socket.io-client';
 import wcdesign from "./ChatList.module.css";
 import UserContext from "../../UserContext";
 import ChatListComponent from "../../components/ChatListComponent/ChatListComponent";
+import DashboardContainer from "../../components/DashboardContainer/DashboardContainer";
+import LoggedInCommonNavBar from "../../components/LoggedInCommonNavBar/LoggedInCommonNavBar";
 
 const apiUrl =`${process.env.REACT_APP_API_URL}`;
 
@@ -92,16 +94,8 @@ const ChatList = () => {
             <div className={wcdesign["message-header"]}>
               <div className={wcdesign["message-head-content"]}>Messages</div>
               <div className="ml-auto mr-4"></div>
-              <div>
-                <span className="material-symbols-outlined side-menu-color icon-size mr-2">
-                  notifications
-                </span>
-              </div>
-              <div onClick={toggleMenu}>
-                <span className="material-symbols-outlined side-menu-color icon-size mr-5">
-                  account_circle
-                </span>
-              </div> 
+
+
             </div>
             <div className={wcdesign["message-list-container"]}>
               {assistantUserList?.map((val) => {
@@ -131,43 +125,11 @@ const ChatList = () => {
                 );
               })}
             </div>
-            {!isOpen && (
-              <>
-                <div
-                  className={
-                    wcdesign[`${!isOpen ? "sidebarProfileOther" : "closeSide"}`]
-                  }
-                ></div>
-                <div
-                  className={
-                    wcdesign[`${!isOpen ? "sidebarProfile" : "closeSide"}`]
-                  }
-                >
-                  <div
-                    className={wcdesign["hamburgerProfile"]}
-                    onClick={toggleMenu}
-                  >
-                    <span
-                      className={`material-symbols-outlined wcdesign["material-symbols-outlined"]`}
-                    >
-                      close
-                    </span>
-                  </div>
-                  <div className={wcdesign["container-form"]}>
-                    <div className={wcdesign["piture-section"]}>
-                      <img
-                        src="https://images.stockcake.com/public/1/1/a/11a88fd4-67cd-46f6-ba91-ce86df5f891c/nurse-holding-syringe-stockcake.jpg"
-                        alt="Nurse holding syringe"
-                        className={wcdesign["profile-image"]}
-                      ></img>
-                      <div className={wcdesign["username"]}>
-                        {user.firstname} {user.lastname}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
+
+
+
+
+
           </div>
         </section>
       )}

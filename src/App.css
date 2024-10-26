@@ -555,3 +555,24 @@ a {
   text-decoration: none; /* Ensure no underline on hover */
 }
 
+span.material-symbols-outlined.female{
+  color: pink !important;
+  font-size: 3rem !important;
+}
+
+span.material-symbols-outlined.male{
+  color: blue !important;
+  font-size: 3rem !important;
+}
+
+.selectFindProfilePP{
+  height: 10rem;
+  width: 10rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+div.react-input-emoji--container{
+  border: initial;
+  border: initial;
+}

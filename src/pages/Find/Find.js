@@ -130,12 +130,13 @@ const Find = () => {
                     className={wcdesign["hamburgerProfile"]}
                     onClick={toggleMenu}
                   >
+                     <div className={wcdesign["filter"]}> Filter by:</div>
                     <span
                       className={`material-symbols-outlined wcdesign["material-symbols-outlined"]`}
                     >
                       close
                     </span>
-                    <div className={wcdesign["filter"]}> Filter by:</div>
+                   
                   </button>
 
                   <div className={wcdesign["container-form"]}>
