@@ -1,55 +1,64 @@
-import React, { useState,useEffect,useRef } from 'react';
-import { FaPlus } from 'react-icons/fa'; 
-import styles from './Notes.module.css';
-import { FaThumbtack} from 'react-icons/fa'; 
-import { PiNutFill } from 'react-icons/pi';
-import Swal from 'sweetalert2';
+import React, { useState, useEffect, useRef } from "react";
+import { FaPlus, FaPlusCircle, FaPlusSquare } from "react-icons/fa";
+import styles from "./Notes.module.css";
+import { FaThumbtack } from "react-icons/fa";
+import { PiNutFill } from "react-icons/pi";
+import Swal from "sweetalert2";
 
-function NotesComponent({loggedInUserId}) {
+function NotesComponent({ loggedInUserId }) {
   const [notes, setNotes] = useState([]);
-  const [list,setList] = useState([]);
+  const [list, setList] = useState([]);
   const [userId, setUserId] = useState(loggedInUserId);
-  const [note, setNote] = useState({ appointmentId: 0, noteContent: "", isPinned: false, createdBy: userId });
+  const [note, setNote] = useState({
+    appointmentId: 0,
+    noteContent: "",
+    isPinned: false,
+    createdBy: userId,
+  });
   const [isFormActive, setIsFormActive] = useState(false);
-  const [status,setStatus ]= useState("approve");
+  const [status, setStatus] = useState("approve");
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
   const [selectedNote, setSelectedNote] = useState(null);
-  const [reminderDate ,setReminderDate] = useState("")
-  const [reminderTime ,setReminderTime] = useState("")
+  const [reminderDate, setReminderDate] = useState("");
+  const [reminderTime, setReminderTime] = useState("");
 
   const modalRef = useRef(null); // Create a reference for the modal
   const modalRef2 = useRef(null);
- 
 
-
-  useEffect(()=>{
-    async function getAppointmentList(){
-
-        const data = await fetch(`${process.env.REACT_APP_API_URL}/appointment/appointment-list`,{
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem("token")}`,
-                "status": status
-              },
-        })
-        const parseData = await data.json();
-        setList(parseData?.data);
-        console.log(list)
-      
+  useEffect(() => {
+    async function getAppointmentList() {
+      const data = await fetch(
+        `${process.env.REACT_APP_API_URL}/appointment/appointment-list`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            status: status,
+          },
+        }
+      );
+      const parseData = await data.json();
+      setList(parseData?.data);
+      console.log(list);
     }
 
-      getAppointmentList();
-  },[])
+    getAppointmentList();
+  }, []);
 
   // Fetch all notes function
   const fetchAllNotes = async () => {
-    const data = await fetch(`${process.env.REACT_APP_API_URL}/notes/getALLNotes/${encodeURIComponent(userId)}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem("token")}`
-      },
-    });
+    const data = await fetch(
+      `${process.env.REACT_APP_API_URL}/notes/getALLNotes/${encodeURIComponent(
+        userId
+      )}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
 
     const parseData = await data.json();
     setNotes(parseData.notes);
@@ -70,12 +79,10 @@ function NotesComponent({loggedInUserId}) {
 
   // Handle input change for note content
   const handleNoteContentChange = (e) => {
-
-      setNote((prevNote) => ({
-        ...prevNote,
-        noteContent: e.target.value, // Only update noteContent
-      }));
-    
+    setNote((prevNote) => ({
+      ...prevNote,
+      noteContent: e.target.value, // Only update noteContent
+    }));
   };
 
   // Handle appointment selection
@@ -86,44 +93,50 @@ function NotesComponent({loggedInUserId}) {
     }));
   };
 
-   // Handle clicks and touches outside the modal to close it
+  // Handle clicks and touches outside the modal to close it
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (modalVisible && modalRef.current && !modalRef.current.contains(event.target)) {
+      if (
+        modalVisible &&
+        modalRef.current &&
+        !modalRef.current.contains(event.target)
+      ) {
         handleCloseModal();
       }
     };
 
     // Add event listeners
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('touchstart', handleClickOutside); // Handle touch events
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside); // Handle touch events
 
     // Cleanup event listeners on component unmount
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('touchstart', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
     };
   }, [modalVisible]);
 
   useEffect(() => {
-
-  const handleClickOutsideReminder = (event) => {
-    if (modalVisible2 && modalRef2.current && !modalRef2.current.contains(event.target)) {
-      handleCloseModalForReminder();
-    }
+    const handleClickOutsideReminder = (event) => {
+      if (
+        modalVisible2 &&
+        modalRef2.current &&
+        !modalRef2.current.contains(event.target)
+      ) {
+        handleCloseModalForReminder();
+      }
     };
 
     // Add event listeners
-    document.addEventListener('mousedown', handleClickOutsideReminder);
-    document.addEventListener('touchstart', handleClickOutsideReminder); // Handle touch events
+    document.addEventListener("mousedown", handleClickOutsideReminder);
+    document.addEventListener("touchstart", handleClickOutsideReminder); // Handle touch events
 
     // Cleanup event listeners on component unmount
     return () => {
-      document.removeEventListener('mousedown', handleClickOutsideReminder);
-      document.removeEventListener('touchstart', handleClickOutsideReminder);
+      document.removeEventListener("mousedown", handleClickOutsideReminder);
+      document.removeEventListener("touchstart", handleClickOutsideReminder);
     };
   }, [modalVisible2]);
-
 
   const handleOpenModal = (noteId) => {
     setSelectedNote(noteId);
@@ -143,303 +156,338 @@ function NotesComponent({loggedInUserId}) {
     setSelectedNote(null);
   };
 
-
   const deleteNote = async (noteId) => {
     try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/notes/delete`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
-            },
-            body: JSON.stringify({ noteId }) // Send the noteId in the request body
-        });
-
-        const result = await response.json();
-       
-        if (result.isSuccess) {
-          fetchAllNotes();
-          Swal.fire({
-            title: 'Note Deleted!',
-            text: 'Note has been successfully deleted.',
-            icon: 'success',
-            confirmButtonText: 'OK',
-          });    
-           
-        } else {
-            console.error('Failed to delete note:', result.message);
-        }
-    } catch (error) {
-        console.error('Error deleting note:', error);
-        Swal.fire({
-          title: 'Delete Failed',
-          text: 'There was an error while deleting your note. Please try again later.',
-          icon: 'error',
-          confirmButtonText: 'OK',
-        });
-        
-    }
-};
-
-
-const updateNote = async (noteItem) => {
-
-  const isPinned = noteItem.isPinned ? false : true;
-  const noteId =noteItem.noteId;
-
-  try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/notes/updateNote`, {
-          method: 'PUT',
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/notes/delete`,
+        {
+          method: "DELETE",
           headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${localStorage.getItem("token")}`
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          body: JSON.stringify({ noteId,isPinned }) // Send the noteId in the request body
-      });
-
-        const result = await response.json();
-        
-        if (result.isSuccess) {
-          handleCloseModal();
-          fetchAllNotes();
-        } else {
-            console.error('Failed to update note:', result.message);
+          body: JSON.stringify({ noteId }), // Send the noteId in the request body
         }
-    } catch (error) {
-        console.error('Error deleting note:', error);
-      
-    }
-};
+      );
 
+      const result = await response.json();
+
+      if (result.isSuccess) {
+        fetchAllNotes();
+        Swal.fire({
+          title: "Note Deleted!",
+          text: "Note has been successfully deleted.",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+      } else {
+        console.error("Failed to delete note:", result.message);
+      }
+    } catch (error) {
+      console.error("Error deleting note:", error);
+      Swal.fire({
+        title: "Delete Failed",
+        text: "There was an error while deleting your note. Please try again later.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
+  };
+
+  const updateNote = async (noteItem) => {
+    const isPinned = noteItem.isPinned ? false : true;
+    const noteId = noteItem.noteId;
+
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/notes/updateNote`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({ noteId, isPinned }), // Send the noteId in the request body
+        }
+      );
+
+      const result = await response.json();
+
+      if (result.isSuccess) {
+        handleCloseModal();
+        fetchAllNotes();
+      } else {
+        console.error("Failed to update note:", result.message);
+      }
+    } catch (error) {
+      console.error("Error deleting note:", error);
+    }
+  };
 
   const submitNote = async (noteData) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/notes/create`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem("token")}`
-        },
-        body: JSON.stringify(noteData) 
-      });
-  
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/notes/create`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(noteData),
+        }
+      );
+
       // Check if the response is successful
       if (!response.ok) {
-        throw new Error('Failed to submit note');
+        throw new Error("Failed to submit note");
       }
 
       Swal.fire({
-        title: 'Note Submitted!',
-        text: 'Note has been successfully saved.',
-        icon: 'success',
-        confirmButtonText: 'OK',
+        title: "Note Submitted!",
+        text: "Note has been successfully saved.",
+        icon: "success",
+        confirmButtonText: "OK",
       });
-  
-  
+
       // Fetch all notes after the note has been submitted
       await fetchAllNotes(); // Wait for fetchAllNotes to complete
     } catch (error) {
-      console.error('Error submitting note:', error);
-        // Show error alert using SweetAlert2
-        Swal.fire({
-          title: 'Submission Failed',
-          text: 'There was an error while saving your note. Please try again later.',
-          icon: 'error',
-          confirmButtonText: 'OK',
-        });
+      console.error("Error submitting note:", error);
+      // Show error alert using SweetAlert2
+      Swal.fire({
+        title: "Submission Failed",
+        text: "There was an error while saving your note. Please try again later.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     }
   };
 
   const submitReminder = async (noteData) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/reminders/createReminder`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem("token")}`
-        },
-        body: JSON.stringify({
-          appointmentId: noteData.appointmentId,
-          reminderDate: reminderDate,
-          reminderTime: reminderTime
-        })
-      });
-  
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/reminders/createReminder`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({
+            appointmentId: noteData.appointmentId,
+            reminderDate: reminderDate,
+            reminderTime: reminderTime,
+          }),
+        }
+      );
+
       // Check if the response is successful
       if (!response.ok) {
-        throw new Error('Failed to submit reminder');
+        throw new Error("Failed to submit reminder");
       }
       // Show success alert using SweetAlert2
       Swal.fire({
-        title: 'Reminder Set!',
-        text: 'Your reminder has been successfully submitted.',
-        icon: 'success',
-        confirmButtonText: 'OK',
+        title: "Reminder Set!",
+        text: "Your reminder has been successfully submitted.",
+        icon: "success",
+        confirmButtonText: "OK",
       });
-  
+
       // Reset form fields
       setReminderTime("");
       setReminderDate("");
-  
+
       // Close modal after success
       handleCloseModalForReminder();
-  
+
       // Fetch all notes after reminder submission
       await fetchAllNotes();
-      
     } catch (error) {
-      console.error('Error submitting reminder:', error);
-      
+      console.error("Error submitting reminder:", error);
+
       // Show error alert using SweetAlert2
       Swal.fire({
-        title: 'Submission Failed',
-        text: 'There was an error while submitting your reminder. Please try again later.',
-        icon: 'error',
-        confirmButtonText: 'OK',
+        title: "Submission Failed",
+        text: "There was an error while submitting your reminder. Please try again later.",
+        icon: "error",
+        confirmButtonText: "OK",
       });
     }
   };
-  
-  
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(note.appointmentId !==0 && note.noteContent !== ""){
+    if (note.appointmentId !== 0 && note.noteContent !== "") {
+      const noteData = { ...note, createdBy: userId };
+      submitNote(note);
 
-   const noteData = { ...note, createdBy: userId };
-    submitNote(note)
-     
-
-    // Reset the note state after submission
-    setNote({ appointmentId: 0, noteContent: "", isPinned: false, createdBy: userId });
-    hideForm();
+      // Reset the note state after submission
+      setNote({
+        appointmentId: 0,
+        noteContent: "",
+        isPinned: false,
+        createdBy: userId,
+      });
+      hideForm();
     }
-    
   };
 
   const handleDateChange = (event) => {
-    setReminderDate(event.target.value);  
+    setReminderDate(event.target.value);
   };
 
   const handleTimeChange = (event) => {
-    setReminderTime(event.target.value);  
+    setReminderTime(event.target.value);
   };
 
   const handleSaveReminder = (noteItem) => {
     submitReminder(noteItem);
+  };
 
-
-  }
-
-  return(
+  return (
     <div className={styles.mainContainer}>
-
-      <h1 className={styles.header}>Notes</h1>
-
       {isFormActive && (
         <div className={styles.modalBackdrop}>
-
           <div className={styles.modal}>
-
             <form className={styles.noteform} onSubmit={handleSubmit}>
-              <input
-                className={styles.modernInput}
-                onChange={handleNoteContentChange}
-                type="text"
-                value={note.noteContent}
-                placeholder="Enter a note..."
-                required
-              />
-              
-             <select value={note.appointmentId} onChange={handleSelectChange}>
-                <option value={0}>--Please Select Appointment--</option>
-                {list.map((item) => (
-                  <option key={item.appointmentId} value={item.appointmentId}>
-                    {item.serviceDescription}
-                  </option>
-                ))}
-              </select>
-       
-              <button type="submit"  onClick={handleSubmit}>
-                Add
-              </button>
+              <div>
+                <input
+                  className={styles.modernInput}
+                  onChange={handleNoteContentChange}
+                  type="text"
+                  value={note.noteContent}
+                  placeholder="Enter a note..."
+                  required
+                />
 
-              <button type="button"onClick={hideForm} >
-                Cancel
-              </button>
-
+                <select
+                  value={note.appointmentId}
+                  onChange={handleSelectChange}
+                  className={styles.modernSelect}
+                >
+                  <option value={0}>--Please Select Appointment--</option>
+                  {list.map((item) => (
+                    <option key={item.appointmentId} value={item.appointmentId}>
+                      {item.serviceDescription}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className={styles.modernButtonDiv}>
+                <button
+                  className={styles.modernButton}
+                  type="submit"
+                  onClick={handleSubmit}
+                >
+                  Add
+                </button>
+                <button
+                  className={styles.modernButton}
+                  type="button"
+                  onClick={hideForm}
+                >
+                  Cancel
+                </button>
+              </div>
             </form>
           </div>
         </div>
       )}
 
       <div className={styles.notesAndAddButtonContainer}>
-      <div className={styles.notescontainer}>
-        <div className={styles.notelist}>
-          {notes?.map((noteItem, index) => (
-            <div key={index} className={styles.noteItem}>
-              <div className={styles.pinDiv}>
-                 <FaThumbtack  className={noteItem.isPinned? `${styles.showPin}`:`${styles.hidePin}`} />
-              </div>
-              <div>  
-                <p>Note: {noteItem.noteContent}</p>
-              </div>
-              <div className={styles.modalButtonDiv} >
-                <button  onClick={() => handleOpenModalForReminder(noteItem.noteId)}>
+        <div className={styles.notescontainer}>
+          <div className={styles.notelist}>
+            {notes?.map((noteItem, index) => (
+              <div key={index} className={styles.noteItem}>
+                <div className={styles.pinDiv}>
+                  <FaThumbtack
+                    className={
+                      noteItem.isPinned
+                        ? `${styles.showPin}`
+                        : `${styles.hidePin}`
+                    }
+                  />
+                </div>
+                <div>
+                  <p>Note: {noteItem.noteContent}</p>
+                </div>
+                <div className={styles.modalButtonDiv}>
+                  <button
+                    onClick={() => handleOpenModalForReminder(noteItem.noteId)}
+                  >
                     <img src="../../reminder.png" alt="reminderIcon" />
-                </button>
-                <button className={styles.deletePinModal} onClick={() => handleOpenModal(noteItem.noteId)}>...</button>
-              </div>
-
-              {modalVisible && selectedNote === noteItem.noteId && (
-                    <div className={styles.modal2}  ref={modalRef}>
-                      <div className={styles.modalContent}>
-                        <button className={styles.pin} onClick={() => updateNote(noteItem)} >{noteItem.isPinned? "Unpin":"Pin"}</button>
-                        <button className={styles.delete} onClick={() => deleteNote(selectedNote)}>Delete</button>                 
-                      </div>
+                  </button>
+                  <button
+                    className={styles.deletePinModal}
+                    onClick={() => handleOpenModal(noteItem.noteId)}
+                  >
+                    ...
+                  </button>
                 </div>
-              )}
-          
-              {modalVisible2 && selectedNote === noteItem.noteId && (
-                <div className={styles.modalReminder} ref={modalRef2}>
-                  <div className={styles.modalContent}>
-                    
-                   <p>REMINDER:</p>
-                    <input 
-                      id="date" 
-                      type="date" 
-                      value={reminderDate} 
-                      onChange={handleDateChange} 
-                      className={styles.hiddenInput} 
-                    />                 
-                  
-                    <input 
-                      id="time" 
-                      type="time" 
-                      value={reminderTime} 
-                      onChange={handleTimeChange} 
-                      className={styles.hiddenInput} 
-                    />
 
-                   {reminderDate != "" && reminderTime != "" &&(
-                      <div className={styles.saveReminderbtnDiv} >
-                      <button className={styles.saveReminderbtn} onClick={() => handleSaveReminder(noteItem)}>Save</button>
+                {modalVisible && selectedNote === noteItem.noteId && (
+                  <div className={styles.modal2} ref={modalRef}>
+                    <div className={styles.modalContent}>
+                      <button
+                        className={styles.pin}
+                        onClick={() => updateNote(noteItem)}
+                      >
+                        {noteItem.isPinned ? "Unpin" : "Pin"}
+                      </button>
+                      <button
+                        className={styles.delete}
+                        onClick={() => deleteNote(selectedNote)}
+                      >
+                        Delete
+                      </button>
                     </div>
-                   )}
                   </div>
-                </div>
-              )}
+                )}
+
+                {modalVisible2 && selectedNote === noteItem.noteId && (
+                  <div className={styles.modalReminder} ref={modalRef2}>
+                    <div className={styles.modalContent}>
+                      <p>REMINDER:</p>
+                      <input
+                        id="date"
+                        type="date"
+                        value={reminderDate}
+                        onChange={handleDateChange}
+                        className={styles.hiddenInput}
+                      />
+
+                      <input
+                        id="time"
+                        type="time"
+                        value={reminderTime}
+                        onChange={handleTimeChange}
+                        className={styles.hiddenInput}
+                      />
+
+                      {reminderDate != "" && reminderTime != "" && (
+                        <div className={styles.saveReminderbtnDiv}>
+                          <button
+                            className={styles.saveReminderbtn}
+                            onClick={() => handleSaveReminder(noteItem)}
+                          >
+                            Save
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+            <div className={styles.addButtonDiv}>
+              <button className={styles.modernButtons} onClick={showForm}>
+                <FaPlusCircle className={styles.plusIcon} size={28} />
+              </button>
             </div>
-          ))}
-        </div>  
-           
-      </div>
-      <div className={styles.addButtonDiv}>
-          <button className={styles.modernButton} onClick={showForm}>
-            <FaPlus className={styles.plusIcon} />
-          </button>
-      </div>
+          </div>
+        </div>
       </div>
     </div>
     // <>

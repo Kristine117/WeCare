@@ -76,7 +76,7 @@ const AppointmentList = () => {
           <section className={appList["page-flex"]}>
             <SideMenu />
             <DashboardContainer>
-              <LoggedInCommonNavBar title="Request" />
+              <LoggedInCommonNavBar title="Appointment Request" />
               {user.userType === "assistant" && (
                 <ListController
                   switchListRequests={switchListRequests}
@@ -85,21 +85,27 @@ const AppointmentList = () => {
                 />
               )}
               <section className={appList["app-list"]}>
-                {list?.map((val) => (
-                  <AppointmentDetails
-                    key={val.appointmentId}
-                    appId={val.appointmentId}
-                    description={val.serviceDescription}
-                    statusDes={val.statusDescription}
-                    price={val.totalAmount}
-                    servingName={val.servingName}
-                    loggedInUserType={val.loggedInUserType}
-                    servingProfileImage={val.servingProfileImage}
-                    statusId={val.statusId}
-                    openModal={openModalFuncHandler}
-                    statusTab={appListStatus}
-                  />
-                ))}
+                {list.length === 0 ? (
+                  <div className={appList["no-data"]}>
+                    You have no any appointment request yet...
+                  </div>
+                ) : (
+                  list.map((val) => (
+                    <AppointmentDetails
+                      key={val.appointmentId}
+                      appId={val.appointmentId}
+                      description={val.serviceDescription}
+                      statusDes={val.statusDescription}
+                      price={val.totalAmount}
+                      servingName={val.servingName}
+                      loggedInUserType={val.loggedInUserType}
+                      servingProfileImage={val.servingProfileImage}
+                      statusId={val.statusId}
+                      openModal={openModalFuncHandler}
+                      statusTab={appListStatus}
+                    />
+                  ))
+                )}
               </section>
             </DashboardContainer>
           </section>
