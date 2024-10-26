@@ -98,18 +98,24 @@ function App() {
           <Route path="/registration1" element={<Registration1 />} />
           <Route path="/registration3" element={<Registration3 />} />
           <Route path="/dashboard-main" element={<DashBoard />} />
-          <Route path="/chatlist" element={<ChatList />} />
-          <Route path="/chat/:receiverId" element={<Chat />} />
+          
+          <Route path="chatlist">
+            <Route index element={<ChatList />}/>
+            <Route path=":receiverId" element={<Chat />} />
+          </Route>
+          
           <Route path="/logout" element={<Logout />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/find-care" element={<FindCare />} />
           <Route path="/notes" element={<Notes />} />
           <Route path="/profile" element={<Profile />} />
+
+          <Route path="/appointment" element={<AppointmentList />} />
           <Route
             path="/appointment-page/:assistantId"
             element={<Appointment />}
           />
-          <Route path="/appointment" element={<AppointmentList />} />
+        
           <Route path="/find" element={<Find />} />
           <Route path="/support" element={<Support />} />
           <Route path="/ratings" element={<Ratings />} />
