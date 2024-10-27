@@ -3,10 +3,12 @@ import kwan from "./UserListTable.module.css";
 import {FaEllipsisH } from "react-icons/fa";
 import Button from "../Button/Button";
 import { createPortal } from "react-dom";
+import { FaX } from "react-icons/fa6";
 
 const UserListTable=({length, list})=>{
     const [allBoxes,setAllBoxes]= useState(false);
     const [openModal,setOpenModal] = useState(false);
+    console.log()
     const [openFloat,setOpenFloat]= useState(
         new Array(length).fill(false)
       );
@@ -30,17 +32,31 @@ const UserListTable=({length, list})=>{
     };
 
     function openFloatFunc(e){
+        console.log(openFloat)
+       if(openFloat?.length > 0){
         const floatMap = openFloat?.map((item, index)=> index === +e.target.dataset.index );
-    
         setOpenFloat(floatMap)
+       }else return;
     }
+
 
     const modal = openModal && createPortal(<>
     <div className={kwan["backdrop-modal"]} onClick={()=>{setOpenModal(val=>!val)
         setOpenFloat(new Array(length).fill(false))
     }}></div>
     <div className={kwan["container"]}>
-        
+        <FaX className={kwan["close-modal"]} onClick={()=>{
+            setOpenFloat(val=>!val);
+            setOpenModal(val=>!val)
+        }}/>
+        <p className={kwan["modal-message"]}>Are you sure you want to remove this user?</p>
+
+        <Button type="button" className={kwan["no-btn"]} onClick={()=>{
+            setOpenFloat(val=>!val);
+            setOpenModal(val=>!val)
+        }}>No</Button>
+        <Button type="button" className={kwan["yes-btn"]} >Yes</Button>
+      
     </div>
     </>
     ,document.querySelector("#modal"))

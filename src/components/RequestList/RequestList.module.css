@@ -1,10 +1,17 @@
+:root {
+    --img-size: 6rem;
+}
+
 .container {
     margin: .25rem 2rem;
 }
 
 .list-item {
     display: grid;
-    grid-template-columns: repeat(3,15rem);
+    grid-template-columns: 10rem repeat(2,15rem);
+    grid-template-rows: auto;
+    align-items: center;
+    gap: 2rem;
 }
 
 .controller {
@@ -26,4 +33,13 @@
 
 .reject-btn {
     background-color: #FF8F8F;
+}
+
+.img {
+    height: var(--img-size);
+    min-height: var(--img-size);
+    width: var(--img-size);
+    max-width: var(--img-size);
+    border-radius: 50%;
+    object-fit: cover;
 }
