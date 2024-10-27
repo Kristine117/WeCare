@@ -77,7 +77,8 @@ function App() {
             gender: data.data?.gender,
             birthDate: data.data?.birthDate,
             experienceId: data.data?.experienceId,
-            approveFlg: data.data?.approveFlg
+            approveFlg: data.data?.approveFlg,
+            profileImage: data.data?.profileImage
           });
         } else {
           setUser({
