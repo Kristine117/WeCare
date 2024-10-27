@@ -3,18 +3,16 @@ import { useState } from 'react';
 const useUpdateAppointment = () => {
   const [error, setError] = useState(null);
 
-  const updateAppointment = async (appId, method,body) => {
-    console.log(body)
-    const newAppId = encodeURIComponent(appId)
+  const updateAppointment = async (method,body,composedUrl) => {
+
     try {
       const response = await 
-      fetch(`${process.env.REACT_APP_API_URL}/appointment/update-appointment/${newAppId}`, {
+      fetch(`${process.env.REACT_APP_API_URL}/${composedUrl}`, {
         method: method,
         headers: {
-          "servingname":body.servingName,
-          "status":body.result,
           'Authorization': `Bearer ${localStorage.getItem("token")}`,
-        }
+        },
+        body: JSON.stringify(body)
       });
 
       if (!response.ok) {

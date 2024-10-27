@@ -23,11 +23,13 @@ const AppointmentDetails = ({
   const { updateAppointment, error } = useUpdateAppointment();
 
   const decideHandler = async (e) => {
+    const newAppId = encodeURIComponent(appId);
+    const composedUrl = `appointment/update-appointment/${newAppId}`;
     const method = "PUT";
-    const result = await updateAppointment(appId, method, {
+    const result = await updateAppointment(method, {
       servingName: servingName,
       result: e.target.name,
-    });
+    },composedUrl);
 
     const declaredOption = e.target.name === "approve" ? "Approve" : "Rejected";
     if (result.isSuccess) {

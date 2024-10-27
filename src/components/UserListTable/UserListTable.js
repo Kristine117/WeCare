@@ -4,6 +4,7 @@ import {FaEllipsisH } from "react-icons/fa";
 import Button from "../Button/Button";
 import { createPortal } from "react-dom";
 import { FaX } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const UserListTable=({length, list})=>{
     const [allBoxes,setAllBoxes]= useState(false);
@@ -44,6 +45,22 @@ const UserListTable=({length, list})=>{
         setOpenFloat(new Array(length).fill(false))
     }
 
+
+    async function handleUser(e){
+        const operation = e.target.dataset.operation;
+
+        const userId = e.target.dataset.id;
+        try {
+            const data = await fetch(`${process.env.REACT_APP_API_URL}/admin/user-manage/${encodeURIComponent(userId)}/${operation}`,{
+                headers: {
+                    "Authorization":`Bearer ${localStorage.getItem("token")}`,
+                }
+            })
+        }catch(e){
+
+        }
+    }
+
     const modal = openModal && createPortal(<>
     <div className={kwan["backdrop-modal"]} onClick={closeFloatFunc}></div>
     <div className={kwan["container"]}>
@@ -81,7 +98,10 @@ const UserListTable=({length, list})=>{
                    <div>{val.approveFlg ? "Verified": "Pending"}</div>
                    <FaEllipsisH className={kwan["ellipsis"]} data-index={i} onClick={openFloatFunc}/>
                    {openFloat[i] && <div className={kwan["floating-option"]}>
-                        <Button type="button" className={kwan["btn-edit"]}>Edit</Button>
+                        <Link relative="true" to={`${encodeURIComponent(val.userId)}/edit`}
+                        className={kwan["btn-edit"]}>
+                            Edit
+                        </Link>
                         <Button type="button" className={kwan["btn-delete"]} onClick={()=>setOpenModal(val=>!val)}>Delete</Button>
                    </div>}
                 </li>)}
