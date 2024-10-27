@@ -74,7 +74,7 @@ const AppointmentList = () => {
           <section className={appList["page-flex"]}>
             <SideMenu />
             <DashboardContainer>
-              <LoggedInCommonNavBar title="Appointment Request" />
+              <LoggedInCommonNavBar title="Request" />
               {user.userType === "assistant" && (
                 <ListController
                   switchListRequests={switchListRequests}

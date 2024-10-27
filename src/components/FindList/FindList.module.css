@@ -30,7 +30,6 @@
   font-size: 1rem;
 }
 
-
 .rating-star {
   color: #edc04e;
 }
@@ -51,6 +50,7 @@
 
 .arrow {
   font-size: 4rem;
+  width: 2.3rem;
 }
 
 /* Modal overlay (hidden by default) */
@@ -150,12 +150,12 @@
   padding: 1rem;
   width: 20rem;
 }
-.rating-section{
-  font-size:1rem;
+.rating-section {
+  font-size: 1rem;
 }
 
 /* Adjust sidebar for mobile view */
-@media(max-width: 768px) {
+@media (max-width: 768px) {
   .findProfilePhoto {
     height: 10rem;
     width: 10rem;
@@ -174,11 +174,10 @@
     cursor: pointer;
     padding: initial;
   }
-  .rating-section{
-    font-size:.90rem;
+  .rating-section {
+    font-size: 0.9rem;
     display: flex;
   }
-
 
   .profile-section-modal {
     display: flex;
@@ -200,5 +199,4 @@
     border-radius: 50%;
     object-fit: cover;
   }
-
 }
