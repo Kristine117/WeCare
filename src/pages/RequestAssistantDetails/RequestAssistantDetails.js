@@ -13,7 +13,10 @@ const RequestAssistantDetails = ()=>{
              {(user?.userType !== "admin" && user?.userType !== null ) && <Navigate to={"/login"}/>}
             <section className={design["dashboard"]}>
                 <SideMenu/>
-                <DashboardContainer>        
+                <DashboardContainer>
+                    <div className={design["assistant-card"]}>
+                        <h1>Assistant Profile</h1>
+                    </div>      
                 </DashboardContainer>           
             </section> 
         </main>
@@ -21,3 +24,4 @@ const RequestAssistantDetails = ()=>{
 }
 
 export default RequestAssistantDetails;
+

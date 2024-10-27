@@ -30,13 +30,12 @@ const Requests = ()=>{
         })
             .then((res) => res.json())
             .then((data) => {
-        
+            console.log(data.data)
             setList(data.data);
             setLoading(false);
             });
         };
     fetchData();
-
 
     }, [status]);
 
@@ -53,7 +52,7 @@ const Requests = ()=>{
             <DashboardContainer>
                 <LoggedInCommonNavBar title="Requests"/>
                 <ListController btnList={APP_LIST_STATUS} status={status} switchListRequests={switchListRequestsFunc}/>
-                <RequestList list={list?.assistantListPending}/>
+                <RequestList list={status === 'requests' ? list?.assistantListPending : list?.assistantListApproved}/>
             </DashboardContainer>            
         </section>}
     </main> 
