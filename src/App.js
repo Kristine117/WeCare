@@ -24,6 +24,7 @@ import Requests from "./pages/Requests/Requests";
 import Users from "./pages/Users/Users";
 import Notes from "./pages/Notes/Notes";
 import Profile from "./pages/Profile/Profile";
+import RequestAssistantDetails from "./pages/RequestAssistantDetails/RequestAssistantDetails";
 
 function App() {
   // for getting token this is for global this is helped whit the UserContext.js
@@ -91,30 +92,41 @@ function App() {
     <UserProvider value={{ user, setUser, unsetUser,appListStatus,setAppListStatus }}>
       <Router>
         <Routes>
-          <Route path="*" errorElement={<Error />} />
-          <Route path="/" element={<HomeContainer />} />
+        <Route path="/" element={<HomeContainer />} />
+      
           <Route path="/login" element={<Login />} />
           <Route path="/registration1" element={<Registration1 />} />
           <Route path="/registration3" element={<Registration3 />} />
           <Route path="/dashboard-main" element={<DashBoard />} />
-          <Route path="/chatlist" element={<ChatList />} />
-          <Route path="/chat/:receiverId" element={<Chat />} />
+          
+          <Route path="chatlist">
+            <Route index element={<ChatList />}/>
+            <Route path=":receiverId" element={<Chat />} />
+          </Route>
+          
           <Route path="/logout" element={<Logout />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/find-care" element={<FindCare />} />
           <Route path="/notes" element={<Notes />} />
           <Route path="/profile" element={<Profile />} />
+
+          <Route path="/appointment" element={<AppointmentList />} />
           <Route
             path="/appointment-page/:assistantId"
             element={<Appointment />}
           />
-          <Route path="/appointment" element={<AppointmentList />} />
-
+        
           <Route path="/find" element={<Find />} />
           <Route path="/support" element={<Support />} />
           <Route path="/ratings" element={<Ratings />} />
-          <Route path="/requests" element={<Requests />} />
+
+          <Route path="requests/" >
+            <Route index element={<Requests />}/>
+            <Route path=":userId" element={<RequestAssistantDetails/>}/>
+          </Route>
+
           <Route path="/users" element={<Users />} />
+          <Route path="*" errorElement={<Error />} />
         </Routes>
       </Router>
     </UserProvider>

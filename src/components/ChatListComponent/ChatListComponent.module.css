@@ -90,7 +90,19 @@
   right: -30%; /* Move offscreen when closed */
 }
 
+.list {
+  transition: box-shadow 0.3s ease; /* Smooth transition for the shadow */
+  margin-left: .40rem;
+  margin-right: .40rem;
+}
 
+.list:hover {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+  background-color: #f0f4f8; /* Optional light background on hover */
+  border-radius: 1rem; /* Make sure it matches your component’s border-radius */
+  margin-left: .40rem;
+  margin-right: .40rem;
+}
 
 
 /* For tablet */
@@ -103,19 +115,7 @@
   .piture-section-chat {
     margin-left: initial;
   }
-  .list {
-    transition: box-shadow 0.3s ease; /* Smooth transition for the shadow */
-    margin-left: .40rem;
-    margin-right: .40rem;
-  }
   
-  .list:hover {
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Shadow on hover */
-    background-color: #f0f4f8; /* Optional light background on hover */
-    border-radius: 1rem; /* Make sure it matches your component’s border-radius */
-    margin-left: .40rem;
-    margin-right: .40rem;
-  }
   .profile-section-chat {
     margin-left: .40rem;
     margin-right: .40rem;
