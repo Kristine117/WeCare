@@ -1,3 +1,13 @@
+
+
+.loginContainer {
+  min-height: calc(100vh - 6.8rem);
+  background-color: #b0d6d3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* For tablet */
 @media(max-width: 1200px){
 
@@ -7,7 +17,6 @@
 @media(max-width: 768px){
     .background1{
         background-color: #b0d6d3;
-        height: 86vh;
         display: flex;
         justify-content: center;
     }

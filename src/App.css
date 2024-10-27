@@ -27,6 +27,7 @@ section {
 
 body {
   line-height: 1;
+  height: 100%;
 }
 
 ol,
@@ -57,26 +58,14 @@ table {
 .font-white {
   color: white;
 }
-.background1 {
-  background-color: #b0d6d3;
-  height: 100vh;
-}
+
 .navbar-bg {
   background-color: #9ec7cf;
 }
 .font-white {
   color: white;
 }
-.background1 {
-  background-color: #b0d6d3;
-  height: 86vh;
-}
-.login-container {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 
 .login-box {
   background-color: white;
@@ -150,10 +139,7 @@ table {
   display: flex;
   align-items: center;
 }
-.elderly-img {
-  width: 500px;
-  height: auto;
-}
+
 
 .hover-glow {
   cursor: pointer; /* Change cursor to pointer */
