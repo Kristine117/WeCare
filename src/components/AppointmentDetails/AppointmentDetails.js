@@ -106,7 +106,7 @@ const AppointmentDetails = ({
               <strong>{statusDes}</strong>
             </div>
             {statusId === 2 && (
-              <Button type="button" data-amount={price} onClick={openModal}>
+              <Button type="button" data-appid={appId} data-amount={price} onClick={openModal}>
                 Pay Now
               </Button>
             )}

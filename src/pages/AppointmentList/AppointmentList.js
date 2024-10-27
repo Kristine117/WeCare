@@ -6,20 +6,22 @@ import SideMenu from "../../components/SideMenu/SideMenu";
 import AppointmentDetails from "../../components/AppointmentDetails/AppointmentDetails";
 import LoggedInCommonNavBar from "../../components/LoggedInCommonNavBar/LoggedInCommonNavBar";
 import appList from "./AppointmentList.module.css";
-
 import Payment from "../../components/Payment/Payment";
 import ListController from "../../components/ListController/ListController";
+import useUpdate from "../../hooks/useUpdate";
 
 const APP_LIST_STATUS = [
   { btnName: "ongoing", btnTitle: "Ongoing" },
   { btnName: "approve", btnTitle: "Approve" },
 ];
+
 const AppointmentList = () => {
   const { user, appListStatus, setAppListStatus } = useContext(UserContext);
-
+  const {updateFunc,error}=useUpdate();
   const [list, setList] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [amount, setAmount] = useState(null);
+  const [appId,setAppId] = useState(null);
 
   async function switchListRequests(e) {
     setAppListStatus(e.target.name);
@@ -59,12 +61,13 @@ const AppointmentList = () => {
   function openModalFuncHandler(e) {
     setOpenModal((val) => (val ? false : true));
     setAmount(e.target.dataset.amount);
+    setAppId(e.target.dataset.appid)
   }
 
   return (
     <React.Fragment>
       {openModal && (
-        <Payment openModal={openModalFuncHandler} amount={amount} />
+        <Payment openModal={openModalFuncHandler} amount={amount} updateFuncHandler={updateFunc} appId={appId}/>
       )}
       <main>
         {!user?.id && user.userType !== "admin" && user.userType !== null && (
@@ -83,12 +86,12 @@ const AppointmentList = () => {
                 />
               )}
               <section className={appList["app-list"]}>
-                {list.length === 0 ? (
+                {list?.length === 0 ? (
                   <div className={appList["no-data"]}>
                     You have no any appointment request yet...
                   </div>
                 ) : (
-                  list.map((val) => (
+                  list?.map((val) => (
                     <AppointmentDetails
                       key={val.appointmentId}
                       appId={val.appointmentId}
