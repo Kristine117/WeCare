@@ -4,11 +4,12 @@ import {FaEllipsisH } from "react-icons/fa";
 import Button from "../Button/Button";
 import { createPortal } from "react-dom";
 import { FaX } from "react-icons/fa6";
-
+import { Link, useNavigate } from "react-router-dom";
+import useUpdate from "../../hooks/useUpdate";
+import Swal from "sweetalert2";
 const UserListTable=({length, list})=>{
     const [allBoxes,setAllBoxes]= useState(false);
     const [openModal,setOpenModal] = useState(false);
-
     const [openFloat,setOpenFloat]= useState(
         new Array(length).fill(false)
       );
@@ -16,6 +17,8 @@ const UserListTable=({length, list})=>{
         new Array(length).fill(false)
       );
 
+    const [userId,setUserId] = useState(null);
+    const navigate = useNavigate();
     const handleOnChange = (position) => {
 
         let updatedCheckedState;
@@ -42,8 +45,40 @@ const UserListTable=({length, list})=>{
     function closeFloatFunc(){
         setOpenModal(val=>!val)
         setOpenFloat(new Array(length).fill(false))
+        setUserId(null);
     }
 
+
+    const {updateFunc,error} = useUpdate();
+
+    async function handleUpdateUser(e){
+        const operation = e.target.dataset.operation;
+
+        const composedUrl = `admin/user-manage/${encodeURIComponent(userId)}/${encodeURIComponent(operation)}`;
+
+        const method = "PUT";
+
+        const result = await updateFunc(method,{},composedUrl);
+        const declaredOption = operation === "delete" ? "Deleted": "Updated";
+        if(result?.isSuccess) {
+            Swal.fire({
+                title: `You have ${declaredOption} this User`,
+                icon: "successful",
+                text: "User has been successfully deleted!",
+              });
+        
+            return    navigate("/users");
+        }
+
+        Swal.fire({
+            title: `Operation Failed`,
+            icon: "error",
+            text: "Something went wrong. Please try again later!",
+          });
+    
+          navigate("/users");
+        
+    }
     const modal = openModal && createPortal(<>
     <div className={kwan["backdrop-modal"]} onClick={closeFloatFunc}></div>
     <div className={kwan["container"]}>
@@ -51,7 +86,8 @@ const UserListTable=({length, list})=>{
         <p className={kwan["modal-message"]}>Are you sure you want to remove this user?</p>
 
         <Button type="button" className={kwan["no-btn"]} onClick={closeFloatFunc}>No</Button>
-        <Button type="button" className={kwan["yes-btn"]} >Yes</Button>
+        <Button type="button" className={kwan["yes-btn"]} 
+        onClick={handleUpdateUser} data-operation="delete">Yes</Button>
       
     </div>
     </>
@@ -81,8 +117,15 @@ const UserListTable=({length, list})=>{
                    <div>{val.approveFlg ? "Verified": "Pending"}</div>
                    <FaEllipsisH className={kwan["ellipsis"]} data-index={i} onClick={openFloatFunc}/>
                    {openFloat[i] && <div className={kwan["floating-option"]}>
-                        <Button type="button" className={kwan["btn-edit"]}>Edit</Button>
-                        <Button type="button" className={kwan["btn-delete"]} onClick={()=>setOpenModal(val=>!val)}>Delete</Button>
+                        <Link relative="true" to={`${encodeURIComponent(val.userId)}/edit`}
+                        className={kwan["btn-edit"]}>
+                            Edit
+                        </Link>
+                        <Button type="button" className={kwan["btn-delete"]} 
+                        onClick={()=>{
+                            setOpenModal(val=>!val)
+                            setUserId(val.userId)
+                        }}>Delete</Button>
                    </div>}
                 </li>)}
             </ul>

@@ -25,6 +25,7 @@ import Users from "./pages/Users/Users";
 import Notes from "./pages/Notes/Notes";
 import Profile from "./pages/Profile/Profile";
 import RequestAssistantDetails from "./pages/RequestAssistantDetails/RequestAssistantDetails";
+import UserEdit from "./pages/UserEdit/UserEdit";
 function App() {
   // for getting token this is for global this is helped whit the UserContext.js
   const [user, setUser] = useState({
@@ -125,7 +126,10 @@ function App() {
           <Route path=":userId" element={<RequestAssistantDetails/>}/>
         </Route>
 
-        <Route path="/users" element={<Users />} />
+        <Route path="/users">
+          <Route index element={<Users />}/>
+          <Route path=":userId/edit" element={<UserEdit />}/>
+        </Route> 
         <Route path="*" errorElement={<Error />} />
         </Routes>
       </Router>

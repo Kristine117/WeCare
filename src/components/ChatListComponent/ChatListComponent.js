@@ -1,6 +1,6 @@
 import React from "react";
 import wcdesign from "./ChatListComponent.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ChatListComponent = ({
   fullName,
@@ -43,7 +43,7 @@ const ChatListComponent = ({
         throw new Error(`Error: ${response.statusText}`);
       }
 
-      const data = await response.json();
+      // const data = await response.json();
       console.log("Message updated successfully");
     } catch (error) {
       console.error("Failed to update message:", error);
