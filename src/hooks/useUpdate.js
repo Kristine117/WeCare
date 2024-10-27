@@ -4,7 +4,7 @@ const useUpdate = () => {
   const [error, setError] = useState(null);
 
   const updateFunc= async (method,body,composedUrl) => {
-
+  
     try {
       const response = await 
       fetch(`${process.env.REACT_APP_API_URL}/${composedUrl}`, {
@@ -15,7 +15,7 @@ const useUpdate = () => {
         body: JSON.stringify(body)
       });
 
-      console.log(await response);
+      console.log(response)
 
       if (!response.ok) {
         throw new Error('Failed to update');
