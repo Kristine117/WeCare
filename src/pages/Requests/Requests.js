@@ -62,14 +62,14 @@ const Requests = ()=>{
         if(isSuccess){
             Swal.fire({
                 title: message,
-                icon: "successful",
+                icon: "success",
                 text: "Successfully Operation.",
               });
           fetchData();
         }else {
             Swal.fire({
                 title: message,
-                icon: "success",
+                icon: "error",
                 text: "Something went wrong please try again.",
               });
         }
