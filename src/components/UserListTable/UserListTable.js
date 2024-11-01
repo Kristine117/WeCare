@@ -7,15 +7,17 @@ import { FaX } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import useUpdate from "../../hooks/useUpdate";
 import Swal from "sweetalert2";
-const UserListTable=({length, list})=>{
+const UserListTable=({length, list,fetchDataHandler})=>{
+
     const [allBoxes,setAllBoxes]= useState(false);
     const [openModal,setOpenModal] = useState(false);
     const [openFloat,setOpenFloat]= useState(
-        new Array(length).fill(false)
+        new Array(length ? +length: 0).fill(false)
       );
     const [checkedState, setCheckedState] = useState(
-        new Array(length).fill(false)
+        new Array(length ? +length: 0).fill(false)
       );
+
 
     const [userId,setUserId] = useState(null);
     const navigate = useNavigate();
@@ -34,9 +36,13 @@ const UserListTable=({length, list})=>{
         setCheckedState(updatedCheckedState);
     };
 
-    function openFloatFunc(e){
-        console.log(e.target)
-        const floatMap = openFloat?.map((item, index)=> index === +e.target.dataset.index );
+    function openFloatFunc(index){
+ 
+        const parsedIndex = +index;
+        
+        const floatMap = openFloat?.map((item, index)=> index === parsedIndex );
+
+        console.log(floatMap)
         setOpenFloat(floatMap)
     }
 
@@ -60,20 +66,24 @@ const UserListTable=({length, list})=>{
         const declaredOption = operation === "delete" ? "Deleted": "Updated";
         if(result?.isSuccess) {
             Swal.fire({
-                title: `You have ${declaredOption} this User`,
+                title: `${result.messsage}`,
                 icon: "successful",
                 text: "User has been successfully deleted!",
               });
         
-            return    navigate("/users");
+           
+        }else {
+            Swal.fire({
+                title: `Operation Failed`,
+                icon: "error",
+                text: "Something went wrong. Please try again later!",
+              });
+        
         }
 
-        Swal.fire({
-            title: `Operation Failed`,
-            icon: "error",
-            text: "Something went wrong. Please try again later!",
-          });
-    
+        fetchDataHandler();
+
+        
           navigate("/users");
         
     }
@@ -113,8 +123,8 @@ const UserListTable=({length, list})=>{
                    <div>{val.email}</div>
                    <div>{val.userType === 'assistant' ? "Assistant": "Senior"}</div>
                    <div>{val.approveFlg ? "Verified": "Pending"}</div>
-                   <div className={kwan["ellipsis-container"]} data-index={i} onClick={openFloatFunc}>
-                   <FaEllipsisH className={kwan["ellipsis"]} data-index={i} onClick={openFloatFunc}/>
+                   <div className={kwan["ellipsis-container"]} onClick={()=>openFloatFunc(i)}  >
+                        <FaEllipsisH className={kwan["ellipsis"]} />
                    </div>
                    {openFloat[i] && <div className={kwan["floating-option"]}>
                         <Link relative="true" to={`${encodeURIComponent(val.userId)}/edit`}
