@@ -35,11 +35,9 @@ const UserListTable=({length, list})=>{
     };
 
     function openFloatFunc(e){
-    
-       if(openFloat?.length > 0){
+        console.log(e.target)
         const floatMap = openFloat?.map((item, index)=> index === +e.target.dataset.index );
         setOpenFloat(floatMap)
-       }else return;
     }
 
     function closeFloatFunc(){
@@ -115,17 +113,19 @@ const UserListTable=({length, list})=>{
                    <div>{val.email}</div>
                    <div>{val.userType === 'assistant' ? "Assistant": "Senior"}</div>
                    <div>{val.approveFlg ? "Verified": "Pending"}</div>
+                   <div className={kwan["ellipsis-container"]} data-index={i} onClick={openFloatFunc}>
                    <FaEllipsisH className={kwan["ellipsis"]} data-index={i} onClick={openFloatFunc}/>
+                   </div>
                    {openFloat[i] && <div className={kwan["floating-option"]}>
                         <Link relative="true" to={`${encodeURIComponent(val.userId)}/edit`}
                         className={kwan["btn-edit"]}>
                             Edit
                         </Link>
-                        <Button type="button" className={kwan["btn-delete"]} 
+                        {val.canBeDeleted === 1 && <Button type="button" className={kwan["btn-delete"]} 
                         onClick={()=>{
                             setOpenModal(val=>!val)
                             setUserId(val.userId)
-                        }}>Delete</Button>
+                        }}>Delete</Button>}
                    </div>}
                 </li>)}
             </ul>

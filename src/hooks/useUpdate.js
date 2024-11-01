@@ -11,11 +11,10 @@ const useUpdate = () => {
         method: method,
         headers: {
           'Authorization': `Bearer ${localStorage.getItem("token")}`,
+          'Content-Type': 'application/json' 
         },
         body: JSON.stringify(body)
       });
-
-      console.log(response)
 
       if (!response.ok) {
         throw new Error('Failed to update');
@@ -24,7 +23,7 @@ const useUpdate = () => {
       const responseData = await response.json();
 
       return {
-        isSuccess: await responseData?.isSuccess
+        ...responseData   
       }
     
     } catch (err) {
