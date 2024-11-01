@@ -18,11 +18,12 @@ const RequestAssistantDetails = ()=>{
         const composedUrl = `admin/assistant-details/${encodeURIComponent(userId)}`
         const result =await fetchDataFuncHandler(composedUrl);
 
-        console.log(result)
+        setData(result.data);
     }
     useEffect(()=>{
         parseData();
     },[userId])
+
     return(
         <main>
              {(user?.userType !== "admin" && user?.userType !== null ) && <Navigate to={"/login"}/>}
@@ -35,9 +36,9 @@ const RequestAssistantDetails = ()=>{
                     <div className={design["assistant-card"]}>
                     <h1>Assistant Profile</h1>
 
-                    <img src={user.profileImage} alt="Profile Image"/>
+                    <img src={data?.profileImage} alt="Profile Image"/>
 
-                    <div>{user.firstname} {user.lastname}</div>
+                    <div>{data?.firstname} {data?.lastname}</div>
                 </div>      }
 
                     

@@ -14,18 +14,24 @@
 
 .ellipsis {
     cursor: pointer;
-    font-size: 1.25rem;
+    font-size: 2.25rem;
+   
+}
+
+.ellipsis-container {
+    cursor: pointer;
+    z-index: 2;
 }
 
 .floating-option {
     position: absolute;
     top: 50%;
-    left: calc(50% + 15vw);
+    left: calc(70% + 10rem);
     background: rgba(255, 255, 255, 0.8);
     border-radius: .25rem;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 0.5rem .75rem;
+    padding: 0.25rem .55rem;
     width: 7.5rem;
     max-width: 7.5rem;
     z-index: 5;
