@@ -328,12 +328,12 @@ export default function SideMenu() {
 
         {user?.userType === "admin" && (
           <div className="support-item ml-4 mr-4">
-            <div>
+            <Link to={'/requests'}>
               <span className="material-symbols-outlined side-menu-color icon-size">
                 volunteer_activism
               </span>
               <p>Requests</p>
-            </div>
+            </Link>
           </div>
         )}
         <div className="support-item logout-bottom ml-4">
