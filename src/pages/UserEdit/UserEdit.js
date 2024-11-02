@@ -66,7 +66,7 @@ const UserEdit = ()=>{
                     {!loading && 
                     <form onSubmit={updateUserPassword}>
                         <h1>You can Update User's Password Here:</h1>
-
+                        
                         <input name="password" type="password"/>
                         <input name="confirm-password" type="password"/>
                         

@@ -2,8 +2,10 @@ import React, { useContext, useState, useEffect } from "react";
 import SideMenu from "../../components/SideMenu/SideMenu";
 import UserContext from "../../UserContext";
 import FindList from "../../components/FindList/FindList";
-
 import wcdesign from "./Find.module.css";
+import useFetchData from "../../hooks/useGetData";
+import useUpdate from "../../hooks/useUpdate";
+
 const Find = () => {
   const [assistantUserList, setAssistantUserList] = useState([]);
   const { user } = useContext(UserContext);
@@ -12,22 +14,26 @@ const Find = () => {
   const [rating, setRating] = useState(0);
   const [age, setAge] = useState([]);
   const [gender, setGender] = useState([]);
+  const {updateFunc}= useUpdate();
+  const [ageRangeArr,setAgeRangeArr]= useState(
+    new Array(4).fill(false)
+  );
+
+  const[genderArr,setGenderArr]= useState(
+    new Array(3).fill(false)
+  );
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  const fetchData = () => {
-    fetch(`${process.env.REACT_APP_API_URL}/senior/assistant-list`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setAssistantUserList(data.data);
-      });
+  const {fetchDataFuncHandler,loading,error}=useFetchData();
+
+  const fetchData = async() => {
+    const composedUrl = `senior/assistant-list`;
+    const {isSuccess,data}=await fetchDataFuncHandler(composedUrl);
+    
+    setAssistantUserList(data);
   };
 
   useEffect(() => {
@@ -40,37 +46,29 @@ const Find = () => {
   };
 
   // Handle age checkbox change
-  const handleAgeChange = (e) => {
-    const value = e.target.value;
-    setAge((prev) =>
-      prev.includes(value)
-        ? prev.filter((item) => item !== value)
-        : [...prev, value]
-    );
+  const handleAgeChange = (category,targetIndex,value) => {
+    if(category === "age"){
+      const floatMap = ageRangeArr?.map((item, index)=> index === targetIndex );
+      setAgeRangeArr(floatMap);
+      setAge(+value);
+    }else {{
+      const floatMap = genderArr?.map((item, index)=> index === targetIndex );
+
+      setGenderArr(floatMap);
+      setGender(value)
+    }}
+    
   };
 
-  // Handle gender checkbox change
-  const handleGenderChange = (e) => {
-    const value = e.target.value;
 
-    if (value === "both") {
-      setGender(["male", "female"]);
-    } else {
-      setGender((prev) =>
-        prev.includes(value)
-          ? prev.filter((item) => item !== value)
-          : [...prev, value]
-      );
-    }
-  };
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Process form values here
-    console.log("Rating:", rating);
-    console.log("Age:", age);
-    console.log("Gender:", gender);
+    const composedUrl = "senior/find-assistants";
+
+    console.log(rating,age,gender)
+
   };
   const clearRating = () => setRating(0);
   const clearAge = () => setAge([]);
@@ -207,13 +205,15 @@ const Find = () => {
                       <div className={wcdesign["section-header"]}>Age</div>
                       <div className={wcdesign["age"]}>
                         {["18-24", "25-34", "35-44", "45-54"].map(
-                          (ageRange) => (
+                          (ageRange,i) => (
                             <label key={ageRange}>
                               <input
                                 type="radio"
                                 value={ageRange}
-                                checked={age.includes(ageRange)}
-                                onChange={handleAgeChange}
+                                checked={ageRangeArr[i]}
+                                onChange={()=>handleAgeChange("age",i,ageRange)}
+                                name={ageRange}
+                                id={ageRange}
                               />{" "}
                               {ageRange}
                             </label>
@@ -226,16 +226,13 @@ const Find = () => {
                     <div className={wcdesign["gender-section"]}>
                       <div className={wcdesign["section-header"]}>Gender</div>
                       <div className={wcdesign["gender"]}>
-                        {["male", "female", "both"].map((genderOption) => (
+                        {["male", "female", "both"].map((genderOption,i) => (
                           <label key={genderOption}>
                             <input
                               type="radio"
                               value={genderOption}
-                              checked={
-                                gender.includes(genderOption) ||
-                                (genderOption === "both" && gender.length === 2)
-                              }
-                              onChange={handleGenderChange}
+                              checked={genderArr[i]}
+                              onChange={()=>handleAgeChange("gender",i,genderOption)}
                             />{" "}
                             {genderOption.charAt(0).toUpperCase() +
                               genderOption.slice(1)}
