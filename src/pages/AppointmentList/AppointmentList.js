@@ -52,6 +52,7 @@ const AppointmentList = () => {
       );
       const parseData = await data.json();
 
+      console.log(parseData)
       setList(parseData?.data);
     }
 
@@ -104,6 +105,8 @@ const AppointmentList = () => {
                       statusId={val.statusId}
                       openModal={openModalFuncHandler}
                       statusTab={appListStatus}
+                      isExpired={val.isExpired}
+                      assistantId={val.assistantId}
                     />
                   ))
                 )}

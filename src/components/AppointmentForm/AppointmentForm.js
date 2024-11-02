@@ -1,11 +1,12 @@
-import React, { useNavigate } from "react-router-dom";
+import React, { useNavigate, useParams } from "react-router-dom";
 import "../../components/css/Appointment.css";
 import wcdesign from "./AppointmentForm.module.css";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import AppointmentList from "../../pages/AppointmentList/AppointmentList";
+import useFetchData from "../../hooks/useGetData";
 
-const AppointmentForm = ({ assistantId, assistantName, assistantProfile }) => {
+const AppointmentForm = () => {
   const today = new Date().toISOString().split("T")[0];
   const appointmentDate = today;
   const [startDate, setStartDate] = useState(null);
@@ -15,34 +16,18 @@ const AppointmentForm = ({ assistantId, assistantName, assistantProfile }) => {
   const [serviceDescription, setServiceDescription] = useState(null);
   const [serviceDate, setServiceDate] = useState(null);
   const navigate = useNavigate();
+  const {assistantId} = useParams();
+  const {fetchDataFuncHandler,loading,error}=useFetchData();
 
-  /*  useEffect(() => {
-    async function getAssistantDetails() {
-      try {
-        const data = await fetch(
-          `${process.env.REACT_APP_API_URL}/main/assistant-details/${encodeURIComponent(assistantId)}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+  async function fetchData(){
+    const composedUrl = `main/assistant-details/${encodeURIComponent(assistantId)}`;
 
-        if (!data.ok) {
-          throw new Error("Something went wrong");
-        }
-
-        const newData = await data.json();
-
-        setAssistant(newData?.data);
-      } catch (e) {
-        throw new Error(e.message);
-      }
-    }
-
-    getAssistantDetails();
-  }, [assistantId]); */
-
+    const {isSuccess,message,data}= await fetchDataFuncHandler(composedUrl);
+    setAssistant(data);
+  }
+  useEffect(()=>{
+    fetchData();
+  },[])
   function sendAppointment(e) {
     e.preventDefault();
 
@@ -90,12 +75,12 @@ const AppointmentForm = ({ assistantId, assistantName, assistantProfile }) => {
         <div className={`${wcdesign.card}`}>
           <div className={wcdesign["profile-section"]}>
             <img
-              src={`${process.env.REACT_APP_API_URL}/profilePictures/${assistantProfile}`}
+              src={`${process.env.REACT_APP_API_URL}/profilePictures/${assistant?.profileImg}`}
               alt="assitan"
               className={wcdesign["profile-image"]}
             ></img>
             <p className={`pt-3 ${wcdesign.assistantName}`}>
-              Assistant Name: {assistantName}
+              Assistant Name: {assistant?.fullName}
             </p>
           </div>
           <form

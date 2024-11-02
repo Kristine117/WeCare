@@ -42,7 +42,6 @@ const UserEdit = ()=>{
             confirmPassword
         },composedUrl)
 
-        console.log(result)
         const {isSuccess,message}= await result;
 
         const operationWork = isSuccess ? "Successful Operation": "Something went wrong!";
@@ -53,7 +52,7 @@ const UserEdit = ()=>{
             text: operationWork,
           });
 
-        // return navigate("/users");
+        return navigate("/users");
     }
     return(
         <main>
