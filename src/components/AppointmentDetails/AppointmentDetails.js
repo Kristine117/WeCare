@@ -3,7 +3,7 @@ import design from "./AppointmentDetails.module.css";
 import { FaEllipsisV, FaUser } from "react-icons/fa";
 import Button from "../Button/Button";
 
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useUpdate from "../../hooks/useUpdate";
 
@@ -18,7 +18,10 @@ const AppointmentDetails = ({
   statusId,
   openModal,
   statusTab,
+  isExpired,
+  assistantId
 }) => {
+
   const navigate = useNavigate();
 
   const { updateFunc, error } = useUpdate();
@@ -100,7 +103,7 @@ const AppointmentDetails = ({
           </div>
         )}
 
-        {!userTypeCheck && statusTab === "ongoing" && (
+        {(!userTypeCheck && statusTab === "ongoing" && isExpired === 0) && (
           <div className={design["app-status"]}>
             <div>
               <strong>{statusDes}</strong>
@@ -112,6 +115,14 @@ const AppointmentDetails = ({
             )}
           </div>
         )}
+
+        {isExpired === 1 &&
+        <>
+        <div>Appointment Expired</div>
+        <Link to={`/appointment-page/${encodeURIComponent(assistantId)}`}>
+         Book Again
+        </Link>
+        </>}
 
         {statusTab === "approve" && (
           <div>

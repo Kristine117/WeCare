@@ -113,6 +113,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
 
         <Route path="/appointment" element={<AppointmentList />} />
+        
         <Route
           path="/appointment-page/:assistantId"
           element={<Appointment />}

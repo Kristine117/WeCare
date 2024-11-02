@@ -2,17 +2,12 @@ import React, { useContext } from "react";
 import UserContext from "../../UserContext";
 import SideMenu from "../../components/SideMenu/SideMenu";
 // import DashboardContainer from "../../components/DashboardContainer/DashboardContainer";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import AppointmentForm from "../../components/AppointmentForm/AppointmentForm";
 import wcdesign from "./Appointment.module.css";
 
 const Appointment = () => {
   const { user } = useContext(UserContext);
-  const location = useLocation();
-  const { assistantId, fromFind, assistantName, assistantProfile } =
-    location.state || {};
-
-  console.log(assistantId);
 
   return (
     <main>
@@ -20,15 +15,7 @@ const Appointment = () => {
       {user?.id && (
         <section className={wcdesign["dashboard"]}>
           <SideMenu />
-          {fromFind ? (
-            <AppointmentForm
-              assistantId={assistantId}
-              assistantName={assistantName}
-              assistantProfile={assistantProfile}
-            />
-          ) : (
-            <Navigate to="/appointment" />
-          )}
+          <AppointmentForm/>
         </section>
       )}
     </main>
