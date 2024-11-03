@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import AppointmentList from "../../pages/AppointmentList/AppointmentList";
 import useFetchData from "../../hooks/useGetData";
+import useUpdate from "../../hooks/useUpdate";
 
 const AppointmentForm = () => {
   const today = new Date().toISOString().split("T")[0];
@@ -17,55 +18,42 @@ const AppointmentForm = () => {
   const [serviceDate, setServiceDate] = useState(null);
   const navigate = useNavigate();
   const {assistantId} = useParams();
-  const {fetchDataFuncHandler,loading,error}=useFetchData();
-
+  const {fetchDataFuncHandler,loading}=useFetchData();
+  const {updateFunc}=useUpdate();
   async function fetchData(){
     const composedUrl = `main/assistant-details/${encodeURIComponent(assistantId)}`;
-
-    const {isSuccess,message,data}= await fetchDataFuncHandler(composedUrl);
+    const {data}= await fetchDataFuncHandler(composedUrl);
     setAssistant(data);
   }
   useEffect(()=>{
     fetchData();
   },[])
-  function sendAppointment(e) {
+
+
+  async function sendAppointment(e) {
     e.preventDefault();
 
-    fetch(`${process.env.REACT_APP_API_URL}/appointment/create-appointment`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        appointmentDate: appointmentDate,
-        startDate: startDate,
-        endDate: endDate,
-        assistantId: assistantId,
-        numberOfHours: serviceDuration,
-        serviceDescription: serviceDescription,
-        serviceDate: serviceDate,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.isSuccess === true) {
-          Swal.fire({
-            title: "Appointment Successfully Sent",
-            icon: "successfull",
-            text: "Your Appointment is Successfull.",
-          });
+    const method = "POST";
+    const composedUrl = "appointment/create-appointment";
 
-          navigate(<AppointmentList />);
-        } else {
-          Swal.fire({
-            title: "Appointment failed",
-            icon: "error",
-            text: "Your Appointment was not Successfull.",
-          });
-          console.log("log-in failed");
-        }
-      });
+    const {isSuccess,message}=await updateFunc(method,{
+      appointmentDate: appointmentDate,
+      startDate: startDate,
+      endDate: endDate,
+      assistantId: assistantId,
+      numberOfHours: serviceDuration,
+      serviceDescription: serviceDescription,
+      serviceDate: serviceDate,
+    },composedUrl);
+
+
+    Swal.fire({
+      title: message,
+      icon: isSuccess ? "success":"error",
+      text: isSuccess ? "Your Appointment is Successfull.": "Something Went Wrong",
+    });
+
+    navigate(<AppointmentList />);
   }
 
   return (

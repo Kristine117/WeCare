@@ -9,6 +9,7 @@ import appList from "./AppointmentList.module.css";
 import Payment from "../../components/Payment/Payment";
 import ListController from "../../components/ListController/ListController";
 import useUpdate from "../../hooks/useUpdate";
+import useFetchData from "../../hooks/useGetData";
 
 const APP_LIST_STATUS = [
   { btnName: "ongoing", btnTitle: "Ongoing" },
@@ -22,41 +23,28 @@ const AppointmentList = () => {
   const [openModal, setOpenModal] = useState(false);
   const [amount, setAmount] = useState(null);
   const [appId,setAppId] = useState(null);
+  const{fetchDataFuncHandler}=useFetchData();
 
   async function switchListRequests(e) {
-    setAppListStatus(e.target.name);
 
-    const data = await fetch(
-      `${process.env.REACT_APP_API_URL}/appointment/appointment-list`,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          status: appListStatus,
-        },
-      }
-    );
-    const parseData = await data.json();
-    setList(parseData?.data);
+    if(e){
+      setAppListStatus(e.target.name);
+    }else {
+      setAppListStatus(appListStatus)
+    }
+    const composedUrl =  `appointment/appointment-list`;
+
+    const headers = {
+      status: appListStatus
+    }
+
+    const {data}=await fetchDataFuncHandler(composedUrl,headers);
+    setList(data);
   }
 
   useEffect(() => {
-    async function getAppointmentList() {
-      const data = await fetch(
-        `${process.env.REACT_APP_API_URL}/appointment/appointment-list`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            status: appListStatus,
-          },
-        }
-      );
-      const parseData = await data.json();
 
-      console.log(parseData)
-      setList(parseData?.data);
-    }
-
-    getAppointmentList();
+    switchListRequests();
   }, [appListStatus]);
 
   function openModalFuncHandler(e) {
@@ -107,6 +95,7 @@ const AppointmentList = () => {
                       statusTab={appListStatus}
                       isExpired={val.isExpired}
                       assistantId={val.assistantId}
+                      updateListFunc={switchListRequests}
                     />
                   ))
                 )}
