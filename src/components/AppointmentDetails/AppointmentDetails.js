@@ -22,7 +22,6 @@ const AppointmentDetails = ({
   assistantId,
   updateListFunc
 }) => {
-  console.log(typeof isExpired)
 
   const { updateFunc, error } = useUpdate();
 

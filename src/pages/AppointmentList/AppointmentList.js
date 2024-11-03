@@ -26,25 +26,24 @@ const AppointmentList = () => {
   const{fetchDataFuncHandler}=useFetchData();
 
   async function switchListRequests(e) {
+    setAppListStatus(e.target.name);
+  }
 
-    if(e){
-      setAppListStatus(e.target.name);
-    }else {
-      setAppListStatus(appListStatus)
-    }
+  async function getData(status){
+
     const composedUrl =  `appointment/appointment-list`;
 
     const headers = {
-      status: appListStatus
+      status
     }
 
-    const {data}=await fetchDataFuncHandler(composedUrl,headers);
-    setList(data);
+    const result=await fetchDataFuncHandler(composedUrl,headers);
+   
+    setList(result?.data);
   }
 
   useEffect(() => {
-
-    switchListRequests();
+    getData(appListStatus);
   }, [appListStatus]);
 
   function openModalFuncHandler(e) {
