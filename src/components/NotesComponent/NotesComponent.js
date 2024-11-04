@@ -62,6 +62,7 @@ function NotesComponent({ loggedInUserId }) {
 
     const parseData = await data.json();
     setNotes(parseData.notes);
+    console.log(notes)
   };
 
   // UseEffect to fetch notes on component mount
@@ -275,7 +276,7 @@ function NotesComponent({ loggedInUserId }) {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify({
-            appointmentId: noteData.appointmentId,
+            noteId: noteData.noteId,
             reminderDate: reminderDate,
             reminderTime: reminderTime,
           }),
