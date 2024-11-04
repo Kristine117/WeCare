@@ -14,21 +14,32 @@
 
 .ellipsis {
     cursor: pointer;
-    font-size: 1.25rem;
+    font-size: 2.25rem;
+   z-index: -1;
+}
+
+.ellipsis-container {
+    cursor: pointer;
+    z-index: 2;
 }
 
 .floating-option {
     position: absolute;
     top: 50%;
-    left: 95%;
-
-    background: rgba(255, 255, 255, 0.2);
+    left: calc(70% + 10rem);
+    background: rgba(255, 255, 255, 0.9);
     border-radius: .25rem;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    --webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.25rem .55rem;
+    width: 7.5rem;
+    max-width: 7.5rem;
+    z-index: 5;
+}
 
-    padding: 0 .75rem;
+
+.btn-delete,.btn-edit {
+    cursor: pointer;
 }
 
 .btn-edit {
@@ -37,6 +48,7 @@
 
 .btn-delete {
     color: red;
+    display: block;
 }
 
 
@@ -48,17 +60,46 @@
     width: 100%;
     background: rgb(0 0 0 / 50%);
     opacity: 1;
-    z-index: 5;
+    z-index: 6;
 }
 
 .container {
     position: absolute;
-    top: 0;
+    top: 25%;
     left: 50%;
     transform: translate(-50%,50%);
     background-color: aliceblue;
     height: 10rem;
     z-index: 10;
+    padding: .75rem .5rem;
+    width: 30rem;
 }
 
+.close-modal {
+    float: right;
+    cursor: pointer;
+}
+
+.modal-message {
+    margin: 1.25rem auto;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.yes-btn,.no-btn {
+    width: 2.3rem;
+    border-radius: .25rem;
+    font-size: .9rem;
+    padding:  .25rem;
+    float: right;
+}
+
+.yes-btn {
+    background-color: #E3E3E3;
+    margin: 0 .75rem;
+}
+
+.no-btn {
+    background-color: #678990;
+}
 

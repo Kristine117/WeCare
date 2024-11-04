@@ -29,12 +29,12 @@ export default function AppNavbar() {
         <NavLink to="/" className={`${navDesign.link} pr-4`}>
           About Us
         </NavLink>
-        <NavLink to="/" className={`${navDesign.link} pr-4`}>
+        {/* <NavLink to="/" className={`${navDesign.link} pr-4`}>
           Find Care
         </NavLink>
         <NavLink to="/" className={`${navDesign.link} pr-4`}>
           Services
-        </NavLink>
+        </NavLink> */}
         <NavLink to="/login" className={`${navDesign.link} pr-4`}>
           Sign In
         </NavLink>

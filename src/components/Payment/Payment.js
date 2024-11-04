@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import pm from "./Payment.module.css";
 import Button from "../Button/Button";
@@ -6,6 +6,12 @@ import Gcash from "../PaymentTypes/Gcash/Gcash";
 import Paymaya from "../PaymentTypes/Paymaya/Paymaya";
 import CreditCard from "../PaymentTypes/CreditCard/CreditCard";
 import axios from "axios";
+import UserContext from "../../UserContext";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import { AiOutlineConsoleSql } from "react-icons/ai";
+
+
 
 const PAYMENT_SELECTION =[
     {
@@ -24,14 +30,16 @@ const PAYMENT_SELECTION =[
 
 
 
-const Payment = ({openModal,amount})=>{
+const Payment = ({openModal,amount,updateFuncHandler,appId})=>{
 
+    const {user}=useContext(UserContext);
     const PAYMONGO_SECRET_KEY = "sk_test_C62auzHAPXNnEp88vSASfGYC";
 
     const [pay,setPay] = useState(null);
     const [payMethod,setPayMethod] = useState(null);
 
     const [errMsg,setErrMsg]= useState("");
+    const navigate = useNavigate();
 
     function selectedPaymentMethod(e){
         setPayMethod({mode: e.target.dataset.pay})
@@ -66,7 +74,7 @@ const Payment = ({openModal,amount})=>{
             {
                 data: {
                 attributes: {
-                    amount: +newAmount,  // Amount in centavos (50000 = PHP 500.00)
+                    amount: +newAmount,  
                     payment_method_allowed: ["gcash","card","paymaya"],
                     currency: "PHP",
                     description: "Transfer via Payment Method",
@@ -89,7 +97,7 @@ const Payment = ({openModal,amount})=>{
         }
     }
 
-      async function confirmPaymentIntent(paymentIntentId, paymentMethodId) {
+      async function confirmPaymentIntent(paymentIntentId, paymentMethodId,paymentMethod) {
         try {
           const response = await axios.post(
             `https://api.paymongo.com/v1/payment_intents/${paymentIntentId}/attach`,
@@ -109,7 +117,39 @@ const Payment = ({openModal,amount})=>{
             }
           );
           
-          console.log('Payment Confirmed:', response.data);
+          console.log('Payment Confirmed:', response.data.data.attributes);
+          const processedPaymentId = response.data.data.id;
+
+
+          const composedUrl = `payment/process-payment`;
+          const method = "POST";
+          const result = await updateFuncHandler(method,{
+            paymentMethod:paymentMethod,
+            appointmentId:appId,
+            processedPaymentId:processedPaymentId
+          },composedUrl)
+
+          console.log(result)
+
+          if (result?.isSuccess) {
+            Swal.fire({
+              title: `You have Successfully Paid Your Appointment`,
+              icon: "successful",
+              text: "Your Appointment Payment is Successfully Approved.",
+            });
+      
+            navigate("/appointment");
+          }else {
+            Swal.fire({
+                title: `Payment not Successful`,
+                icon: "error",
+                text: "Please try again later.",
+              });
+        
+              navigate("/appointment");
+          }
+
+
         } catch (error) {
           console.error('Error confirming payment:', error.response ? error.response.data : error.message);
         }
@@ -119,14 +159,15 @@ const Payment = ({openModal,amount})=>{
   
     const gcash = pay?.mode === "GCash" && 
     <Gcash handleBackFunc={handleBackFuncHandler} confirmPaymentFunc={confirmPaymentIntent}
-    createPaymentIntentFunc={createPaymentIntent}/>;
+    createPaymentIntentFunc={createPaymentIntent} userId={user.userId} updateFuncHandler={updateFuncHandler}/>;
     
     const paymaya = pay?.mode === "Paymaya" && 
-    <Paymaya handleBackFunc={handleBackFuncHandler} confirmPaymentFunc={confirmPaymentIntent}/>;
+    <Paymaya handleBackFunc={handleBackFuncHandler} confirmPaymentFunc={confirmPaymentIntent}
+    createPaymentIntentFunc={createPaymentIntent} userId={user.userId} updateFuncHandler={updateFuncHandler}/>;
     
     const cc = pay?.mode === "Credit Card" && 
     <CreditCard handleBackFunc={handleBackFuncHandler} confirmPaymentFunc={confirmPaymentIntent}
-    createPaymentIntentFunc={createPaymentIntent}/>;
+    createPaymentIntentFunc={createPaymentIntent} userId={user.userId} updateFuncHandler={updateFuncHandler}/>;
 
     return createPortal(    
         <React.Fragment>

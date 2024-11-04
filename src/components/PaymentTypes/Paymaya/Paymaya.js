@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import gh from "./Paymaya.module.css";
 import { BiArrowBack } from "react-icons/bi";
 import Button from "../../Button/Button";
 import axios from "axios";
 
-const PAYMONGO_SECRET_KEY = process.env.PAYMONGO_SECRET_KEY;
+const PAYMONGO_SECRET_KEY = "sk_test_C62auzHAPXNnEp88vSASfGYC";
 
 const Paymaya = ({handleBackFunc,confirmPaymentFunc,createPaymentIntentFunc})=>{
-
+   
     async function attachPayMayaPaymentMethod(paymentIntentId, phoneNumber) {
         try {
           const response = await axios.post(
@@ -22,18 +22,22 @@ const Paymaya = ({handleBackFunc,confirmPaymentFunc,createPaymentIntentFunc})=>{
                 },
               },
             },
+
+        
             {
               headers: {
-                Authorization: `Basic ${Buffer.from(PAYMONGO_SECRET_KEY).toString('base64')}`,
+                Authorization: `Basic ${btoa(`${PAYMONGO_SECRET_KEY}`)}`,
                 'Content-Type': 'application/json',
               }
             }
           );
-      
+          
           const paymentMethodId = response.data.data.id;
+
+
           console.log('PayMaya Payment Method Attached:', paymentMethodId);
-      
-          await confirmPaymentFunc(paymentIntentId, paymentMethodId);
+          
+          await confirmPaymentFunc(paymentIntentId, paymentMethodId, "PayMaya");
         } catch (error) {
           console.error('Error attaching PayMaya payment method:', error.response ? error.response.data : error.message);
         }
@@ -43,17 +47,17 @@ const Paymaya = ({handleBackFunc,confirmPaymentFunc,createPaymentIntentFunc})=>{
     async function processPayment(e) {
 
         e.preventDefault();
-
-        const formData = await formData(e.target);
-        const {phoneNumber} =await formData.get("phone-number");
-      console.log(phoneNumber)
+        const formData = new FormData(e.target);
+        const phoneNumber =await formData.get("phone-number");
+    
         try {
           // Step 1: Create the Payment Intent with all methods allowed
           const paymentIntentData = await createPaymentIntentFunc();
-      
+        
           if (paymentIntentData) {
             const paymentIntentId = paymentIntentData.data.id;
 
+            console.log(paymentIntentId);
             await attachPayMayaPaymentMethod(paymentIntentId, phoneNumber);
           }
         } catch (error) {
@@ -71,7 +75,7 @@ const Paymaya = ({handleBackFunc,confirmPaymentFunc,createPaymentIntentFunc})=>{
             </header>     
             <form className={gh["container"]} onSubmit={processPayment}>   
                 <input name="phone-number" type="number" className={gh["phone-no"]}/>
-                <Button type="button">Pay</Button>
+                <Button type="submit">Pay</Button>
             </form>
         </React.Fragment>
     )

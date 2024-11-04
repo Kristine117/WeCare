@@ -1,6 +1,6 @@
 import React from "react";
 import wcdesign from "./ChatListComponent.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ChatListComponent = ({
   fullName,
@@ -16,7 +16,7 @@ const ChatListComponent = ({
 
   const handleClick = () => {
     updateReadFlg(messageId);
-    navigate(`/chat/${encodeURIComponent(userId)}`, {
+    navigate(`/chatlist/${encodeURIComponent(userId)}`, {
       state: {
         recipientId: userId,
         fullName: fullName,
@@ -43,7 +43,7 @@ const ChatListComponent = ({
         throw new Error(`Error: ${response.statusText}`);
       }
 
-      const data = await response.json();
+      // const data = await response.json();
       console.log("Message updated successfully");
     } catch (error) {
       console.error("Failed to update message:", error);
@@ -51,46 +51,13 @@ const ChatListComponent = ({
   };
 
   return (
-    // <div className={wcdesign["list"]} onClick={handleClick}>
-    //   <div className={wcdesign["profile-section-chat"]}>
-    //     <div className={wcdesign["profile-picture-chat"]}>
-    //       <div className={wcdesign["piture-section-chat"]}>
-    //         <img
-    //           src={profileImage}
-    //           alt="Nurse holding syringe"
-    //           className={wcdesign["profile-image-chat"]}
-    //         ></img>
-    //       </div>
-    //     </div>
-    //     <div className={wcdesign["message-section-chat"]}>
-    //       <div className={wcdesign["message-container-chat"]}>
-    //         <div className={wcdesign["profile-name-chat"]}>
-    //           {fullName }
-    //         </div>
-    //         <div className={wcdesign["profile-message-chat"]}>
-    //           <div>{!message ? "No message yet. Start Chat Now!": message}
-    //           </div>
-    //           <div className={wcdesign["online-time"]}>
-    //             1min
-    //             <span
-    //               className={`material-symbols-outlined wcdesign["active-time"]`}
-    //             >
-    //               radio_button_checked
-    //             </span>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
-
     <div className={wcdesign["list"]} onClick={handleClick}>
       <div className={wcdesign["profile-section-chat"]}>
         <div className={wcdesign["profile-picture-chat"]}>
           <div className={wcdesign["piture-section-chat"]}>
             <img
               src={profileImage}
-              alt="Nurse holding syringe"
+              alt="Profile Picture"
               className={wcdesign["profile-image-chat"]}
             ></img>
           </div>

@@ -1,3 +1,4 @@
+
 import React, { useState, useRef ,useContext,useEffect} from "react";
 import style from "./LoggedInCommonNavBar.module.css";
 import wcdesign from "../ChatListComponent/ChatListComponent.module.css";
@@ -5,7 +6,7 @@ import NotificationComponent from "../NotificationComponent/NotificationComponen
 import { FaBell, FaUser, FaSearch } from 'react-icons/fa';
 import UserContext from "../../UserContext";
 import io from 'socket.io-client';
-
+import { Link } from "react-router-dom";
 
 const apiUrl = `${process.env.REACT_APP_API_URL}`;
 
@@ -16,6 +17,8 @@ const LoggedInCommonNavBar = ({ title }) => {
     const notifModalRef = useRef(null);
     const [notiflist,setNotifList]  = useState([]);
     const userId= user.id
+    const [profileImg, setProfileImg] = useState("");
+    const [fullName, setFullName] = useState("");
     
 
     useEffect(() => {
@@ -57,6 +60,7 @@ const LoggedInCommonNavBar = ({ title }) => {
         useEffect(() => {
      fetchNotif();
         }, []);
+
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -101,6 +105,30 @@ const LoggedInCommonNavBar = ({ title }) => {
             inputRef.current.focus();  // Focus the input field
         }
     };
+    
+    useEffect(() => {        
+        fetch(`${process.env.REACT_APP_API_URL}/main/user-profile`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          })
+            .then((res) => {
+              if (!res.ok) {
+                // If the response has an error status (e.g., 404, 500), throw an error
+                throw new Error(`HTTP error! Status: ${res.status}`);
+              }
+              return res.json();
+            })
+            .then((data) => {
+             setProfileImg(data.data?.profileImage);
+             setFullName(data.data?.firstname + " " + data.data?.lastname);
+            })
+            .catch((error) => {
+              console.error("An error occurred while fetching the user profile:", error);
+            });
+//      console.log(`${process.env.REACT_APP_API_URL}/profilePictures/${user.profileImage}`);
+    })
+
 
     return (
         <>
@@ -129,19 +157,32 @@ const LoggedInCommonNavBar = ({ title }) => {
             {isOpen && (
                 <>
                     <div className={wcdesign["overlay"]} onClick={toggleMenu}></div>
-                    <div className={wcdesign["sidebarProfile"]}>
+                    <div className={`${wcdesign.sidebarProfile} ${wcdesign.profileContainer}`}>
+
                         <div className={wcdesign["hamburgerProfile"]} onClick={toggleMenu}>
-                            <span className={`material-symbols-outlined`}>close</span>
+                            <span className={`material-symbols-outlined ${wcdesign.specificPointerIcon}`}>close</span>
                         </div>
-                        {/* <div className={wcdesign["profile-picture-chat"]}>
+
+                         <div className={wcdesign["profile-picture-chat"]}>
                             <div className={wcdesign["piture-section-chat"]}>
                                 <img
-                                // src={profileImage}
+                                src={`${process.env.REACT_APP_API_URL}/profilePictures${profileImg}`}
                                 alt="Nurse holding syringe"
                                 className={wcdesign["profile-image-chat"]}
                                 ></img>
                             </div>
-                            </div> */}
+                        </div>
+
+                        <div className={wcdesign.profileNameSlideMenu}>
+                            {fullName}
+                        </div> 
+                        
+                        <Link to={"/profile"} className={` ${wcdesign.profileIconSlideMenu}`}>
+                        Edit Profile
+                        <span className={`material-symbols-outlined`}>edit</span>
+                        </Link>
+
+
                     </div>
                 </>
             )}

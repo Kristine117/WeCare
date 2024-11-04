@@ -42,7 +42,7 @@ export default function Login() {
             icon: "error",
             text: "Check your login details and try again.",
           });
-          console.log("log-in failed");
+      
         }
       });
   }
@@ -78,8 +78,8 @@ export default function Login() {
   return (
    <React.Fragment>
       <AppNavbar/>
-      {!user.id && <div className={`${loginModuleCss.background1} background1`}>
-      <div className={`${loginModuleCss.loginContainer} login-container`}>
+      {!user.id && <div className={`${loginModuleCss.background1}`}>
+      <div className={`${loginModuleCss.loginContainer}`}>
         <div className="login-box">
           <h3 className="pt-4 pb-4">Login account</h3>
           {user.error ? (

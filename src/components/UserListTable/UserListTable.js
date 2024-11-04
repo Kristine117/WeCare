@@ -3,17 +3,24 @@ import kwan from "./UserListTable.module.css";
 import {FaEllipsisH } from "react-icons/fa";
 import Button from "../Button/Button";
 import { createPortal } from "react-dom";
+import { FaX } from "react-icons/fa6";
+import { Link, useNavigate } from "react-router-dom";
+import useUpdate from "../../hooks/useUpdate";
+import Swal from "sweetalert2";
+const UserListTable=({length, list,fetchDataHandler})=>{
 
-const UserListTable=({length, list})=>{
     const [allBoxes,setAllBoxes]= useState(false);
     const [openModal,setOpenModal] = useState(false);
     const [openFloat,setOpenFloat]= useState(
-        new Array(length).fill(false)
+        new Array(length ? +length: 0).fill(false)
       );
     const [checkedState, setCheckedState] = useState(
-        new Array(length).fill(false)
+        new Array(length ? +length: 0).fill(false)
       );
 
+
+    const [userId,setUserId] = useState(null);
+    const navigate = useNavigate();
     const handleOnChange = (position) => {
 
         let updatedCheckedState;
@@ -29,18 +36,67 @@ const UserListTable=({length, list})=>{
         setCheckedState(updatedCheckedState);
     };
 
-    function openFloatFunc(e){
-        const floatMap = openFloat?.map((item, index)=> index === +e.target.dataset.index );
-    
+    function openFloatFunc(index){
+ 
+        const parsedIndex = +index;
+        
+        const floatMap = openFloat?.map((item, index)=> index === parsedIndex );
+
+        console.log(floatMap)
         setOpenFloat(floatMap)
     }
 
-    const modal = openModal && createPortal(<>
-    <div className={kwan["backdrop-modal"]} onClick={()=>{setOpenModal(val=>!val)
+    function closeFloatFunc(){
+        setOpenModal(val=>!val)
         setOpenFloat(new Array(length).fill(false))
-    }}></div>
-    <div className={kwan["container"]}>
+        setUserId(null);
+    }
+
+
+    const {updateFunc,error} = useUpdate();
+
+    async function handleUpdateUser(e){
+        const operation = e.target.dataset.operation;
+
+        const composedUrl = `admin/user-manage/${encodeURIComponent(userId)}/${encodeURIComponent(operation)}`;
+
+        const method = "PUT";
+
+        const result = await updateFunc(method,{},composedUrl);
+        const declaredOption = operation === "delete" ? "Deleted": "Updated";
+        if(result?.isSuccess) {
+            Swal.fire({
+                title: `${result.messsage}`,
+                icon: "successful",
+                text: "User has been successfully deleted!",
+              });
         
+           
+        }else {
+            Swal.fire({
+                title: `Operation Failed`,
+                icon: "error",
+                text: "Something went wrong. Please try again later!",
+              });
+        
+        }
+
+        fetchDataHandler();
+
+        
+          navigate("/users");
+        
+    }
+    const modal = openModal && createPortal(<>
+    <div className={kwan["backdrop-modal"]} onClick={closeFloatFunc}></div>
+    <div className={kwan["container"]}>
+        <FaX className={kwan["close-modal"]} onClick={closeFloatFunc}/>
+        <p className={kwan["modal-message"]}>Are you sure you want to remove this user?</p>
+
+        <Button type="button" className={kwan["no-btn"]} onClick={closeFloatFunc}>No</Button>
+        <Button type="button" className={kwan["yes-btn"]} 
+        onClick={handleUpdateUser} data-operation="delete">Yes</Button>
+      
     </div>
     </>
     ,document.querySelector("#modal"))
@@ -67,10 +123,19 @@ const UserListTable=({length, list})=>{
                    <div>{val.email}</div>
                    <div>{val.userType === 'assistant' ? "Assistant": "Senior"}</div>
                    <div>{val.approveFlg ? "Verified": "Pending"}</div>
-                   <FaEllipsisH className={kwan["ellipsis"]} data-index={i} onClick={openFloatFunc}/>
+                   <div className={kwan["ellipsis-container"]} onClick={()=>openFloatFunc(i)}  >
+                        <FaEllipsisH className={kwan["ellipsis"]} />
+                   </div>
                    {openFloat[i] && <div className={kwan["floating-option"]}>
-                        <Button type="button" className={kwan["btn-edit"]}>Edit</Button>
-                        <Button type="button" className={kwan["btn-delete"]} onClick={()=>setOpenModal(val=>!val)}>Delete</Button>
+                        <Link relative="true" to={`${encodeURIComponent(val.userId)}/edit`}
+                        className={kwan["btn-edit"]}>
+                            Edit
+                        </Link>
+                        {val.canBeDeleted === 1 && <Button type="button" className={kwan["btn-delete"]} 
+                        onClick={()=>{
+                            setOpenModal(val=>!val)
+                            setUserId(val.userId)
+                        }}>Delete</Button>}
                    </div>}
                 </li>)}
             </ul>

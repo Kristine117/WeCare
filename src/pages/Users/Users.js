@@ -7,7 +7,7 @@ import LoggedInCommonNavBar from "../../components/LoggedInCommonNavBar/LoggedIn
 import ds from "./Users.module.css";
 import ListController from "../../components/ListController/ListController";
 import UserListTable from "../../components/UserListTable/UserListTable";
-
+import useGetData from "../../hooks/useGetData";
 const BTN_LIST = [
     {btnName: "assistants",
     btnTitle:"Assistants"
@@ -17,32 +17,31 @@ const BTN_LIST = [
     }
 ]
 const Users = ()=>{
-    const [list,setList]= useState(null);
+    const [list,setList]= useState([]);
     const {user} = useContext(UserContext);
     const [status,setStatus]= useState("assistants");
-    const [loading,setLoading] = useState(false);
+
+    const {fetchDataFuncHandler,loading,error}= useGetData();
+
+
+    const fetchData = async() => {
+        const composedUrl = "admin/user-list";
+
+        const result = await fetchDataFuncHandler(composedUrl);
+
+        setList(result.data);
+    };
+    
     useEffect(() => {
-    const fetchData = () => {
-        setLoading(true)
-        fetch(`${process.env.REACT_APP_API_URL}/admin/user-list`, {
-            headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-        })
-            .then((res) => res.json())
-            .then((data) => {
-            setList(data.data);
-            setLoading(false);
-            });
-        };
-    fetchData();
 
-
+     fetchData();
     }, [status]);
 
     function switchListRequestsFunc(e){
         setStatus(e.target.name);
     }
+
+    console.log(list)
 
     return(
         <main>
@@ -53,7 +52,10 @@ const Users = ()=>{
                     <LoggedInCommonNavBar title="Manage Users"/>
                     <ListController switchListRequests={switchListRequestsFunc} btnList={BTN_LIST} status={status}/>
                     {loading && <p>Loading</p>}
-                    {!loading && <UserListTable length={status === 'assistants' ? list?.assistants.length : list?.seniors.length} list={status === 'assistants' ? list?.assistants : list?.seniors}/>}
+                    {!loading && <UserListTable length={status === 'assistants' ? 
+                        list?.assistants?.length : list?.seniors?.length} 
+                        list={status === 'assistants' ? list?.assistants : list?.seniors}
+                        fetchDataHandler={fetchData}/>}
                 </DashboardContainer>            
             </section>}
         </main>

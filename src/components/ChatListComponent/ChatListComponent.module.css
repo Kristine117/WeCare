@@ -72,6 +72,39 @@
   transition: opacity 0.3s ease;
 }
 
+.hamburgerProfile{
+  min-width: 100%;
+  padding: 1rem;
+}
+
+.specificPointerIcon{
+  cursor: pointer;
+}
+
+.specificPointerIcon:hover{
+  background-color: #b3b3b3;
+  transition: background-color 0.3s ease;
+}
+
+.profileNameSlideMenu{
+  font-size: 1rem;
+  color: #678990;
+  text-transform: uppercase;
+  padding-top: 1.5rem;
+  padding-left: 2rem;
+}
+
+.profileContainer{
+  display: flex !important;
+  align-items: center !important;
+}
+
+.profileIconSlideMenu{
+  color: #678990;
+  padding-top: .5rem;
+  padding-left: 2rem;  
+}
+
 .sidebarProfile {
   background: #d9d9d9; /* Light gray background */
   width: 30%; /* Set the width to 30% */
@@ -90,7 +123,19 @@
   right: -30%; /* Move offscreen when closed */
 }
 
+.list {
+  transition: box-shadow 0.3s ease; /* Smooth transition for the shadow */
+  margin-left: .40rem;
+  margin-right: .40rem;
+}
 
+.list:hover {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+  background-color: #f0f4f8; /* Optional light background on hover */
+  border-radius: 1rem; /* Make sure it matches your component’s border-radius */
+  margin-left: .40rem;
+  margin-right: .40rem;
+}
 
 
 /* For tablet */
@@ -103,19 +148,7 @@
   .piture-section-chat {
     margin-left: initial;
   }
-  .list {
-    transition: box-shadow 0.3s ease; /* Smooth transition for the shadow */
-    margin-left: .40rem;
-    margin-right: .40rem;
-  }
   
-  .list:hover {
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Shadow on hover */
-    background-color: #f0f4f8; /* Optional light background on hover */
-    border-radius: 1rem; /* Make sure it matches your component’s border-radius */
-    margin-left: .40rem;
-    margin-right: .40rem;
-  }
   .profile-section-chat {
     margin-left: .40rem;
     margin-right: .40rem;
@@ -146,5 +179,28 @@
   .iconSize{
     font-size: .90rem !important;
   }
-  
+  .sidebarProfile {
+    background: #d9d9d9; /* Light gray background */
+    width: 60%; /* Set the width to 30% */
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    transition: right 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    opacity: 1; /* Ensure visibility when opened */
+  } 
+  .profileNameSlideMenu{
+    font-size: 1rem;
+    color: #678990;
+    text-transform: uppercase;
+    padding-top: 1rem;
+    padding-left: .20rem;
+  }
+  .profileIconSlideMenu{
+    color: #678990;
+    padding-left: 1rem;  
+  }
 }
