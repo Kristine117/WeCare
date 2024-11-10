@@ -360,14 +360,16 @@ const updateNote = async (noteItem) => {
                   </option>
                 ))}
               </select>
-       
-              <button type="submit"  onClick={handleSubmit}>
+
+              <div className='d-flex justify-content-between mt-3'>
+              <button type="submit" className='btn btn-primary'  onClick={handleSubmit}>
                 Add
               </button>
 
-              <button type="button"onClick={hideForm} >
+              <button type="button" className='btn btn-danger' onClick={hideForm} >
                 Cancel
               </button>
+              </div>
 
             </form>
           </div>

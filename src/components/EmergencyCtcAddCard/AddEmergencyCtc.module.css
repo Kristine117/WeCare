@@ -1,0 +1,12 @@
+.card {
+    width: auto; /* Adjust the width as needed */
+    height: auto; /* Adjust the height as needed */
+    border: 2px solid #4d6b6b; /* Set the border color */
+    background-color: white;
+    box-sizing: border-box; /* Ensures padding/border do not affect the square's size */
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    padding:5rem;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s; /* Smooth transition for hover effects */
+}

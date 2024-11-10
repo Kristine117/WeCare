@@ -316,6 +316,7 @@ export default function SideMenu() {
 
         <div className={`${sidemenu.supportSpacing}`}>
         {user?.userType !== "admin" && (
+          <Link to="/emergency">
           <div className="support-item ml-4 mr-4 mb-2">
             <div className={sidemenu["support"]}>
               <span className="material-symbols-outlined side-menu-color icon-size">
@@ -324,19 +325,22 @@ export default function SideMenu() {
               <p>Support</p>
             </div>
           </div>
+          </Link>
         )}
 
         {user?.userType === "admin" && (
-          <div className="support-item ml-4 mr-4">
-            <div>
+          <Link to="/emergency">
+          <div className="support-item ml-4 mr-4 mb-2">
+            <div className={sidemenu["support"]}>
               <span className="material-symbols-outlined side-menu-color icon-size">
                 volunteer_activism
               </span>
               <p>Requests</p>
             </div>
           </div>
+          </Link>
         )}
-        <div className="support-item logout-bottom ml-4">
+        <div className="logout-bottom ml-4">
           <span className="material-symbols-outlined side-menu-color icon-size">
             logout
           </span>
