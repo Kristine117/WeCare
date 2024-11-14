@@ -4,11 +4,13 @@ import Swal from "sweetalert2";
 import loginModuleCss from "./Login.module.css";
 import UserContext from "../../UserContext";
 import AppNavbar from "../../components/AppNavbar/AppNavbar";
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import eye icons
 
 export default function Login() {
   const { user, setUser } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   // const [error, setError] = useState(false);
 
   function authenticate(e) {
@@ -27,14 +29,12 @@ export default function Login() {
       .then((res) => res.json())
       .then((data) => {
         if (data.isSuccess === true) {
+          Swal.fire({ title: "Log-in Successfully", icon: "success", text: "Account Login Successfully" });
           localStorage.setItem("token", data.data.token);
-
           retrieveUserDetails(data.data.token);
-
           setUser({
             token: localStorage.getItem("token"),
           });
-
           console.log("log-in successfully");
         } else {
           Swal.fire({
@@ -106,18 +106,36 @@ export default function Login() {
               <label htmlFor="password">
                 Password
               </label>
-              <input
-                type="password"
-                className="form-control"
-                id="password"
-                placeholder="Enter Password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div className="d-flex">
+                    <input
+                      type={showPassword ? "text" : "password"} // Toggle type between 'text' and 'password'
+                      className="form-control"
+                      id="password"
+                      placeholder="Enter Password"
+                      onChange={(e) => setPassword(e.target.value)}
+                  />
+
+                      <span
+                          onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state on click
+                          style={{
+                            position: 'absolute',
+                            right: '38rem',
+                            top: '62.8%',
+                            transform: 'translateY(-50%)',
+                            cursor: 'pointer',
+                        }}
+                      >
+                          {showPassword ? <FaEyeSlash /> : <FaEye />} {/* Show eye icon based on visibility */}
+                      </span>
+              </div>
+              
+            
             </div>
-            <div className="form-text mb-4 mt-4">
-              {/* <a href="#">Forgot Password?</a> */}
+
+            <div className="form-text">
+              <Link to={"/forgot-password"}>Forgot Password?</Link>
             </div>
-            <div className="d-flex justify-content-center">
+            <div  className="d-flex justify-content-center mt-3">
               <button type="submit" className="btn-get-started buttonSeniorSize">
                 Login
               </button>

@@ -25,6 +25,8 @@ import Users from "./pages/Users/Users";
 import Notes from "./pages/Notes/Notes";
 import Profile from "./pages/Profile/Profile";
 import Emergency from "./pages/EmergencyContacts/Emergency";
+import ForgotPass from "./pages/ForgotPassword/ForgotPass";
+import ForgotPassSuccess from "./pages/ForgotPassword/ForgotPassSuccess";
 
 function App() {
   // for getting token this is for global this is helped whit the UserContext.js
@@ -95,6 +97,8 @@ function App() {
         <Routes>
           <Route path="*" errorElement={<Error />} />
           <Route path="/" element={<HomeContainer />} />
+          <Route path="/forgot-password-success" element={<ForgotPassSuccess />} />
+          <Route path="/forgot-password" element={<ForgotPass />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registration1" element={<Registration1 />} />
           <Route path="/registration3" element={<Registration3 />} />

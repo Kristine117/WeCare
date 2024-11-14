@@ -15,7 +15,11 @@ export default function SideMenu() {
   const [activeNavMes, setActiveNavMes] = useState(false);
   const [activeNavApp, setActiveNavApp] = useState(false);
   const [activeNavNOtes, setActiveNavNotes] = useState(false);
-  //const [activeNavSupp, setActiveNavSupp] = useState(false);
+  const [activeSupport, setActiveSupport] = useState(false);
+  const [activeUser, setActiveuser] = useState(false);
+  const [activeRatings, setActiveRatings] = useState(false);
+  const [activerequest, setActiverequest] = useState(false);
+
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
@@ -33,8 +37,12 @@ export default function SideMenu() {
     setActiveNavMes(location.pathname === "/chatlist");
     setActiveNavApp(location.pathname === "/appointment");
     setActiveNavNotes(location.pathname === "/notes");
-    //setActiveNavSupp(location.pathname === '/support'); // Update as per your support route
-  
+    setActiveSupport(location.pathname === "/emergency");
+    setActiveuser(location.pathname === "/users");
+    setActiveRatings(location.pathname === "/ratings");
+    setActiverequest(location.pathname === "/requests");
+
+
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -74,7 +82,7 @@ export default function SideMenu() {
               <Link
             to={"/dashboard-main"}
             // onClick={clickedActiveHome}
-            className={activeNavHome ? "menu-item actives" : "menu-item"}
+            className={activeNavHome ? "pl-2 menu-item actives" : "pl-2 menu-item"}
           >
             <span className="material-symbols-outlined side-menu-color icon-size ">
               home
@@ -87,7 +95,7 @@ export default function SideMenu() {
             <Link
               to={"/find"}
               // onClick={clickedActiveFind}
-              className={activeNavFind ? "menu-item actives" : "menu-item"}
+              className={activeNavFind ? "pl-2 menu-item actives" : "pl-2 menu-item"}
             >
               <span className="material-symbols-outlined side-menu-color icon-size">
                 search
@@ -104,7 +112,7 @@ export default function SideMenu() {
             <Link
               to={"/chatlist"}
               // onClick={clickedActiveMess}
-              className={activeNavMes ? "menu-item actives" : "menu-item"}
+              className={activeNavMes ? "pl-2 menu-item actives" : "pl-2 menu-item"}
             >
               <span className="material-symbols-outlined side-menu-color icon-size">
                 chat
@@ -119,7 +127,7 @@ export default function SideMenu() {
             <Link
               to="/appointment"
               // onClick={clickedActiveApp}
-              className={activeNavApp ? "menu-item actives" : "menu-item"}
+              className={activeNavApp ? "pl-2 menu-item actives" : "pl-2 menu-item"}
             >
               <span className="material-symbols-outlined side-menu-color icon-size">
                 list_alt
@@ -131,7 +139,7 @@ export default function SideMenu() {
             <Link
               to="/notes"
               onClick={clickedActiveNotes}
-              className={activeNavNOtes ? "menu-item actives" : "menu-item"}
+              className={activeNavNOtes ? "pl-2 menu-item actives" : "pl-2 menu-item"}
             >
               <span className="material-symbols-outlined side-menu-color icon-size">
                 list_alt
@@ -145,10 +153,10 @@ export default function SideMenu() {
               <Link
                 to="/users"
                 // onClick={clickedActiveApp}
-                className={activeNavApp ? "menu-item actives" : "menu-item"}
+                className={activeUser ? "pl-2 menu-item actives" : "pl-2 menu-item"}
               >
                 <span className="material-symbols-outlined side-menu-color icon-size">
-                  list_alt
+                  person
                 </span>
                 <p className="ml-2 pt-3">Users</p>
               </Link>
@@ -156,7 +164,7 @@ export default function SideMenu() {
               <Link
                 to="/ratings"
                 // onClick={clickedActiveApp}
-                className={activeNavApp ? "menu-item actives" : "menu-item"}
+                className={activeNavApp ? "pl-2 menu-item actives" : "pl-2 menu-item"}
               >
                 <span className="material-symbols-outlined side-menu-color icon-size">
                   list_alt
@@ -168,32 +176,41 @@ export default function SideMenu() {
           </div>
 
 
-          <div className={`${sidemenu.supportSpacing}`}>
-        {user?.userType !== "admin" && (
-          <div className="support-item ml-4 mr-4 mb-4">
-            <div className={sidemenu["support"]}>
-              <span className="material-symbols-outlined side-menu-color icon-size">
-                volunteer_activism
-              </span>
-              <p>Support</p>
-            </div>
-          </div>
-        )}
 
-        {user?.userType === "admin" && (
-          <div className="support-item ml-4 mr-4 mb-4">
-            <div>
-              <span className="material-symbols-outlined side-menu-color icon-size">
-                volunteer_activism
-              </span>
-              <p>Requests</p>
-            </div>
+
+
+
+
+
+
+          <div className={`${sidemenu.supportSpacing}`}>
+          {user?.userType !== "admin" && (
+          <div className="m-4">
+            <Link to="/emergency" 
+            className={activeSupport ? "pl-2 menu-item actives" : "pl-2 menu-item"}>
+                <span className="material-symbols-outlined side-menu-color icon-size">
+                  volunteer_activism
+                </span>
+                <p className="ml-2 pt-3">Support</p>
+            </Link>
           </div>
-        )}
+          )}
+
+          {user?.userType === "admin" && (
+            <div className="m-4">
+              <Link to="/requests" 
+              className={activeSupport ? "pl-2 menu-item actives" : "pl-2 menu-item"}>
+                  <span className="material-symbols-outlined side-menu-color icon-size">
+                    volunteer_activism
+                  </span>
+                  <p className="ml-2 pt-3">Requests</p>
+              </Link>
+            </div>
+          )}
 
 
         
-        <div className="support-item logout-bottom ml-4">
+        <div className="support-item logout-bottom ml-4 pl-2">
           <span className="material-symbols-outlined side-menu-color icon-size">
             logout
           </span>
@@ -210,7 +227,14 @@ export default function SideMenu() {
 
           </div>
         </>
+
+
       ) : (
+
+
+
+
+        
         <>
           {/* Content for desktop view */}
           <div className={`${sidemenu.sidebarLaptopView}`}>
@@ -223,7 +247,7 @@ export default function SideMenu() {
           <Link
             to={"/dashboard-main"}
             // onClick={clickedActiveHome}
-            className={activeNavHome ? "menu-item actives" : "menu-item"}
+            className={activeNavHome ? "pl-2 menu-item actives" : "pl-2 menu-item"}
           >
             <span className="material-symbols-outlined side-menu-color icon-size ">
               home
@@ -238,7 +262,7 @@ export default function SideMenu() {
             <Link
               to={"/find"}
               // onClick={clickedActiveFind}
-              className={activeNavFind ? "menu-item actives" : "menu-item"}
+              className={activeNavFind ? "pl-2 menu-item actives" : "pl-2 menu-item"}
             >
               <span className="material-symbols-outlined side-menu-color icon-size">
                 search
@@ -250,7 +274,7 @@ export default function SideMenu() {
             <Link
               to={"/chatlist"}
               // onClick={clickedActiveMess}
-              className={activeNavMes ? "menu-item actives" : "menu-item"}
+              className={activeNavMes ? "pl-2 menu-item actives" : "pl-2 menu-item"}
             >
               <span className="material-symbols-outlined side-menu-color icon-size">
                 chat
@@ -263,7 +287,7 @@ export default function SideMenu() {
             <Link
               to="/appointment"
               // onClick={clickedActiveApp}
-              className={activeNavApp ? "menu-item actives" : "menu-item"}
+              className={activeNavApp ? "pl-2 menu-item actives" : "pl-2 menu-item"}
             >
               <span className="material-symbols-outlined side-menu-color icon-size">
                 list_alt
@@ -278,7 +302,7 @@ export default function SideMenu() {
             <Link
               to="/notes"
               onClick={clickedActiveNotes}
-              className={activeNavNOtes ? "menu-item actives" : "menu-item"}
+              className={activeNavNOtes ? "pl-2 menu-item actives" : "pl-2 menu-item"}
             >
               <span className="material-symbols-outlined side-menu-color icon-size">
                 list_alt
@@ -292,10 +316,10 @@ export default function SideMenu() {
               <Link
                 to="/users"
                 // onClick={clickedActiveApp}
-                className={activeNavApp ? "menu-item actives" : "menu-item"}
+                className={activeUser ? "pl-2 menu-item actives" : "pl-2 menu-item"}
               >
                 <span className="material-symbols-outlined side-menu-color icon-size">
-                  list_alt
+                  person
                 </span>
                 <p className="ml-2 pt-3">Users</p>
               </Link>
@@ -303,44 +327,68 @@ export default function SideMenu() {
               <Link
                 to="/ratings"
                 // onClick={clickedActiveApp}
-                className={activeNavApp ? "menu-item actives" : "menu-item"}
+                className={activeRatings ? "pl-2 menu-item actives" : "pl-2 menu-item"}
               >
                 <span className="material-symbols-outlined side-menu-color icon-size">
-                  list_alt
+                  star
                 </span>
                 <p className="ml-2 pt-3">Ratings</p>
               </Link>
             </>
           )}
+
+
+          {user?.userType === "admin" && (
+            <>
+              <Link
+                to="/requests"
+                // onClick={clickedActiveApp}
+                className={activerequest ? "pl-2 menu-item actives" : "pl-2 menu-item"}>
+                <span class="material-symbols-outlined side-menu-color icon-size">
+                verified_user
+                </span>
+                <p className="ml-2 pt-3">Request</p>
+              </Link>
+            </>
+          )}
+
+          
         </div>
+
+
+
+
+
+
+
 
         <div className={`${sidemenu.supportSpacing}`}>
         {user?.userType !== "admin" && (
-          <Link to="/emergency">
-          <div className="support-item ml-4 mr-4 mb-2">
-            <div className={sidemenu["support"]}>
-              <span className="material-symbols-outlined side-menu-color icon-size">
-                volunteer_activism
-              </span>
-              <p>Support</p>
-            </div>
+          <div className="m-4">
+            <Link to="/emergency" 
+            className={activeSupport ? "pl-2 menu-item actives" : "pl-2 menu-item"}>
+                <span className="material-symbols-outlined side-menu-color icon-size">
+                  volunteer_activism
+                </span>
+                <p className="ml-2 pt-3">Support</p>
+            </Link>
           </div>
-          </Link>
         )}
 
         {user?.userType === "admin" && (
-          <Link to="/emergency">
-          <div className="support-item ml-4 mr-4 mb-2">
-            <div className={sidemenu["support"]}>
-              <span className="material-symbols-outlined side-menu-color icon-size">
-                volunteer_activism
-              </span>
-              <p>Requests</p>
-            </div>
+          <div className="m-4">
+            <Link to="/emergency" 
+            className={activeSupport ? "pl-2 menu-item actives" : "pl-2 menu-item"}>
+                <span className="material-symbols-outlined side-menu-color icon-size">
+                  health_and_safety
+                </span>
+                <p className="ml-2 pt-3">Contacts</p>
+            </Link>
           </div>
-          </Link>
         )}
-        <div className="logout-bottom ml-4">
+
+
+        <div className="logout-bottom ml-4 pl-2">
           <span className="material-symbols-outlined side-menu-color icon-size">
             logout
           </span>
