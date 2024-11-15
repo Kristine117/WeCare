@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import wcdesign from "./FindList.module.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function FindList({
   fullName,
@@ -37,16 +37,6 @@ function FindList({
     }
   };
 
-  const handleRequest = () => {
-    navigate(`/appointment-page/${encodeURIComponent(userId)}`, {
-      state: {
-        assistantId: userId,
-        fromFind: true,
-        assistantName: fullName,
-        assistantProfile: profileImage,
-      },
-    });
-  };
 
 
 
@@ -169,9 +159,7 @@ function FindList({
               </div>
             </div>
             <div className={wcdesign["modal-footer"]}>
-              <button className={wcdesign["button"]} onClick={handleRequest}>
-                Request
-              </button>
+              <Link to={`/appointment-page/${encodeURIComponent(userId)}`}>Request</Link>
               <button className={wcdesign["button"]} onClick={closeModal}>
                 Cancel
               </button>

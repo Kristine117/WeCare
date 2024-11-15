@@ -42,7 +42,7 @@ export default function Login() {
             icon: "error",
             text: "Check your login details and try again.",
           });
-          console.log("log-in failed");
+      
         }
       });
   }

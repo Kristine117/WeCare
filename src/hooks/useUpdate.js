@@ -1,20 +1,19 @@
 import { useState } from 'react';
 
-const useUpdateAppointment = () => {
+const useUpdate = () => {
   const [error, setError] = useState(null);
 
-  const updateAppointment = async (appId, method,body) => {
-    console.log(body)
-    const newAppId = encodeURIComponent(appId)
+  const updateFunc= async (method,body,composedUrl) => {
+  
     try {
       const response = await 
-      fetch(`${process.env.REACT_APP_API_URL}/appointment/update-appointment/${newAppId}`, {
+      fetch(`${process.env.REACT_APP_API_URL}/${composedUrl}`, {
         method: method,
         headers: {
-          "servingname":body.servingName,
-          "status":body.result,
           'Authorization': `Bearer ${localStorage.getItem("token")}`,
-        }
+          'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify(body)
       });
 
       if (!response.ok) {
@@ -22,9 +21,9 @@ const useUpdateAppointment = () => {
       }
 
       const responseData = await response.json();
-      
+
       return {
-        isSuccess: await responseData?.isSuccess
+        ...responseData   
       }
     
     } catch (err) {
@@ -32,7 +31,7 @@ const useUpdateAppointment = () => {
     }
   };
 
-  return { updateAppointment, error };
+  return { updateFunc, error };
 };
 
-export default useUpdateAppointment;
+export default useUpdate;

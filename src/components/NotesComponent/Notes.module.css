@@ -17,6 +17,8 @@
 
 .mainContainer {
   padding: 1rem;
+  height: calc(100vh - 15rem);
+  overflow: auto;
 }
 
 .notescontainer {
@@ -40,7 +42,7 @@
   gap: 1rem;
   padding: 1rem;
   overflow-y: scroll;
-  height: 85vh;
+  /* height: 85vh; */
   width: 100%;
   justify-content: center;
 
@@ -57,6 +59,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 15rem;
 }
 
 .noteItem {
@@ -100,13 +103,21 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  width: 300px;
+
   position: relative;
   z-index: 2001;
 }
 
 /* Input field */
 .modernInput {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modernSelect {
   width: 100%;
   margin-bottom: 10px;
   padding: 8px;
@@ -137,9 +148,9 @@
   border: 1px solid #737373;
   width: 200px;
   height: 100px;
-  position: absolute; /* Position relative to the noteItem */
-  bottom: -4rem;
-  right: -4rem;
+  position: absolute;
+  bottom: -5rem;
+  right: -10rem;
   z-index: 1001;
 }
 
@@ -152,8 +163,8 @@
   width: 200px;
   height: 200px;
   position: absolute; /* Position relative to the noteItem */
-  bottom: -4rem;
-  right: -4rem;
+  bottom: -11rem;
+  right: -0rem;
   z-index: 100;
 }
 
@@ -193,8 +204,11 @@
 
 .modalButtonDiv {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 1rem;
+  flex-direction: row;
+  /* align-content: center; */
+  align-items: flex-end;
 }
 
 .saveReminderbtn {
@@ -207,6 +221,26 @@
   justify-content: end;
 }
 
+.plusIcon {
+  fill: #678990; /* Ensures the fill is empty */
+  height: 2rem; /* Adjusts the height */
+  width: 2rem;
+}
+
+.modernButtonDiv {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.modernButton {
+  width: 10rem;
+  background-color: #678990;
+  border-radius: 0.5rem;
+  color: white;
+}
 
 /* .list {
   background-color: #fffb85; 

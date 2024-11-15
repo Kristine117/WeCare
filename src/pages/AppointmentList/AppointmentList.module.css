@@ -14,10 +14,16 @@
 }
 
 .app-list {
-  height: calc(100vh - 10rem);
+  height: calc(100vh - 15rem);
   min-height: 17.5rem;
   margin: 0 2rem;
   overflow: auto;
+  padding: 1rem;
+}
+
+.no-data {
+  color: #678990;
+  font-size: 4rem;
 }
 
 /* For tablet */

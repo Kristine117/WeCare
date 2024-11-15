@@ -1,25 +1,26 @@
 .header {
-    display: flex;
-    align-items: center;
-    height: 2.5rem;
-    min-height: 2.5rem;
-    padding: 0 2rem;
-    gap: 2rem;
+  display: flex;
+  align-items: center;
+  height: 2.5rem;
+  min-height: 2.5rem;
+  padding: 0 2rem;
+  gap: 2rem;
+  margin: 1rem;
 }
 
-.btn-active,.btn-inactive{
-    width: 10.55rem;
-    max-width: 10.55rem;
-    border-radius: .5rem;
-    border: 1px solid #678990;
-    padding: .35rem;
+.btn-active,
+.btn-inactive {
+  width: 10.55rem;
+  max-width: 10.55rem;
+  border-radius: 0.5rem;
+  border: 1px solid #678990;
+  padding: 0.35rem;
 }
 
 .btn-active {
-    background: #F0F0F0;
+  background: #f0f0f0;
 }
 
 .btn-inactive {
-    border: 1px solid #678990;
-
+  border: 1px solid #678990;
 }

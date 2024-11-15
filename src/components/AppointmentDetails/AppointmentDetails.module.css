@@ -9,6 +9,8 @@
   border: 1px solid;
   border-radius: 1rem;
   margin-bottom: 1rem;
+  border-color: #678990;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(103, 136, 143);
 }
 
 .container-indicator {
@@ -39,6 +41,7 @@
 
 .app-status {
   display: block;
+  color: #678990;
 }
 
 .ellipsis {

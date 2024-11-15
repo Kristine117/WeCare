@@ -8,6 +8,19 @@
   justify-content: space-between;
   width: -webkit-fill-available;
   align-items: center;
+  position: relative;
+}
+
+.notifContainer {
+  border: 0.05rem solid #678990;
+  width: 30rem;
+  position: absolute;
+  top: 7rem;
+  right: 1rem;
+  z-index: 1002;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  background-color: #fff;
 }
 
 /* removed by alier */
@@ -18,7 +31,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem; 
+  gap: 1rem;
   text-align: center;
 }
 
@@ -47,6 +60,15 @@
   background-color: white;
 } */
 
+.modernSelect {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+}
+
 .search {
   all: unset;
   border: none;
@@ -74,9 +96,6 @@
   width: 15rem;
 }
 
-
-
-
 .bell,
 .profile {
   display: flex;
@@ -89,7 +108,7 @@
   border: none;
 }
 
-.subContainer{
+.subContainer {
   display: flex;
   gap: 1rem;
 }
@@ -97,12 +116,11 @@
 
 
 /* For tablet */
-@media(max-width: 1200px){
-
+@media (max-width: 1200px) {
 }
 
 /* For phone view */
-@media(max-width: 768px){
+@media (max-width: 768px) {
   .title {
     font-size: 2rem;
     font-weight: 700;
@@ -115,13 +133,13 @@
     width: initial;
   }
 
-  .subContainer{
+  .subContainer {
     display: flex;
     gap: initial;
   }
   .inputSearch {
     height: 2rem;
-    width:8rem;
+    width: 8rem;
   }
 
   .navbarIconContainer {
@@ -130,6 +148,6 @@
 
   .bell,
   .profile {
-    padding-right: .20rem;
+    padding-right: 0.2rem;
   }
 }

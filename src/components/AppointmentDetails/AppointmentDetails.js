@@ -2,11 +2,10 @@ import React from "react";
 import design from "./AppointmentDetails.module.css";
 import { FaEllipsisV, FaUser } from "react-icons/fa";
 import Button from "../Button/Button";
-import useUpdateAppointment from "../../hooks/useUpdateAppointment";
-import { Navigate, useNavigate } from "react-router-dom";
-// import UserContext from "../../UserContext";
+
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import AppointmentList from "../../pages/AppointmentList/AppointmentList";
+import useUpdate from "../../hooks/useUpdate";
 
 const AppointmentDetails = ({
   appId,
@@ -19,17 +18,22 @@ const AppointmentDetails = ({
   statusId,
   openModal,
   statusTab,
+  isExpired,
+  assistantId
 }) => {
+
   const navigate = useNavigate();
 
-  const { updateAppointment, error } = useUpdateAppointment();
+  const { updateFunc, error } = useUpdate();
 
   const decideHandler = async (e) => {
+    const newAppId = encodeURIComponent(appId);
+    const composedUrl = `appointment/update-appointment/${newAppId}`;
     const method = "PUT";
-    const result = await updateAppointment(appId, method, {
+    const result = await updateFunc(method, {
       servingName: servingName,
       result: e.target.name,
-    });
+    },composedUrl);
 
     const declaredOption = e.target.name === "approve" ? "Approve" : "Rejected";
     if (result.isSuccess) {
@@ -47,7 +51,7 @@ const AppointmentDetails = ({
 
   return (
     <React.Fragment>
-      {updateAppointment.isSuccess && <Navigate to={"/dashboard-main"} />}
+      {updateFunc.isSuccess && <Navigate to={"/dashboard-main"} />}
       <div className={design["card"]}>
         <div>
           {servingProfileImage && (
@@ -90,7 +94,7 @@ const AppointmentDetails = ({
 
         {userTypeCheck && statusTab === "ongoing" && (
           <div>
-            <Button type="button" name="accept" onClick={decideHandler}>
+            <Button type="button" name="approve" onClick={decideHandler}>
               Accept
             </Button>
             <Button type="button" name="reject" onClick={decideHandler}>
@@ -99,18 +103,26 @@ const AppointmentDetails = ({
           </div>
         )}
 
-        {!userTypeCheck && statusTab === "ongoing" && (
+        {(!userTypeCheck && statusTab === "ongoing" && isExpired === 0) && (
           <div className={design["app-status"]}>
             <div>
               <strong>{statusDes}</strong>
             </div>
             {statusId === 2 && (
-              <Button type="button" data-amount={price} onClick={openModal}>
+              <Button type="button" data-appid={appId} data-amount={price} onClick={openModal}>
                 Pay Now
               </Button>
             )}
           </div>
         )}
+
+        {isExpired === 1 &&
+        <>
+        <div>Appointment Expired</div>
+        <Link to={`/appointment-page/${encodeURIComponent(assistantId)}`}>
+         Book Again
+        </Link>
+        </>}
 
         {statusTab === "approve" && (
           <div>
