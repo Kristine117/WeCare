@@ -1,0 +1,146 @@
+.headerContainer{
+    display: grid;
+    grid-template-columns: 68% repeat(2, 25%);
+    grid-template-rows: 5rem;
+    padding: 2rem;
+    color: #678990;
+    justify-content: space-between;
+    width: -webkit-fill-available;
+    align-items: center;
+}
+.headerTitle{
+    font-size: 2rem;
+    font-weight: 700;
+    width: 30rem;
+}
+.imgSize{
+    height: auto;
+    width: 8rem;
+}
+.labelEmergency{
+    margin-bottom: initial;
+    color: #678990;
+}
+
+
+.emergencyContactContainer {
+    width: 70rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s; /* Smooth transition effects */
+}
+
+
+.emergencyContainer {
+    width: 70rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s; /* Smooth transition effects */
+}
+
+.emergencyContainer:hover {
+    background-color: #f0f8ff; /* Light blue background on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+    transform: scale(1.02); /* Slightly enlarge on hover */
+}
+
+
+
+.threeDots {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px; /* Adjust the space between dots as needed */
+    cursor: pointer; /* Change the cursor to indicate it's clickable */
+}
+
+/* Default dot styling */
+.threeDots span {
+    width: 8px; /* Adjust the size of the dots */
+    height: 8px;
+    background-color: #5f7f7f; /* Default color */
+    border-radius: 50%;
+    transition: background-color 0.3s, transform 0.1s; /* Smooth transitions */
+}
+
+/* Hover effect: change color */
+.threeDots:hover span {
+    background-color: #4d6b6b; /* Change to a slightly different color on hover */
+}
+
+/* Click effect: shrink dots slightly */
+.threeDots:active span {
+    transform: scale(0.9); /* Shrink dots when clicked */
+}
+.card {
+    width: 6rem; /* Adjust the width as needed */
+    height: 6rem; /* Adjust the height as needed */
+    border: 2px solid #4d6b6b; /* Set the border color */
+    background-color: transparent; /* Make the background transparent */
+    box-sizing: border-box; /* Ensures padding/border do not affect the square's size */
+    position: absolute; /* Allow dynamic positioning */
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s; /* Smooth transition for hover effects */
+}
+
+/* Hover effect */
+/* .card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    transform: scale(1.05);
+} */
+
+.card p{
+    margin-bottom: 0rem;
+    margin-left:1rem;
+}
+
+.card div {
+    padding: 0.5rem; /* Add padding for better clickability */
+    cursor: pointer; /* Change cursor to indicate it's clickable */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+}
+
+.card div:hover {
+    background-color:#0062cc; /* Light blue background on hover */
+    color:white; /* Dark blue text color on hover */
+    font-weight: bold; /* Optional: make text bold on hover */
+    border-radius: 4px; /* Optional: rounded corners */
+}
+
+.card div:last-child:hover {
+    background-color: red; /* Make the "Delete" text red on hover */
+    color:white;
+}
+
+.customAddIcon{
+    color: #5f7f7f;
+    font-size: 5rem;
+}
+
+.darkOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Black with 70% opacity */
+    /* z-index: 9999; */
+    z-index: 0;
+ }
+
+.AddEmergencycard {
+    width: auto; /* Adjust the width as needed */
+    height: auto; /* Adjust the height as needed */
+    border: 2px solid #4d6b6b; /* Set the border color */
+    background-color: white;
+    box-sizing: border-box; /* Ensures padding/border do not affect the square's size */
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    padding:5rem;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s; /* Smooth transition for hover effects */
+}

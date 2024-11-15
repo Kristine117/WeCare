@@ -7,6 +7,7 @@ import { FaBell, FaUser, FaSearch } from 'react-icons/fa';
 import UserContext from "../../UserContext";
 import io from 'socket.io-client';
 import { Link } from "react-router-dom";
+import UserContext from "../../UserContext";
 
 
 const apiUrl = `${process.env.REACT_APP_API_URL}`;
@@ -215,7 +216,70 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
                         <div className={wcdesign.profileNameSlideMenu}>
                             {fullName}
                         </div> 
-                        
+                        {user?.id && (
+                            <section className={wcdesign["profile"]}>
+                                <form className="user-profile-form">
+
+                                {/* <div className="form-group">
+                                    <label htmlFor="text">Name:</label>
+                                    <input
+                                    id="name"
+                                    type="text"
+                                    className="form-control"
+                                    value={user?.firstname + " " + user?.lastname || "data has not been loaded"}
+                                    readOnly
+                                    />
+                                </div> */}
+
+                                <div className="form-group">
+                                    <label htmlFor="email">Email:</label>
+                                    <input
+                                    id="email"
+                                    type="text"
+                                    className="form-control"
+                                    value={user?.email || "data has not been loaded"}
+                                    readOnly
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="barangay">Barangay:</label>
+                                    <input
+                                    id="barangay"
+                                    className="form-control"
+                                    value={barangayName || "data has not been loaded"}
+                                    readOnly
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="street">Street:</label>
+                                    <input
+                                    id="street"
+                                    type="text"
+                                    className="form-control"
+                                    value={user?.street || "data has not been loaded"}
+                                    readOnly
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <div>Contact Number:</div>
+                                    <div>{user?.contactNumber || "data has not been loaded"}</div>
+                                </div>
+
+                                <div className="form-group">
+                                    <div>Birth Date:</div>
+                                    <div>
+                                    {user?.birthDate 
+                                    ? new Date(user.birthDate).toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" })
+                                    : "data has not been loaded"}                    
+                                    </div>
+                                </div>
+
+                                </form>
+                            </section>
+                        )}
                         <Link to={"/profile"} className={` ${wcdesign.profileIconSlideMenu}`}>
                         Edit Profile
                         <span className={`material-symbols-outlined`}>edit</span>

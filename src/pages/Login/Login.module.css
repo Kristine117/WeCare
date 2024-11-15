@@ -8,6 +8,14 @@
   align-items: center;
 }
 
+.eyeIcon{
+  position: 'absolute !important';
+  right: '10px';
+  top: '50%';
+  transform: 'translateY(-50%)';
+  cursor: 'pointer';
+}
+
 /* For tablet */
 @media(max-width: 1200px){
 

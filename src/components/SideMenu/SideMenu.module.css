@@ -37,6 +37,10 @@
   align-items: center;
 }
 
+.support:hover{
+  text-decoration: initial;
+}
+
 .customLogoutBtn{
   color: #678990;
   margin-left: .20rem;
@@ -46,6 +50,9 @@
  .supportSpacing{
   margin-bottom:3rem;
 } 
+.supportItem a:hover{
+  text-decoration: none;
+}
 
 
 /* Adjust sidebar for mobile view */
@@ -72,5 +79,9 @@
 
   .sidebar.open {
     left: 0; /* Sidebar slides in */
+  }
+
+  .supportItem{
+    text-decoration: none;
   }
 }
