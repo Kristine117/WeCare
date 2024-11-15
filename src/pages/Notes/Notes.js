@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import UserContext from "../../UserContext";
 import { Navigate, useLocation } from "react-router-dom";
 import SideMenu from "../../components/SideMenu/SideMenu";
@@ -10,6 +10,11 @@ import LoggedInCommonNavBar from "../../components/LoggedInCommonNavBar/LoggedIn
 function Notes() {
   const { user } = useContext(UserContext);
   const location = useLocation();
+  const [selectedAppntmnt, setSelectedAppntmnt] = useState(0);
+
+  const handleSelectChange = (value) => {
+    setSelectedAppntmnt(value);
+  };
 
   return (
     <main>
@@ -19,8 +24,8 @@ function Notes() {
         <section className={styles.dashboard}>
           <SideMenu />
           <DashboardContainer>
-            <LoggedInCommonNavBar title="Notes" />
-            <NotesComponent loggedInUserId={user.id} />
+            <LoggedInCommonNavBar title="Notes" onSelectChange={handleSelectChange}/>
+            <NotesComponent loggedInUserId={user.id} selectedAppointment={selectedAppntmnt} />
           </DashboardContainer>
         </section>
       )}
