@@ -8,24 +8,22 @@ import UserContext from "../../UserContext";
 import io from 'socket.io-client';
 import { Link } from "react-router-dom";
 
-<<<<<<< HEAD
+
 const apiUrl = `${process.env.REACT_APP_API_URL}`;
 
-const LoggedInCommonNavBar = ({ title }) => {
-    const { user } = useContext(UserContext);
-=======
+
 const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
-    
->>>>>>> cc027d97fe13cf4b6b8e36a298a72c039b48f735
+
     const [isOpen, setIsOpen] = useState(false);
     const[isNotifOpen,setIsNotifOpen]= useState(false);
+    const { user } = useContext(UserContext);
     const notifModalRef = useRef(null);
     const [notiflist,setNotifList]  = useState([]);
     const userId= user.id
     const [profileImg, setProfileImg] = useState("");
     const [fullName, setFullName] = useState("");
-<<<<<<< HEAD
-    
+    const [list, setList] = useState([]);
+    const [status, setStatus] = useState(["approve"]);
 
     useEffect(() => {
         const socket= io(apiUrl);
@@ -67,11 +65,8 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
      fetchNotif();
         }, []);
 
-=======
-    const [list, setList] = useState([]);
-    const [status, setStatus] = useState(["approve"]);
->>>>>>> cc027d97fe13cf4b6b8e36a298a72c039b48f735
 
+ 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };

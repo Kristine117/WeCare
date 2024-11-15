@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FaPlus, FaPlusCircle, FaPlusSquare } from "react-icons/fa";
+import {  FaPlusCircle} from "react-icons/fa";
 import styles from "./Notes.module.css";
 import { FaThumbtack } from "react-icons/fa";
-import { PiNutFill } from "react-icons/pi";
 import Swal from "sweetalert2";
 
 function NotesComponent({ loggedInUserId, selectedAppointment }) {
@@ -10,7 +9,7 @@ function NotesComponent({ loggedInUserId, selectedAppointment }) {
   console.log('SELECTED APPOINTMENT ' + selectedAppointment);
   console.log('USER ID ' + loggedInUserId);
 
-  const [notes, setNotes] = useState([]);
+  //const [notes, setNotes] = useState([]);
   const [list, setList] = useState([]);
   const [notesSearch, setNotesSearch] = useState([]);
   const [userId, setUserId] = useState(loggedInUserId);
@@ -86,19 +85,9 @@ function NotesComponent({ loggedInUserId, selectedAppointment }) {
       }
     );
 
-<<<<<<< HEAD
-    const parseData = await data.json();
-    setNotes(parseData.notes);
-    console.log(notes)
-  };
-=======
     const parseNotes = await notesData.json();
     setNotesSearch(parseNotes?.data);
-    console.log(notesSearch);
-    console.log('HERE')
-    console.log('HERE')
-    console.log('HERE')
-    console.log('HERE')
+  
 
   }
 
@@ -120,7 +109,6 @@ function NotesComponent({ loggedInUserId, selectedAppointment }) {
   //   const parseData = await data.json();
   //   setNotes(parseData.notes);
   // };
->>>>>>> cc027d97fe13cf4b6b8e36a298a72c039b48f735
 
   // UseEffect to fetch notes on component mount
   useEffect(() => {
