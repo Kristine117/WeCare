@@ -8,14 +8,18 @@ function Notification({ notiflist }) {
       <div>
         {console.log(notiflist)}
         {notiflist?.map((notif, index) => (
-          <div className={style.notifItem} key={index}>
+          <div
+            className={notif.readFlag === 0 ? style.unread : style.read}
+            key={index}
+          >
             <div>{notif.message}</div>
-            <button>View Appointment</button>
+            <a href="/appointment" >View Appointment</a>
           </div>
         ))}
       </div>
     </div>
   );
 }
+
 
 export default Notification;

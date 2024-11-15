@@ -5,9 +5,14 @@ import { FaThumbtack } from "react-icons/fa";
 import { PiNutFill } from "react-icons/pi";
 import Swal from "sweetalert2";
 
-function NotesComponent({ loggedInUserId }) {
+function NotesComponent({ loggedInUserId, selectedAppointment }) {
+
+  console.log('SELECTED APPOINTMENT ' + selectedAppointment);
+  console.log('USER ID ' + loggedInUserId);
+
   const [notes, setNotes] = useState([]);
   const [list, setList] = useState([]);
+  const [notesSearch, setNotesSearch] = useState([]);
   const [userId, setUserId] = useState(loggedInUserId);
   const [note, setNote] = useState({
     appointmentId: 0,
@@ -45,30 +50,82 @@ function NotesComponent({ loggedInUserId }) {
     getAppointmentList();
   }, []);
 
-  // Fetch all notes function
-  const fetchAllNotes = async () => {
-    const data = await fetch(
-      `${process.env.REACT_APP_API_URL}/notes/getALLNotes/${encodeURIComponent(
-        userId
-      )}`,
+  // useEffect(() => {
+  //   async function getSpecificNotes(){
+  //     const notesData = await fetch(
+  //       `${process.env.REACT_APP_API_URL}/notes/getNotes/${encodeURIComponent(userId)}/${encodeURIComponent(selectedAppointment)}`,
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json"
+  //         },
+  //       }
+  //     );
+
+  //     const parseNotes = await notesData.json();
+  //     setNotesSearch(parseNotes?.data);
+  //     console.log(notesSearch);
+  //     console.log('HERE')
+  //     console.log('HERE')
+  //     console.log('HERE')
+  //     console.log('HERE')
+
+  //   }
+
+  //   getSpecificNotes();
+  // },[selectedAppointment]);
+
+  const fetchSpecificNotes = async(selectedAppointment)=> {
+    const notesData = await fetch(
+      `${process.env.REACT_APP_API_URL}/notes/getNotes/${encodeURIComponent(userId)}/${encodeURIComponent(selectedAppointment)}`,
       {
         method: "GET",
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json"
         },
       }
     );
 
+<<<<<<< HEAD
     const parseData = await data.json();
     setNotes(parseData.notes);
     console.log(notes)
   };
+=======
+    const parseNotes = await notesData.json();
+    setNotesSearch(parseNotes?.data);
+    console.log(notesSearch);
+    console.log('HERE')
+    console.log('HERE')
+    console.log('HERE')
+    console.log('HERE')
+
+  }
+
+  // Fetch all notes function
+  // const fetchAllNotes = async () => {
+  //   const data = await fetch(
+  //     `${process.env.REACT_APP_API_URL}/notes/getALLNotes/${encodeURIComponent(
+  //       userId
+  //     )}`,
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       },
+  //     }
+  //   );
+
+  //   const parseData = await data.json();
+  //   setNotes(parseData.notes);
+  // };
+>>>>>>> cc027d97fe13cf4b6b8e36a298a72c039b48f735
 
   // UseEffect to fetch notes on component mount
   useEffect(() => {
-    fetchAllNotes();
-  }, []);
+    fetchSpecificNotes(selectedAppointment);
+  }, [selectedAppointment]);
 
   const showForm = () => {
     setIsFormActive(true); // Toggle between true and false
@@ -174,7 +231,7 @@ function NotesComponent({ loggedInUserId }) {
       const result = await response.json();
 
       if (result.isSuccess) {
-        fetchAllNotes();
+        fetchSpecificNotes(selectedAppointment);
         Swal.fire({
           title: "Note Deleted!",
           text: "Note has been successfully deleted.",
@@ -216,7 +273,7 @@ function NotesComponent({ loggedInUserId }) {
 
       if (result.isSuccess) {
         handleCloseModal();
-        fetchAllNotes();
+        fetchSpecificNotes(selectedAppointment);
       } else {
         console.error("Failed to update note:", result.message);
       }
@@ -252,7 +309,7 @@ function NotesComponent({ loggedInUserId }) {
       });
 
       // Fetch all notes after the note has been submitted
-      await fetchAllNotes(); // Wait for fetchAllNotes to complete
+      await fetchSpecificNotes(selectedAppointment); // Wait for fetchAllNotes to complete
     } catch (error) {
       console.error("Error submitting note:", error);
       // Show error alert using SweetAlert2
@@ -303,7 +360,7 @@ function NotesComponent({ loggedInUserId }) {
       handleCloseModalForReminder();
 
       // Fetch all notes after reminder submission
-      await fetchAllNotes();
+      await fetchSpecificNotes(selectedAppointment);
     } catch (error) {
       console.error("Error submitting reminder:", error);
 
@@ -400,7 +457,7 @@ function NotesComponent({ loggedInUserId }) {
       <div className={styles.notesAndAddButtonContainer}>
         <div className={styles.notescontainer}>
           <div className={styles.notelist}>
-            {notes?.map((noteItem, index) => (
+            {notesSearch?.map((noteItem, index) => (
               <div key={index} className={styles.noteItem}>
                 <div className={styles.pinDiv}>
                   <FaThumbtack

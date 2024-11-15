@@ -8,10 +8,15 @@ import UserContext from "../../UserContext";
 import io from 'socket.io-client';
 import { Link } from "react-router-dom";
 
+<<<<<<< HEAD
 const apiUrl = `${process.env.REACT_APP_API_URL}`;
 
 const LoggedInCommonNavBar = ({ title }) => {
     const { user } = useContext(UserContext);
+=======
+const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
+    
+>>>>>>> cc027d97fe13cf4b6b8e36a298a72c039b48f735
     const [isOpen, setIsOpen] = useState(false);
     const[isNotifOpen,setIsNotifOpen]= useState(false);
     const notifModalRef = useRef(null);
@@ -19,6 +24,7 @@ const LoggedInCommonNavBar = ({ title }) => {
     const userId= user.id
     const [profileImg, setProfileImg] = useState("");
     const [fullName, setFullName] = useState("");
+<<<<<<< HEAD
     
 
     useEffect(() => {
@@ -61,6 +67,10 @@ const LoggedInCommonNavBar = ({ title }) => {
      fetchNotif();
         }, []);
 
+=======
+    const [list, setList] = useState([]);
+    const [status, setStatus] = useState(["approve"]);
+>>>>>>> cc027d97fe13cf4b6b8e36a298a72c039b48f735
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -129,24 +139,58 @@ const LoggedInCommonNavBar = ({ title }) => {
 //      console.log(`${process.env.REACT_APP_API_URL}/profilePictures/${user.profileImage}`);
     })
 
+    useEffect(() => {
+        async function getAppointmentList() {
+          const data = await fetch(
+            `${process.env.REACT_APP_API_URL}/appointment/appointment-list`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                status: status,
+              },
+            }
+          );
+          const parseData = await data.json();
+          setList(parseData?.data);
+          console.log(list);
+        }
+        getAppointmentList();
+    }, []);
+
 
     return (
         <>
-            <div className={style.container}>
-                <div className={style["title"]}>{title}</div>
-                <div className={`${style.subContainer}`}>
-                    <div className={style.navbarIconSearchContainer}>
-                        <div className={style.inputSearch}>
-                            <input
-                                type="text"
-                                ref={inputRef}  // Attach the ref to the input
-                                className={style.search}
-                                placeholder="Search..."
-                            />
-                            <FaSearch className="search-icon" onClick={handleIconClick} />
-                        </div>
-                    </div>
+<div className={style.container}>
 
+            <div className={style["title"]}>{title}</div>
+                <div className={`${style.subContainer}`}>
+                    {title === 'Notes' ? (
+                        <select
+                            className={style.modernSelect}
+                            onChange={(e) => onSelectChange(e.target.value)}
+                        >
+                            <option value={0}>--Select Appointment Notes--</option>
+                            {list.map((item) =>
+                                !item.isExpired && (
+                                <option key={item.appointmentId} value={item.appointmentId}>
+                                    {item.serviceDescription}
+                                </option>
+                                )
+                            )}
+                        </select>
+                    ) : (
+                        <div className={style.navbarIconSearchContainer}>
+                            <div className={style.inputSearch}>
+                                <input
+                                    type="text"
+                                    ref={inputRef}  // Attach the ref to the input
+                                    className={style.search}
+                                    placeholder="Search..."
+                                />
+                                <FaSearch className="search-icon" onClick={handleIconClick} />
+                            </div>
+                        </div>
+                    )}
                     <div className={style.navbarIconContainer}>
                         <button onClick={toggleNotif} className={style.bell}> <FaBell size={28} className={style.icons} /></button>
                         <button onClick={toggleMenu} className={style.profile}> <FaUser size={28} className={style.profileButton} /></button>
