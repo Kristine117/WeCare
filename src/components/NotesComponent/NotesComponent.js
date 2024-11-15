@@ -86,6 +86,12 @@ function NotesComponent({ loggedInUserId, selectedAppointment }) {
       }
     );
 
+<<<<<<< HEAD
+    const parseData = await data.json();
+    setNotes(parseData.notes);
+    console.log(notes)
+  };
+=======
     const parseNotes = await notesData.json();
     setNotesSearch(parseNotes?.data);
     console.log(notesSearch);
@@ -114,6 +120,7 @@ function NotesComponent({ loggedInUserId, selectedAppointment }) {
   //   const parseData = await data.json();
   //   setNotes(parseData.notes);
   // };
+>>>>>>> cc027d97fe13cf4b6b8e36a298a72c039b48f735
 
   // UseEffect to fetch notes on component mount
   useEffect(() => {
