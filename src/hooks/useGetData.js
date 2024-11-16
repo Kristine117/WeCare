@@ -5,12 +5,14 @@ const useFetchData = ()=>{
   
     const [error,setError]= useState(null);
 
-    const fetchDataFuncHandler= async(composedUrl)=>{
+    const fetchDataFuncHandler= async(composedUrl,headers={})=>{
+        
         try{
             setLoading(true);
 
             const dataSet = await fetch(`${process.env.REACT_APP_API_URL}/${composedUrl}`,{
                 headers:{
+                    ...headers,
                     'Authorization': `Bearer ${localStorage.getItem("token")}`,
                     'Content-Type': 'application/json' 
                 }

@@ -9,29 +9,26 @@ import LoggedInCommonNavBar from "../../components/LoggedInCommonNavBar/LoggedIn
 import AssistantContent from "../../components/AssistantContent/AssistantContent";
 import Banner from "../../components/Banner/Banner"
 import AdminDashboardCards from "../../components/AdminDashboardCards/AdminDashboardCards";
+import useFetchData from "../../hooks/useGetData";
+
+
 const DashBoard = ()=>{
     const {user} = useContext(UserContext);
-
+  const {fetchDataFuncHandler,loading}= useFetchData();
     
   const [assistantList,setAssistantList] = useState([]);
 
+  async function getAssistantList(){
+
+    const composedUrl =`senior/assistant-list`;
+
+    const {data} = await fetchDataFuncHandler(composedUrl);
+  
+    setAssistantList(data);
+  }
   useEffect(()=>{
 
-    async function getAssistantList(){
-
-      const data = await fetch(`${process.env.REACT_APP_API_URL}/senior/assistant-list`,{
-        headers:{
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-      })
-
-      if(!data.ok){
-        throw new Error("Something went wrong");
-      }
-
-      const list = await data.json();
-      setAssistantList(list.data);
-    }
+   
     getAssistantList();
   },[])
 
