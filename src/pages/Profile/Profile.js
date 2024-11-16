@@ -5,7 +5,9 @@ import wcdesign from "./Profile.module.css";
 import registerModal from "../Register/Register.module.css";
 import UserContext from "../../UserContext";
 import Swal from "sweetalert2";
+import loginModuleCss from "../Login/Login.module.css";
 import ProfileUpload from "../../components/ProfileUpload/ProfileUpload";
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import eye icons
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -13,6 +15,7 @@ const Profile = () => {
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const [barangayName, setBarangayName] = useState([]);
   const [errors, setErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
   const [editableData, setEditableData] = useState({
     firstname: "",
     lastname: "",
@@ -318,17 +321,25 @@ const Profile = () => {
 
                   <div className="form-group">
                     <label>Password</label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      id="password"
-                      placeholder="Enter Password"
-                      name="password"
-                      value={editableData.password}
-                      onChange={handleInputChange}
-                      minLength="9"
-                      required
-                    />
+                    <div className="d-flex">
+                        <input
+                          type={showPassword ? "text" : "password"}
+                          className="form-control"
+                          id="password"
+                          placeholder="Enter Password"
+                          name="password"
+                          value={editableData.password}
+                          onChange={handleInputChange}
+                          minLength="9"
+                          required
+                        />
+                        <span
+                          onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state on click
+                          className={`${loginModuleCss.curserPoint} ${wcdesign.EyeSpan}`}
+                        >
+                          {showPassword ? <FaEyeSlash /> : <FaEye />} {/* Show eye icon based on visibility */}
+                        </span>
+                    </div>
                     {errors.password && (
                       <small className="text-danger">{errors.password}</small>
                     )}
