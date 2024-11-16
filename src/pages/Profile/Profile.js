@@ -48,8 +48,20 @@ const Profile = () => {
             id: data.data?.userId,
             userType: data.data?.userType,
             experienceId: data.data?.experienceId,
-            barangayId: data.data?.barangayId
+            barangayId: data.data?.barangayId,
+            profileImage: data.data?.profileImage
           });
+          setEditableData({
+            firstname: data.data?.firstname,
+            lastname: data.data?.lastname,
+            email: data.data?.email,
+            street: data.data?.street,
+            experienceName: data.data?.experienceName,
+            experienceYrs: data.data?.experienceYrs,
+            rate: data.data?.rate,
+            contactNumber: data.data?.contactNumber,
+            barangayId: data.data?.barangayId,
+          })
         }
       })
       .catch((error) => {
@@ -306,47 +318,6 @@ const Profile = () => {
                     />
                   </div>
 
-                  {/* {user.userType === "assistant" ? (
-                    <>
-                      <div className="form-group">
-                        <div>Experience Description:</div>
-                        <input
-                        id="experienceName"
-                        name="experienceName"
-                        type="text"
-                        className="form-control"
-                        value={editableData.experienceName}
-
-
-                        onChange={handleInputChange}
-                      />
-                      </div>
-
-                      <div className="form-group">
-                        <div>Years of Experience:</div>
-                        <input
-                        id="experienceYrs"
-                        name="experienceYrs"
-                        type="number"
-                        className="form-control"
-                        value={editableData.experienceYrs}
-                        onChange={handleInputChange}
-                      />
-                      </div>
-
-                      <div className="form-group">
-                        <div>Rate:</div>
-                        <input
-                        id="rate"
-                        name="rate"
-                        type="number"
-                        className="form-control"
-                        value={editableData.rate}
-                        onChange={handleInputChange}
-                      />
-                      </div>
-                    </>
-                  ) : null} */}
                   <div className="form-group d-block mt-4">
                       <ProfileUpload onFileSelect={handleFileSelect} />
                   </div>

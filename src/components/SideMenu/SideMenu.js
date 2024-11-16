@@ -19,6 +19,8 @@ export default function SideMenu() {
   const [activeUser, setActiveuser] = useState(false);
   const [activeRatings, setActiveRatings] = useState(false);
   const [activerequest, setActiverequest] = useState(false);
+  const [activeBarangay, setActiveBarangay] = useState(false);
+  
 
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -41,6 +43,7 @@ export default function SideMenu() {
     setActiveuser(location.pathname === "/users");
     setActiveRatings(location.pathname === "/ratings");
     setActiverequest(location.pathname === "/requests");
+    setActiveBarangay(location.pathname === "/barangay");
 
 
     return () => {
@@ -352,6 +355,20 @@ export default function SideMenu() {
             </>
           )}
 
+
+          {user?.userType === "admin" && (
+            <>
+              <Link
+                to="/barangay"
+                // onClick={clickedActiveApp}
+                className={activeBarangay ? "pl-2 menu-item actives" : "pl-2 menu-item"}>
+                <span class="material-symbols-outlined side-menu-color icon-size">
+                    location_on
+                </span>
+                <p className="ml-2 pt-3">Barangay</p>
+              </Link>
+            </>
+          )}
           
         </div>
 
@@ -368,20 +385,21 @@ export default function SideMenu() {
             <Link to="/emergency" 
             className={activeSupport ? "pl-2 menu-item actives" : "pl-2 menu-item"}>
                 <span className="material-symbols-outlined side-menu-color icon-size">
-                  volunteer_activism
+                  e911_emergency
                 </span>
-                <p className="ml-2 pt-3">Support</p>
+                <p className="ml-2 pt-3">Emergency</p>
             </Link>
           </div>
         )}
 
         {user?.userType === "admin" && (
-          <div className="support-item ml-4 mr-4">
-            <Link to={'/requests'}>
+          <div className="support-item ml-4 mr-4 mb-3">
+            <Link to={'/emergency'}
+             className={activeSupport ? "pl-2 menu-item actives" : "pl-2 menu-item"}>
               <span className="material-symbols-outlined side-menu-color icon-size">
-                volunteer_activism
+                  e911_emergency
               </span>
-              <p>Requests</p>
+              <p>Emergency</p>
             </Link>
           </div>
         )}
