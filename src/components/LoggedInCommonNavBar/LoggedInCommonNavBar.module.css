@@ -12,15 +12,20 @@
 }
 
 .notifContainer {
-  border: 0.05rem solid #678990;
+  /* border: 0.05rem solid #678990; */
   width: 30rem;
   position: absolute;
-  top: 7rem;
+  top: 5.5rem;
   right: 1rem;
   z-index: 1002;
-  padding: 0.5rem;
+  padding: 0.9rem;
   font-size: 0.8rem;
-  background-color: #fff;
+  max-height: 80vh;
+
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
 }
 
 /* removed by alier */
@@ -104,6 +109,26 @@
   outline: none;
 }
 
+.bell {
+  position: relative;
+}
+
+.bell[data-value]:after {
+  content: attr(data-value); /* Use the value from the data-value attribute */
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .button {
   border: none;
 }
@@ -112,8 +137,6 @@
   display: flex;
   gap: 1rem;
 }
-
-
 
 /* For tablet */
 @media (max-width: 1200px) {
@@ -149,5 +172,25 @@
   .bell,
   .profile {
     padding-right: 0.2rem;
+  }
+
+  .bell {
+    position: relative;
+  }
+
+  .bell::after {
+    content: "2"; /* Replace this with dynamic count in React */
+    position: absolute;
+    top: -5px; /* Adjust this to position it above the bell */
+    right: -5px; /* Adjust this to position it to the right of the bell */
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    border-radius: 50%;
+    width: 18px; /* Size of the badge */
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
