@@ -3,7 +3,7 @@ import design from "./AppointmentDetails.module.css";
 import { FaEllipsisV, FaUser } from "react-icons/fa";
 import Button from "../Button/Button";
 
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate} from "react-router-dom";
 import Swal from "sweetalert2";
 import useUpdate from "../../hooks/useUpdate";
 
@@ -19,10 +19,9 @@ const AppointmentDetails = ({
   openModal,
   statusTab,
   isExpired,
-  assistantId
+  assistantId,
+  updateListFunc
 }) => {
-
-  const navigate = useNavigate();
 
   const { updateFunc, error } = useUpdate();
 
@@ -30,21 +29,21 @@ const AppointmentDetails = ({
     const newAppId = encodeURIComponent(appId);
     const composedUrl = `appointment/update-appointment/${newAppId}`;
     const method = "PUT";
-    const result = await updateFunc(method, {
+    const {isSuccess,message} = await updateFunc(method, {
       servingName: servingName,
       result: e.target.name,
     },composedUrl);
 
     const declaredOption = e.target.name === "approve" ? "Approve" : "Rejected";
-    if (result.isSuccess) {
-      Swal.fire({
-        title: `You have ${declaredOption} Appointment with ${servingName}`,
-        icon: "successful",
-        text: "Your Appointment is Successfully Approved.",
-      });
+   
 
-      navigate("/appointment");
-    }
+    Swal.fire({
+      title: `You have ${declaredOption} Appointment with ${servingName}`,
+      icon: isSuccess ? "success":"error",
+      text: message,
+    });
+
+    updateListFunc();
   };
 
   const userTypeCheck = loggedInUserType === "assistant";
