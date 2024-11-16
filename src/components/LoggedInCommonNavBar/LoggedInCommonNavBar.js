@@ -294,6 +294,16 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
                     </div>
                 </>
             )}
+
+            {isNotifOpen && (
+                <>
+                   <div ref={notifModalRef} >
+                    <div  className={style.notifContainer} >
+                        <NotificationComponent notiflist={notiflist}/>
+                    </div> 
+                   </div>
+                </>
+            )}
         </>
     );
 }
