@@ -1,107 +1,25 @@
-
-import React, { useState, useRef ,useContext,useEffect} from "react";
+import React, { useContext,useState, useRef, useEffect } from "react";
 import style from "./LoggedInCommonNavBar.module.css";
 import wcdesign from "../ChatListComponent/ChatListComponent.module.css";
-import NotificationComponent from "../NotificationComponent/NotificationComponent"
 import { FaBell, FaUser, FaSearch } from 'react-icons/fa';
-import UserContext from "../../UserContext";
-import io from 'socket.io-client';
 import { Link } from "react-router-dom";
+import UserContext from "../../UserContext";
 
-
-const apiUrl = `${process.env.REACT_APP_API_URL}`;
-
-
-const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
-
+const LoggedInCommonNavBar = ({ title }) => {
+    
     const [isOpen, setIsOpen] = useState(false);
-    const[isNotifOpen,setIsNotifOpen]= useState(false);
-    const { user } = useContext(UserContext);
-    const notifModalRef = useRef(null);
-    const [notiflist,setNotifList]  = useState([]);
-    const userId= user.id
-
     const [profileImg, setProfileImg] = useState("");
     const [fullName, setFullName] = useState("");
+
+    const { user, setUser } = useContext(UserContext);
     const [barangayName, setBarangayName] = useState("");
-    const [list, setList] = useState([]);
-    const [status, setStatus] = useState(["approve"]);
+    const [experience, setExperienceName] = useState("");
+    const [experienceYrs, seteExperienceYrs] = useState(0);
+    const [rate, setRate] = useState(0);
 
-    useEffect(() => {
-        const socket= io(apiUrl);
-
-        socket.on('connect', () => {
-            console.log('Connected to Socket.IO server');
-            //console.log(userId)
-    });
-
-    socket.on('newNotifsReceived', () => { 
-       fetchNotif(); 
-       console.log("receiving...")
-    });
-
-
-        return () => {
-            socket.disconnect(); 
-        };
-    }, []);
-
-    const fetchNotif =async () => {
-       console.log(userId)
-        await  fetch(`${process.env.REACT_APP_API_URL}/notifications/getAllNotifs`, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-                userId: userId,
-            },
-         
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              console.log(data.nottifications);
-              setNotifList(data.nottifications);
-              console.log(notiflist)
-            });
-        };
-      
-        useEffect(() => {
-     fetchNotif();
-        }, []);
-
-
- 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
-
-    const toggleNotif = () =>{
-        setIsNotifOpen(true);
-    }
-
-     // Handle clicks and touches outside the modal to close it
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        isNotifOpen &&
-        notifModalRef.current &&
-        !notifModalRef.current.contains(event.target)
-      ) {
-        setIsNotifOpen(false);
-      }
-    };
-    
-
-    // Add event listeners
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside); // Handle touch events
-
-    // Cleanup event listeners on component unmount
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
-    };
-  }, [isNotifOpen]);
-
-    
 
     // Create a reference to the input element
     const inputRef = useRef(null);
@@ -137,59 +55,113 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
     })
 
     useEffect(() => {
-        async function getAppointmentList() {
-          const data = await fetch(
-            `${process.env.REACT_APP_API_URL}/appointment/appointment-list`,
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-                status: status,
-              },
+        fetch(`${process.env.REACT_APP_API_URL}/main/user-profile`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error(`HTTP error! Status: ${res.status}`);
             }
-          );
-          const parseData = await data.json();
-          setList(parseData?.data);
-          console.log(list);
-        }
-        getAppointmentList();
-    }, []);
-
+            return res.json();
+          })
+          .then((data) => {
+            if (data.isSuccess) {
+              setUser({
+                ...user,
+                id: data.data?.userId,
+                encryptedId: data.data?.userType,
+                lastname: data.data?.lastname,
+                firstname: data.data?.firstname,
+                email: data.data?.email,
+                userType: data.data?.userType,
+                street: data.data?.street,
+                barangayId: data.data?.barangayId,
+                contactNumber: data.data?.contactNumber,
+                gender: data.data?.gender,
+                birthDate: data.data?.birthDate,
+                experienceId: data.data?.experienceId,
+                profileImage: data.data?.profileImage,
+              });
+            }
+          })
+          .catch((error) => {
+            console.error("An error occurred while fetching the user profile:", error);
+          });
+      }, []);
+    
+      useEffect(() => {
+          fetchBarangayName();
+          fetchExperience();
+      }, []);
+    
+      const fetchExperience = () => {
+        fetch(`${process.env.REACT_APP_API_URL}/experience/getSpecific-experience/${user.experienceId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error(`HTTP error! Status: ${res.status}`);
+            }
+            return res.json();
+          })
+          .then((data) => {
+            if (data.isSuccess) {
+              setExperienceName(data.data?.experienceDescription || "Experience not found");
+              seteExperienceYrs(data.data?.numOfYears || "Experiences Years not found");
+              setRate(data.data?.rate || "Rate Years not found");
+            }
+          })
+          .catch((error) => {
+            console.error("An error occurred while fetching the experience:", error);
+          });
+      };
+    
+    
+      const fetchBarangayName = () => {
+        fetch(`${process.env.REACT_APP_API_URL}/barangay/getSpecific-barangay/${user.barangayId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error(`HTTP error! Status: ${res.status}`);
+            }
+            return res.json();
+          })
+          .then((data) => {
+            if (data.isSuccess) {
+              setBarangayName(data.data?.barangay || "Barangay not found");
+            }
+          })
+          .catch((error) => {
+            console.error("An error occurred while fetching the barangay:", error);
+          });
+      };
 
     return (
         <>
-<div className={style.container}>
-
-            <div className={style["title"]}>{title}</div>
+            <div className={style.container}>
+                <div className={style["title"]}>{title}</div>
                 <div className={`${style.subContainer}`}>
-                    {title === 'Notes' ? (
-                        <select
-                            className={style.modernSelect}
-                            onChange={(e) => onSelectChange(e.target.value)}
-                        >
-                            <option value={0}>--Select Appointment Notes--</option>
-                            {list.map((item) =>
-                                !item.isExpired && (
-                                <option key={item.appointmentId} value={item.appointmentId}>
-                                    {item.serviceDescription}
-                                </option>
-                                )
-                            )}
-                        </select>
-                    ) : (
-                        <div className={style.navbarIconSearchContainer}>
-                            <div className={style.inputSearch}>
-                                <input
-                                    type="text"
-                                    ref={inputRef}  // Attach the ref to the input
-                                    className={style.search}
-                                    placeholder="Search..."
-                                />
-                                <FaSearch className="search-icon" onClick={handleIconClick} />
-                            </div>
+                    <div className={style.navbarIconSearchContainer}>
+                        <div className={style.inputSearch}>
+                            <input
+                                type="text"
+                                ref={inputRef}  // Attach the ref to the input
+                                className={style.search}
+                                placeholder="Search..."
+                            />
+                            <FaSearch className="search-icon" onClick={handleIconClick} />
                         </div>
-                    )}
+                    </div>
+
                     <div className={style.navbarIconContainer}>
-                        <button onClick={toggleNotif} className={style.bell}> <FaBell size={28} className={style.icons} /></button>
+                        <button className={style.bell}> <FaBell size={28} className={style.icons} /></button>
                         <button onClick={toggleMenu} className={style.profile}> <FaUser size={28} className={style.profileButton} /></button>
                     </div>
                 </div>

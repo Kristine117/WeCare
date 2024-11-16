@@ -322,11 +322,13 @@ a.btn-get-started:hover {
 .menu-item:hover span,
 .support-item:hover span {
   color: #2e5d5d;
+  text-decoration: initial !important;
 }
 
 .menu-item:hover p,
 .support-item:hover p {
   color: #2e5d5d;
+  text-decoration: initial !important;
 }
 
 /* Main content styling */

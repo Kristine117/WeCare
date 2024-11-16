@@ -46,7 +46,9 @@
 }
 
 .profile {
-  display: flex;
+  width: 20rem;
+  overflow: auto;
+  height: 24.5rem;
 }
 
 .online-time {

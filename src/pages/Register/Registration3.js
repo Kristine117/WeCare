@@ -117,7 +117,7 @@ export default function Registration3() {
 
 
 
-            // Fire this function when the component starts
+    // Fire this function when the component starts
   useEffect(() => {
     // Perform any initialization logic here
 
