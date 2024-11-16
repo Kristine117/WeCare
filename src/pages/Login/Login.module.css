@@ -15,6 +15,13 @@
   transform: 'translateY(-50%)';
   cursor: 'pointer';
 }
+.loginSpan{
+  margin-top: -.40rem;
+  margin-left: -30px;
+}
+.curserPoint{
+ cursor: pointer; 
+}
 
 /* For tablet */
 @media(max-width: 1200px){
