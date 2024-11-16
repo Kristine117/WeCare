@@ -29,7 +29,6 @@ const AppointmentForm = () => {
     fetchData();
   },[])
 
-
   async function sendAppointment(e) {
     e.preventDefault();
 
@@ -53,7 +52,10 @@ const AppointmentForm = () => {
       text: isSuccess ? "Your Appointment is Successfull.": "Something Went Wrong",
     });
 
-    navigate(<AppointmentList />);
+    if(isSuccess){
+      
+    return navigate("/appointment");
+    }
   }
 
   return (
