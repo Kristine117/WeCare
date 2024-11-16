@@ -26,6 +26,7 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
     const [barangayName, setBarangayName] = useState("");
     const [list, setList] = useState([]);
     const [status, setStatus] = useState(["approve"]);
+    const [notifCount, setNotifCount] = useState(""); 
 
     useEffect(() => {
         const socket= io(apiUrl);
@@ -57,9 +58,12 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
           })
             .then((res) => res.json())
             .then((data) => {
-              console.log(data.nottifications);
-              setNotifList(data.nottifications);
-              console.log(notiflist)
+              console.log(data.notifications);
+              setNotifList(data.notifications);
+              setNotifCount(data.unreadCount);
+              console.log("hehe");
+              console.log(notiflist);
+              console.log(notifCount)
             });
         };
       
@@ -189,7 +193,7 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
                         </div>
                     )}
                     <div className={style.navbarIconContainer}>
-                        <button onClick={toggleNotif} className={style.bell}> <FaBell size={28} className={style.icons} /></button>
+                        <button onClick={toggleNotif} className={style.bell} data-notif-count={notifCount}> <FaBell size={28} className={style.icons} /></button>
                         <button onClick={toggleMenu} className={style.profile}> <FaUser size={28} className={style.profileButton} /></button>
                     </div>
                 </div>
