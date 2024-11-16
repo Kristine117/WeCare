@@ -12,6 +12,7 @@ const Profile = () => {
   const { user, setUser } = useContext(UserContext);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const [barangayName, setBarangayName] = useState([]);
+  const [errors, setErrors] = useState({});
   const [editableData, setEditableData] = useState({
     firstname: "",
     lastname: "",
@@ -43,13 +44,30 @@ const Profile = () => {
       .then((data) => {
         console.log(data);
         if (data.isSuccess) {
+          const formattedBirthDate = data.data?.birthDate
+          ? new Date(data.data.birthDate).toISOString().split("T")[0]
+          : "";
           setUser({
             ...user,
             id: data.data?.userId,
             userType: data.data?.userType,
             experienceId: data.data?.experienceId,
-            barangayId: data.data?.barangayId
+            barangayId: data.data?.barangayId,
+            profileImage: data.data?.profileImage
           });
+          setEditableData({
+            firstname: data.data?.firstname,
+            lastname: data.data?.lastname,
+            email: data.data?.email,
+            street: data.data?.street,
+            experienceName: data.data?.experienceName,
+            gender: data.data?.gender,
+            experienceYrs: data.data?.experienceYrs,
+            rate: data.data?.rate,
+            birthDate: formattedBirthDate,
+            contactNumber: data.data?.contactNumber,
+            barangayId: data.data?.barangayId,
+          })
         }
       })
       .catch((error) => {
@@ -77,10 +95,88 @@ const Profile = () => {
 
   }, []);
 
+  // const openConfirmationModal = (e) => {
+  //   e.preventDefault();
+  //   setIsConfirmationModalOpen(true);  
+  // };
+
+  const validateFields = () => {
+    const newErrors = {};
+    if (!editableData.profileImage) {
+      newErrors.profileImage = "Profile picture is required.";
+    }
+    if (!editableData.firstname) newErrors.firstname = "First Name is required.";
+    if (!editableData.lastname) newErrors.lastname = "Last Name is required.";
+    if (!editableData.email) newErrors.email = "Email is required.";
+    if (!editableData.contactNumber)
+      newErrors.contactNumber = "Contact Number is required.";
+    if (!editableData.gender) newErrors.gender = "Gender is required.";
+    if (!editableData.birthDate)
+      newErrors.birthDate = "Birth Date is required.";
+    if (!editableData.barangayId)
+      newErrors.barangayId = "Barangay is required.";
+    if (!editableData.password)
+      newErrors.password = "Password is required and must be at least 9 characters.";
+    if (!editableData.profileImage)
+      newErrors.profileImage = "Profile Picture is required.";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // const openConfirmationModal = (e) => {
+  //   e.preventDefault();
+  //   if (validateFields()) {
+  //     setIsConfirmationModalOpen(true);
+  //   } else {
+  //     Swal.fire({
+  //       title: "Missing Information",
+  //       icon: "error",
+  //       html: Object.values(errors)
+  //         .map((error) => `<div>${error}</div>`)
+  //         .join(""),
+  //     });
+  //   }
+  // };
+
   const openConfirmationModal = (e) => {
     e.preventDefault();
-    setIsConfirmationModalOpen(true);  
+    if (validateFields()) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "If you have no intended changes, you can cancel this action or proceed.",
+        icon: "question",
+        showCancelButton: true,
+        showDenyButton: true, // Add a third button
+        confirmButtonText: "Continue",
+        cancelButtonText: "Go to DashBoard",
+        denyButtonText: "Cancel", // Label for the third button
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire("Success!", "You have chosen to continue.", "success");
+          handleSave();
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          // Navigate back to the dashboard
+          navigate("/dashboard-main");
+        } else if (result.isDenied) {
+          // Just close the modal (no action needed)
+          Swal.fire("Cancelled", "No changes have been made.", "info");
+        }
+      });
+    } else {
+      Swal.fire({
+        title: "Missing Information",
+        icon: "error",
+        html: Object.values(errors)
+          .map((error) => `<div>${error}</div>`)
+          .join(""),
+      });
+    }
   };
+  
+
+  
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -88,12 +184,24 @@ const Profile = () => {
       [name]: value }));
   };
 
+  // const handleFileSelect = (base64String) => {
+  //   setEditableData((prevData) => ({
+  //     ...prevData,
+  //     profileImage: base64String, 
+  //   }));
+  // };
   const handleFileSelect = (base64String) => {
-    setEditableData((prevData) => ({
-      ...prevData,
-      profileImage: base64String, 
-    }));
+    if (base64String) {
+      setEditableData((prevData) => ({
+        ...prevData,
+        profileImage: base64String, // Store the file object (or just a flag if you don't need the file itself)
+      }));
+      setErrors((prev) => ({ ...prev, profileImage: "" })); // Clear any previous error
+    } else {
+      setErrors((prev) => ({ ...prev, profileImage: "Please upload a profile image." }));
+    }
   };
+  
 
 
   const handleSave = () => {
@@ -138,6 +246,7 @@ const Profile = () => {
     .then(response => response.json())
     .then(data => {
       if (data.isSuccess === true) {
+        console.log(data);
         Swal.fire({ title: "Registered Successfully", icon: "success", text: "Account Registered Successfully" });
         navigate("/dashboard-main"); 
       } else {
@@ -182,7 +291,11 @@ const Profile = () => {
                       className="form-control"
                       value={editableData.firstname}
                       onChange={handleInputChange}
+                      required
                     />
+                  {errors.firstname && (
+                    <small className="text-danger">{errors.firstname}</small>
+                  )}
                   </div>
 
 
@@ -195,7 +308,11 @@ const Profile = () => {
                       className="form-control"
                       value={editableData.lastname}
                       onChange={handleInputChange}
+                      required
                       />
+                  {errors.lastname && (
+                    <small className="text-danger">{errors.lastname}</small>
+                  )}
                   </div>
 
 
@@ -212,6 +329,9 @@ const Profile = () => {
                       minLength="9"
                       required
                     />
+                    {errors.password && (
+                      <small className="text-danger">{errors.password}</small>
+                    )}
                   </div>
 
 
@@ -219,21 +339,40 @@ const Profile = () => {
                   <div className="form-group sex-checkBox-container mb-4">
                     <label>Sex: </label>
                     <div className="d-flex">
-                    <input type="radio" name="gender" className="mr-2" id="male"
-                        value="male" // Corrected to set a specific value
+                      <input
+                        type="radio"
+                        name="gender"
+                        className="mr-2"
+                        id="male"
+                        value="male"
+                        checked={editableData.gender === "male"} // Check if gender is 'male'
                         onChange={handleInputChange}
-                        required/>
-                        <label htmlFor="male">Male</label>
+                        required
+                      />
+                      <label htmlFor="male">Male</label>
+                      {errors.gender && (
+                        <small className="text-danger">{errors.gender}</small>
+                      )}
                     </div>
 
                     <div className="d-flex">
-                    <input type="radio" name="gender" className="mr-2" id="female" 
-                        value="female" // Corrected to set a specific value
+                      <input
+                        type="radio"
+                        name="gender"
+                        className="mr-2"
+                        id="female"
+                        value="female"
+                        checked={editableData.gender === "female"} // Check if gender is 'female'
                         onChange={handleInputChange}
-                        required/>
-                        <label htmlFor="female">Female</label>
+                        required
+                      />
+                      <label htmlFor="female">Female</label>
+                      {errors.gender && (
+                        <small className="text-danger">{errors.gender}</small>
+                      )}
                     </div>
-                </div>
+                  </div>
+
 
 
 
@@ -247,6 +386,9 @@ const Profile = () => {
                       value={editableData.email}
                       onChange={handleInputChange}
                     />
+                      {errors.email && (
+                        <small className="text-danger">{errors.email}</small>
+                      )}
                   </div>
 
 
@@ -268,6 +410,9 @@ const Profile = () => {
                     </option>
                   ))}
                 </select>
+                {errors.barangayId && (
+                      <small className="text-danger">{errors.barangayId}</small>
+                )}
                 </div>
 
                   <div className="form-group">
@@ -280,6 +425,9 @@ const Profile = () => {
                       value={editableData.street}
                       onChange={handleInputChange}
                     />
+                    {errors.street && (
+                        <small className="text-danger">{errors.street}</small>
+                    )}
                   </div>
 
                   <div className="form-group">
@@ -292,6 +440,9 @@ const Profile = () => {
                       value={editableData.contactNumber}
                       onChange={handleInputChange}
                     />
+                    {errors.street && (
+                        <small className="text-danger">{errors.street}</small>
+                    )}
                   </div>
 
                   <div className="form-group">
@@ -304,51 +455,16 @@ const Profile = () => {
                       value={editableData.birthDate}
                       onChange={handleInputChange}
                     />
+                    {errors.birthDate && (
+                        <small className="text-danger">{errors.birthDate}</small>
+                    )}
                   </div>
 
-                  {/* {user.userType === "assistant" ? (
-                    <>
-                      <div className="form-group">
-                        <div>Experience Description:</div>
-                        <input
-                        id="experienceName"
-                        name="experienceName"
-                        type="text"
-                        className="form-control"
-                        value={editableData.experienceName}
-
-
-                        onChange={handleInputChange}
-                      />
-                      </div>
-
-                      <div className="form-group">
-                        <div>Years of Experience:</div>
-                        <input
-                        id="experienceYrs"
-                        name="experienceYrs"
-                        type="number"
-                        className="form-control"
-                        value={editableData.experienceYrs}
-                        onChange={handleInputChange}
-                      />
-                      </div>
-
-                      <div className="form-group">
-                        <div>Rate:</div>
-                        <input
-                        id="rate"
-                        name="rate"
-                        type="number"
-                        className="form-control"
-                        value={editableData.rate}
-                        onChange={handleInputChange}
-                      />
-                      </div>
-                    </>
-                  ) : null} */}
                   <div className="form-group d-block mt-4">
                       <ProfileUpload onFileSelect={handleFileSelect} />
+                      {errors.profileImage && (
+                        <small className="text-danger">{errors.profileImage}</small>
+                      )}
                   </div>
                   <button type="button" className="btn btn-primary" onClick={openConfirmationModal}>
                     Update

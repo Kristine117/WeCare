@@ -106,28 +106,23 @@ export default function Login() {
               <label htmlFor="password">
                 Password
               </label>
-              <div className="d-flex">
-                    <input
-                      type={showPassword ? "text" : "password"} // Toggle type between 'text' and 'password'
-                      className="form-control"
-                      id="password"
-                      placeholder="Enter Password"
-                      onChange={(e) => setPassword(e.target.value)}
-                  />
+              <div className="d-flex align-items-center">
+              <input
+                type={showPassword ? "text" : "password"}
+                className="form-control pr-5" // Add right padding to make space for the icon
+                id="password"
+                placeholder="Enter Password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              
+              <span
+                onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state on click
+                className={`${loginModuleCss.curserPoint} ${loginModuleCss.loginSpan}`}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />} {/* Show eye icon based on visibility */}
+              </span>
+            </div>
 
-                      <span
-                          onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state on click
-                          style={{
-                            position: 'absolute',
-                            right: '38rem',
-                            top: '62.8%',
-                            transform: 'translateY(-50%)',
-                            cursor: 'pointer',
-                        }}
-                      >
-                          {showPassword ? <FaEyeSlash /> : <FaEye />} {/* Show eye icon based on visibility */}
-                      </span>
-              </div>
               
             
             </div>

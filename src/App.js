@@ -27,6 +27,7 @@ import Profile from "./pages/Profile/Profile";
 import RequestAssistantDetails, { retrieveUserDetailsFunc } from "./pages/RequestAssistantDetails/RequestAssistantDetails";
 import UserEdit from "./pages/UserEdit/UserEdit";
 import Emergency from "./pages/EmergencyContacts/Emergency";
+import Barangay from "./pages/Barangay/Barangay";
 
 function App() {
   // for getting token this is for global this is helped whit the UserContext.js
@@ -113,6 +114,7 @@ function App() {
         <Route path="/notes" element={<Notes />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/emergency" element={<Emergency />} />
+        <Route path="/barangay" element={<Barangay />} />
 
         <Route path="/appointment" element={<AppointmentList />} />
         
