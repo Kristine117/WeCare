@@ -2,7 +2,31 @@
   padding: 0.5rem;
   border: 0.05rem;
 }
-
 .unread {
   font-weight: bolder;
+}
+.notifitem {
+  gap: 0.5rem;
+  width: -webkit-fill-available;
+  flex-direction: row;
+  justify-content: space-evenly;
+  border: 1px solid;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-color: #678990;
+  color: #678990;
+  background-color: #fff;
+  -webkit-box-shadow: 10px 5px 5px 0px rgba(103, 136, 143);
+  padding: 0.5rem;
+}
+.viewappointment {
+  all: unset;
+  background-color: #678990;
+  color: #fff;
+  border: 0.5rem solid #678990;
+  border-radius: 0.5rem;
+  font-weight: 200;
+}
+.viewdiv {
+  padding: 0.5rem;
 }

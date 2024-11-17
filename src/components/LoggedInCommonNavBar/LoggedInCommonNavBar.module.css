@@ -10,7 +10,6 @@
   align-items: center;
   position: relative;
 }
-
 .notifContainer {
   /* border: 0.05rem solid #678990; */
   width: 30rem;
@@ -21,13 +20,11 @@
   padding: 0.9rem;
   font-size: 0.8rem;
   max-height: 80vh;
-
   overflow-y: auto; /* Enable vertical scrolling */
   overflow-x: hidden; /* Prevent horizontal scrolling */
   -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
   scrollbar-width: none; /* Hide scrollbar for Firefox */
 }
-
 /* removed by alier */
 /* input {
   all: unset;
@@ -39,32 +36,26 @@
   gap: 1rem;
   text-align: center;
 }
-
 .navbarIconSearchContainer {
   display: flex;
   width: 100%;
   justify-content: flex-end;
   text-align: center;
 }
-
 .title {
   font-size: 2rem;
   font-weight: 700;
 }
-
 /* removed by alier */
 /* div {
   width: -webkit-fill-available;
 } */
-
 .icons {
   fill: #678990;
 }
-
 /* button {
   background-color: white;
 } */
-
 .modernSelect {
   width: 100%;
   margin-bottom: 10px;
@@ -73,7 +64,6 @@
   border-radius: 4px;
   text-align: center;
 }
-
 .search {
   all: unset;
   border: none;
@@ -81,14 +71,12 @@
   outline: none;
   height: 2rem;
 }
-
 .profileButton {
   fill: white;
   border-radius: 50%;
   background-color: #678990;
   padding: 0.25rem;
 }
-
 .inputSearch {
   background-color: #d9d9d9;
   border-radius: 0.25rem;
@@ -100,7 +88,6 @@
   height: 2.5rem;
   width: 15rem;
 }
-
 .bell,
 .profile {
   display: flex;
@@ -108,13 +95,11 @@
   border: none;
   outline: none;
 }
-
 .bell {
   position: relative;
 }
-
-.bell[data-value]:after {
-  content: attr(data-value); /* Use the value from the data-value attribute */
+.bell[data-notif-count]:after {
+  content: attr(data-notif-count); /* Use the value from the attribute */
   position: absolute;
   top: -5px;
   right: -5px;
@@ -132,16 +117,13 @@
 .button {
   border: none;
 }
-
 .subContainer {
   display: flex;
   gap: 1rem;
 }
-
 /* For tablet */
 @media (max-width: 1200px) {
 }
-
 /* For phone view */
 @media (max-width: 768px) {
   .title {
@@ -155,7 +137,6 @@
     justify-content: initial;
     width: initial;
   }
-
   .subContainer {
     display: flex;
     gap: initial;
@@ -164,20 +145,16 @@
     height: 2rem;
     width: 8rem;
   }
-
   .navbarIconContainer {
     gap: initial;
   }
-
   .bell,
   .profile {
     padding-right: 0.2rem;
   }
-
   .bell {
     position: relative;
   }
-
   .bell::after {
     content: "2"; /* Replace this with dynamic count in React */
     position: absolute;
@@ -188,6 +165,22 @@
     font-size: 12px;
     border-radius: 50%;
     width: 18px; /* Size of the badge */
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .bell[data-notif-count]:after {
+    content: attr(data-notif-count);
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    border-radius: 50%;
+    width: 18px;
     height: 18px;
     display: flex;
     justify-content: center;

@@ -9,11 +9,15 @@ function Notification({ notiflist }) {
         {console.log(notiflist)}
         {notiflist?.map((notif, index) => (
           <div
-            className={notif.readFlag === 0 ? style.unread : style.read}
+           className={`${notif.readFlag === 0 ? style.unread : style.read} ${style.notifitem}`}
             key={index}
           >
+             {notif.isFromReminder === 1 && <div>Reminder:</div>}
             <div>{notif.message}</div>
-            <a href="/appointment" >View Appointment</a>
+            <div className={style.viewdiv}>
+              <a className={style.viewappointment} href="/appointment" >Go to Appointments</a>
+            </div>
+           
           </div>
         ))}
       </div>
