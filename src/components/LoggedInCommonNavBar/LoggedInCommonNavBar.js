@@ -192,7 +192,7 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
                     <button 
                         onClick={toggleNotif} 
                         className={style.bell} 
-                        data-notif-count={notifCount}>
+                        data-notif-count={notifCount === 0 ? "" : notifCount}>
                         <FaBell size={28} className={style.icons} />
                     </button>
                     <button 
