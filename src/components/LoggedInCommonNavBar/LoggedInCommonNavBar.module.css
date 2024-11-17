@@ -172,7 +172,7 @@
   }
 
   .bell[data-notif-count]:after {
-    content: attr(data-notif-count); /* Use the value from the attribute */
+    content: attr(data-notif-count);
     position: absolute;
     top: -5px;
     right: -5px;

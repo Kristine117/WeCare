@@ -20,7 +20,6 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
     const notifModalRef = useRef(null);
     const [notiflist,setNotifList]  = useState([]);
     const userId= user.id
-
     const [profileImg, setProfileImg] = useState("");
     const [fullName, setFullName] = useState("");
     const [barangayName, setBarangayName] = useState("");
@@ -60,9 +59,7 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
             .then((data) => {
               console.log(data.notifications);
               setNotifList(data.notifications);
-              setNotifCount(data.unreadCount);
-              
-             
+              setNotifCount(data.unreadCount);          
             });
         };
       
@@ -136,7 +133,6 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
             .catch((error) => {
               console.error("An error occurred while fetching the user profile:", error);
             });
-//      console.log(`${process.env.REACT_APP_API_URL}/profilePictures/${user.profileImage}`);
     })
 
     useEffect(() => {
@@ -233,18 +229,6 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
                         {user?.id && (
                             <section className={wcdesign["profile"]}>
                                 <form className="user-profile-form">
-
-                                {/* <div className="form-group">
-                                    <label htmlFor="text">Name:</label>
-                                    <input
-                                    id="name"
-                                    type="text"
-                                    className="form-control"
-                                    value={user?.firstname + " " + user?.lastname || "data has not been loaded"}
-                                    readOnly
-                                    />
-                                </div> */}
-
                                 <div className="form-group">
                                     <label htmlFor="email">Email:</label>
                                     <input
