@@ -161,7 +161,7 @@ const LoggedInCommonNavBar = ({ title }) => {
                     </div>
 
                     <div className={style.navbarIconContainer}>
-                        <button className={style.bell}> <FaBell size={28} className={style.icons} /></button>
+                        <button className={style.bell} data-notif-count={notifCount}> <FaBell size={28} className={style.icons} /></button>
                         <button onClick={toggleMenu} className={style.profile}> <FaUser size={28} className={style.profileButton} /></button>
                     </div>
                 </div>

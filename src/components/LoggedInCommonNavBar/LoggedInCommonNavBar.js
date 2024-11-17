@@ -57,7 +57,7 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
           })
             .then((res) => res.json())
             .then((data) => {
-              console.log(data.notifications);
+              console.log(data);
               setNotifList(data.notifications);
               setNotifCount(data.unreadCount);          
             });
@@ -292,6 +292,7 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
                 <>
                    <div ref={notifModalRef} >
                     <div  className={style.notifContainer} >
+                        {console.log(notifCount)}
                         <NotificationComponent notiflist={notiflist}/>
                     </div> 
                    </div>
