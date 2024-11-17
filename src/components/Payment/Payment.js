@@ -11,8 +11,6 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineConsoleSql } from "react-icons/ai";
 
-
-
 const PAYMENT_SELECTION =[
     {
         src: "./cc.png",
@@ -28,9 +26,7 @@ const PAYMENT_SELECTION =[
     }
 ]
 
-
-
-const Payment = ({openModal,amount,updateFuncHandler,appId})=>{
+const Payment = ({openModal,amount,updateFuncHandler,appId,getDataHandler})=>{
 
     const {user}=useContext(UserContext);
     const PAYMONGO_SECRET_KEY = "sk_test_C62auzHAPXNnEp88vSASfGYC";
@@ -123,33 +119,20 @@ const Payment = ({openModal,amount,updateFuncHandler,appId})=>{
 
           const composedUrl = `payment/process-payment`;
           const method = "POST";
-          const result = await updateFuncHandler(method,{
+          const {isSuccess,message}= await updateFuncHandler(method,{
             paymentMethod:paymentMethod,
             appointmentId:appId,
             processedPaymentId:processedPaymentId
           },composedUrl)
 
-          console.log(result)
+          Swal.fire({
+            title: isSuccess ? "Successfully processed payment": "Something went wrong",
+            icon: isSuccess ? "successful":"error",
+            text: message,
+          });
 
-          if (result?.isSuccess) {
-            Swal.fire({
-              title: `You have Successfully Paid Your Appointment`,
-              icon: "successful",
-              text: "Your Appointment Payment is Successfully Approved.",
-            });
-      
-            navigate("/appointment");
-          }else {
-            Swal.fire({
-                title: `Payment not Successful`,
-                icon: "error",
-                text: "Please try again later.",
-              });
-        
-              navigate("/appointment");
-          }
-
-
+          getDataHandler();
+    
         } catch (error) {
           console.error('Error confirming payment:', error.response ? error.response.data : error.message);
         }

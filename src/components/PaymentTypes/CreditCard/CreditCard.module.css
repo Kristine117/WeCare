@@ -37,6 +37,8 @@
     width: 10.5rem;
     max-width: 10.5rem;
     color: white;
+    padding: .25rem;
+    border-radius: .5rem;
 }
 
 .error-msg {

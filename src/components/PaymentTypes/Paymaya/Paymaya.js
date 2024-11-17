@@ -75,7 +75,7 @@ const Paymaya = ({handleBackFunc,confirmPaymentFunc,createPaymentIntentFunc})=>{
             </header>     
             <form className={gh["container"]} onSubmit={processPayment}>   
                 <input name="phone-number" type="number" className={gh["phone-no"]}/>
-                <Button type="submit">Pay</Button>
+                <Button type="submit" className={gh["pay-btn"]}>Pay</Button>
             </form>
         </React.Fragment>
     )

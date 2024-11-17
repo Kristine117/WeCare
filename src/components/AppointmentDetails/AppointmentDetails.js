@@ -23,30 +23,32 @@ const AppointmentDetails = ({
   updateListFunc
 }) => {
 
+  
   const { updateFunc, error } = useUpdate();
 
   const decideHandler = async (e) => {
+
     const newAppId = encodeURIComponent(appId);
     const composedUrl = `appointment/update-appointment/${newAppId}`;
     const method = "PUT";
-    const {isSuccess,message} = await updateFunc(method, {
+    const result= await updateFunc(method, {
       servingName: servingName,
       result: e.target.name,
     },composedUrl);
-
+  
     const declaredOption = e.target.name === "approve" ? "Approve" : "Rejected";
-   
-
+  
     Swal.fire({
       title: `You have ${declaredOption} Appointment with ${servingName}`,
-      icon: isSuccess ? "success":"error",
-      text: message,
+      icon: result?.isSuccess ? "success":"error",
+      text: result?.message,
     });
 
     updateListFunc();
   };
-
+ 
   const userTypeCheck = loggedInUserType === "assistant";
+  const kwankwna = !userTypeCheck && statusTab === "ongoing" && isExpired === 0;
 
   return (
     <React.Fragment>
@@ -91,12 +93,14 @@ const AppointmentDetails = ({
           </div>
         )}
 
-        {userTypeCheck && statusTab === "ongoing" && (
+        {(userTypeCheck && statusTab === "ongoing" && isExpired === 0) && (
           <div>
-            <Button type="button" name="approve" onClick={decideHandler}>
+            <Button type="button" className={design["btn-approve"]}
+             name="approve" onClick={decideHandler}>
               Accept
             </Button>
-            <Button type="button" name="reject" onClick={decideHandler}>
+            <Button type="button" className={design["btn-reject"]} name="reject"
+             onClick={decideHandler}>
               Reject
             </Button>
           </div>
@@ -112,15 +116,20 @@ const AppointmentDetails = ({
                 Pay Now
               </Button>
             )}
+             {statusId === 3 && (
+              <Button type="button" data-appid={appId} data-amount={price} onClick={openModal}>
+                Rate Service
+              </Button>
+            )}
           </div>
         )}
 
         {isExpired === 1 &&
         <>
         <div>Appointment Expired</div>
-        <Link to={`/appointment-page/${encodeURIComponent(assistantId)}`}>
+        {loggedInUserType !== "assistant" && <Link to={`/appointment-page/${encodeURIComponent(assistantId)}`}>
          Book Again
-        </Link>
+        </Link>}
         </>}
 
         {statusTab === "approve" && (

@@ -75,7 +75,7 @@ const CreditCard = ({handleBackFunc,confirmPaymentFunc,createPaymentIntentFunc})
       
     return(
         <React.Fragment>
-          <p className={cc["error-msg"]}>{error}</p>
+         {error &&  <p className={cc["error-msg"]}>{error}</p>}
           <form className={cc["container"]} onSubmit={processPayment}>
             <img src="./cc.png" className={cc["img"]}/>
             <div className={cc["cc-container"]}>
