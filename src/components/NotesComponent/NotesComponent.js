@@ -324,6 +324,7 @@ function NotesComponent({ loggedInUserId, selectedAppointment }) {
             noteId: noteData.noteId,
             reminderDate: reminderDate,
             reminderTime: reminderTime,
+            appointmentId:noteData.appointmentId
           }),
         }
       );
