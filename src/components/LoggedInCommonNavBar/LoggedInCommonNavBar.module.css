@@ -155,21 +155,6 @@
   .bell {
     position: relative;
   }
-  .bell::after {
-    content: "2"; /* Replace this with dynamic count in React */
-    position: absolute;
-    top: -5px; /* Adjust this to position it above the bell */
-    right: -5px; /* Adjust this to position it to the right of the bell */
-    background-color: red;
-    color: white;
-    font-size: 12px;
-    border-radius: 50%;
-    width: 18px; /* Size of the badge */
-    height: 18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 
   .bell[data-notif-count]:after {
     content: attr(data-notif-count);
