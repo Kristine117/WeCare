@@ -23,6 +23,7 @@ const AppointmentList = () => {
   const [openModal, setOpenModal] = useState(false);
   const [amount, setAmount] = useState(null);
   const [appId,setAppId] = useState(null);
+  const [openRating,setOpenRating] = useState(false);
   const{fetchDataFuncHandler}=useFetchData();
 
   async function switchListRequests(e) {
@@ -38,10 +39,9 @@ const AppointmentList = () => {
     }
 
     const result=await fetchDataFuncHandler(composedUrl,headers);
-   
+    
     setList(result?.data);
   }
-
   useEffect(() => {
     getData(appListStatus);
   }, [appListStatus]);
@@ -55,7 +55,9 @@ const AppointmentList = () => {
   return (
     <React.Fragment>
       {openModal && (
-        <Payment openModal={openModalFuncHandler} amount={amount} updateFuncHandler={updateFunc} appId={appId}/>
+        <Payment openModal={openModalFuncHandler} amount={amount} updateFuncHandler={updateFunc} appId={appId} getDataHandlder={()=>{
+          getData("");
+        }}/>
       )}
       <main>
         {!user?.id && user.userType !== "admin" && user.userType !== null && (
@@ -94,7 +96,7 @@ const AppointmentList = () => {
                       statusTab={appListStatus}
                       isExpired={val.isExpired}
                       assistantId={val.assistantId}
-                      updateListFunc={switchListRequests}
+                      updateListFunc={()=>getData("ongoing")}
                     />
                   ))
                 )}

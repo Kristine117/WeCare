@@ -47,3 +47,23 @@
 .ellipsis {
   cursor: pointer;
 }
+
+
+.btn-approve,.btn-reject {
+  width: 4.8rem;
+  max-width: 4.8rem;
+  border-radius: .5rem;
+  color: white;
+  margin: .5rem;
+  padding: .25rem;
+}
+
+.btn-approve {
+  background: #98CABE;
+
+}
+
+.btn-reject {
+  background: #FF8F8F;
+
+}
