@@ -40,7 +40,7 @@ const CreditCard = ({handleBackFunc,confirmPaymentFunc,createPaymentIntentFunc})
           const paymentMethodId = response.data.data.id;
           console.log('Card Payment Method Attached:', paymentMethodId);
       
-          await confirmPaymentFunc(paymentIntentId, paymentMethodId);
+          await confirmPaymentFunc(paymentIntentId, paymentMethodId,"Credit Card");
         } catch (error) {
           setError("Error with your Card Details. Kindly check for the following fields")
           console.error('Error attaching card payment method:', error.response ? error.response.data : error.message);
