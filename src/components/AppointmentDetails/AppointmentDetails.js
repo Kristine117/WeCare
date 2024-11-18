@@ -22,8 +22,7 @@ const AppointmentDetails = ({
   assistantId,
   updateListFunc
 }) => {
-
-  
+ 
   const { updateFunc, error } = useUpdate();
 
   const decideHandler = async (e) => {
@@ -106,22 +105,22 @@ const AppointmentDetails = ({
           </div>
         )}
 
-        {(!userTypeCheck && statusTab === "ongoing" && isExpired === 0) && (
+        {(!userTypeCheck  && isExpired === 0) && (
           <div className={design["app-status"]}>
-            <div>
-              <strong>{statusDes}</strong>
-            </div>
-            {statusId === 2 && (
-              <Button type="button" data-appid={appId} data-amount={price} onClick={openModal}>
-                Pay Now
-              </Button>
-            )}
-             {statusId === 3 && (
-              <Button type="button" data-appid={appId} data-amount={price} onClick={openModal}>
-                Rate Service
-              </Button>
-            )}
+          <div>
+            <strong>{statusDes}</strong>
           </div>
+          {statusId === 2 && (
+            <Button type="button" data-appid={appId} data-amount={price} onClick={openModal}>
+              Pay Now
+            </Button>
+          )}
+           {statusId === 3 && (
+            <Button type="button" data-appid={appId} data-amount={price} onClick={openModal}>
+              Rate Service
+            </Button>
+          )}
+        </div>
         )}
 
         {isExpired === 1 &&

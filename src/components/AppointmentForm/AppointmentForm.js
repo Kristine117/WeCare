@@ -35,7 +35,7 @@ const AppointmentForm = () => {
     const method = "POST";
     const composedUrl = "appointment/create-appointment";
 
-    const {isSuccess,message}=await updateFunc(method,{
+    const result =await updateFunc(method,{
       appointmentDate: appointmentDate,
       startDate: startDate,
       endDate: endDate,
@@ -45,14 +45,15 @@ const AppointmentForm = () => {
       serviceDate: serviceDate,
     },composedUrl);
 
+    console.log(result)
 
     Swal.fire({
-      title: message,
-      icon: isSuccess ? "success":"error",
-      text: isSuccess ? "Your Appointment is Successfull.": "Something Went Wrong",
+      title: result?.message,
+      icon: result?.isSuccess ? "success":"error",
+      text: result?.isSuccess ? "Your Appointment is Successfull.": "Something Went Wrong",
     });
 
-    if(isSuccess){
+    if(result?.isSuccess){
       
     return navigate("/appointment");
     }
