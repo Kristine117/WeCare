@@ -122,8 +122,6 @@ function FindList({
                 </div>
                 <div className={wcdesign["message-section-modal"]}>
                   <div className={wcdesign["message-container-modal"]}>
-
-
                   <div className="d-flex">
                     <div className={wcdesign["profile-name-modal"]}>
                         <div>{fullName}</div>

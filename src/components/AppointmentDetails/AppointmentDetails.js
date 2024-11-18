@@ -20,7 +20,8 @@ const AppointmentDetails = ({
   statusTab,
   isExpired,
   assistantId,
-  updateListFunc
+  updateListFunc,
+  openRatingModal
 }) => {
  
   const { updateFunc, error } = useUpdate();
@@ -116,7 +117,7 @@ const AppointmentDetails = ({
             </Button>
           )}
            {statusId === 3 && (
-            <Button type="button" data-appid={appId} data-amount={price} onClick={openModal}>
+            <Button type="button" data-appid={appId}  onClick={openRatingModal}>
               Rate Service
             </Button>
           )}
