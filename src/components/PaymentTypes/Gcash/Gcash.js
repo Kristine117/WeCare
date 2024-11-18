@@ -35,7 +35,7 @@ const Gcash = ({handleBackFunc,confirmPaymentFunc,createPaymentIntentFunc})=>{
           const paymentMethodId = response.data.data.id;
 
           // Now confirm the payment using this payment method
-          await confirmPaymentFunc(paymentIntentId, paymentMethodId);
+          await confirmPaymentFunc(paymentIntentId, paymentMethodId,"Gcash");
         } catch (error) {
           console.error('Error attaching payment method:', error.response ? error.response.data : error.message);
         }
