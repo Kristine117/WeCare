@@ -26,6 +26,7 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
     const [list, setList] = useState([]);
     const [status, setStatus] = useState(["approve"]);
     const [notifCount, setNotifCount] = useState(""); 
+    const [admin, setAdmin] = useState("");
 
     useEffect(() => {
         const socket= io(apiUrl);
@@ -129,6 +130,7 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
             .then((data) => {
              setProfileImg(data.data?.profileImage);
              setFullName(data.data?.firstname + " " + data.data?.lastname);
+             setAdmin(data.data?.userType);
             })
             .catch((error) => {
               console.error("An error occurred while fetching the user profile:", error);
@@ -160,6 +162,8 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
 
             <div className={style["title"]}>{title}</div>
             {console.log(user)}
+            {admin !== "admin" && (
+                <>
                 <div className={`${style.subContainer}`}>
                     {title === 'Notes' ? (
                         <select
@@ -203,6 +207,10 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
                 </div>
 
                 </div>
+                </>
+            )}
+
+
             </div>
 
             {isOpen && (

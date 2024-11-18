@@ -1,0 +1,11 @@
+.TcModal{
+    background-color: #fff;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 55rem;
+    max-height: 80%;
+    overflow-y: auto;
+    overflow-x: hidden; 
+}

@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import registerModal from "./Register.module.css";
 import Swal from "sweetalert2";
 import ProfileUpload from "../../components/ProfileUpload/ProfileUpload";
-
+import TC from "../../components/TermsAndCondition/TermsAndConditionCard";
+import DP from "../../components/TermsAndCondition/DataPrivacyCard";
 
 export default function Registration3() {
     const navigate = useNavigate();
@@ -23,9 +24,15 @@ export default function Registration3() {
     const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false); // State for confirmation modal
     const [formCompletedSenior, setFormCompletedSenior] = useState(false);  
     const [formCompletedGiver, setFormCompletedGiver] = useState(false);
+
+    const [TCCardModal, setTCCardModal] = useState(false);
+    const [DPCardModal, setDPCardModal] = useState(false); 
+
     const [errorMessage, setErrorMessage] = useState(""); // State to hold error message
     const [age, setAge] = useState('');
 
+    const [isDPChecked, setIsDPChecked] = useState(false);
+    const [isTCChecked, setIsTCChecked] = useState(false);
   
     // Initialize initialData without Redux state
     const [initialData, setInitialData] = useState({
@@ -109,10 +116,37 @@ export default function Registration3() {
       }));
     };
     
+
+    const openTCModal = () => {
+      setTCCardModal(true);
+    }
+
+    const openDPModal = () => {
+      setDPCardModal(true);
+    };
+
+    const handleTCAgree = () => {
+      setIsTCChecked(true);
+      setTCCardModal(false);
+    }
+
+    const handleDPAgree = () => {
+      setIsDPChecked(true); 
+      setDPCardModal(false);
+    };
+
   
     const closeSeniorModal = () => setIsSeniorModalOpen(false);
     const closeCaregiverModal = () => setIsCaregiverModalOpen(false);
 
+    const closeTCModal = () => {
+      setTCCardModal(false); 
+      setIsTCChecked(false);
+    }
+    const closeDPModal = () => {
+      setIsDPChecked(false);
+      setDPCardModal(false); 
+    };
 
 
 
@@ -394,13 +428,27 @@ export default function Registration3() {
                 </label>
               </div>
 
+              {/* Data Privacy Checkbox */}
               <div>
-                <input type="checkbox" className="mr-2" required />
+                <input
+                  type="checkbox"
+                  className="mr-2"
+                  checked={isDPChecked}
+                  onChange={(e) => setIsDPChecked(e.target.checked)} // Sync checkbox with state
+                  onClick={openDPModal} // Open modal when clicked
+                  required
+                />
                 <label className="pb-1">I agree to the Data Privacy</label>
               </div>
 
               <div>
-                <input type="checkbox"  className={`${registerModal.inputDisableCssDefault} mr-2`} required />
+                <input type="checkbox" 
+                checked={isTCChecked}
+                onClick={openTCModal} 
+                onChange={(e) => setIsTCChecked(e.target.checked)} 
+                className={`${registerModal.inputDisableCssDefault} mr-2`} 
+                required 
+                />
                 <label className="pb-2">I agree to the Terms & Conditions.</label>
               </div>
             </div>
@@ -421,6 +469,22 @@ export default function Registration3() {
           </div>
         </div>
 
+        {/* TC Modal  */}
+      {TCCardModal && (
+        <div className={registerModal.modal}>
+          <TC onAgree={handleTCAgree} 
+              onClose={closeTCModal}  />
+        </div>
+      )}
+
+        {/* DP Modal  */}
+      {DPCardModal && (
+        <div className={registerModal.modal}>
+          <DP onAgree={handleDPAgree} 
+              onClose={closeDPModal} 
+          />
+        </div>
+      )}
 
 
           {/* Confirmation Modal */}
