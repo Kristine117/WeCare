@@ -26,7 +26,11 @@
   border: 0.5rem solid #678990;
   border-radius: 0.5rem;
   font-weight: 200;
+  width: 8rem;
+  text-align: center;
 }
+
 .viewdiv {
   padding: 0.5rem;
+  display: flex;
 }
