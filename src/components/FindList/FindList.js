@@ -51,7 +51,7 @@ function FindList({
               alt="Profile"
               className={wcdesign["profile-image"]}
             ></img>
-            <div className="d-flex">
+            <div className="d-flex ratingDiv">
               <span
                 className={`material-symbols-outlined ${wcdesign["rating-star"]}`}
               >
@@ -78,9 +78,9 @@ function FindList({
                 star_rate_half
               </span>
             </div>
-            <div>4.50</div>
+        
             <div className={wcdesign["rating-section"]}>
-              ({reviews} reviews)
+               4.50 ({reviews} reviews)
             </div>
           </div>
         </div>
@@ -89,8 +89,12 @@ function FindList({
             arrow_left
           </div>
           <div className={wcdesign["message-container"]}>
-            <div className={wcdesign["profile-name"]}>{fullName}</div>
-            <div className={wcdesign["profile-message"]}>{experience}</div>
+            <div>
+              <div className={wcdesign["profile-name"]}>{`Hi! I am ${fullName},`}</div>
+              <br></br>
+              <div className={wcdesign["profile-age"]}>{`I live in ${assistant_address}, Im ${assistant_age} years old.`}</div>       
+              <div className={wcdesign["profile-message"]}>{`I have ${years_exp} years of experience as a ${experience}.`}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -106,7 +110,11 @@ function FindList({
                 <div className={wcdesign["profile-picture-modal"]}>
                   <div className={wcdesign["piture-section-modal"]}>
                     <img
-                      src={`${process.env.REACT_APP_API_URL}/profilePictures/${profileImage}`}
+                      src={
+                        profileImage
+                          ? `${process.env.REACT_APP_API_URL}/profilePictures/${profileImage}`
+                          : 'person.png' 
+                      }
                       alt="Nurse holding syringe"
                       className={`${wcdesign.profileImage} selectFindProfilePP`}
                     ></img>
@@ -128,15 +136,7 @@ function FindList({
                           </div>
                           <div>{assistant_age}</div>
                     </div>
-
-
-
-
-
                     </div>
-
-
-
                     <div className={wcdesign["profile-exp"]}>
                       <span className={`material-symbols-outlined`}>
                         list_alt_check
