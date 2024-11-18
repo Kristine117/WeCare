@@ -132,7 +132,7 @@ const Payment = ({openModal,amount,updateFuncHandler,appId,getDataHandler})=>{
           });
 
           getDataHandler();
-    
+          openModal();
         } catch (error) {
           console.error('Error confirming payment:', error.response ? error.response.data : error.message);
         }

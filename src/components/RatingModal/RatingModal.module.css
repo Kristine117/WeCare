@@ -1,0 +1,80 @@
+.backdrop-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgb(0 0 0 / 50%);
+    opacity: 1;
+    z-index: 5;
+}
+
+.content {
+    height: 100vh;
+    width: 40rem;
+    max-width: 40rem;
+    background-color: white;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 10;
+    transform: translate(-50%, 0%);
+    text-align: center;
+    padding: 1.5rem 0;
+}
+
+.header {
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-image {
+    width: 7.5rem;
+    height: 7.5rem;
+    max-width: 7.5rem;
+    min-height: 7.5rem;
+    border-radius: 50%;
+}
+
+.textarea {
+    border: 1px solid rgb(43, 36, 36);
+    border-radius: .25rem;
+    resize: none;
+    padding: .5rem .75rem;
+}
+
+.rate-me {
+    text-align: left;
+    margin: 0 7rem;
+    display: flex;
+}
+
+.form-footer {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 7rem;
+}
+
+.btn{
+    background-color: #D9D9D9;
+    padding: .25rem 1.25rem;
+}
+
+.rating-star {
+    width: 1.5rem;
+    height: 1.5rem;
+   
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  }
+
+  .rating-star__inactive {
+    background-color: gray;
+  }
+  
+  .rating-star__active{
+    background-color: #edc04e;
+  }
+
+
+
