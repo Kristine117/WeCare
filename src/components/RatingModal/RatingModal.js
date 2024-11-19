@@ -6,7 +6,7 @@ import useUpdate from "../../hooks/useUpdate";
 import Button from "../Button/Button";
 import Swal from "sweetalert2";
 
-const RatingModal = ({openRatingModal,appId})=>{
+const RatingModal = ({openRatingModal,appId,getDataHandler})=>{
     const [activeRating,setActiveRating]= useState(
         new Array(5).fill(false)
       );
@@ -61,6 +61,9 @@ const RatingModal = ({openRatingModal,appId})=>{
         icon: result?.isSuccess ? "success":"error",
         text: result?.isSuccess ? "Your Feedback has been saved": "Something Went Wrong",
       });
+
+      getDataHandler();
+      openRatingModal();
   
     }
 

@@ -56,7 +56,7 @@ const AppointmentList = () => {
 
   function openRatingHandler(e){
     setOpenRating((val) => (val ? false : true))
-    setAppId(e.target.dataset.appid)
+    setAppId(e?.target.dataset.appid)
   }
 
   return (
@@ -69,7 +69,9 @@ const AppointmentList = () => {
 
       {openRating && (
         <RatingModal openRatingModal={openRatingHandler}
-        appId={appId}/>
+        appId={appId} getDataHandler={()=>{
+          getData("");
+        }}/>
       )}
       <main>
         {!user?.id && user.userType !== "admin" && user.userType !== null && (

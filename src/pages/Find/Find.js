@@ -12,8 +12,8 @@ const Find = () => {
   const [isOpen, setIsOpen] = useState(true);
   // State for form values
   const [rating, setRating] = useState(0);
-  const [age, setAge] = useState([]);
-  const [gender, setGender] = useState([]);
+  const [age, setAge] = useState(null);
+  const [gender, setGender] = useState(null);
   const {updateFunc}= useUpdate();
   const [ageRangeArr,setAgeRangeArr]= useState(
     new Array(4).fill(false)
@@ -47,10 +47,12 @@ const Find = () => {
 
   // Handle age checkbox change
   const handleAgeChange = (category,targetIndex,value) => {
+
     if(category === "age"){
       const floatMap = ageRangeArr?.map((item, index)=> index === targetIndex );
       setAgeRangeArr(floatMap);
-      setAge(+value);
+
+      setAge(value);
     }else {{
       const floatMap = genderArr?.map((item, index)=> index === targetIndex );
 
@@ -61,13 +63,16 @@ const Find = () => {
   };
 
 
-
+  
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    const composedUrl = "senior/find-assistants";
+    const composedUrl = `senior/find-assistants?rating=${rating}&age=${age}&gender=${gender}`;
 
-    console.log(rating,age,gender)
+    const result = await fetchDataFuncHandler(composedUrl);
+    console.log(result)
+    console.log(age)
+    console.log(rating,gender)
 
   };
   const clearRating = () => setRating(0);
@@ -251,8 +256,8 @@ const Find = () => {
                         type="button"
                         onClick={() => {
                           setRating(0);
-                          setAge([]);
-                          setGender([]);
+                          setAge(null);
+                          setGender(null);
                         }}
                       >
                         Clear Filter
