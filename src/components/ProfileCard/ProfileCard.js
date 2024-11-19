@@ -18,6 +18,11 @@ export default function ProfileCard({ list }) {
       },
     });
   };
+
+  const handleRequestRequest = () => {
+    navigate("/appointment");
+  };
+
   return (
     <div className={styles["profile-card"]}>
       <div className={styles["profile-head"]}>
@@ -43,7 +48,7 @@ export default function ProfileCard({ list }) {
             </span>
         </div>
       </div>
-      <div className={styles["profile-users"]}>
+      {user.userType === 'senior' && (      <div className={styles["profile-users"]}>
         {list?.slice(0, 3).map((val) => {
           return (
             <button
@@ -60,7 +65,26 @@ export default function ProfileCard({ list }) {
             </button>
           );
         })}
-      </div>
+      </div>)}
+
+      {user.userType === 'assistant' && (      <div className={styles["profile-users"]}>
+        {list?.slice(0, 3).map((val) => {
+          return (
+            <button
+              className={styles["card"]}
+              key={val.userId}
+              onClick={() => handleRequestRequest(val)}
+            >
+              <img
+                  src={`${process.env.REACT_APP_API_URL}/profilePictures${val.profileImage}`}
+                  alt="Profile"
+                  className={styles["profile-image"]}
+                />
+              <div className={styles["card-body"]}>{val.fullName}</div>
+            </button>
+          );
+        })}
+      </div>)}
     </div>
   );
 }
