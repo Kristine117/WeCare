@@ -21,6 +21,7 @@ const Profile = () => {
     lastname: "",
     email: "",
     street: "",
+    experienceId: 0,
     experienceName:"",
     experienceYrs:"",
     rate:"",
@@ -45,7 +46,6 @@ const Profile = () => {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
         if (data.isSuccess) {
           const formattedBirthDate = data.data?.birthDate
           ? new Date(data.data.birthDate).toISOString().split("T")[0]
@@ -54,7 +54,6 @@ const Profile = () => {
             ...user,
             id: data.data?.userId,
             userType: data.data?.userType,
-            experienceId: data.data?.experienceId,
             barangayId: data.data?.barangayId,
             profileImage: data.data?.profileImage
           });
@@ -63,10 +62,12 @@ const Profile = () => {
             lastname: data.data?.lastname,
             email: data.data?.email,
             street: data.data?.street,
+            experienceId: data.data?.experienceId,
             experienceName: data.data?.experienceName,
             gender: data.data?.gender,
             experienceYrs: data.data?.experienceYrs,
             rate: data.data?.rate,
+            experienceId: data.data?.experienceId,
             birthDate: formattedBirthDate,
             contactNumber: data.data?.contactNumber,
             barangayId: data.data?.barangayId,
@@ -122,6 +123,7 @@ const Profile = () => {
       newErrors.password = "Password is required and must be at least 9 characters.";
     if (!editableData.profileImage)
       newErrors.profileImage = "Profile Picture is required.";
+
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -208,23 +210,18 @@ const Profile = () => {
 
 
   const handleSave = () => {
-    // console.log("Updated data:", editableData);
-    // console.log("Data Retrieved:", user)
-
     const formData = new FormData();
     formData.append('lastname', editableData.lastname);
     formData.append('firstname', editableData.firstname);
     formData.append('email', editableData.email);
     formData.append('userType', user.userType);
     formData.append('street', editableData.street);
-    // formData.append('barangayId', editableData.barangayId);
+    formData.append('barangayId', editableData.barangayId);
+    formData.append('experienceId', editableData.experienceId);
     formData.append('contactNumber', editableData.contactNumber);
     formData.append('gender', editableData.gender);
     formData.append('birthDate', editableData.birthDate);
     formData.append('password', editableData.password);
-    // formData.append('numOfYears', editableData.experienceYrs);
-    // formData.append('experienceDescription', editableData.experienceName);
-    // formData.append('rate', editableData.rate);
     
     
     if (editableData.profileImage) {
