@@ -77,7 +77,7 @@ const Requests = ()=>{
 
     return(
         <main>
-        {(user?.userType !== "admin" && user?.userType !== null ) && <Navigate to={"/login"}/>}
+        {(user?.userType !== "senior" ) && <Navigate to={"/login"}/>}
         {user?.id &&  <section className={ds['dashboard']}>
             <SideMenu/>
             <DashboardContainer>

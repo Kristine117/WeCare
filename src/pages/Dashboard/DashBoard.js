@@ -18,6 +18,8 @@ const DashBoard = ()=>{
     
   const [assistantList,setAssistantList] = useState([]);
 
+  const [seniorRequesrtList,setSeniorRequesrtList] = useState([]);
+
   async function getAssistantList(){
 
     const composedUrl =`senior/assistant-list`;
@@ -32,6 +34,21 @@ const DashBoard = ()=>{
     getAssistantList();
   },[])
 
+
+  async function getSeniorRequestList(){
+
+    const composedUrl =`assistant/senior-list-request`;
+
+    const {data} = await fetchDataFuncHandler(composedUrl);
+  
+    setSeniorRequesrtList(data);
+  }
+  useEffect(()=>{
+
+   
+    getSeniorRequestList();
+  },[])
+
     return(
         <main className={dashboard["dashboard-container"]}>
            {!user?.id && <Navigate to={"/login"}/>}
@@ -42,7 +59,7 @@ const DashBoard = ()=>{
                     {user.userType === "admin" && <AdminDashboardCards fullName={`${user?.firstname} ${user?.lastname}`}/>}
                     {user.userType !== "admin" && <Banner/>}
                     {user.userType === 'senior' && <ProfileCard list={assistantList}/>}
-                    {user?.userType === 'assistant' && <AssistantContent/>} 
+                    {user?.userType === 'assistant' && <ProfileCard list={seniorRequesrtList}/>} 
 
                 </DashboardContainer>            
             </section>}
