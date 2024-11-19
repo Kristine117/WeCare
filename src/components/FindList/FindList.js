@@ -47,10 +47,14 @@ function FindList({
         <div className={wcdesign["profile-picture"]}>
           <div className={wcdesign["piture-section"]}>
             <img
-              src={`${process.env.REACT_APP_API_URL}/profilePictures${profileImage}`}
+              src={
+                profileImage
+                  ? `${process.env.REACT_APP_API_URL}/profilePictures${profileImage}`
+                  : "/person.png"
+              }
               alt="Profile"
               className={wcdesign["profile-image"]}
-            ></img>
+            />
             <div className="d-flex ratingDiv">
               <span
                 className={`material-symbols-outlined ${wcdesign["rating-star"]}`}
