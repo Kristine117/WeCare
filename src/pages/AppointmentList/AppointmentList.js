@@ -41,6 +41,7 @@ const AppointmentList = () => {
 
     const result=await fetchDataFuncHandler(composedUrl,headers);
     
+    console.log(result.data)
     setList(result?.data);
   }
   useEffect(() => {
@@ -109,6 +110,7 @@ const AppointmentList = () => {
                       assistantId={val.assistantId}
                       updateListFunc={()=>getData("ongoing")}
                       openRatingModal={openRatingHandler}
+                      ratings={val.rated}
                     />
                   ))
                 )}

@@ -21,7 +21,8 @@ const AppointmentDetails = ({
   isExpired,
   assistantId,
   updateListFunc,
-  openRatingModal
+  openRatingModal,
+  ratings
 }) => {
  
   const { updateFunc, error } = useUpdate();
@@ -106,7 +107,7 @@ const AppointmentDetails = ({
           </div>
         )}
 
-        {(!userTypeCheck  && isExpired === 0) && (
+        {(!userTypeCheck  && isExpired === 0 && ratings===0) && (
           <div className={design["app-status"]}>
           <div>
             <strong>{statusDes}</strong>
@@ -124,6 +125,12 @@ const AppointmentDetails = ({
         </div>
         )}
 
+      {(!userTypeCheck  && isExpired === 0 && ratings > 0) && (
+              <div>
+              <strong>Service Completed</strong>
+            </div>
+        )}
+
         {isExpired === 1 &&
         <>
         <div>Appointment Expired</div>
@@ -131,6 +138,9 @@ const AppointmentDetails = ({
          Book Again
         </Link>}
         </>}
+
+        {+ratings> 0 && 
+        <div></div>}
 
         {statusTab === "approve" && (
           <div>
