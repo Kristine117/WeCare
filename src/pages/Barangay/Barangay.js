@@ -203,12 +203,42 @@ const Barangay = () => {
                                 <td>
                                     <button
                                         className="btn btn-success btn-sm"
-                                        onClick={() => setShowAddModal(true)}
+                                        onClick={() => {
+                                            if (!newBarangay.barangay.trim()) {
+                                                console.error("Please fill out the field before adding.");
+                                                return;
+                                            }
+                                            setShowAddModal(true);
+                                        }}
+                                        disabled={!newBarangay.barangay.trim()} // Disable button if input is empty
                                     >
                                         Add
                                     </button>
                                 </td>
                             </tr>
+                            {/* <tr>
+                                <td>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Enter New Barangay"
+                                        value={newBarangay.barangay}
+                                        onChange={(e) =>
+                                            setNewBarangay({
+                                                barangay: e.target.value,
+                                            })
+                                        }
+                                    />
+                                </td>
+                                <td>
+                                    <button
+                                        className="btn btn-success btn-sm"
+                                        onClick={() => setShowAddModal(true)}
+                                    >
+                                        Add
+                                    </button>
+                                </td>
+                            </tr> */}
                         </tbody>
                     </table>
                 </div>

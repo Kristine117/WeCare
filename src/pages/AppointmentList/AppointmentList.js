@@ -10,6 +10,7 @@ import Payment from "../../components/Payment/Payment";
 import ListController from "../../components/ListController/ListController";
 import useUpdate from "../../hooks/useUpdate";
 import useFetchData from "../../hooks/useGetData";
+import RatingModal from "../../components/RatingModal/RatingModal";
 
 const APP_LIST_STATUS = [
   { btnName: "ongoing", btnTitle: "Ongoing" },
@@ -52,12 +53,22 @@ const AppointmentList = () => {
     setAppId(e.target.dataset.appid)
   }
 
+  function openRatingHandler(e){
+    setOpenRating((val) => (val ? false : true))
+    setAppId(e.target.dataset.appid)
+  }
+
   return (
     <React.Fragment>
       {openModal && (
         <Payment openModal={openModalFuncHandler} amount={amount} updateFuncHandler={updateFunc} appId={appId} getDataHandlder={()=>{
           getData("");
         }}/>
+      )}
+
+      {openRating && (
+        <RatingModal openRatingModal={openRatingHandler}
+        appId={appId}/>
       )}
       <main>
         {!user?.id && user.userType !== "admin" && user.userType !== null && (
@@ -97,6 +108,7 @@ const AppointmentList = () => {
                       isExpired={val.isExpired}
                       assistantId={val.assistantId}
                       updateListFunc={()=>getData("ongoing")}
+                      openRatingModal={openRatingHandler}
                     />
                   ))
                 )}

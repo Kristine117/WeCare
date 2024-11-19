@@ -23,9 +23,11 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
     const [profileImg, setProfileImg] = useState("");
     const [fullName, setFullName] = useState("");
     const [barangayName, setBarangayName] = useState("");
+    const [brgId, setBrgId] = useState(0);
     const [list, setList] = useState([]);
     const [status, setStatus] = useState(["approve"]);
     const [notifCount, setNotifCount] = useState(""); 
+    const [admin, setAdmin] = useState("");
 
     useEffect(() => {
         const socket= io(apiUrl);
@@ -113,7 +115,21 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
         }
     };
     
+    const fetchSpecificBrg = () => {
+        fetch(`${process.env.REACT_APP_API_URL}/barangay/getSpecific-barangay/${brgId}`, {
+            method: "GET",
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            setBarangayName(data.data?.barangay);
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
+    }
+
     useEffect(() => {        
+        fetchSpecificBrg();
         fetch(`${process.env.REACT_APP_API_URL}/main/user-profile`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -129,6 +145,8 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
             .then((data) => {
              setProfileImg(data.data?.profileImage);
              setFullName(data.data?.firstname + " " + data.data?.lastname);
+             setAdmin(data.data?.userType);
+             setBrgId(data.data?.barangayId);
             })
             .catch((error) => {
               console.error("An error occurred while fetching the user profile:", error);
@@ -136,6 +154,7 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
     })
 
     useEffect(() => {
+
         async function getAppointmentList() {
           const data = await fetch(
             `${process.env.REACT_APP_API_URL}/appointment/appointment-list`,
@@ -160,6 +179,8 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
 
             <div className={style["title"]}>{title}</div>
             {console.log(user)}
+            {admin !== "admin" && (
+                <>
                 <div className={`${style.subContainer}`}>
                     {title === 'Notes' ? (
                         <select
@@ -203,6 +224,10 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
                 </div>
 
                 </div>
+                </>
+            )}
+
+
             </div>
 
             {isOpen && (

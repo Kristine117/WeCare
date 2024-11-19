@@ -24,6 +24,7 @@ const AppointmentForm = () => {
     const composedUrl = `main/assistant-details/${encodeURIComponent(assistantId)}`;
     const {data}= await fetchDataFuncHandler(composedUrl);
     setAssistant(data);
+    console.log(data);
   }
   useEffect(()=>{
     fetchData();
@@ -66,7 +67,7 @@ const AppointmentForm = () => {
         <div className={`${wcdesign.card}`}>
           <div className={wcdesign["profile-section"]}>
             <img
-              src={`${process.env.REACT_APP_API_URL}/profilePictures/${assistant?.profileImg}`}
+              src={`${process.env.REACT_APP_API_URL}/profilePictures/${assistant?.profileImage}`}
               alt="assitan"
               className={wcdesign["profile-image"]}
             ></img>
