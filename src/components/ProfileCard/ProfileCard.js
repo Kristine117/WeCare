@@ -68,22 +68,27 @@ export default function ProfileCard({ list }) {
       </div>)}
 
       {user.userType === 'assistant' && (      <div className={styles["profile-users"]}>
-        {list?.slice(0, 3).map((val) => {
-          return (
-            <button
-              className={styles["card"]}
-              key={val.userId}
-              onClick={() => handleRequestRequest(val)}
-            >
-              <img
+        {list &&  list === null ? (
+          list.slice(0, 3).map((val) => {
+            return (
+              <button
+                className={styles["card"]}
+                key={val.userId}
+                onClick={() => handleRequestRequest(val)}
+              >
+                <img
                   src={`${process.env.REACT_APP_API_URL}/profilePictures${val.profileImage}`}
                   alt="Profile"
                   className={styles["profile-image"]}
                 />
-              <div className={styles["card-body"]}>{val.fullName}</div>
-            </button>
-          );
-        })}
+                <div className={styles["card-body"]}>{val.fullName}</div>
+              </button>
+            );
+          })
+        ) : (
+          <div>No pending Requests.</div>
+        )}
+
       </div>)}
     </div>
   );
