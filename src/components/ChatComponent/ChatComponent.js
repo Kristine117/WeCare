@@ -3,7 +3,6 @@ import React, {
   useState,
   useRef,
   useContext,
-  useNavigate,
   useLayoutEffect,
 } from "react";
 import io from "socket.io-client";
@@ -18,8 +17,8 @@ import {
   FaDownload,
   FaArrowLeft,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import style from "./ChatComponent.module.css";
-
 const apiUrl = `${process.env.REACT_APP_API_URL}`;
 
 const ChatComponent = ({ recipientId, fullName, profileImage }) => {
@@ -35,9 +34,10 @@ const ChatComponent = ({ recipientId, fullName, profileImage }) => {
   const [fileNames, setFileNames] = useState([]); // State to store selected filenames
   const [inputActive, setInputActive] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-
+  const navigate = useNavigate();
   const socketRef = useRef(null); // Initialize socketRef
   const roomIdRef = useRef(null);
+  
 
   // Initialize socket and pass userId
   useEffect(() => {
@@ -264,11 +264,14 @@ const ChatComponent = ({ recipientId, fullName, profileImage }) => {
   const extractFilename = (filePath) => {
     return filePath.split("/").pop();
   };
+  const back = ()=> {
+    navigate(`/chatlist`);
+  }
 
   return (
     <div className={style.container}>
       <div className={style.chatheader}>
-        <FaArrowLeft className={style.iconImage} />
+        <button onClick={back}><FaArrowLeft className={style.iconImage} /></button>
         <img className={style.profileImage} src={profileImage} />
         <div className={style.userFullname}>{fullName}</div>
       </div>

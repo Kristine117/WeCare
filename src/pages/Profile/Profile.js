@@ -236,27 +236,35 @@ const Profile = () => {
     }
 
 
-    fetch(`${process.env.REACT_APP_API_URL}/main/user-profile/update`,{
-      method:'PUT',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      body:formData
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.isSuccess === true) {
-        console.log(data);
-        Swal.fire({ title: "Registered Successfully", icon: "success", text: "Account Registered Successfully" });
-        navigate("/dashboard-main"); 
-      } else {
-        console.log(data);
-        Swal.fire({ title: "Registration failed", icon: "error", text: "Check account details and try again." });
-      }
-    })
-    .catch(error => {
-      console.error("Error:", error);
-    });
+    // fetch(`${process.env.REACT_APP_API_URL}/main/user-profile/update`,{
+    //   method:'PUT',
+    //   headers: {
+    //     Authorization: `Bearer ${localStorage.getItem("token")}`,
+    //   },
+    //   body:formData
+    // })
+    // .then(response => response.json())
+    // .then(data => {
+    //   if (data.isSuccess === true) {
+    //     console.log(data);
+    //     Swal.fire({
+    //       title: "Registered Successfully",
+    //       icon: "success",
+    //       text: "Account Registered Successfully",
+    //     }).then((result) => {
+    //       if (result.isConfirmed) {
+    //         // Navigate after the user clicks the OK button
+    //         navigate("/dashboard-main");
+    //       }
+    //     });
+    //   } else {
+    //     console.log(data);
+    //     Swal.fire({ title: "Registration failed", icon: "error", text: "Check account details and try again." });
+    //   }
+    // })
+    // .catch(error => {
+    //   console.error("Error:", error);
+    // });
 
     
   };

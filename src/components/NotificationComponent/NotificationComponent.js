@@ -1,10 +1,12 @@
-import React,{useState} from "react";
+import React,{useState, useContext} from "react";
 import style from "./Notification.module.css"
 import { useNavigate} from "react-router-dom";
+import UserContext from "../../UserContext";
 
 
 function Notification({ notiflist,userType }) {
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
 
 
   const handleClick = (notifId, isFromReminder) => {
@@ -63,7 +65,12 @@ function Notification({ notiflist,userType }) {
                   handleClick(notif.notificationId, notif.isFromReminder)
                 }
               >
-                {notif.isFromReminder === 1 ? "Go to Notes" : "Go to Appointments"}
+                {user.userType === "assistant" && (notif.isFromReminder === 1 ? "Go to Notes" : "Go to Requests")}
+               
+                {/* {notif.isFromReminder === 1 ? "Go to Notes" : "Go to Requests"} */}
+
+                {user.userType === "senior" && "Go to Appointments"}
+
               </div>
             </div>
           </div>
