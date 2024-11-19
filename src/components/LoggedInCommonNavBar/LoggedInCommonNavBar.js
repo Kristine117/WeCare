@@ -198,7 +198,7 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
                         </select>
                     ) : (
                         <div className={style.navbarIconSearchContainer}>
-                            <div className={style.inputSearch}>
+                            {/* <div className={style.inputSearch}>
                                 <input
                                     type="text"
                                     ref={inputRef}  // Attach the ref to the input
@@ -206,7 +206,7 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
                                     placeholder="Search..."
                                 />
                                 <FaSearch className="search-icon" onClick={handleIconClick} />
-                            </div>
+                            </div> */}
                         </div>
                     )}
                     <div className={style.navbarIconContainer}>
