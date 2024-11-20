@@ -7,7 +7,6 @@ function HomeLabel3() {
       <div className="text-blue font-weight-bold h1-font-size mb-3">
         About WeCare
       </div>
-
       {/* Description Section */}
       <div className="text-blue mb-4">
         <p>

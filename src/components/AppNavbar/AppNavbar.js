@@ -27,8 +27,6 @@ export default function AppNavbar() {
     navigate("/", { state: { scrollToAboutUs: true } });
   };
 
-
-
   return (
     <nav className={navDesign.navbar}>
       <div className={navDesign.brandContainer}>

@@ -74,7 +74,6 @@ const Home = () => {
               </div>    
             </div>
           </Col>
-
           {/* The image will also be hidden on small screens */}
           <Col lg={5} className="d-none d-lg-block z-index-0">
             <img src="./elderlies_with_dog.png" alt="elderly animation" className={`${homeModuleCss.elderlyImg}`} />
