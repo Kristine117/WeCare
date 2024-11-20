@@ -21,7 +21,7 @@ const Profile = () => {
     lastname: "",
     email: "",
     street: "",
-    experienceId: 0,
+    experienceId: "",
     experienceName:"",
     experienceYrs:"",
     rate:"",
@@ -67,7 +67,6 @@ const Profile = () => {
             gender: data.data?.gender,
             experienceYrs: data.data?.experienceYrs,
             rate: data.data?.rate,
-            experienceId: data.data?.experienceId,
             birthDate: formattedBirthDate,
             contactNumber: data.data?.contactNumber,
             barangayId: data.data?.barangayId,
@@ -129,20 +128,6 @@ const Profile = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // const openConfirmationModal = (e) => {
-  //   e.preventDefault();
-  //   if (validateFields()) {
-  //     setIsConfirmationModalOpen(true);
-  //   } else {
-  //     Swal.fire({
-  //       title: "Missing Information",
-  //       icon: "error",
-  //       html: Object.values(errors)
-  //         .map((error) => `<div>${error}</div>`)
-  //         .join(""),
-  //     });
-  //   }
-  // };
 
   const openConfirmationModal = (e) => {
     e.preventDefault();
@@ -158,7 +143,6 @@ const Profile = () => {
         denyButtonText: "Cancel", // Label for the third button
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire("Success!", "You have chosen to continue.", "success");
           handleSave();
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           // Navigate back to the dashboard
@@ -178,9 +162,7 @@ const Profile = () => {
       });
     }
   };
-  
 
-  
   
 
   const handleInputChange = (e) => {
@@ -189,12 +171,6 @@ const Profile = () => {
       [name]: value }));
   };
 
-  // const handleFileSelect = (base64String) => {
-  //   setEditableData((prevData) => ({
-  //     ...prevData,
-  //     profileImage: base64String, 
-  //   }));
-  // };
   const handleFileSelect = (base64String) => {
     if (base64String) {
       setEditableData((prevData) => ({
@@ -217,7 +193,13 @@ const Profile = () => {
     formData.append('userType', user.userType);
     formData.append('street', editableData.street);
     formData.append('barangayId', editableData.barangayId);
-    formData.append('experienceId', editableData.experienceId);
+    
+    if(user.userType === "senior"){
+      formData.append('experienceId', 1);
+    } else {
+      formData.append('experienceId', editableData.experienceId);
+    }
+
     formData.append('contactNumber', editableData.contactNumber);
     formData.append('gender', editableData.gender);
     formData.append('birthDate', editableData.birthDate);
@@ -236,35 +218,27 @@ const Profile = () => {
     }
 
 
-    // fetch(`${process.env.REACT_APP_API_URL}/main/user-profile/update`,{
-    //   method:'PUT',
-    //   headers: {
-    //     Authorization: `Bearer ${localStorage.getItem("token")}`,
-    //   },
-    //   body:formData
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //   if (data.isSuccess === true) {
-    //     console.log(data);
-    //     Swal.fire({
-    //       title: "Registered Successfully",
-    //       icon: "success",
-    //       text: "Account Registered Successfully",
-    //     }).then((result) => {
-    //       if (result.isConfirmed) {
-    //         // Navigate after the user clicks the OK button
-    //         navigate("/dashboard-main");
-    //       }
-    //     });
-    //   } else {
-    //     console.log(data);
-    //     Swal.fire({ title: "Registration failed", icon: "error", text: "Check account details and try again." });
-    //   }
-    // })
-    // .catch(error => {
-    //   console.error("Error:", error);
-    // });
+    fetch(`${process.env.REACT_APP_API_URL}/main/user-profile/update`,{
+      method:'PUT',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body:formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.isSuccess === true) {
+        console.log(data);
+        navigate("/dashboard-main"); 
+        Swal.fire("Success!", "Profile has been saved.", "success");
+      } else {
+        console.log(data);
+        Swal.fire("Cancelled", "No changes have been made.", "info");
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    });
 
     
   };
