@@ -178,7 +178,7 @@ const LoggedInCommonNavBar = ({ title, onSelectChange }) => {
 <div className={style.container}>
 
             <div className={style["title"]}>{title}</div>
-            {console.log(user)}
+            {/* {console.log(user)} */}
             {admin !== "admin" && (
                 <>
                 <div className={`${style.subContainer}`}>
