@@ -9,7 +9,6 @@ import axios from "axios";
 import UserContext from "../../UserContext";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { AiOutlineConsoleSql } from "react-icons/ai";
 
 const PAYMENT_SELECTION =[
     {

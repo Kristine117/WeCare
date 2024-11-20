@@ -41,6 +41,7 @@ const AppointmentList = () => {
 
     const result=await fetchDataFuncHandler(composedUrl,headers);
     
+    console.log(result.data)
     setList(result?.data);
   }
   useEffect(() => {
@@ -55,7 +56,7 @@ const AppointmentList = () => {
 
   function openRatingHandler(e){
     setOpenRating((val) => (val ? false : true))
-    setAppId(e.target.dataset.appid)
+    setAppId(e?.target.dataset.appid)
   }
 
   return (
@@ -68,7 +69,9 @@ const AppointmentList = () => {
 
       {openRating && (
         <RatingModal openRatingModal={openRatingHandler}
-        appId={appId}/>
+        appId={appId} getDataHandler={()=>{
+          getData("");
+        }}/>
       )}
       <main>
         {!user?.id && user.userType !== "admin" && user.userType !== null && (
@@ -109,6 +112,7 @@ const AppointmentList = () => {
                       assistantId={val.assistantId}
                       updateListFunc={()=>getData("ongoing")}
                       openRatingModal={openRatingHandler}
+                      ratings={val.rated}
                     />
                   ))
                 )}
