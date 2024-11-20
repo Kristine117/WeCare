@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import sidemenu from "./SideMenu.module.css";
 import UserContext from "../../UserContext";
+import { useMatch } from 'react-router-dom';
 
 export default function SideMenu() {
   const { user } = useContext(UserContext);
@@ -40,7 +41,7 @@ export default function SideMenu() {
     setActiveNavApp(location.pathname === "/appointment");
     setActiveNavNotes(location.pathname === "/notes");
     setActiveSupport(location.pathname === "/emergency");
-    setActiveuser(location.pathname === "/users");
+    setActiveuser(location.pathname.startsWith("/users"));
     setActiveRatings(location.pathname === "/ratings");
     setActiverequest(location.pathname === "/requests");
     setActiveBarangay(location.pathname === "/barangay");
@@ -81,8 +82,7 @@ export default function SideMenu() {
 
 
             <div className="menu-items flex-grow-1 d-flex flex-column ml-4 mr-4">
-              {/* Add your Links here */}
-              <Link
+          <Link
             to={"/dashboard-main"}
             // onClick={clickedActiveHome}
             className={activeNavHome ? "pl-2 menu-item actives" : "pl-2 menu-item"}
@@ -94,6 +94,8 @@ export default function SideMenu() {
               {user?.userType !== "admin" ? "Home" : "Dashboard"}
             </p>
           </Link>
+
+
           {user?.userType === "senior" && (
             <Link
               to={"/find"}
@@ -106,11 +108,6 @@ export default function SideMenu() {
               <p className="ml-2 pt-3">Find</p>
             </Link>
           )}
-
-
-
-
-  
           {user?.userType !== "admin" && (
             <Link
               to={"/chatlist"}
@@ -124,8 +121,7 @@ export default function SideMenu() {
             </Link>
           )}
 
-
-        {user?.userType === "senior" && (
+          {user?.userType === "senior" && (
             <Link
               to="/appointment"
               // onClick={clickedActiveApp}
@@ -151,11 +147,7 @@ export default function SideMenu() {
             </Link>
           )}
 
-
-
-
-
-
+          
 
           {user?.userType === "assistant" && (
             <Link
@@ -186,16 +178,53 @@ export default function SideMenu() {
               <Link
                 to="/ratings"
                 // onClick={clickedActiveApp}
-                className={activeNavApp ? "pl-2 menu-item actives" : "pl-2 menu-item"}
+                className={activeRatings ? "pl-2 menu-item actives" : "pl-2 menu-item"}
               >
                 <span className="material-symbols-outlined side-menu-color icon-size">
-                  list_alt
+                  star
                 </span>
                 <p className="ml-2 pt-3">Ratings</p>
               </Link>
             </>
           )}
-          </div>
+
+
+          {user?.userType === "admin" && (
+            <>
+              <Link
+                to="/requests"
+                // onClick={clickedActiveApp}
+                className={activerequest ? "pl-2 menu-item actives" : "pl-2 menu-item"}>
+                <span class="material-symbols-outlined side-menu-color icon-size">
+                verified_user
+                </span>
+                <p className="ml-2 pt-3">Request</p>
+              </Link>
+            </>
+          )}
+
+
+          {user?.userType === "admin" && (
+            <>
+              <Link
+                to="/barangay"
+                // onClick={clickedActiveApp}
+                className={activeBarangay ? "pl-2 menu-item actives" : "pl-2 menu-item"}>
+                <span class="material-symbols-outlined side-menu-color icon-size">
+                    location_on
+                </span>
+                <p className="ml-2 pt-3">Barangay</p>
+              </Link>
+            </>
+          )}
+          
+        </div>
+
+
+
+
+
+  
 
 
 
@@ -205,34 +234,47 @@ export default function SideMenu() {
 
 
 
-          <div className={`${sidemenu.supportSpacing}`}>
-          {user?.userType !== "admin" && (
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div className={`${sidemenu.supportSpacing}`}>
+        {user?.userType !== "admin" && (
           <div className="m-4">
             <Link to="/emergency" 
             className={activeSupport ? "pl-2 menu-item actives" : "pl-2 menu-item"}>
                 <span className="material-symbols-outlined side-menu-color icon-size">
-                  volunteer_activism
+                  e911_emergency
                 </span>
-                <p className="ml-2 pt-3">Support</p>
+                <p className="ml-2 pt-3">Emergency</p>
             </Link>
           </div>
-          )}
+        )}
 
-          {user?.userType === "admin" && (
-            <div className="m-4">
-              <Link to="/requests" 
-              className={activeSupport ? "pl-2 menu-item actives" : "pl-2 menu-item"}>
-                  <span className="material-symbols-outlined side-menu-color icon-size">
-                    volunteer_activism
-                  </span>
-                  <p className="ml-2 pt-3">Requests</p>
-              </Link>
-            </div>
-          )}
+        {user?.userType === "admin" && (
+          <div className="support-item ml-4 mr-4 mb-3">
+            <Link to={'/emergency'}
+             className={activeSupport ? "pl-2 menu-item actives" : "pl-2 menu-item"}>
+              <span className="material-symbols-outlined side-menu-color icon-size">
+                  e911_emergency
+              </span>
+              <p>Emergency</p>
+            </Link>
+          </div>
+        )}
 
 
-        
-        <div className="support-item logout-bottom ml-4 pl-2">
+        <div className="logout-bottom ml-4 pl-2">
           <span className="material-symbols-outlined side-menu-color icon-size">
             logout
           </span>

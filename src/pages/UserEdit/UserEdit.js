@@ -9,12 +9,14 @@ import useUpdate from "../../hooks/useUpdate";
 import useFetchData from "../../hooks/useGetData";
 import LoadingElement from "../../components/LoadingElement/LoadingElement";
 import Button from "../../components/Button/Button";
+import ProfileModule from "../Profile/Profile.module.css";
 
 const UserEdit = ()=>{
     const {userId} = useParams();
     const {user} = useContext(UserContext);
     const {updateFunc} = useUpdate();
     const [data,setData]= useState(null);
+    const [fullName, setFullName] = useState("");
     const navigate = useNavigate();
     const {fetchDataFuncHandler,loading,error}=useFetchData();
 
@@ -22,11 +24,12 @@ const UserEdit = ()=>{
     async function parseData(){
         const composedUrl = `admin/assistant-details/${encodeURIComponent(userId)}`
         const result =await fetchDataFuncHandler(composedUrl);
-
+        setFullName(result.data.lastname +" "+ result.data.firstname);
         setData(result.data);
     }
     useEffect(()=>{
         parseData();
+        
     },[userId])
 
     async function updateUserPassword(e){
@@ -54,23 +57,53 @@ const UserEdit = ()=>{
 
         return navigate("/users");
     }
+
+    
     return(
         <main>
-        {(!user?.id || user?.userType !== "admin") && <Navigate to={"/login"}/>}
+        {/* {(!user?.id || user?.userType !== "admin") && <Navigate to={"/login"}/>} */}
         {user?.id &&  <section className={ds['dashboard']}>
-            <SideMenu/>
+        <SideMenu />
             <DashboardContainer>
+          
                 <section className={ds["user-profile"]}>
 
                     {loading && <LoadingElement/>}
                     {!loading && 
                     <form onSubmit={updateUserPassword}>
-                        <h1>You can Update User's Password Here:</h1>
+                        <div className={ProfileModule["profile-container"]}>
+                            <div className="m-4">
+                                <div className={ProfileModule["profile-head"]}>
+                                Modify password of user : {fullName}
+                                </div>
+                            </div>
+                            <div className={`${ProfileModule.containerSizeDifiner}`}>
+                                <div  className={`${ProfileModule.card}`}>
+                                    <div className="form-group"> 
+                                        <label htmlFor="text">Password:</label>
+                                        <input 
+                                        name="password" 
+                                        type="password"
+                                        className="form-control"
+                                        required/>
+                                    </div>
+
+                                    <div className="form-group"> 
+                                        <label htmlFor="text">Confirm Password:</label>
+                                        <input 
+                                        name="confirm-password" 
+                                        type="password" 
+                                        className="form-control"
+                                        required/>
+                                    </div>
+
+
                         
-                        <input name="password" type="password"/>
-                        <input name="confirm-password" type="password"/>
-                        
-                        <Button type="submit">Submit</Button>
+                                    <Button className="btn btn-primary" type="submit">Submit</Button> 
+                                </div>
+                            </div>
+
+                        </div>
                     </form>}
 
                 </section>

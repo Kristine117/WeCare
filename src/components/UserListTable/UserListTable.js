@@ -129,7 +129,7 @@ const UserListTable=({length, list,fetchDataHandler})=>{
                    {openFloat[i] && <div className={kwan["floating-option"]}>
                         <Link relative="true" to={`${encodeURIComponent(val.userId)}/edit`}
                         className={kwan["btn-edit"]}>
-                            Edit
+                            Modify Password
                         </Link>
                         {val.canBeDeleted === 1 && <Button type="button" className={kwan["btn-delete"]} 
                         onClick={()=>{
