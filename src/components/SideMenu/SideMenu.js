@@ -286,7 +286,7 @@ export default function SideMenu() {
             </Link>
           )}
 
-          {user?.userType !== "admin" && (
+          {user?.userType === "senior" && (
             <Link
               to="/appointment"
               // onClick={clickedActiveApp}
@@ -296,6 +296,19 @@ export default function SideMenu() {
                 list_alt
               </span>
               <p className="ml-2 pt-3">Appointment</p>
+            </Link>
+          )}
+
+          {user?.userType === "assistant" && (
+            <Link
+              to="/appointment"
+              // onClick={clickedActiveApp}
+              className={activeNavApp ? "pl-2 menu-item actives" : "pl-2 menu-item"}
+            >
+              <span className="material-symbols-outlined side-menu-color icon-size">
+                list_alt
+              </span>
+              <p className="ml-2 pt-3">Requests</p>
             </Link>
           )}
 
