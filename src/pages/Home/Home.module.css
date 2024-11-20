@@ -1,102 +1,112 @@
 .slider {
+  position: relative;
+  width: 100%;
+  height: 80%; /* Ensure the slider has a height */
+  overflow: hidden;
+  display: flex; /* Use flex to manage layout */
+}
+
+.slider > * {
+  min-width: 100%;
+  transition: transform 0.1s ease-in-out;
+}
+
+.slide-left-enter {
+  transform: translateX(-100%); /* New slide enters from the left */
+}
+
+.slide-left {
+  transform: translateX(0); /* Slide is in view */
+}
+
+.slide-left-exit {
+  transform: translateX(100%); /* Current slide exits to the right */
+}
+
+.slide-right-enter {
+  transform: translateX(100%); /* New slide enters from the right */
+}
+
+.slide-right {
+  transform: translateX(0); /* Slide is in view */
+}
+
+.slide-right-exit {
+  transform: translateX(-100%); /* Current slide exits to the left */
+}
+.backgroundHome {
+  background-color: #b0d6d3;
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - 6.8rem);
+}
+
+.speechBubble {
+  position: relative;
+  background-color: white;
+  width: 500px;
+  height: auto;
+  border-radius: 10px;
+  padding: 4rem;
+  z-index: 0;
+}
+
+.speechBubble::after {
+  content: "";
+  position: absolute;
+  right: -20px;
+  top: 100px;
+  width: 0;
+  height: 0;
+  border-left: 20px solid white;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
+.aboutUs {
+  position: relative;
+  background-color: white;
+  height: auto;
+  border-radius: 10px;
+  padding: 4rem;
+  z-index: 0;
+}
+.aboutUsContainer {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.elderlyImg {
+  width: 500px;
+  max-width: 500px;
+  min-width: 500px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .speechBubble {
+    position: relative;
+    background-color: white;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    padding: 4rem;
+    z-index: 0;
+  }
+
+  .speechBubble::after {
+    content: "";
+    position: absolute;
+    top: 100px;
+    width: max-content;
+    height: auto;
+  }
+
+  .slider {
     position: relative;
     width: 100%;
     height: 80%; /* Ensure the slider has a height */
     overflow: hidden;
     display: flex; /* Use flex to manage layout */
   }
-  
-  .slider > * {
-    min-width: 100%;
-    transition: transform 0.1s ease-in-out;
-  }
-  
-  .slide-left-enter {
-    transform: translateX(-100%); /* New slide enters from the left */
-  }
-  
-  .slide-left {
-    transform: translateX(0); /* Slide is in view */
-  }
-  
-  .slide-left-exit {
-    transform: translateX(100%); /* Current slide exits to the right */
-  }
-  
-  .slide-right-enter {
-    transform: translateX(100%); /* New slide enters from the right */
-  }
-  
-  .slide-right {
-    transform: translateX(0); /* Slide is in view */
-  }
-  
-  .slide-right-exit {
-    transform: translateX(-100%); /* Current slide exits to the left */
-  }
-  .backgroundHome {
-    background-color: #b0d6d3;
-    display: flex;
-    align-items: center;
-    min-height: calc(100vh - 6.8rem);
-  }
-
-  .speechBubble {
-    position: relative;
-    background-color: white; 
-    width: 500px; 
-    height: auto; 
-    border-radius: 10px; 
-    padding: 4rem;
-    z-index: 0;
-  }
-  
-  .speechBubble::after {
-    content: "";
-    position: absolute;
-    right: -20px; 
-    top: 100px; 
-    width: 0;
-    height: 0;
-    border-left: 20px solid white; 
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-  }
-
-  .elderlyImg {
-    width: 500px;
-    max-width: 500px;
-    min-width: 500px;
-    box-sizing: border-box;
 }
-
-
-  @media (max-width: 768px) {
-
-    .speechBubble {
-      position: relative;
-      background-color: white; 
-      width: 100%; 
-      height: auto; 
-      border-radius: 10px; 
-      padding: 4rem;
-      z-index: 0;
-    }
-    
-    .speechBubble::after {
-      content: "";
-      position: absolute;
-      top: 100px; 
-      width: max-content; 
-      height: auto; 
-    }
-
-    .slider {
-      position: relative;
-      width: 100%;
-      height: 80%; /* Ensure the slider has a height */
-      overflow: hidden;
-      display: flex; /* Use flex to manage layout */
-    }
-    
-  }
