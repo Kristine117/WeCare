@@ -70,9 +70,8 @@ const Find = () => {
     const composedUrl = `senior/find-assistants?rating=${rating}&age=${age}&gender=${gender}`;
 
     const result = await fetchDataFuncHandler(composedUrl);
-    console.log(result)
-    console.log(age)
-    console.log(rating,gender)
+    console.log(result?.data)
+  
 
   };
   const clearRating = () => setRating(0);
