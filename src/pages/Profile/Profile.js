@@ -67,7 +67,6 @@ const Profile = () => {
             gender: data.data?.gender,
             experienceYrs: data.data?.experienceYrs,
             rate: data.data?.rate,
-            experienceId: data.data?.experienceId,
             birthDate: formattedBirthDate,
             contactNumber: data.data?.contactNumber,
             barangayId: data.data?.barangayId,
@@ -145,8 +144,6 @@ const Profile = () => {
       }).then((result) => {
         if (result.isConfirmed) {
           handleSave();
-          //navigate("/dashboard-main"); 
-          //Swal.fire("Success!", "Profile has been saved.", "success");
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           // Navigate back to the dashboard
           navigate("/dashboard-main");
@@ -221,24 +218,27 @@ const Profile = () => {
     }
 
 
-    // fetch(`${process.env.REACT_APP_API_URL}/main/user-profile/update`,{
-    //   method:'PUT',
-    //   headers: {
-    //     Authorization: `Bearer ${localStorage.getItem("token")}`,
-    //   },
-    //   body:formData
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //   if (data.isSuccess === true) {
-    //     console.log(data);
-    //   } else {
-    //     console.log(data);
-    //   }
-    // })
-    // .catch(error => {
-    //   console.error("Error:", error);
-    // });
+    fetch(`${process.env.REACT_APP_API_URL}/main/user-profile/update`,{
+      method:'PUT',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body:formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.isSuccess === true) {
+        console.log(data);
+        navigate("/dashboard-main"); 
+        Swal.fire("Success!", "Profile has been saved.", "success");
+      } else {
+        console.log(data);
+        Swal.fire("Cancelled", "No changes have been made.", "info");
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    });
 
     
   };
