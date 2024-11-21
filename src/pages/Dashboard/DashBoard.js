@@ -40,6 +40,8 @@ const DashBoard = ()=>{
     const composedUrl =`assistant/senior-list-request`;
 
     const {data} = await fetchDataFuncHandler(composedUrl);
+
+    console.log(data);
   
     setSeniorRequesrtList(data);
   }

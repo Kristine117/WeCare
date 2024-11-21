@@ -68,7 +68,7 @@ export default function ProfileCard({ list }) {
       </div>)}
 
       {user.userType === 'assistant' && (      <div className={styles["profile-users"]}>
-        {list &&  list === null ? (
+        {list &&  list.length > 0 ? (
           list.slice(0, 3).map((val) => {
             return (
               <button
