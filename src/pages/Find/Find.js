@@ -27,16 +27,17 @@ const Find = () => {
     setIsOpen(!isOpen);
   };
 
-  const {fetchDataFuncHandler,loading,error}=useFetchData();
+  const {fetchDataFuncHandler}=useFetchData();
 
-  const fetchData = async() => {
-    const composedUrl = `senior/assistant-list`;
-    const {isSuccess,data}=await fetchDataFuncHandler(composedUrl);
-    
-    setAssistantUserList(data);
-  };
+
 
   useEffect(() => {
+    const fetchData = async() => {
+      const composedUrl = `senior/assistant-list`;
+      const {isSuccess,data}=await fetchDataFuncHandler(composedUrl);
+      
+      setAssistantUserList(data);
+    };
     fetchData();
   }, []);
 
@@ -70,7 +71,7 @@ const Find = () => {
     const composedUrl = `senior/find-assistants?rating=${rating}&age=${age}&gender=${gender}`;
 
     const result = await fetchDataFuncHandler(composedUrl);
-    console.log(result?.data)
+    setAssistantUserList(result?.data)
   
 
   };
@@ -111,6 +112,7 @@ const Find = () => {
                     assistant_age={val.assistant_age}
                     years_exp={val.numOfYears}
                     rate={val.rate}
+                    rateAvg={val.rateAvg}
                   />
                 );
               })}
@@ -153,7 +155,7 @@ const Find = () => {
                             <span className="remove">✕</span>
                           </button>
                         )}
-                        {age.length > 0 && (
+                        {age?.length > 0 && (
                           <button
                             className={wcdesign["filter-button"]}
                             onClick={clearAge}
@@ -161,7 +163,7 @@ const Find = () => {
                             Age<span className="remove">✕</span>
                           </button>
                         )}
-                        {gender.length > 0 && (
+                        {gender?.length > 0 && (
                           <button
                             className={wcdesign["filter-button"]}
                             onClick={clearGender}
@@ -257,6 +259,8 @@ const Find = () => {
                           setRating(0);
                           setAge(null);
                           setGender(null);
+                          setAgeRangeArr(   new Array(4).fill(false));
+                          setGenderArr(   new Array(3).fill(false))
                         }}
                       >
                         Clear Filter

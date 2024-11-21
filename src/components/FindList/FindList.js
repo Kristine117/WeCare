@@ -13,10 +13,12 @@ function FindList({
   assistant_age,
   years_exp,
   rate,
+  rateAvg
 }) {
+  console.log(rateAvg)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-
+  const [arraySet,setArraySet] = useState([]);
   // Function to open modal
   const openModal = () => {
     setIsModalOpen(true);
@@ -37,8 +39,21 @@ function FindList({
     }
   };
 
+  let recreateRateAvg = rateAvg ? Math.round(+rateAvg): 0;
 
+  useEffect(()=>{
+    let kwan = 0;
+    let kwanSome =[];
+    while(kwan < recreateRateAvg ){
 
+      kwan++
+      
+      kwanSome.push("kwan");
+
+      setArraySet(kwanSome);
+
+    }
+  },[]);
 
 
   return (
@@ -56,35 +71,17 @@ function FindList({
               className={wcdesign["profile-image"]}
             />
             <div className="d-flex ratingDiv">
-              <span
+              {arraySet.map(()=><span
                 className={`material-symbols-outlined ${wcdesign["rating-star"]}`}
               >
                 star_rate_half
-              </span>
-              <span
-                className={`material-symbols-outlined ${wcdesign["rating-star"]}`}
-              >
-                star_rate_half
-              </span>
-              <span
-                className={`material-symbols-outlined ${wcdesign["rating-star"]}`}
-              >
-                star_rate_half
-              </span>
-              <span
-                className={`material-symbols-outlined ${wcdesign["rating-star"]}`}
-              >
-                star_rate_half
-              </span>
-              <span
-                className={`material-symbols-outlined ${wcdesign["rating-star"]}`}
-              >
-                star_rate_half
-              </span>
+              </span>)}
+              
+              
             </div>
         
             <div className={wcdesign["rating-section"]}>
-               4.50 ({reviews} reviews)
+               {rateAvg ? rateAvg : 0} ({reviews} reviews)
             </div>
           </div>
         </div>
